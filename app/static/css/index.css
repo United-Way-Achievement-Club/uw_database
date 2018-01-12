@@ -59,6 +59,10 @@ body {
     color: var(--uw_red);
 }
 
+.gray-text {
+    color: var(--primary);
+}
+
 .uw_lighter {
     font-weight: 300;
 }
