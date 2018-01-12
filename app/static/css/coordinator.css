@@ -17,12 +17,60 @@
 
 /*===================================home===================================*/
 
-.hello-world {
-    background: linear-gradient(to right, var(--uw_orange), var(--uw_red));
+.homepage-right, .homepage-left {
+    padding: 0;
+}
+
+.home-clubs {
+    height: calc(50vh - 40px);
+    min-height: 300px;
+    display: table;
+}
+
+.home-members {
+    height: calc(100vh - 40px);
+    min-height: 300px;
+    display: table;
+}
+
+.home-goals {
+    height: calc(50vh - 40px);
+    max-height: calc(100vh - 340px);
+}
+
+.home-approve {
+    background-color: var(--uw_orange);
+    height: calc(50vh - 40px);
+    max-height: calc(100vh - 340px);
+    display: table;
+}
+
+.home-approve-content {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.approve-header {
+    font-size: 3em;
+}
+
+.home-approve-btn {
+    margin-top: 15px;
+    border-radius: 0;
+    border: 1px solid var(--uw_white);
+    color: var(--uw_white);
+    background-color: transparent;
+}
+
+.home-approve-btn:hover {
+    border: 1px solid var(--uw_blue);
+    color: var(--uw_blue);
+    background-color: transparent;
 }
 
 .goals-graph {
     height: calc(50vh - 40px);
+    min-height: 300px;
     display: table;
 }
 

@@ -1,12 +1,18 @@
 {% extends 'coordinator/layout.html' %}
 {% block c_content %}
 
-{% include 'coordinator/home/graphs/goals.html' %}
+<div class="col-md-8 homepage-left">
+    {% include 'coordinator/home/graphs/goals.html' %}
 
-<div class="dash-item col-sm-3 text-center">
-    <div class="hello-world dash-item-wrapper col-sm-12">
-        <h2 class="white-text uw_lighter">Hello World</h2>
-    </div>
+    {% include 'coordinator/home/clubs.html' %}
+
+    {% include 'coordinator/home/goals-list.html' %}
+
+    {% include 'coordinator/home/approve.html' %}
+</div>
+
+<div class="col-md-4 homepage-right">
+    {% include 'coordinator/home/members.html' %}
 </div>
 
 {% endblock %}
