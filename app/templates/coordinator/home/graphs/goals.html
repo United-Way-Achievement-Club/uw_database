@@ -1,0 +1,29 @@
+<div class="dash-item col-sm-4">
+    <div class="goals-graph dash-item-wrapper col-sm-12 container text-center">
+        <div id="chart" class=""></div>
+    </div>
+</div>
+<script>
+    var chart = c3.generate({
+    data: {
+        columns: [
+            ['Goals Completed', 30],
+            ['Goals in Progress', 120],
+        ],
+        type : 'donut',
+        onclick: function (d, i) { console.log("onclick", d, i); },
+        onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+        onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+    },
+    color: {
+        pattern: ['#101B7B', '#FF9A36']
+    },
+    size: {
+        height: 250,
+        width: 250
+    },
+    donut: {
+        title: "Overall Progress"
+    }
+    });
+</script>

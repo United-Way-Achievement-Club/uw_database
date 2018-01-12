@@ -1,14 +1,12 @@
 {% extends 'coordinator/layout.html' %}
 {% block c_content %}
-<div class="dash-item">
-    <div class="hello-world dash-item-wrapper">
+
+{% include 'coordinator/home/graphs/goals.html' %}
+
+<div class="dash-item col-sm-3 text-center">
+    <div class="hello-world dash-item-wrapper col-sm-12">
         <h2 class="white-text uw_lighter">Hello World</h2>
     </div>
 </div>
-<div class="dash-item">
-    <div class="dash-item-wrapper">
-        <h3>Example Panel</h3>
-        <p>Example text.....</p>
-    </div>
-</div>
+
 {% endblock %}

@@ -20,3 +20,13 @@
 .hello-world {
     background: linear-gradient(to right, var(--uw_orange), var(--uw_red));
 }
+
+.goals-graph {
+    height: calc(50vh - 40px);
+    display: table;
+}
+
+#chart {
+    display: table-cell;
+    vertical-align: middle;
+}
