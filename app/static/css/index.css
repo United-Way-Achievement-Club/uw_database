@@ -1,0 +1,73 @@
+@charset "utf-8";
+
+/*===================================colors===================================*/
+
+:root {
+    --uw_blue: #101B7B;
+    --uw_red: #FF001C;
+    --uw_orange: #FF9A36;
+    --uw_lavender: #767DAC;
+    --uw_white: #FFF;
+    --primary_dark: #212121;
+    --primary_light: #EFEFEF;
+    --primary: #888;
+}
+
+/*===================================general===================================*/
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: var(--primary_light);
+    height: 100vh;
+    width: 100vw;
+}
+
+/*===================================login===================================*/
+
+.login-panel {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.login-wrapper {
+    background-color: var(--uw_white);
+    position: absolute;
+    width: 30%;
+    min-width: 300px;
+    padding: 3%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-top: 2px solid var(--uw_orange);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.login-input {
+    border: 0;
+    border-radius: 0;
+    background-color: var(--primary_light);
+    margin-bottom: 10px;
+    color: var(--uw_lavender);
+}
+
+.login-button {
+    border-radius: 0;
+    border: 0;
+    background: linear-gradient(to right, var(--uw_lavender), var(--uw_blue));
+    color: var(--uw_white);
+}
+
+.login-button:hover {
+    background: none;
+    background-color: var(--uw_lavender);
+    color: var(--uw_white);
+}
+
+.login-header-wrapper {
+    margin-bottom: 30px;
+}
+
+.login-header {
+    color: var(--uw_lavender);
+}

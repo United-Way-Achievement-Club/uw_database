@@ -1,4 +1,26 @@
 {% extends 'layout.html' %}
 {% block content %}
-<h1>Hello World</h1>
+
+<div class="text-center col-md-12 login-panel">
+    <div class="login-wrapper">
+        <div class="login-header-wrapper">
+            <img src="{{ url_for('static', filename='images/logo/uw_icon.png') }}">
+            <h4 class="login-header">Achievement Club Portal</h4>
+        </div>
+        <div class="login-form-wrapper">
+            <form method="post">
+                <div class="row">
+                    <input class="login-input input input-lg col-md-10 col-md-offset-1" type="text" placeholder="username" name="username">
+                </div>
+                <div class="row">
+                    <input class="login-input input input-lg col-md-10 col-md-offset-1" type="password" placeholder="password" name="password">
+                </div>
+                <div class="row">
+                    <button class="login-button btn btn-lg btn-default col-md-10 col-md-offset-1" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

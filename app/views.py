@@ -8,10 +8,36 @@ def index():
     else:
         member_type = session.get('member_type')
         if member_type == 'coord':
-            return render_template('coordinator/home.html')
+            return redirect('coordinator_home')
         else:
-            return render_template('member/home.html')
+            return redirect('member_home')
 
-@app.route('/login')
+@app.route('/login', methods=['GET','POST'])
 def login():
     return render_template('login.html')
+
+# ==================================================  MEMBER   =====================================================
+
+@app.route('/member')
+def member():
+    if not session.get('login'):
+        return redirect('login')
+    else:
+        return redirect('member_home')
+
+@app.route('/member/home')
+def member_home():
+    return render_template('member/home.html')
+
+# ================================================= COORDINATOR ====================================================
+
+@app.route('/coordinator')
+def coordinator():
+    if not session.get('login'):
+        return redirect('login')
+    else:
+        return redirect('coordinator_home')
+
+@app.route('/coordinator/home')
+def coordinator_home():
+    return render_template('coordinator/home.html')
