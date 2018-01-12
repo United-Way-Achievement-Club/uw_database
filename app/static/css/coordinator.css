@@ -1,0 +1,22 @@
+@charset "utf-8";
+
+/*===================================colors===================================*/
+
+:root {
+    --uw_blue: #101B7B;
+    --uw_red: #FF001C;
+    --uw_orange: #FF9A36;
+    --uw_lavender: #767DAC;
+    --uw_white: #FFF;
+    --primary_dark: #212121;
+    --primary_light: #EFEFEF;
+    --primary: #AAA;
+}
+
+/*===================================general===================================*/
+
+/*===================================home===================================*/
+
+.hello-world {
+    background: linear-gradient(to right, var(--uw_orange), var(--uw_red));
+}

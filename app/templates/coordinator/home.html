@@ -1,7 +1,8 @@
-{% extends 'layout.html' %}
-{% block content %}
-<div class="text-center">
-    <h1>Hello World</h1>
-    <a href="{{ url_for('logout') }}">Logout</a>
+{% extends 'coordinator/layout.html' %}
+{% block c_content %}
+<div class="dash-item">
+    <div class="hello-world dash-item-wrapper">
+        <h2 class="white-text uw_lighter">Hello World</h2>
+    </div>
 </div>
 {% endblock %}
