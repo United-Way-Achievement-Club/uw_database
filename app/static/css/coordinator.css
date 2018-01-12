@@ -74,7 +74,18 @@
     display: table;
 }
 
-#chart {
+.goals-graph-content {
     display: table-cell;
     vertical-align: middle;
+}
+
+.goals-number {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 10px;
+    float: right;
+}
+
+.goals-text {
+    float: left;
 }
