@@ -30,6 +30,7 @@ body {
 .dash-item {
     padding: 10px;
     display: inline-block;
+    height: 100%;
 }
 
 .dash-item-wrapper {
@@ -37,11 +38,16 @@ body {
     /*box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
     padding: 5px;
     color: var(--uw_lavender);
+    height: 100%;
 }
 
 .dash-item-header {
     border-bottom: 1px solid var(--primary_light);
-    text-transform: uppercase;
+    height: 30px;
+}
+
+.dash-item-body {
+    height: 100%;
 }
 
 .dash-item-header h4 {

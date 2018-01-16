@@ -19,6 +19,7 @@
 
 .homepage-right, .homepage-left {
     padding: 0;
+    height: 100%;
 }
 
 .home-clubs {
@@ -63,13 +64,13 @@
 }
 
 .home-approve-btn:hover {
-    border: 1px solid var(--uw_blue);
-    color: var(--uw_blue);
+    border: 1px solid var(--uw_orange);
+    color: var(--uw_orange);
     background-color: transparent;
 }
 
 .goals-graph {
-    height: calc(50vh - 40px);
+    height: calc(50vh - 80px);
     min-height: 300px;
     display: table;
 }
@@ -88,4 +89,10 @@
 
 .goals-text {
     float: left;
+}
+
+#map {
+    min-height: calc(50vh - 80px);
+    height: calc(50vh - 65px);
+    width: 100%;
 }
