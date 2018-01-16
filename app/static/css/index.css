@@ -35,8 +35,17 @@ body {
 .dash-item-wrapper {
     background-color: var(--uw_white);
     /*box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
-    padding: 20px;
+    padding: 5px;
     color: var(--uw_lavender);
+}
+
+.dash-item-header {
+    border-bottom: 1px solid var(--primary_light);
+    text-transform: uppercase;
+}
+
+.dash-item-header h4 {
+    font-weight: 300;
 }
 
 .white-text {

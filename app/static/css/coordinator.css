@@ -39,7 +39,7 @@
 }
 
 .home-approve {
-    background-color: var(--uw_orange);
+    background-color: var(--uw_lavender);
     height: calc(50vh - 40px);
     max-height: calc(100vh - 340px);
     display: table;
