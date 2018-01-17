@@ -38,7 +38,7 @@ body {
 
 .dash-item-wrapper {
     background-color: var(--uw_white);
-    /*box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     padding: 0px;
     color: var(--uw_lavender);
     height: 100%;
@@ -159,7 +159,7 @@ body {
     left: 0;
     background-color: var(--uw_blue);
     background: linear-gradient(to bottom, var(--uw_blue), var(--primary_dark));
-    /*box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);*/
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 .nav-header {
