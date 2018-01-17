@@ -157,8 +157,8 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: var(--uw_blue);
-    background: linear-gradient(to bottom, var(--uw_blue), var(--primary_dark));
+    background-color: var(--primary_dark);
+    /*background: linear-gradient(to bottom, var(--uw_blue), var(--primary_dark));*/
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
@@ -217,7 +217,7 @@ body {
 .active {
     border-left: 5px solid var(--uw_orange);
     padding-left: 20px;
-    background-color: var(--primary_dark);
+    background-color: var(--uw_blue);
     width: 100%;
     text-align: left;
 }
