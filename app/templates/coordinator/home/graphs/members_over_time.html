@@ -1,0 +1,40 @@
+<div id="members_over_time"></div>
+<script>
+    var chart = c3.generate({
+        data: {
+            columns: [
+                ['data1', 30, 200, 100, 400, 150, 250],
+                ]
+        },
+        bindto: document.getElementById('members_over_time'),
+        size: {
+            height: 200
+        },
+        legend: {
+            show: false
+        },
+        padding: {
+            right: 30,
+            left: 60
+        },
+        color: {
+            pattern: ['#FF9A36']
+        },
+        axis: {
+            x: {
+                label: {
+                     text:'month',
+                     position: 'outer-center'
+                }
+            },
+            y: {
+                label: {
+                    text:'number of members',
+                    position: 'outer-middle'
+                }
+            }
+        }
+    }
+    );
+
+</script>

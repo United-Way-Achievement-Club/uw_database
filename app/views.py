@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, redirect, session, request
+from flask import render_template, redirect, session, request, jsonify
 
 @app.route('/')
 def index():
@@ -58,3 +58,14 @@ def coordinator():
 @app.route('/coordinator/home')
 def coordinator_home():
     return render_template('coordinator/home.html')
+
+@app.route('/mapstyles')
+def mapstyles():
+    if not session.get('login'):
+        return jsonify({"status_code":400, "message":"Forbidden", "success":False})
+    data = ""
+    with app.open_resource("static/js/json/styles.json", "r") as data_file:
+        for line in data_file:
+            data += line.strip()
+    return jsonify(data = data)
+

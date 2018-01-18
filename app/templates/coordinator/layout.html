@@ -1,6 +1,11 @@
 {% extends 'layout.html' %}
 {% block extrastyle %}
 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static', filename='css/coordinator.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/lib/c3.min.css') }}">
+{% endblock %}
+{% block extrascript %}
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="{{ url_for('static', filename='js/lib/c3.min.js') }}"></script>
 {% endblock %}
 {% block content %}
 <div class="nav text-center">
