@@ -61,7 +61,7 @@ def coordinator_home():
 
 @app.route('/coordinator/members')
 def coordinator_members():
-    members = [{"image":"default_profile_pic.png", "member_name":"Example Member", "club_name":"Example Club", "goals_completed":5, "goals_in_progress":12}]
+    members = [{"image":"default_profile_pic.png", "member_name":"Example Member", "club_name":"Example Club", "goals_completed":5, "goals_in_progress":12},{"image":"default_profile_pic.png", "member_name":"Example Member", "club_name":"Example Club", "goals_completed":5, "goals_in_progress":12}]
     return render_template('coordinator/members.html', members=members)
 
 @app.route('/mapstyles')

@@ -1,7 +1,9 @@
 {% extends 'coordinator/layout.html' %}
 {% block c_content %}
 
+{% with num_members=members|length %}
 {% include 'coordinator/members/topbar.html' %}
+{% endwith %}
 
 {% with members=members %}
 {% include 'coordinator/members/members_list.html' %}
