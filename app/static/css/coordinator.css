@@ -187,19 +187,22 @@
     height: 30px;
     background-color: var(--uw_lavender);
     display: table;
+    padding: 0;
 }
 
 .members-list-header-item {
     display: table-cell;
     vertical-align: middle;
+    text-align: center;
 }
 
 .members-list-header-item h6 {
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .members-list-items {
     overflow-y: scroll;
+    padding: 0;
 }
 
 .members-list-item {
@@ -216,9 +219,20 @@
 .members-list-item-wrapper {
     height: 100%;
     display: table;
+    text-align: center;
 }
 
 .members-list-item-image {
     height: 40px;
     width: 40px;
+    margin-top: 5px;
+}
+
+.member-view {
+    color: var(--uw_red);
+}
+
+.member-view:hover {
+    color: var(--light_red);
+    cursor: pointer;
 }
