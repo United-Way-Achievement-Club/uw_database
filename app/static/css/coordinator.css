@@ -226,7 +226,8 @@
 .members-list-item-image {
     height: 40px;
     width: 40px;
-    margin-top: 5px;
+    margin-top: 10px;
+    border-radius: 50%;
 }
 
 .member-view {
