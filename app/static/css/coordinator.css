@@ -45,11 +45,12 @@
 }
 
 .home-approve {
-    background-color: var(--uw_orange);
-    background: linear-gradient(to bottom, var(--uw_orange), var(--light_orange));
+    /*background-color: var(--uw_orange);
+    background: linear-gradient(to bottom, var(--uw_orange), var(--light_orange));*/
     height: calc(50vh - 40px);
     max-height: calc(100vh - 340px);
     display: table;
+    border: 2px solid var(--uw_orange);
 }
 
 .home-approve-content {
@@ -64,14 +65,14 @@
 .home-approve-btn {
     margin-top: 15px;
     border-radius: 0;
-    border: 1px solid var(--uw_white);
-    color: var(--uw_white);
+    border: 1px solid var(--uw_orange);
+    color: var(--uw_orange);
     background-color: transparent;
 }
 
 .home-approve-btn:hover {
-    border: 1px solid var(--primary_light);
-    color: var(--primary_light);
+    border: 1px solid var(--light_orange);
+    color: var(--light_orange);
     background-color: transparent;
 }
 
