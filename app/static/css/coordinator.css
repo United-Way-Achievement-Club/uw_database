@@ -77,7 +77,7 @@
 }
 
 .goals-graph {
-    height: calc(50vh - 80px);
+    height: calc(50vh - 16px);
     min-height: 300px;
 }
 
