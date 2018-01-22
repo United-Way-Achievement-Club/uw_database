@@ -59,6 +59,11 @@ def coordinator():
 def coordinator_home():
     return render_template('coordinator/home.html')
 
+@app.route('/coordinator/members')
+def coordinator_members():
+    members = [{"image":"default_profile_pic.png", "member_name":"Example Member", "club_name":"Example Club", "goals_completed":5, "goals_in_progress":12}]
+    return render_template('coordinator/members.html', members=members)
+
 @app.route('/mapstyles')
 def mapstyles():
     if not session.get('login'):

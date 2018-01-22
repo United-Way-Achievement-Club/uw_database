@@ -1,0 +1,20 @@
+<div class="members-list-item">
+    <div class="members-list-item-wrapper col-sm-1">
+        <img class="members-list-item-content members-list-item-image" src="{{ url_for('static', filename='images/profile_pictures/' + member.image) }}">
+    </div>
+    <div class="members-list-item-wrapper col-sm-3">
+        <h5 class="members-list-item-content">{{ member.member_name }}</h5>
+    </div>
+    <div class="members-list-item-wrapper col-sm-3">
+        <h5 class="members-list-item-content">{{ member.club_name }}</h5>
+    </div>
+    <div class="members-list-item-wrapper col-sm-2">
+        <h5 class="members-list-item-content">{{ member.goals_completed }}</h5>
+    </div>
+    <div class="members-list-item-wrapper col-sm-2">
+        <h5 class="members-list-item-content">{{ member.goals_in_progress }}</h5>
+    </div>
+    <div class="members-list-item-wrapper col-sm-1">
+        <span class="glyphicon glyphicon-resize-full members-list-item-content"></span>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+{% extends 'coordinator/layout.html' %}
+{% block c_content %}
+
+{% include 'coordinator/members/topbar.html' %}
+
+{% with members=members %}
+{% include 'coordinator/members/members_list.html' %}
+{% endwith %}
+
+{% endblock %}
