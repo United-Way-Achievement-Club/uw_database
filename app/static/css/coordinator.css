@@ -20,6 +20,7 @@
 
 /*===================================general===================================*/
 
+
 /*===================================home===================================*/
 
 .homepage-right, .homepage-left {
@@ -237,4 +238,71 @@
 .member-view:hover {
     color: var(--light_red);
     cursor: pointer;
+}
+
+.member-modal-dialog {
+    width: 70%;
+}
+
+.member-modal-content {
+    border-radius: 0;
+    color: var(--uw_lavender);
+}
+
+.member-modal-body {
+    height: 70vh;
+    padding: 0;
+}
+
+.member-modal-header {
+    background-color: var(--uw_lavender);
+    color: var(--uw_white);
+}
+
+.member-modal-footer {
+    border-top: 1px solid var(--primary);
+}
+
+.member-modal-nav {
+    height: 100%;
+    border-right: 1px solid var(--primary);
+    padding: 0;
+}
+
+.member-modal-nav-item {
+    padding: 5px 0 5px 20px;
+}
+
+.member-modal-nav-item a {
+    color: var(--uw_lavender);
+}
+
+.member-modal-nav-item a:hover {
+    color: var(--uw_orange);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.member-modal-nav-item-active {
+    background-color: var(--primary_light);
+}
+
+.member-modal-nav-item-active a {
+    color: var(--uw_orange);
+}
+
+.member-modal-right {
+    height: 100%;
+    overflow-y: scroll;
+    padding: 10px;
+}
+
+.member-profile-pic {
+    height: 200px;
+    width: 200px;
+}
+
+.member-form-label {
+    transform: translateX(-10px);
+    font-weight: 600;
 }

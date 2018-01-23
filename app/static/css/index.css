@@ -99,6 +99,35 @@ body {
     margin: 0;
 }
 
+.uw-button {
+    border: 1px solid var(--uw_lavender);
+    color: var(--uw_lavender);
+    background-color: transparent;
+}
+
+.uw-button:hover {
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    background-color: transparent;
+}
+
+.uw-button-inverse {
+    border: 1px solid var(--uw_lavender);
+    background-color: var(--uw_lavender);
+    color: var(--uw_white);
+}
+
+.uw-button-inverse:hover {
+    background: none;
+    background-color: var(--primary);
+    color: var(--uw_white);
+}
+
+.uw-input {
+    background-color: var(--primary_light);
+    border: 0;
+}
+
 /*===================================login===================================*/
 
 .login-panel {
@@ -148,6 +177,10 @@ body {
 .login-header {
     color: var(--uw_lavender);
 }
+
+
+
+
 
 /*===================================navigation===================================*/
 

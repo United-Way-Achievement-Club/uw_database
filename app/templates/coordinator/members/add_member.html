@@ -1,0 +1,42 @@
+<!-- Modal -->
+<div class="modal fade" id="memberModal" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel" aria-hidden="true">
+    <div class="modal-dialog member-modal-dialog" role="document">
+        <div class="modal-content member-modal-content">
+            <div class="modal-header member-modal-header">
+                <h4 class="modal-title" id="memberModalLabel">Add Member</h4>
+            </div>
+            <div class="modal-body member-modal-body">
+                <div class="member-modal-nav col-sm-3">
+                    <div class="member-modal-nav-item member-modal-nav-item-active">
+                        <a><h5>General</h5></a>
+                    </div>
+                    <div class="member-modal-nav-item">
+                        <a><h5>Participant Directory</h5></a>
+                    </div>
+                    <div class="member-modal-nav-item">
+                        <a><h5>Enrollment Form</h5></a>
+                    </div>
+                    <div class="member-modal-nav-item">
+                        <a><h5>Demographic Data</h5></a>
+                    </div>
+                    <div class="member-modal-nav-item">
+                        <a><h5>Self-Sufficiency Matrix</h5></a>
+                    </div>
+                    <div class="member-modal-nav-item">
+                        <a><h5>Self-Efficacy Quiz</h5></a>
+                    </div>
+                    <div class="member-modal-nav-item">
+                        <a><h5>Goals</h5></a>
+                    </div>
+                </div>
+                <div class="member-modal-right">
+                    {% include 'coordinator/members/member_modal/general.html' %}
+                </div>
+            </div>
+            <div class="modal-footer member-modal-footer">
+                <button type="button" class="btn uw-button" data-dismiss="modal">Close</button>
+                <button type="button" class="btn uw-button-inverse">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
