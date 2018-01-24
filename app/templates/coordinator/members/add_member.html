@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body member-modal-body">
                 <div class="member-modal-nav col-sm-3">
-                    <div class="member-modal-nav-item member-modal-nav-item-active">
+                    <div class="member-modal-nav-item">
                         <a><h5>General</h5></a>
                     </div>
                     <div class="member-modal-nav-item">
@@ -16,7 +16,7 @@
                     <div class="member-modal-nav-item">
                         <a><h5>Enrollment Form</h5></a>
                     </div>
-                    <div class="member-modal-nav-item">
+                    <div class="member-modal-nav-item member-modal-nav-item-active">
                         <a><h5>Demographic Data</h5></a>
                     </div>
                     <div class="member-modal-nav-item">
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="member-modal-right">
-                    {% include 'coordinator/members/member_modal/general.html' %}
+                    {% include 'coordinator/members/member_modal/demographic_data.html' %}
                 </div>
             </div>
             <div class="modal-footer member-modal-footer">

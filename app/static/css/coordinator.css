@@ -302,7 +302,84 @@
     width: 200px;
 }
 
+.member-profile-pic-wrapper {
+    position: relative;
+}
+
+.member-profile-pic-edit {
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    left: 0;
+    top: 0;
+    background-color: var(--uw_lavender);
+    color: var(--uw_white);
+    opacity: 0.6;
+    padding: 5px;
+    display: none;
+}
+
+.propic-edit-icon {
+    float: right;
+}
+
 .member-form-label {
     transform: translateX(-10px);
     font-weight: 600;
+}
+
+.member-profile-pic-wrapper:hover .member-profile-pic-edit {
+    cursor: pointer;
+    display: block;
+}
+
+.inline-input {
+    margin-right: 3px;
+}
+
+.street-address-input {
+    width: calc(66.6% + 6px);
+}
+
+.address-input-row {
+    margin-bottom: 3px;
+}
+
+.add-phone-button, .add-child-button {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    padding: 0;
+}
+
+.add-phone-ic, .add-child-ic {
+    font-size: 0.6em;
+    font-weight: 300;
+    transform: translate(0.5px, -3px);
+}
+
+.child-input-row {
+    margin-bottom: 3px;
+}
+
+.member-child-header-col {
+    margin-right: 3px;
+    padding: 0;
+}
+
+.child-input {
+    width: 100px;
+}
+
+.child-input-sm {
+    width: 50px;
+}
+
+.child-table {
+    transform: translateX(-15px);
+}
+
+.demographic-data-header {
+    line-height: 10px;
+    margin-bottom: 35px;
 }

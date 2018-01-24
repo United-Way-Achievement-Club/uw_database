@@ -121,6 +121,7 @@ body {
     background: none;
     background-color: var(--primary);
     color: var(--uw_white);
+    border: 1px solid var(--primary);
 }
 
 .uw-input {
@@ -266,5 +267,10 @@ body {
 .nav-item-text:hover, .nav-item-text:hover a {
     text-decoration: none;
     color: var(--uw_orange);
+}
+
+.member-check-label {
+    font-weight: 400;
+    transform: translateY(1px);
 }
 
