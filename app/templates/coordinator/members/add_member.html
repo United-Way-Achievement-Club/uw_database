@@ -7,30 +7,30 @@
             </div>
             <div class="modal-body member-modal-body">
                 <div class="member-modal-nav col-sm-3">
-                    <div class="member-modal-nav-item">
+                    <div class="member-modal-nav-item member-modal-nav-item-active" id="general" onclick="memberModalChange(this)">
                         <a><h5>General</h5></a>
                     </div>
-                    <div class="member-modal-nav-item">
+                    <div class="member-modal-nav-item" id="participant_directory" onclick="memberModalChange(this)">
                         <a><h5>Participant Directory</h5></a>
                     </div>
-                    <div class="member-modal-nav-item">
+                    <div class="member-modal-nav-item" id="enrollment_form" onclick="memberModalChange(this)">
                         <a><h5>Enrollment Form</h5></a>
                     </div>
-                    <div class="member-modal-nav-item member-modal-nav-item-active">
+                    <div class="member-modal-nav-item" id="demographic_data" onclick="memberModalChange(this)">
                         <a><h5>Demographic Data</h5></a>
                     </div>
-                    <div class="member-modal-nav-item">
+                    <div class="member-modal-nav-item" id="self_sufficiency_matrix" onclick="memberModalChange(this)">
                         <a><h5>Self-Sufficiency Matrix</h5></a>
                     </div>
-                    <div class="member-modal-nav-item">
+                    <div class="member-modal-nav-item" id="self_efficacy_quiz" onclick="memberModalChange(this)">
                         <a><h5>Self-Efficacy Quiz</h5></a>
                     </div>
-                    <div class="member-modal-nav-item">
+                    <div class="member-modal-nav-item" id="goals" onclick="memberModalChange(this)">
                         <a><h5>Goals</h5></a>
                     </div>
                 </div>
-                <div class="member-modal-right">
-                    {% include 'coordinator/members/member_modal/demographic_data.html' %}
+                <div class="member-modal-right" id="member-modal-body-component">
+                    {% include 'coordinator/members/member_modal/general.html' %}
                 </div>
             </div>
             <div class="modal-footer member-modal-footer">
