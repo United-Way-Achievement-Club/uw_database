@@ -387,3 +387,11 @@
 .medical-issues-row {
     margin-bottom: 3px;
 }
+
+.assesment-answer {
+    padding-bottom: 5px;
+}
+
+.self-efficacy-question {
+    overflow: hide;
+}

@@ -2,23 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="780b2453-8607-4cb6-a53b-9c71c21beb1e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/js/coordinator.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/demographic_data/health.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/demographic_data/income.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/demographic_data/member_assets.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/demographic_data/member_education.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/demographic_data/member_employment.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/demographic_data/member_marital_status.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/demographic_data/member_race.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/demographic_data/member_sources_of_income.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/static/css/coordinator.css" afterPath="$PROJECT_DIR$/app/static/css/coordinator.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/static/js/index.js" afterPath="$PROJECT_DIR$/app/static/js/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/coordinator/layout.html" afterPath="$PROJECT_DIR$/app/templates/coordinator/layout.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/coordinator/members/add_member.html" afterPath="$PROJECT_DIR$/app/templates/coordinator/members/add_member.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/demographic_data.html" afterPath="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/demographic_data.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/enrollment_form.html" afterPath="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/enrollment_form.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views.py" afterPath="$PROJECT_DIR$/app/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/self_efficacy_quiz.html" afterPath="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/self_efficacy_quiz.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/self_sufficiency_matrix.html" afterPath="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/self_sufficiency_matrix.html" />
     </list>
     <ignored path="uw_database.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -49,11 +35,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="coordinator.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/static/js/coordinator.js">
+      <file leaf-file-name="self_sufficiency_matrix.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/templates/coordinator/members/member_modal/self_sufficiency_matrix.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="314">
-              <caret line="23" column="9" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
+            <state relative-caret-position="180">
+              <caret line="23" column="32" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="self_efficacy_quiz.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/templates/coordinator/members/member_modal/self_efficacy_quiz.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="15" column="57" selection-start-line="15" selection-start-column="57" selection-end-line="15" selection-end-column="57" />
               <folding />
             </state>
           </provider>
@@ -73,7 +69,7 @@
         <entry file="file://$PROJECT_DIR$/app/static/css/coordinator.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="329">
-              <caret line="387" column="23" selection-start-line="387" selection-start-column="23" selection-end-line="387" selection-end-column="23" />
+              <caret line="395" column="19" selection-start-line="395" selection-start-column="19" selection-end-line="395" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -144,8 +140,6 @@
         <option value="$PROJECT_DIR$/app/templates/coordinator/members.html" />
         <option value="$PROJECT_DIR$/app/templates/coordinator/members/topbar.html" />
         <option value="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/general.html" />
-        <option value="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/self_sufficiency_matrix.html" />
-        <option value="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/self_efficacy_quiz.html" />
         <option value="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/goals.html" />
         <option value="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/participant_directory.html" />
         <option value="$PROJECT_DIR$/app/static/css/index.css" />
@@ -156,7 +150,6 @@
         <option value="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/demographic_data/member_sources_of_income.html" />
         <option value="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/demographic_data/member_assets.html" />
         <option value="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/demographic_data/income.html" />
-        <option value="$PROJECT_DIR$/app/static/css/coordinator.css" />
         <option value="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/demographic_data/health.html" />
         <option value="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/enrollment_form.html" />
         <option value="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/demographic_data.html" />
@@ -166,6 +159,9 @@
         <option value="$PROJECT_DIR$/app/templates/coordinator/members/add_member.html" />
         <option value="$PROJECT_DIR$/app/static/js/coordinator.js" />
         <option value="$PROJECT_DIR$/app/views.py" />
+        <option value="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/self_sufficiency_matrix.html" />
+        <option value="$PROJECT_DIR$/app/static/css/coordinator.css" />
+        <option value="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/self_efficacy_quiz.html" />
       </list>
     </option>
   </component>
@@ -1294,22 +1290,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/coordinator/members/member_modal/self_sufficiency_matrix.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/coordinator/members/member_modal/self_efficacy_quiz.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/coordinator/members/member_modal/goals.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1374,14 +1354,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/coordinator/members/member_modal/demographic_data/health.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="32" column="36" selection-start-line="32" selection-start-column="36" selection-end-line="32" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/coordinator/members/member_modal/demographic_data/member_assets.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -1398,26 +1370,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/coordinator/members/member_modal/enrollment_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="76" column="11" selection-start-line="76" selection-start-column="11" selection-end-line="76" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/coordinator/members/member_modal/general.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="335">
           <caret line="25" column="14" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/static/css/coordinator.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="387" column="23" selection-start-line="387" selection-start-column="23" selection-end-line="387" selection-end-column="23" />
           <folding />
         </state>
       </provider>
@@ -1466,8 +1422,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/static/js/coordinator.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="23" column="9" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
+        <state relative-caret-position="269">
+          <caret line="20" column="8" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/coordinator/members/member_modal/enrollment_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/coordinator/members/member_modal/demographic_data/health.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="32" column="4" selection-start-line="32" selection-start-column="4" selection-end-line="32" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/coordinator/members/member_modal/self_sufficiency_matrix.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="23" column="32" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/static/css/coordinator.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="395" column="19" selection-start-line="395" selection-start-column="19" selection-end-line="395" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/coordinator/members/member_modal/self_efficacy_quiz.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="57" selection-start-line="15" selection-start-column="57" selection-end-line="15" selection-end-column="57" />
           <folding />
         </state>
       </provider>
