@@ -23,13 +23,24 @@
 
 /*===================================home===================================*/
 
+.homepage-title {
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--primary);
+    margin-bottom: 20px;
+}
+
+.homepage-title-right {
+    float:right;
+    padding-top: 30px;
+}
+
 .homepage-right, .homepage-left {
     padding: 0;
     height: 100%;
 }
 
 .home-clubs {
-    height: calc(50vh - 40px);
+    height: calc(50vh - 16px);
     min-height: 300px;
     display: table;
 }
@@ -41,15 +52,15 @@
 }
 
 .home-goals {
-    height: calc(50vh - 40px);
-    max-height: calc(100vh - 340px);
+    height: calc(50vh - 16px);
+    min-height: 300px;
 }
 
 .home-approve {
     /*background-color: var(--uw_orange);
     background: linear-gradient(to bottom, var(--uw_orange), var(--light_orange));*/
-    height: calc(50vh - 40px);
-    max-height: calc(100vh - 340px);
+    height: calc(50vh - 16px);
+    min-height: 300px;
     display: table;
     border: 2px solid var(--uw_orange);
 }
@@ -84,12 +95,27 @@
 
 .goals-graph-body {
     height: calc(100% - 46px);
-    display: table;
 }
 
 .goals-graph-content {
+    padding-top: 10px;
+    width: 100%;
+    height: 100%;
+    display: table;
+}
+
+.goals-graph-chart {
+    width: 50%;
+}
+
+.goals-graph-stats {
+    width: 50%;
+    border-left: 1px solid var(--primary_light);
+}
+
+.goals-vertical-center {
     display: table-cell;
-    vertical-align: middle;
+    vertical-align: middle ! important;
 }
 
 .goals-number {
@@ -101,6 +127,7 @@
 
 .goals-text {
     float: left;
+    margin-top: 5px;
 }
 
 #map {

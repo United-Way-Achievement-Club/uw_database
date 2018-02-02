@@ -1,18 +1,32 @@
 {% extends 'coordinator/layout.html' %}
 {% block c_content %}
-
-<div class="col-md-8 homepage-left">
-    {% include 'coordinator/home/graphs/goals.html' %}
-
-    {% include 'coordinator/home/clubs.html' %}
-
-    {% include 'coordinator/home/goals-list.html' %}
-
-    {% include 'coordinator/home/approve.html' %}
+<div class="col-md-12 homepage-title">
+    <div class="col-sm-8">
+        <h3 class="purple-text">Dashboard</h3>
+        <h5 class="gray-text">Showing general Achievement Club dashboard</h5>
+    </div>
+    <div class="col-sm-4">
+        <div class="homepage-title-right">
+            <button class="btn btn-md uw-button">Show Club Statistics</button>
+        </div>
+    </div>
 </div>
+<div class="general-dash">
+    <div class="col-md-12 homepage-left">
+        {% include 'coordinator/home/approve.html' %}
 
-<div class="col-md-4 homepage-right">
-    {% include 'coordinator/home/members.html' %}
+        {% include 'coordinator/home/graphs/goals.html' %}
+    </div>
+
+    <div class="col-md-8 homepage-left">
+        {% include 'coordinator/home/clubs.html' %}
+
+        {% include 'coordinator/home/goals-list.html' %}
+    </div>
+
+    <div class="col-md-4 homepage-right">
+        {% include 'coordinator/home/members.html' %}
+    </div>
 </div>
 
 {% endblock %}
