@@ -1,5 +1,6 @@
-from app import app
+from app import app, db, models
 from flask import render_template, redirect, session, request, jsonify
+from sqlalchemy import exc
 
 @app.route('/')
 def index():
