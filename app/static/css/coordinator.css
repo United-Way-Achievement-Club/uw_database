@@ -4,7 +4,7 @@
 
 :root {
     --uw_blue: #101B7B;
-    --uw_red: #FF001C;
+    --uw_red: #ff334b;
     --uw_orange: #FF9A36;
     --uw_lavender: #767DAC;
     --uw_white: #FFF;
@@ -14,8 +14,10 @@
     --primary_light: #EEEEF5;
     --primary: 	#B7BAD7;
     --uw_white: #FCFCFD;
-    --light_red: #FF6678;
+    --light_red: #ff4d61;
     --light_orange: #FFA54A;
+    --light_blue: #15229e;
+    --light_lavender: #8f95bc;
 }
 
 /*===================================general===================================*/
@@ -46,7 +48,7 @@
 }
 
 .home-members {
-    height: calc(100vh - 35px);
+    height: 100vh;
     min-height: 300px;
     display: table;
 }
@@ -57,35 +59,59 @@
 }
 
 .home-approve {
-    /*background-color: var(--uw_orange);
-    background: linear-gradient(to bottom, var(--uw_orange), var(--light_orange));*/
-    height: calc(50vh - 16px);
-    min-height: 300px;
-    display: table;
-    border: 2px solid var(--uw_orange);
+    background-color: var(--uw_orange);
+    background: linear-gradient(to bottom, var(--uw_orange), var(--light_orange));
 }
 
-.home-approve-content {
+.home-messages {
+    background-color: var(--uw_red);
+    background: linear-gradient(to bottom, var(--uw_red), var(--light_red));
+}
+
+.home-new-members {
+    background-color: var(--uw_lavender);
+    background: linear-gradient(to bottom, var(--uw_lavender), var(--light_lavender));
+}
+
+.home-alert {
+    height: calc(25vh - 16px);
+    min-height: 150px;
+    display: table;
+}
+
+.home-alert-content {
     display: table-cell;
     vertical-align: middle;
 }
 
-.approve-header {
-    font-size: 3em;
+.home-alert-header {
+    font-size: 2em;
+    margin-top: 5px;
 }
 
-.home-approve-btn {
-    margin-top: 15px;
+.home-alert-btn {
+    margin-top: 5px;
     border-radius: 0;
-    border: 1px solid var(--uw_orange);
-    color: var(--uw_orange);
+    border: 1px solid var(--uw_white);
+    color: var(--uw_white);
     background-color: transparent;
+}
+
+.home-alert-btn:hover {
+    border: 1px solid var(--uw_white);
+    color: var(--uw_white);
 }
 
 .home-approve-btn:hover {
-    border: 1px solid var(--light_orange);
-    color: var(--light_orange);
-    background-color: transparent;
+    background-color: var(--uw_orange);
+}
+
+.home-messages-btn:hover {
+    background-color: var(--uw_red);
+}
+
+.home-new-members-btn:hover {
+    background-color: var(--uw_lavender);
 }
 
 .goals-graph {

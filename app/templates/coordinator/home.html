@@ -2,8 +2,8 @@
 {% block c_content %}
 <div class="col-md-12 homepage-title">
     <div class="col-sm-8">
-        <h3 class="purple-text">Dashboard</h3>
-        <h5 class="gray-text">Showing general Achievement Club dashboard</h5>
+        <h3 class="blue-text">Dashboard</h3>
+        <h5 class="purple-text">Showing general Achievement Club dashboard</h5>
     </div>
     <div class="col-sm-4">
         <div class="homepage-title-right">
@@ -15,10 +15,15 @@
     <div class="col-md-12 homepage-left">
         {% include 'coordinator/home/approve.html' %}
 
-        {% include 'coordinator/home/graphs/goals.html' %}
+        {% include 'coordinator/home/messages.html' %}
+
+        {% include 'coordinator/home/new_members.html' %}
+
     </div>
 
     <div class="col-md-8 homepage-left">
+        {% include 'coordinator/home/graphs/goals.html' %}
+
         {% include 'coordinator/home/clubs.html' %}
 
         {% include 'coordinator/home/goals-list.html' %}
