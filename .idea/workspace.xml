@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="780b2453-8607-4cb6-a53b-9c71c21beb1e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/enrollment_form/children_table.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/static/css/coordinator.css" afterPath="$PROJECT_DIR$/app/static/css/coordinator.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/static/css/index.css" afterPath="$PROJECT_DIR$/app/static/css/index.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/coordinator/home.html" afterPath="$PROJECT_DIR$/app/templates/coordinator/home.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/coordinator/home/approve.html" afterPath="$PROJECT_DIR$/app/templates/coordinator/home/approve.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/coordinator/home/graphs/goals.html" afterPath="$PROJECT_DIR$/app/templates/coordinator/home/graphs/goals.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/coordinator/home/messages.html" afterPath="$PROJECT_DIR$/app/templates/coordinator/home/messages.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/coordinator/home/new_members.html" afterPath="$PROJECT_DIR$/app/templates/coordinator/home/new_members.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/enrollment_form.html" afterPath="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/enrollment_form.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/coordinator/members/topbar.html" afterPath="$PROJECT_DIR$/app/templates/coordinator/members/topbar.html" />
     </list>
     <ignored path="uw_database.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,11 +33,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="coordinator.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="coordinator.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/static/css/coordinator.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="219">
               <caret line="253" column="18" selection-start-line="253" selection-start-column="18" selection-end-line="253" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/static/css/index.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="207" column="79" selection-start-line="207" selection-start-column="79" selection-end-line="207" selection-end-column="79" />
               <folding />
             </state>
           </provider>
@@ -164,9 +164,9 @@
         <option value="$PROJECT_DIR$/app/templates/coordinator/home/messages.html" />
         <option value="$PROJECT_DIR$/app/templates/coordinator/home/graphs/goals.html" />
         <option value="$PROJECT_DIR$/app/templates/coordinator/home.html" />
-        <option value="$PROJECT_DIR$/app/static/css/index.css" />
         <option value="$PROJECT_DIR$/app/templates/coordinator/members/topbar.html" />
         <option value="$PROJECT_DIR$/app/static/css/coordinator.css" />
+        <option value="$PROJECT_DIR$/app/static/css/index.css" />
       </list>
     </option>
   </component>
@@ -1303,14 +1303,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/static/css/index.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="255" column="21" selection-start-line="255" selection-start-column="21" selection-end-line="255" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/coordinator/members/topbar.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -1339,6 +1331,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="219">
           <caret line="253" column="18" selection-start-line="253" selection-start-column="18" selection-end-line="253" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/static/css/index.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="207" column="79" selection-start-line="207" selection-start-column="79" selection-end-line="207" selection-end-column="79" />
           <folding />
         </state>
       </provider>
