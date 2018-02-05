@@ -199,11 +199,14 @@
     margin-bottom: 0;
 }
 
-.topbar-form-control {
-    height: 30px;
+.topbar-form-control, .home-btn {
     border: 1px solid var(--primary);
     color: var(--primary);
     margin-top: 5px;
+}
+
+.topbar-form-control {
+    height: 30px;
 }
 
 .topbar-search-input {
@@ -230,7 +233,7 @@
     color: var(--uw_white);
 }
 
-.topbar-btn:hover {
+.topbar-btn:hover, .home-btn:hover {
     background-color: var(--primary_light);
     color: var(--uw_lavender);
 }
