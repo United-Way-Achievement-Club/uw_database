@@ -18,6 +18,7 @@
     --light_orange: #FFA54A;
     --light_blue: #15229e;
     --light_lavender: #8f95bc;
+    --border_color: #cfcfe3;
 }
 
 /*===================================general===================================*/
@@ -27,7 +28,7 @@
 
 .homepage-title {
     padding-bottom: 10px;
-    border-bottom: 1px solid var(--primary);
+    border-bottom: 1px solid var(--border_color);
     margin-bottom: 20px;
 }
 
@@ -77,6 +78,7 @@
     height: calc(25vh - 16px);
     min-height: 150px;
     display: table;
+    border: 0;
 }
 
 .home-alert-content {
@@ -135,7 +137,7 @@
 
 .goals-graph-stats {
     width: 50%;
-    border-left: 1px solid var(--primary_light);
+    border-left: 1px solid var(--border_color);
 }
 
 .goals-vertical-center {

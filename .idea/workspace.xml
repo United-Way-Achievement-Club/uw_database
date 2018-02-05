@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="780b2453-8607-4cb6-a53b-9c71c21beb1e" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/static/css/coordinator.css" afterPath="$PROJECT_DIR$/app/static/css/coordinator.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/static/css/index.css" afterPath="$PROJECT_DIR$/app/static/css/index.css" />
     </list>
     <ignored path="uw_database.iws" />
@@ -33,21 +35,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="coordinator.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="coordinator.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/static/css/coordinator.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="253" column="18" selection-start-line="253" selection-start-column="18" selection-end-line="253" selection-end-column="18" />
+            <state relative-caret-position="150">
+              <caret line="80" column="14" selection-start-line="80" selection-start-column="14" selection-end-line="80" selection-end-column="14" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/static/css/index.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="207" column="79" selection-start-line="207" selection-start-column="79" selection-end-line="207" selection-end-column="79" />
+            <state relative-caret-position="300">
+              <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -165,8 +167,8 @@
         <option value="$PROJECT_DIR$/app/templates/coordinator/home/graphs/goals.html" />
         <option value="$PROJECT_DIR$/app/templates/coordinator/home.html" />
         <option value="$PROJECT_DIR$/app/templates/coordinator/members/topbar.html" />
-        <option value="$PROJECT_DIR$/app/static/css/coordinator.css" />
         <option value="$PROJECT_DIR$/app/static/css/index.css" />
+        <option value="$PROJECT_DIR$/app/static/css/coordinator.css" />
       </list>
     </option>
   </component>
@@ -1327,18 +1329,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/static/css/coordinator.css">
+    <entry file="file://$PROJECT_DIR$/app/static/css/index.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="253" column="18" selection-start-line="253" selection-start-column="18" selection-end-line="253" selection-end-column="18" />
+        <state relative-caret-position="300">
+          <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/static/css/index.css">
+    <entry file="file://$PROJECT_DIR$/app/static/css/coordinator.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="207" column="79" selection-start-line="207" selection-start-column="79" selection-end-line="207" selection-end-column="79" />
+        <state relative-caret-position="150">
+          <caret line="80" column="14" selection-start-line="80" selection-start-column="14" selection-end-line="80" selection-end-column="14" />
           <folding />
         </state>
       </provider>
