@@ -26,7 +26,7 @@
 /*===================================home===================================*/
 
 .homepage-title {
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     border-bottom: 1px solid var(--primary);
     margin-bottom: 20px;
 }
@@ -60,17 +60,17 @@
 
 .home-approve {
     background-color: var(--uw_orange);
-    background: linear-gradient(to bottom, var(--uw_orange), var(--light_orange));
+    /*background: linear-gradient(to bottom, var(--uw_orange), var(--light_orange));*/
 }
 
 .home-messages {
     background-color: var(--uw_red);
-    background: linear-gradient(to bottom, var(--uw_red), var(--light_red));
+    /*background: linear-gradient(to bottom, var(--uw_red), var(--light_red));*/
 }
 
 .home-new-members {
     background-color: var(--uw_lavender);
-    background: linear-gradient(to bottom, var(--uw_lavender), var(--light_lavender));
+    /*background: linear-gradient(to bottom, var(--uw_lavender), var(--light_lavender));*/
 }
 
 .home-alert {
@@ -91,7 +91,6 @@
 
 .home-alert-btn {
     margin-top: 5px;
-    border-radius: 0;
     border: 1px solid var(--uw_white);
     color: var(--uw_white);
     background-color: transparent;
@@ -103,15 +102,15 @@
 }
 
 .home-approve-btn:hover {
-    background-color: var(--uw_orange);
+    background-color: var(--light_orange);
 }
 
 .home-messages-btn:hover {
-    background-color: var(--uw_red);
+    background-color: var(--light_red);
 }
 
 .home-new-members-btn:hover {
-    background-color: var(--uw_lavender);
+    background-color: var(--light_lavender);
 }
 
 .goals-graph {
@@ -152,8 +151,8 @@
 }
 
 .goals-text {
+    margin-top: 14px;
     float: left;
-    margin-top: 5px;
 }
 
 #map {
@@ -252,7 +251,7 @@
 }
 
 .members-list-header-item h6 {
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .members-list-items {

@@ -4,7 +4,7 @@
 
 :root {
     --uw_blue: #101B7B;
-    --uw_red: #FF001C;
+    --uw_red: #ff334b;
     --uw_orange: #FF9A36;
     --uw_lavender: #767DAC;
     --uw_white: #FFF;
@@ -14,6 +14,10 @@
     --primary_light: #EEEEF5;
     --primary: 	#B7BAD7;
     --uw_white: #FCFCFD;
+    --light_red: #ff4d61;
+    --light_orange: #FFA54A;
+    --light_blue: #15229e;
+    --light_lavender: #8f95bc;
 }
 
 /*===================================general===================================*/
@@ -50,8 +54,8 @@ body {
     height: 30px;
     width: 100%;
     padding-top: 5px;
-    background-color: var(--uw_lavender);
-    color: var(--uw_white);
+    /*background-color: var(--uw_lavender);
+    color: var(--uw_white);*/
 }
 
 .dash-item-body {
@@ -85,6 +89,14 @@ body {
 
 .gray-text {
     color: var(--primary);
+}
+
+.light-purple-text {
+    color: var(--light_lavender);
+}
+
+.light-orange-text {
+    color: var(--light_orange);
 }
 
 .uw_lighter {
