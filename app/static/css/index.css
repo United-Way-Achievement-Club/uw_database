@@ -31,7 +31,7 @@ body {
 }
 
 .body-wrapper {
-    margin-left: 225px;
+    margin-left: 200px;
     padding: 15px;
 }
 
@@ -200,7 +200,7 @@ body {
 
 .nav {
     height: 100%;
-    width: 225px;
+    width: 200px;
     position: fixed;
     top: 0;
     left: 0;
@@ -254,7 +254,7 @@ body {
     display: table-cell;
     vertical-align: middle;
     color: var(--primary);
-    font-size: 1.1em;
+    font-size: 1em;
 }
 
 .nav-item-text a {
