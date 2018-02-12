@@ -17,6 +17,12 @@ function closeModal() {
     $("#crop-success-button").hide();
     $("#member-profile-pic").attr('src', '/static/images/profile_pictures/default_profile_pic.png');
     $("#general-form")[0].reset();
+    $("#username").val("");
+    $("#password").val("");
+    $("#join_date").val("");
+    $("#club_name").val("");
+    $("#commitment_pledge").val("");
+    $("#photo_release").val("");
 }
 
 function saveModal() {
