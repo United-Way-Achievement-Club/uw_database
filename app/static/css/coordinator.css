@@ -380,6 +380,47 @@
     float: right;
 }
 
+.member-file-input {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.profile-pic-label {
+    position: relative;
+    cursor: pointer;
+    font-weight: 400;
+    background-color: var(--uw_lavender);
+    color: var(--uw_white);
+    padding: 6px 15px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.profile-pic-label:hover {
+    background-color: var(--primary);
+}
+
+#crop-success-button {
+    display: none;
+    margin-top: 5px;
+}
+
+#show-profile-img {
+    width: 200px;
+}
+
+.file-btn-wrapper {
+    width: 200px;
+    margin: 0;
+}
+
+.upload-img-ic {
+    margin-right: 5px;
+    transform: translateY(2px);
+}
+
 .member-form-label {
     transform: translateX(-10px);
     font-weight: 600;

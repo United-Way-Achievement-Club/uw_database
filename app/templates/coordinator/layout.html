@@ -2,12 +2,16 @@
 {% block extrastyle %}
 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static', filename='css/coordinator.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/lib/c3.min.css') }}">
+{% block c_extrastyle %}{% endblock %}
 {% endblock %}
 {% block extrascript %}
 <script src="{{ url_for('static', filename='js/coordinator.js') }}"></script>
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script src="{{ url_for('static', filename='js/lib/c3.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/lib/lz-string.min.js') }}"></script>
+{% block c_extrascript %}{% endblock %}
 {% endblock %}
+
 {% block content %}
 <div class="nav text-center">
     <div class="nav-header">
