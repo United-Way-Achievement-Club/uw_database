@@ -113,6 +113,11 @@ function saveEnrollmentForm() {
     return enrollementFormObj;
 }
 
+function saveDemographicData() {
+    var demographicDataObj = {};
+    return demographicDataObj;
+}
+
 function saveSelfSufficiencyMatrix() {
     var selfSufficiencyObj = {};
     return selfSufficiencyObj;

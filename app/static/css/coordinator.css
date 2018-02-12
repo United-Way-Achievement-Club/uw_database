@@ -393,9 +393,8 @@
     background-color: var(--uw_lavender);
     color: var(--uw_white);
     padding: 6px 15px;
-    margin-top: 10px;
-    border-radius: 5px;
     font-size: 0.9em;
+    width: 200px;
 }
 
 .profile-pic-label:hover {
