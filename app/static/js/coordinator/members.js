@@ -133,6 +133,9 @@ function cropImage() {
     $("#member-profile-pic").attr('src', cropped);
     localStorage.profilePicIsDataURI = true;
     sessionStorage.profile_picture = cropped;
+    $("#show-profile-img").cropper('destroy');
+    $("#show-profile-img").attr('src', "#");
+    $("#crop-success-button").hide();
 }
 
 function readURL(input) {
