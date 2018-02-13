@@ -390,15 +390,16 @@
     position: relative;
     cursor: pointer;
     font-weight: 400;
-    background-color: var(--uw_lavender);
+    background-color: var(--primary);
     color: var(--uw_white);
     padding: 6px 15px;
     font-size: 0.9em;
     width: 200px;
+    border-radius: 0 0px 3px 3px;
 }
 
 .profile-pic-label:hover {
-    background-color: var(--primary);
+    background-color: var(--light_lavender);
 }
 
 #crop-success-button {
@@ -411,8 +412,8 @@
 }
 
 .file-btn-wrapper {
-    width: 200px;
     margin: 0;
+    width: 200px;
 }
 
 .upload-img-ic {
