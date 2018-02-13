@@ -355,8 +355,8 @@
 }
 
 .member-profile-pic {
-    height: 200px;
-    width: 200px;
+    height: 250px;
+    width: 250px;
 }
 
 .member-profile-pic-wrapper {
@@ -365,8 +365,8 @@
 
 .member-profile-pic-edit {
     position: absolute;
-    height: 200px;
-    width: 200px;
+    height: 250px;
+    width: 250px;
     left: 0;
     top: 0;
     background-color: var(--uw_lavender);
@@ -394,7 +394,7 @@
     color: var(--uw_white);
     padding: 6px 15px;
     font-size: 0.9em;
-    width: 200px;
+    width: 250px;
     border-radius: 0 0px 3px 3px;
 }
 
@@ -408,12 +408,12 @@
 }
 
 #show-profile-img {
-    width: 200px;
+    width: 250px;
 }
 
 .file-btn-wrapper {
     margin: 0;
-    width: 200px;
+    width: 250px;
 }
 
 .upload-img-ic {
