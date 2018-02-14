@@ -4,7 +4,7 @@
 
 :root {
     --uw_blue: #101B7B;
-    --uw_red: #FF001C;
+    --uw_red: #ff334b;
     --uw_orange: #FF9A36;
     --uw_lavender: #767DAC;
     --uw_white: #FFF;
@@ -14,6 +14,11 @@
     --primary_light: #EEEEF5;
     --primary: 	#B7BAD7;
     --uw_white: #FCFCFD;
+    --light_red: #ff4d61;
+    --light_orange: #FFA54A;
+    --light_blue: #15229e;
+    --light_lavender: #8f95bc;
+    --border_color: #cfcfe3;
 }
 
 /*===================================general===================================*/
@@ -26,32 +31,32 @@ body {
 }
 
 .body-wrapper {
-    margin-left: 225px;
-    padding: 10px;
+    margin-left: 200px;
+    padding: 15px;
 }
 
 .dash-item {
-    padding: 10px;
+    padding: 15px;
     display: inline-block;
     height: 100%;
 }
 
 .dash-item-wrapper {
     background-color: var(--uw_white);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    /*box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
     padding: 0px;
     color: var(--uw_lavender);
     height: 100%;
-    /*border: 1px solid var(--primary);*/
+    border: 1px solid var(--border_color);
 }
 
 .dash-item-header {
-    border-bottom: 0.5px solid var(--primary_light);
+    border-bottom: 0.5px solid var(--border_color);
     height: 30px;
     width: 100%;
     padding-top: 5px;
-    background-color: var(--uw_lavender);
-    color: var(--uw_white);
+    /*background-color: var(--uw_lavender);
+    color: var(--uw_white);*/
 }
 
 .dash-item-body {
@@ -87,6 +92,14 @@ body {
     color: var(--primary);
 }
 
+.light-purple-text {
+    color: var(--light_lavender);
+}
+
+.light-orange-text {
+    color: var(--light_orange);
+}
+
 .uw_lighter {
     font-weight: 300;
 }
@@ -97,6 +110,36 @@ body {
 
 .uw_no_margin {
     margin: 0;
+}
+
+.uw-button {
+    border: 1px solid var(--uw_lavender);
+    color: var(--uw_lavender);
+    background-color: transparent;
+}
+
+.uw-button:hover {
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    background-color: transparent;
+}
+
+.uw-button-inverse {
+    border: 1px solid var(--uw_lavender);
+    background-color: var(--uw_lavender);
+    color: var(--uw_white);
+}
+
+.uw-button-inverse:hover {
+    background: none;
+    background-color: var(--primary);
+    color: var(--uw_white);
+    border: 1px solid var(--primary);
+}
+
+.uw-input {
+    background-color: var(--primary_light);
+    border: 0;
 }
 
 /*===================================login===================================*/
@@ -149,17 +192,21 @@ body {
     color: var(--uw_lavender);
 }
 
+
+
+
+
 /*===================================navigation===================================*/
 
 .nav {
     height: 100%;
-    width: 225px;
+    width: 200px;
     position: fixed;
     top: 0;
     left: 0;
     background-color: var(--primary_dark);
     /*background: linear-gradient(to bottom, var(--uw_blue), var(--primary_dark));*/
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    /*box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);*/
 }
 
 .nav-header {
@@ -207,7 +254,7 @@ body {
     display: table-cell;
     vertical-align: middle;
     color: var(--primary);
-    font-size: 1.1em;
+    font-size: 1em;
 }
 
 .nav-item-text a {
@@ -233,5 +280,10 @@ body {
 .nav-item-text:hover, .nav-item-text:hover a {
     text-decoration: none;
     color: var(--uw_orange);
+}
+
+.member-check-label {
+    font-weight: 400;
+    transform: translateY(1px);
 }
 

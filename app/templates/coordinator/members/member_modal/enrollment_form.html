@@ -1,0 +1,42 @@
+<div class="col-sm-12">
+    <form class="form" id="enrollment-form">
+        <label class="member-form-label">Member Name:</label>
+        <div class="form-group row">
+            <input type="text" name="first_name" placeholder="First Name" class="col-sm-4 input input-sm uw-input inline-input">
+            <input type="text" name="last_name" placeholder="Last Name" class="col-sm-4 input input-sm uw-input inline-input">
+        </div>
+        <label class="member-form-label">Address:</label>
+        <div class="form-group row address-input-row">
+            <input name="address_street" type="text" placeholder="Street" class="input input-sm uw-input street-address-input">
+        </div>
+        <div class="form-group row">
+            <input type="text" name="address_city" placeholder="City" class="input input-sm uw-input inline-input col-sm-4">
+            <input type="text" name="address_state" placeholder="State" class="input input-sm uw-input inline-input col-sm-1">
+            <input type="text" name="address_zip" placeholder="Zip" class="input input-sm uw-input inline-input col-sm-3">
+        </div>
+        <label class="member-form-label">Date of Birth:</label>
+        <div class="form-group row">
+            <input name="birth_date" type="date" class="input input-sm uw-input col-sm-4">
+        </div>
+        <label class="member-form-label">Email Address:</label>
+        <div class="form-group row">
+            <input name="email" type="text" placeholder="Email Address" class="input input-sm uw-input col-sm-8">
+        </div>
+        <label class="member-form-label">Referral Source:</label>
+        <div class="form-group row">
+            <input name="referral_source" type="text" placeholder="Referral Source" class="input input-sm uw-input col-sm-8">
+        </div>
+        <div class="member-phone-numbers">
+            <label class="member-form-label">Phone Number(s): <span><button class="btn btn-sm uw-button-inverse add-phone-button"><span class="glyphicon glyphicon-plus add-phone-ic"></span></button></span></label>
+            <div class="form-group row">
+                <input name="phone_numbers" type="tel" placeholder="Phone Number" class="input input-sm uw-input col-sm-4">
+            </div>
+        </div>
+        <label class="member-form-label">Spouse's Name:</label>
+        <div class="form-group row">
+            <input name="spouse_first_name" type="text" placeholder="First Name" class="col-sm-4 input input-sm uw-input inline-input">
+            <input name="spouse_last_name" type="text" placeholder="Last Name" class="col-sm-4 input input-sm uw-input inline-input">
+        </div>
+        {% include 'coordinator/members/member_modal/enrollment_form/children_table.html' %}
+    </form>
+</div>

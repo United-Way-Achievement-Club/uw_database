@@ -1,0 +1,46 @@
+<div class="col-xs-6 col-sm-5 col-no-padding">
+    <div class="member-profile-pic-wrapper">
+        <img id="member-profile-pic" class="member-profile-pic" src="{{ url_for('static', filename='images/profile_pictures/default_profile_pic.png') }}">
+        <!--<div class="member-profile-pic-edit">
+            <span class="glyphicon glyphicon-pencil propic-edit-icon"></span>
+        </div>-->
+    </div>
+    <div class="form-group row col-sm-12 col-no-padding file-btn-wrapper text-center">
+        <label class="profile-pic-label" for="profile-pic"><span class="glyphicon glyphicon-upload upload-img-ic"></span>Upload Image</label>
+        <input onchange="readURL(this)" type="file" id="profile-pic" placeholder="upload image" class="input input-sm member-file-input" autocomplete="off">
+    </div>
+    <div class="form-group row text-center col-sm-12 col-no-padding file-btn-wrapper show-profile-img-wrapper">
+        <img id="show-profile-img" src="#" alt=""/>
+    </div>
+    <div class="form-group row col-sm-12 col-no-padding file-btn-wrapper text-center">
+        <button onclick="cropImage()" type="button" class="btn-default btn-sm btn uw-button" id="crop-success-button">Crop</button>
+    </div>
+</div>
+<div class="col-xs-6 col-sm-7">
+    <form class="form" id="general-form">
+        <label class="member-form-label">Username:</label>
+        <div class="form-group row">
+            <input id="username" type="text" name="username" value="{% if view_member and view_member.username %}{{ view_member.username }}{% endif %}" placeholder="username" class="input input-sm uw-input" autocomplete="off">
+        </div>
+        <label class="member-form-label">Password:</label>
+        <div class="form-group row">
+            <input id="password" type="password" name="password" value="{% if view_member and view_member.password %}{{ view_member.password }}{% endif %}" placeholder="password" class="input input-sm uw-input ">
+        </div>
+        <label class="member-form-label">Club Name:</label>
+        <div class="form-group row">
+            <input id="club_name" placeholder="club name" value="{% if view_member and view_member.club_name %}{{ view_member.club_name }}{% endif %}" name="club_name" class="input input-sm uw-input " autocomplete="off">
+        </div>
+        <label class="member-form-label">Join Date:</label>
+        <div class="form-group row">
+            <input id="join_date" type="date" value="{% if view_member and view_member.join_date %}{{ view_member.join_date }}{% endif %}" name="join_date" class="input input-sm uw-input " autocomplete="off">
+        </div>
+        <label class="member-form-label">Commitment Pledge Signature Date:</label>
+        <div class="form-group row">
+            <input id="commitment_pledge" type="date" value="{% if view_member and view_member.commitment_pledge %}{{ view_member.commitment_pledge }}{% endif %}" name="commitment_pledge" class="input input-sm uw-input " autocomplete="off">
+        </div>
+        <label class="member-form-label">Photo Release Signature Date:</label>
+        <div class="form-group row">
+            <input id="photo_release" type="date" name="photo_release" value="{% if view_member and view_member.photo_release %}{{ view_member.photo_release }}{% endif %}"class="input input-sm uw-input " autocomplete="off">
+        </div>
+    </form>
+</div>

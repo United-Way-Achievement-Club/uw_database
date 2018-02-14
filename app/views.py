@@ -1,5 +1,7 @@
-from app import app
+from app import app, db, models
 from flask import render_template, redirect, session, request, jsonify
+from sqlalchemy import exc
+import json
 
 @app.route('/')
 def index():
@@ -55,9 +57,61 @@ def coordinator():
     else:
         return redirect('coordinator/home')
 
+# -- home --
+
 @app.route('/coordinator/home')
 def coordinator_home():
     return render_template('coordinator/home.html')
+
+# -- members --
+
+@app.route('/coordinator/members')
+def coordinator_members():
+    members = [{"image":"default_profile_pic.png", "member_name":"Example Member", "club_name":"Example Club", "goals_completed":5, "goals_in_progress":12},{"image":"sruti.png", "member_name":"Sruti B. Guhathakurta", "club_name":"Example Club", "goals_completed":10, "goals_in_progress":2}]
+    return render_template('coordinator/members.html', members=members)
+
+@app.route('/coordinator/members/general', methods=['POST'])
+def coordinator_members_general():
+    print request.form
+    member = request.form.to_dict()
+    print member
+    return render_template('coordinator/members/member_modal/general.html', view_member=member)
+
+@app.route('/coordinator/members/enrollment_form', methods=['POST'])
+def coordinator_members_enrollment_form():
+    return render_template('coordinator/members/member_modal/enrollment_form.html')
+
+@app.route('/coordinator/members/demographic_data', methods=['POST'])
+def coordinator_members_demographic_data():
+    return render_template('coordinator/members/member_modal/demographic_data.html')
+
+@app.route('/coordinator/members/self_sufficiency_matrix', methods=['POST'])
+def coordinator_members_self_sufficiency_matrix():
+    return render_template('coordinator/members/member_modal/self_sufficiency_matrix.html')
+
+@app.route('/coordinator/members/self_efficacy_quiz', methods=['POST'])
+def coordinator_members_self_efficacy_quiz():
+    return render_template('coordinator/members/member_modal/self_efficacy_quiz.html')
+
+@app.route('/coordinator/members/goals', methods=['POST'])
+def coordinator_members_goals():
+    return render_template('coordinator/members/member_modal/goals.html')
+
+@app.route('/coordinator/members/create_member', methods=['POST'])
+def coordinator_create_member():
+    profile_pic = None
+    if 'profile_picture' in request.files:
+        profile_pic = request.files['profile_picture']
+    if 'profile_picture' in request.form:
+        profile_pic = request.form['profile_picture']
+    new_member = json.loads(request.form['new_member'])
+    profile_pic_type = request.form['profile_pic_type']
+    print new_member
+    print profile_pic
+    print "profile pic type: " + profile_pic_type
+    return jsonify({"success":True, "status":200})
+
+# -- other --
 
 @app.route('/mapstyles')
 def mapstyles():

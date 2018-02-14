@@ -1,0 +1,31 @@
+<div class="dash-item col-sm-12">
+    <div class="dash-item-wrapper members-list">
+        <div class="col-sm-12 members-list-header">
+            <div class="col-sm-1 members-list-header-item">
+                <h6 class="white-text">Image</h6>
+            </div>
+            <div class="col-sm-3 members-list-header-item">
+                <h6 class="white-text">Member Name</h6>
+            </div>
+            <div class="col-sm-3 members-list-header-item">
+                <h6 class="white-text">Club Name</h6>
+            </div>
+            <div class="col-sm-2 members-list-header-item">
+                <h6 class="white-text">Goals Completed</h6>
+            </div>
+            <div class="col-sm-2 members-list-header-item">
+                <h6 class="white-text">Goals In Progress</h6>
+            </div>
+            <div class="col-sm-1 members-list-header-item">
+                <h6 class="white-text">View</h6>
+            </div>
+        </div>
+        <div class="members-list-items col-sm-12">
+            {% for member in members %}
+                {% with member=member %}
+                {% include 'coordinator/members/member.html' %}
+                {% endwith %}
+            {% endfor %}
+        </div>
+    </div>
+</div>

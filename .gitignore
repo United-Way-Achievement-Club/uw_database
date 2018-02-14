@@ -7,3 +7,7 @@
 *.iml
 out
 gen
+
+# Database files
+app/db_repository
+app/app.db

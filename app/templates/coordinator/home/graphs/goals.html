@@ -1,26 +1,30 @@
-<div class="dash-item col-sm-6">
+<div class="dash-item col-sm-12">
     <div class="goals-graph dash-item-wrapper col-sm-12 container text-center">
         <div class="dash-item-header">
             <h4>Progress</h4>
         </div>
         <div class="goals-graph-body">
             <div class="goals-graph-content">
-                <div id="chart">
-                </div>
-                <div class="row col-sm-12 col-no-padding">
-                    <div class="col-sm-5 col-no-padding">
-                        <h2 class="orange-text goals-number"><strong>30</strong></h2>
-                    </div>
-                    <div class="col-sm-7 col-no-padding">
-                        <h4 class="goals-text uw_lighter"> goals completed</h4>
+                <div class="goals-graph-chart goals-vertical-center">
+                    <div id="chart">
                     </div>
                 </div>
-                <div class="row col-sm-12 col-no-padding">
-                    <div class="col-sm-5 col-no-padding">
-                        <h2 class="gray-text goals-number"><strong>120</strong></h2>
+                <div class="goals-graph-stats goals-vertical-center">
+                    <div class="row col-sm-12 col-no-padding">
+                        <div class="col-sm-5 col-no-padding">
+                            <h1 class="orange-text goals-number uw_lighter">30</h1>
+                        </div>
+                        <div class="col-sm-7 col-no-padding">
+                            <h5 class="goals-text uw_lighter"> goals completed</h5>
+                        </div>
                     </div>
-                    <div class="col-sm-7 col-no-padding">
-                        <h4 class="goals-text uw_lighter"> goals in progress</h4>
+                    <div class="row col-sm-12 col-no-padding">
+                        <div class="col-sm-5 col-no-padding">
+                            <h1 class="gray-text goals-number uw_lighter">120</h1>
+                        </div>
+                        <div class="col-sm-7 col-no-padding">
+                            <h5 class="goals-text uw_lighter"> goals in progress</h5>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -44,8 +48,8 @@
         pattern: ['#FF9A36', '#B7BAD7']
     },
     size: {
-        height: 150,
-        width: 150
+        height: 225,
+        width: 225
     },
     donut: {
       label: {

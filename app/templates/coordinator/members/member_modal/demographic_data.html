@@ -1,0 +1,51 @@
+<div class="col-sm-12">
+    <div class="demographic-data-header col-sm-10 col-sm-offset-1 text-center">
+        <h5 class="uw_lighter"><strong>Demographic Data: </strong>This information is voluntary and is collected strictly for use in demographic analysis reports and statistical information.</h5>
+    </div>
+    <form class="form">
+        <label class="member-form-label">Gender:</label>
+        <div class="form-group row">
+            <select class="col-sm-4 input input-sm uw-input">
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        {% include 'coordinator/members/member_modal/demographic_data/member_race.html' %}
+        {% include 'coordinator/members/member_modal/demographic_data/member_marital_status.html' %}
+        {% include 'coordinator/members/member_modal/demographic_data/member_education.html' %}
+        <label class="member-form-label col-sm-12 col-no-padding">English Proficiency:</label>
+        <div class="form-group row">
+            <select class="col-sm-4 input input-sm uw-input">
+                <option value="primary-language">Primary Language</option>
+                <option value="fluent">Fluent</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="beginner">Beginner</option>
+            </select>
+        </div>
+        <label class="member-form-label">English Reading Level:</label>
+        <div class="form-group row">
+            <select class="col-sm-4 input input-sm uw-input">
+                <option value="fluent">Fluent</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="beginner">Beginner</option>
+                <option value="primary-language">None</option>
+            </select>
+        </div>
+        <label class="member-form-label">English Writing Level:</label>
+        <div class="form-group row">
+            <select class="col-sm-4 input input-sm uw-input">
+                <option value="fluent">Fluent</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="beginner">Beginner</option>
+                <option value="primary-language">None</option>
+            </select>
+        </div>
+        {% include 'coordinator/members/member_modal/demographic_data/member_employment.html' %}
+        {% include 'coordinator/members/member_modal/demographic_data/income.html' %}
+        {% include 'coordinator/members/member_modal/demographic_data/member_sources_of_income.html' %}
+        {% include 'coordinator/members/member_modal/demographic_data/member_assets.html' %}
+        {% include 'coordinator/members/member_modal/demographic_data/health.html' %}
+        {% include 'coordinator/members/member_modal/demographic_data/member_military.html' %}
+    </form>
+</div>
