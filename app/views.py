@@ -67,8 +67,20 @@ def coordinator_home():
 
 @app.route('/coordinator/members')
 def coordinator_members():
+    if not session.get('new_member'):
+        session['new_member'] = {}
     members = [{"image":"default_profile_pic.png", "member_name":"Example Member", "club_name":"Example Club", "goals_completed":5, "goals_in_progress":12},{"image":"sruti.png", "member_name":"Sruti B. Guhathakurta", "club_name":"Example Club", "goals_completed":10, "goals_in_progress":2}]
     return render_template('coordinator/members.html', members=members)
+
+@app.route('/coordinator/members/update')
+def coordinator_members_update():
+    new_member = session.get('new_member')
+    key = request.form['key']
+    data = request.form['data']
+    new_member[key] = json.loads(data)
+    session['new_member'] = new_member
+    next_page = request.form['next_page']
+    return redirect('coordinator/members/' + next_page)
 
 @app.route('/coordinator/members/general', methods=['POST'])
 def coordinator_members_general():
