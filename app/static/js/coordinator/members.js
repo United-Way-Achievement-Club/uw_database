@@ -1,16 +1,14 @@
 $(document).ready(function() {
     $("#memberModalLabel").modal('hide');
-    localStorage.newMember = JSON.stringify({"general":{}, "enrollment_form":{}, "demographic_data":{}, "self_sufficiency_matrix":{}, "self_efficacy_quiz":{}, "goals":{}});
-    localStorage.currentPage = "general";
-    localStorage.profilePicIsDataURI = false;
+    sessionStorage.currentPage = "general";
+    sessionStorage.profilePicIsDataURI = false;
     sessionStorage.profile_picture = '/static/images/profile_pictures/default_profile_pic.png'
 });
 
 function closeModal() {
-    localStorage.profilePicIsDataURI = false;
+    sessionStorage.profilePicIsDataURI = false;
     sessionStorage.profile_picture = '/static/images/profile_pictures/default_profile_pic.png'
-    localStorage.newMember = JSON.stringify({"general":{}, "enrollment_form":{}, "demographic_data":{}, "self_sufficiency_matrix":{}, "self_efficacy_quiz":{}, "goals":{}});
-    localStorage.currentPage = "general";
+    sessionStorage.currentPage = "general";
     $("#profile-pic").val(null);
     $("#show-profile-img").cropper('destroy');
     $("#show-profile-img").attr('src', "#");
@@ -23,24 +21,34 @@ function closeModal() {
     $("#club_name").val("");
     $("#commitment_pledge").val("");
     $("#photo_release").val("");
+    $.post( "members/clear_new_member", function() {
+      console.log( "successfully requested clear session" );
+      })
+      .done(function(data) {
+        console.log( "successfully cleared session" );
+      })
+      .fail(function() {
+        console.log( "error clearing session" );
+      })
+      .always(function() {
+        console.log( "clearing session..." );
+      });
 }
 
 function saveModal() {
-    saveMemberToStorage(localStorage.currentPage);
+    saveMemberToStorage(sessionStorage.currentPage);
     var profile_pic_blob;
     var profile_pic_type;
-    if (localStorage.profilePicIsDataURI === 'true') {
+    if (sessionStorage.profilePicIsDataURI === 'true') {
         profile_pic_blob = dataURItoBlob(sessionStorage.profile_picture);
         profile_pic_type = "blob";
     } else {
         profile_pic_blob = sessionStorage.profile_picture;
         profile_pic_type = "saved_file";
     }
-
     var form_data = new FormData();
     form_data.append('profile_picture', profile_pic_blob)
     form_data.append('profile_pic_type', profile_pic_type)
-    form_data.append('new_member', localStorage.newMember)
     $.ajax('members/create_member', {
         method: "POST",
         data: form_data,
@@ -57,11 +65,9 @@ function saveModal() {
 }
 
 function memberModalChange(e) {
-    var newMember = JSON.parse(localStorage.newMember);
     var id = $(e).attr("id");
-    saveMemberToStorage(localStorage.currentPage);
-    localStorage.currentPage = id;
-    $.post( "members/" + id, newMember[id], function() {
+    var memberData = saveMemberToStorage(sessionStorage.currentPage);
+    $.post( "members/update", {'key':sessionStorage.currentPage,'data':JSON.stringify(memberData),'next_page':id}, function() {
       console.log( "successfully requested html for modal change" );
       })
       .done(function(data) {
@@ -69,6 +75,7 @@ function memberModalChange(e) {
         $(".member-modal-nav-item-active").removeClass("member-modal-nav-item-active");
         $(e).addClass("member-modal-nav-item-active");
         $("#member-modal-body-component").html(data);
+        sessionStorage.currentPage = id;
         if (id == "general") {
             $("#member-profile-pic").attr('src', sessionStorage.profile_picture);
         }
@@ -83,7 +90,6 @@ function memberModalChange(e) {
 
 function saveMemberToStorage(page) {
     var updateMember;
-    var newMember = JSON.parse(localStorage.newMember);
     if (page == 'general') {
         updateMember = saveGeneral();
     } else if (page == 'enrollment_form') {
@@ -95,8 +101,7 @@ function saveMemberToStorage(page) {
     } else if (page == 'self_efficacy_quiz') {
         updateMember = saveSelfEfficacyQuiz();
     }
-    newMember[page] = updateMember;
-    localStorage.newMember = JSON.stringify(newMember);
+    return updateMember;
 }
 
 function saveGeneral() {
@@ -131,7 +136,7 @@ function saveSelfEfficacyQuiz() {
 function cropImage() {
     var cropped = $("#show-profile-img").cropper('getCroppedCanvas').toDataURL('image/jpeg', 0.8);
     $("#member-profile-pic").attr('src', cropped);
-    localStorage.profilePicIsDataURI = true;
+    sessionStorage.profilePicIsDataURI = true;
     sessionStorage.profile_picture = cropped;
     $("#show-profile-img").cropper('destroy');
     $("#show-profile-img").attr('src', "#");
