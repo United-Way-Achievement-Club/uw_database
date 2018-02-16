@@ -19,7 +19,7 @@ Then, open a terminal and follow these steps.
 
 
         git clone https://github.com/SrutiG/uw_database.git
-#### 2. Navigate to the uw_database repository
+#### 2. Navigate to the uw_database folder
 
         cd uw_database
 #### 3. Install the necessary requirements
