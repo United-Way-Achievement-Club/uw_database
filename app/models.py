@@ -1,12 +1,28 @@
+'''
+Title
+-----
+models.py
+
+Description
+-----------
+Database schema
+
+'''
 from app import db
 
 # ============================================== USER ==============================================
 
+'''
+Coordinator-Club table (n-n)
+'''
 Coordinator_Club = db.Table('Coordinator_Clubs',
     db.Column('username', db.String(64), db.ForeignKey('user.username'), primary_key=True),
     db.Column('club_name', db.String(120), db.ForeignKey('club.club_name'), primary_key=True)
 )
 
+'''
+General user table, can be either member or coordinator
+'''
 class User(db.Model):
     username = db.Column(db.String(64), index=True, primary_key=True)
     type = db.Column(db.String(64))
@@ -29,6 +45,9 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % (self.username)
 
+'''
+Member table for info specific to a member
+'''
 class Member(db.Model):
     username = db.Column(db.String(64), db.ForeignKey('user.username'), primary_key=True)
     join_date = db.Column(db.DateTime)
@@ -59,26 +78,44 @@ class Member(db.Model):
     self_sufficiency_matrices = db.relationship('Member_Self_Sufficiency_Matrix', backref='member', lazy=True)
     self_efficacy_quizzes = db.relationship('Member_Self_Efficacy_Quiz', backref='member', lazy=True)
 
+'''
+Member-Sources of Income (1-n)
+'''
 class Member_Sources_Of_Income(db.Model):
     username = db.Column(db.String(64), db.ForeignKey('member.username'), primary_key=True)
     income_source = db.Column(db.String(64), primary_key=True)
 
+'''
+Member-Assets (1-n)
+'''
 class Member_Assets(db.Model):
     username = db.Column(db.String(64), db.ForeignKey('member.username'), primary_key=True)
     asset = db.Column(db.String(64), primary_key=True)
 
+'''
+Member-Phone Numbers (1-n)
+'''
 class Member_Phone(db.Model):
     username = db.Column(db.String(64), db.ForeignKey('member.username'), primary_key=True)
     phone = db.Column(db.String(32), primary_key=True)
 
+'''
+Member-Medical Issues (1-n)
+'''
 class Member_Medical_Issues(db.Model):
     username = db.Column(db.String(64), db.ForeignKey('member.username'), primary_key=True)
     medical_issue = db.Column(db.Text, primary_key=True)
 
+'''
+Member-Wars Served (1-n)
+'''
 class Member_Wars_Served(db.Model):
     username = db.Column(db.String(64), db.ForeignKey('member.username'), primary_key=True)
     war_served = db.Column(db.String(120), primary_key=True)
 
+'''
+Member-Self Sufficiency Matrix results (1-n)
+'''
 class Member_Self_Sufficiency_Matrix(db.Model):
     username = db.Column(db.String(64), db.ForeignKey('member.username'), primary_key=True)
     assesment_date = db.Column(db.DateTime, primary_key=True)
@@ -102,6 +139,9 @@ class Member_Self_Sufficiency_Matrix(db.Model):
     disabilities = db.Column(db.Integer)
     other = db.Column(db.Integer)
 
+'''
+Member-Self Efficacy Quiz Results (1-n)
+'''
 class Member_Self_Efficacy_Quiz(db.Model):
     username = db.Column(db.String(64), db.ForeignKey('member.username'), primary_key=True)
     assesment_date = db.Column(db.DateTime, primary_key=True)
@@ -118,6 +158,9 @@ class Member_Self_Efficacy_Quiz(db.Model):
     question_11 = db.Column(db.Integer)
     question_12 = db.Column(db.Integer)
 
+'''
+Member-Child (1-n)
+'''
 class Child(db.Model):
     parent = db.Column(db.String(64), db.ForeignKey('member.username'), primary_key=True)
     first_name = db.Column(db.String(64), primary_key=True)
@@ -133,6 +176,9 @@ class Child(db.Model):
 
 # ============================================== OTHER ==============================================
 
+'''
+Achievement Club locations
+'''
 class Club(db.Model):
     club_name = db.Column(db.String(120), primary_key=True)
     address_street = db.Column(db.String(200))

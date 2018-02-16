@@ -1,3 +1,14 @@
+'''
+Title
+-----
+__init__.py
+
+Description
+-----------
+Create app module
+
+'''
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import config

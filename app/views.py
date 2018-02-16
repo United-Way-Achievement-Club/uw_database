@@ -1,7 +1,18 @@
+'''
+Title
+-----
+views.py
+
+Description
+-----------
+Handle requests to the server by returning proper data or template
+
+'''
 from app import app, db, models
 from flask import render_template, redirect, session, request, jsonify, url_for
 from sqlalchemy import exc
 import json
+
 
 '''
 If the member/coordinator isn't logged in, route to the login page
@@ -27,6 +38,7 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        # TODO: remove hardcoded user check and actually check for user in database
         if username == 'user' and password == 'pass':
             session['login'] = True
             session['member_type'] = 'coord'
@@ -88,6 +100,24 @@ Coordinator home page
 def coordinator_home():
     return render_template('coordinator/home.html')
 
+# -- goals --
+
+'''
+Coordinator goals page
+'''
+@app.route('/coordinator/goals')
+def coordinator_goals():
+    return render_template('coordinator/goals.html')
+
+# -- approve --
+
+'''
+Coordinator approve page
+'''
+@app.route('/coordinator/approve')
+def coordinator_approve():
+    return render_template('coordinator/approve.html')
+
 # -- members --
 
 '''
@@ -115,7 +145,6 @@ def coordinator_members_update():
     data = request.form['data']
     new_member[key] = json.loads(data)
     session['new_member'] = new_member
-    print session.get('new_member')
     next_page = request.form['next_page']
     URL = 'coordinator_members_%s'%(next_page)
     return redirect(url_for(URL))
@@ -187,13 +216,30 @@ def coordinator_create_member():
     return jsonify({"success":True, "status":200})
 
 '''
-Clear the new member object in the session when the modal is closed
+Clear the new member object in the session when the new member modal is closed
 '''
 @app.route('/coordinator/members/clear_new_member', methods=['POST'])
 def coordinator_clear_new_member():
     session['new_member'] = {'general':{}, 'enrollment_form':{}, 'demographic_data':{}, 'self_sufficiency_matrix':{}, 'self_efficacy_quiz':{}}
     return render_template('coordinator/members/member_modal/general.html')
 
+# -- clubs --
+
+'''
+Coordinator clubs page
+'''
+@app.route('/coordinator/clubs')
+def coordinator_clubs():
+    return render_template('coordinator/clubs.html')
+
+# -- messages --
+
+'''
+Coordinator messages page
+'''
+@app.route('/coordinator/messages')
+def coordinator_messages():
+    return render_template('coordinator/messages.html')
 
 # -- other --
 

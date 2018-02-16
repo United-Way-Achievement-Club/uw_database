@@ -1,3 +1,15 @@
+'''
+Title
+-----
+run.py
+
+Description
+-----------
+Run the flask app on 127.0.0.1:8090 by default.
+Options can be changed by using --host and --port flags.
+
+'''
+
 from app import app
 app.debug = True
 import argparse

@@ -1,3 +1,13 @@
+'''
+Title
+-----
+config.py
+
+Description
+-----------
+Default configurations for application
+
+'''
 import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))

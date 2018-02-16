@@ -1,21 +1,24 @@
+const DEFAULT_PIC_LOCATION = '/static/images/profile_pictures/default_profile_pic.png'
+
+// hide the modal initially, set the current page and storage options
 $(document).ready(function() {
     $("#memberModalLabel").modal('hide');
     sessionStorage.currentPage = "general";
     sessionStorage.profilePicIsDataURI = false;
-    sessionStorage.profile_picture = '/static/images/profile_pictures/default_profile_pic.png'
+    sessionStorage.profile_picture = DEFAULT_PIC_LOCATION;
 });
 
 
 // close member modal and clear all fields in the general form
 function closeModal() {
     sessionStorage.profilePicIsDataURI = false;
-    sessionStorage.profile_picture = '/static/images/profile_pictures/default_profile_pic.png'
+    sessionStorage.profile_picture = DEFAULT_PIC_LOCATION;
     sessionStorage.currentPage = "general";
     $("#profile-pic").val(null);
     $("#show-profile-img").cropper('destroy');
     $("#show-profile-img").attr('src', "#");
     $("#crop-success-button").hide();
-    $("#member-profile-pic").attr('src', '/static/images/profile_pictures/default_profile_pic.png');
+    $("#member-profile-pic").attr('src', DEFAULT_PIC_LOCATION);
     $.post( "members/clear_new_member", function() {
       console.log( "successfully requested clear session" );
       })
@@ -121,24 +124,28 @@ function saveEnrollmentForm() {
     var enrollementFormObj = {};
     var enrollmentValues = $("#enrollment-form").serializeArray();
     console.log(enrollmentValues);
+    // TODO: parse the values from the form and add to enrollmentFormObj
     return enrollementFormObj;
 }
 
 // save the demographic data form
 function saveDemographicData() {
     var demographicDataObj = {};
+    // TODO: parse the values from the form and add to demographicDataObj
     return demographicDataObj;
 }
 
 // save the self sufficiency matrix form
 function saveSelfSufficiencyMatrix() {
     var selfSufficiencyObj = {};
+    // TODO: parse the values from the form and add to selfSufficiencyObj
     return selfSufficiencyObj;
 }
 
 // save the self efficacy quiz form
 function saveSelfEfficacyQuiz() {
     var selfEfficacyObj = {};
+    // TODO: parse the values from the form and add to selfEfficacyObj
     return selfEfficacyObj;
 }
 
@@ -205,15 +212,18 @@ function readURL(input) {
 
 // ===================================== enrollment form ===============================================
 
+// add a new phone number field
 function addPhoneNumber() {
     $("#member-phone-numbers").append('<div class="form-group row"><input name="phone_numbers" type="tel" placeholder="Phone Number" class="input input-sm uw-input col-sm-4 phone-number"><button onclick="removeNum(this)" class="btn btn-sm uw-button"><span class="glyphicon glyphicon-remove"></span></button></div>');
 }
 
+// remove phone number field
 function removeNum(e) {
     var parent = $(e).parent();
     $(parent).remove();
 }
 
+// add a new child to table
 function addChild() {
     var child = $("#member-children-table .member-child:first-child").html();
     var child_num = parseInt($("#member-children-table .member-child:last-child .child-num").html());
