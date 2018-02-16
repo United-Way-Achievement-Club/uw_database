@@ -21,13 +21,13 @@ Then, follow these steps.
 
 
         git clone https://github.com/SrutiG/uw_database.git
-### 1. Navigate to the uw_database repository in your terminal
+### 2. Navigate to the uw_database repository in your terminal
 
         cd uw_database
-### 1. Install the necessary requirements
+### 3. Install the necessary requirements
     
         pip install -r requirements.txt
-### 1. Run this command
+### 4. Run this command
 
         python run.py
-### 1. Navigate to the URL 127.0.0.1:8090 in your browser
+### 5. Navigate to the URL 127.0.0.1:8090 in your browser
