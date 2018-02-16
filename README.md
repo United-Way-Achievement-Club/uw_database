@@ -28,7 +28,7 @@ Then, open a terminal and follow these steps.
 #### 4. Run this command
 
         python run.py
-#### 5. Navigate to the URL 127.0.0.1:8090 in your browser
+#### 5. Navigate to the URL *127.0.0.1:8090* in your browser
    A login page should appear. Currently, the test user has the credentials username:*user* and password:*pass* and navigates to the coordinator home page.
 
 ## How to contribute
