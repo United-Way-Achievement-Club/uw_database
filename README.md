@@ -1,4 +1,4 @@
-# uw_database
+# United Way Achievement Club Member Portal
 
 ## Description
 
