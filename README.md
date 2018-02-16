@@ -7,12 +7,10 @@ The United Way Achievement Club aims to empower families to achieve their own go
 ## How to run
 
 First ensure that you have Python version 2.6+ installed on your machine. To make sure that this is the case,
-run the command
+run the following command to ensure that python is installed and it is the correct version.
 
     python --version
     
-to ensure that python is installed and it is the correct version.
-
 
 Then, follow these steps.
 
