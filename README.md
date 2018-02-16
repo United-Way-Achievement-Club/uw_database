@@ -12,14 +12,14 @@ run the following command to ensure that python is installed and it is the corre
     python --version
     
 
-Then, follow these steps.
+Then, open a terminal and follow these steps.
 
 
 #### 1. Clone this repository
 
 
         git clone https://github.com/SrutiG/uw_database.git
-#### 2. Navigate to the uw_database repository in your terminal
+#### 2. Navigate to the uw_database repository
 
         cd uw_database
 #### 3. Install the necessary requirements
