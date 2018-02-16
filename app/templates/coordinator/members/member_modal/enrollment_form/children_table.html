@@ -1,5 +1,5 @@
 <div class="member-children">
-    <label class="member-form-label">Children: <span><button class="btn btn-sm uw-button-inverse add-child-button"><span class="glyphicon glyphicon-plus add-child-ic"></span></button></span></label>
+    <label class="member-form-label">Children: <span><button onclick="addChild()" type="button" class="btn btn-sm uw-button-inverse add-child-button"><span class="glyphicon glyphicon-plus add-child-ic"></span></button></span></label>
     <table class="table table-sm table-striped child-table">
         <thead class="member-child-header text-center">
         <tr>
@@ -16,7 +16,7 @@
         </thead>
         <tbody class="member-children-table" id="member-children-table">
             <tr class="member-child">
-                <th scope="col">1</th>
+                <th class="child-num" scope="col">1</th>
                 <td><input type="text" name="child_first_name" placeholder="First Name" class="input input-sm uw-input child-input"></td>
                 <td><input type="text" name="child_last_name" placeholder="Last Name" class="input input-sm uw-input child-input"></td>
                 <td>

@@ -26,10 +26,10 @@
         <div class="form-group row">
             <input name="referral_source" type="text" placeholder="Referral Source" class="input input-sm uw-input col-sm-8">
         </div>
-        <div class="member-phone-numbers">
-            <label class="member-form-label">Phone Number(s): <span><button class="btn btn-sm uw-button-inverse add-phone-button"><span class="glyphicon glyphicon-plus add-phone-ic"></span></button></span></label>
+        <div class="member-phone-numbers" id="member-phone-numbers">
+            <label class="member-form-label">Phone Number(s): <span><button type="button" onclick="addPhoneNumber()" id="add-phone-btn" class="btn btn-sm uw-button-inverse add-phone-button"><span class="glyphicon glyphicon-plus add-phone-ic"></span></button></span></label>
             <div class="form-group row">
-                <input name="phone_numbers" type="tel" placeholder="Phone Number" class="input input-sm uw-input col-sm-4">
+                <input name="phone_numbers" type="tel" placeholder="Phone Number" class="input input-sm uw-input col-sm-4 phone-number">
             </div>
         </div>
         <label class="member-form-label">Spouse's Name:</label>
