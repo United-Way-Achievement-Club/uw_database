@@ -35,7 +35,7 @@ Then, open a terminal and follow these steps.
 Make sure that the ZenHub browser extension is installed to view the task board. It can be installed [here](https://www.zenhub.com/extension) for Chrome or Firefox.
 
 
-This application is being made using Flask, a Python framework. All of the server code is located in the **app/views.py** folder. All of the database models and tables are located in **app/models.py**. The templates are located in **app/templates** and organized by user type. The static files (css, javascript, and images) are located in **app/static**.
+This application is being made using Flask, a Python framework. All of the server code is located in **app/views.py**. All of the database models and tables are located in **app/models.py**. The templates are located in **app/templates** and organized by user type. The static files (css, javascript, and images) are located in **app/static**.
 
 
 The master branch should always be stable. Features that are in progress and need to be completed can be found in the 'Board' section of the repository. When pushing a new feature to GitHub, create a new branch named after that feature, then push the branch to GitHub. Then, make a pull request to the 'dev' branch, and add a description of the feature and the changes that were made.
