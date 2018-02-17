@@ -60,7 +60,7 @@ Mockups for the portal can be found [here](https://balsamiq.cloud/sll25/prfco/r2
 * Goals- *not started*
 * Approve- *not started*
 * Members- *in progress*
-* Clubs- *not started
+* Clubs- *not started*
 
 More details about what features have been completed and what there is yet to do can be found in the task board.
 
