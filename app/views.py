@@ -3,6 +3,7 @@ Title
 -----
 views.py
 
+
 Description
 -----------
 Handle requests to the server by returning proper data or template
