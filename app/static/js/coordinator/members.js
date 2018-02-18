@@ -121,11 +121,23 @@ function saveGeneral() {
 
 // save the enrollment form
 function saveEnrollmentForm() {
-    var enrollementFormObj = {};
+    var enrollmentFormObj = {"phone_numbers":[], "children":[{}]};
     var enrollmentValues = $("#enrollment-form").serializeArray();
-    console.log(enrollmentValues);
-    // TODO: parse the values from the form and add to enrollmentFormObj
-    return enrollementFormObj;
+    var childIndex = 0;
+    for (v in enrollmentValues) {
+            if (enrollmentValues[v].name === "phone_numbers") {
+                enrollmentFormObj.phone_numbers.push(enrollmentValues[v].value)
+            } else if (enrollmentValues[v].name.includes("child")) {
+                enrollmentFormObj.children[childIndex][enrollmentValues[v].name] = enrollmentValues[v].value;
+                if (enrollmentValues[v].name == "child_school" && v < enrollmentValues.length - 1) {
+                    childIndex++;
+                    enrollmentFormObj.children[childIndex] = {};
+                }
+            } else {
+                enrollmentFormObj[enrollmentValues[v].name] = enrollmentValues[v].value;
+            }
+        }
+    return enrollmentFormObj;
 }
 
 // save the demographic data form

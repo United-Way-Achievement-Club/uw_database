@@ -3,7 +3,6 @@ Title
 -----
 views.py
 
-
 Description
 -----------
 Handle requests to the server by returning proper data or template
@@ -167,8 +166,8 @@ Return the template for the enrollment form in the add member modal
 '''
 @app.route('/coordinator/members/enrollment_form', methods=['GET','POST'])
 def coordinator_members_enrollment_form():
-    #TODO: pass the member information from the session into the template
-    return render_template('coordinator/members/member_modal/enrollment_form.html')
+    view_member = session.get('new_member')['enrollment_form']
+    return render_template('coordinator/members/member_modal/enrollment_form.html', view_member=view_member)
 
 '''
 Return the template for the demographic data in the add member modal
