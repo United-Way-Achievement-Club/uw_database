@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+{% block extrastyle %}
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static', filename='css/coordinator.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/lib/c3.min.css') }}">
+{% block c_extrastyle %}{% endblock %}
+{% endblock %}
+{% block extrascript %}
+<script src="{{ url_for('static', filename='js/coordinator.js') }}"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="{{ url_for('static', filename='js/lib/c3.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/lib/lz-string.min.js') }}"></script>
+{% block c_extrascript %}{% endblock %}
+{% endblock %}
+
+{% block content %}
+<div class="nav text-center">
+    <div class="nav-header">
+        <div class="nav-img-wrapper">
+            <img class="nav-img" src="{{ url_for('static', filename='images/logo/uw_icon.png') }}">
+        </div>
+        <h4 class="nav-header-text">Welcome, user!</h4>
+        <h5><a class="nav-header-anchor" href="{{ url_for('logout') }}">Logout</a></h5>
+    </div>
+    <div id="home" class="nav-item active">
+        <h4 class="nav-item-text"><span class="glyphicon glyphicon-home nav-icon"></span><a href="{{ url_for('coordinator_home') }}">Home</a></h4>
+    </div>
+    <div id="goals" class="nav-item">
+        <h4 class="nav-item-text"><span class="glyphicon glyphicon-star nav-icon"></span><a href="{{ url_for('coordinator_goals') }}">Goals</a></h4>
+    </div>
+    <div id="approve" class="nav-item">
+        <h4 class="nav-item-text"><span class="glyphicon glyphicon-check nav-icon"></span><a href="{{ url_for('coordinator_approve') }}">Approve</a></h4>
+    </div>
+    <div id="members" class="nav-item">
+        <h4 class="nav-item-text"><span class="glyphicon glyphicon-user nav-icon"></span><a href="{{ url_for('coordinator_members') }}">Members</a></h4>
+    </div>
+    <div id="clubs" class="nav-item">
+        <h4 class="nav-item-text"><span class="glyphicon glyphicon-globe nav-icon"></span><a href="{{ url_for('coordinator_clubs') }}">Clubs</a></h4>
+    </div>
+    <div id="messages" class="nav-item">
+        <h4 class="nav-item-text"><span class="glyphicon glyphicon-comment nav-icon"></span><a href="{{ url_for('coordinator_messages') }}">Messages</a></h4>
+    </div>
+</div>
+<div class="body-wrapper">
+    {% block c_content %}
+    {% endblock %}
+</div>
+
+{% endblock %}

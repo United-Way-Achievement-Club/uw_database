@@ -1,0 +1,23 @@
+{% extends 'coordinator/layout.html' %}
+{% block c_extrastyle %}
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static', filename='css/lib/cropper.min.css') }}">
+{% endblock %}
+
+{% block c_extrascript %}
+<script src="{{ url_for('static', filename='js/coordinator/members.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/lib/cropper.min.js') }}"></script>
+{% endblock %}
+
+{% block c_content %}
+
+{% with num_members=members|length %}
+{% include 'coordinator/members/topbar.html' %}
+{% endwith %}
+
+{% with members=members %}
+{% include 'coordinator/members/members_list.html' %}
+{% endwith %}
+
+{% include 'coordinator/members/add_member.html' %}
+
+{% endblock %}
