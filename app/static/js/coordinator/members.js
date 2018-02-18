@@ -8,6 +8,13 @@ $(document).ready(function() {
     sessionStorage.profile_picture = DEFAULT_PIC_LOCATION;
 });
 
+// Array Remove - By John Resig (MIT Licensed)
+Array.prototype.remove = function(from, to) {
+  var rest = this.slice((to || from) + 1 || this.length);
+  this.length = from < 0 ? this.length + from : from;
+  return this.push.apply(this, rest);
+};
+
 
 // close member modal and clear all fields in the general form
 function closeModal() {
@@ -137,7 +144,22 @@ function saveEnrollmentForm() {
                 enrollmentFormObj[enrollmentValues[v].name] = enrollmentValues[v].value;
             }
         }
+    for (child in enrollmentFormObj.children) {
+        if (child !== "remove" && checkBlankObject(enrollmentFormObj.children[child], "F")) {
+            enrollmentFormObj.children.remove(child);
+        }
+    }
     return enrollmentFormObj;
+}
+
+function checkBlankObject(obj, except) {
+    for (v in obj) {
+        if (obj[v] !== '' && obj[v] !== except) {
+
+            return false;
+        }
+    }
+    return true;
 }
 
 // save the demographic data form
@@ -241,4 +263,5 @@ function addChild() {
     var child_num = parseInt($("#member-children-table .member-child:last-child .child-num").html());
     $("#member-children-table").append('<tr class="member-child">' + child + '</tr>');
     $("#member-children-table .member-child:last-child .child-num").html(child_num + 1);
+    $("#member-children-table .member-child:last-child input").val('');
 }

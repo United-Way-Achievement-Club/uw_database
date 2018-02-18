@@ -167,6 +167,7 @@ Return the template for the enrollment form in the add member modal
 @app.route('/coordinator/members/enrollment_form', methods=['GET','POST'])
 def coordinator_members_enrollment_form():
     view_member = session.get('new_member')['enrollment_form']
+    print view_member
     return render_template('coordinator/members/member_modal/enrollment_form.html', view_member=view_member)
 
 '''
