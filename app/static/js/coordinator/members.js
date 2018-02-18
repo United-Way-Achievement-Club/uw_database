@@ -112,6 +112,8 @@ function saveMemberToStorage(page) {
         updateMember = saveSelfSufficiencyMatrix();
     } else if (page == 'self_efficacy_quiz') {
         updateMember = saveSelfEfficacyQuiz();
+    } else if (page == 'goals') {
+        updateMember = saveGoals();
     }
     return updateMember;
 }
@@ -145,7 +147,7 @@ function saveEnrollmentForm() {
             }
         }
     for (child in enrollmentFormObj.children) {
-        if (child !== "remove" && checkBlankObject(enrollmentFormObj.children[child], "F")) {
+        if (child !== "remove" && checkBlankObject(enrollmentFormObj.children[child], "child_gender")) {
             enrollmentFormObj.children.remove(child);
         }
     }
@@ -154,8 +156,7 @@ function saveEnrollmentForm() {
 
 function checkBlankObject(obj, except) {
     for (v in obj) {
-        if (obj[v] !== '' && obj[v] !== except) {
-
+        if (obj[v] !== '' && v !== except) {
             return false;
         }
     }
@@ -181,6 +182,12 @@ function saveSelfEfficacyQuiz() {
     var selfEfficacyObj = {};
     // TODO: parse the values from the form and add to selfEfficacyObj
     return selfEfficacyObj;
+}
+
+function saveGoals() {
+    var goalsObj = {};
+    // TODO: parse the values from the form and add to goalsObj
+    return goalsObj;
 }
 
 // convert a data URI to a blob to send to the server

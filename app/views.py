@@ -151,12 +151,12 @@ def coordinator_members_update():
     session['new_member'] = new_member
     next_page = request.form['next_page']
     URL = 'coordinator_members_%s'%(next_page)
-    return redirect(url_for(URL))
+    return redirect(url_for(URL), code=307)
 
 '''
 Return the template for the general page in the add member modal
 '''
-@app.route('/coordinator/members/general', methods=['GET','POST'])
+@app.route('/coordinator/members/general', methods=['POST'])
 def coordinator_members_general():
     view_member = session.get('new_member')['general']
     return render_template('coordinator/members/member_modal/general.html', view_member=view_member)
@@ -164,7 +164,7 @@ def coordinator_members_general():
 '''
 Return the template for the enrollment form in the add member modal
 '''
-@app.route('/coordinator/members/enrollment_form', methods=['GET','POST'])
+@app.route('/coordinator/members/enrollment_form', methods=['POST'])
 def coordinator_members_enrollment_form():
     view_member = session.get('new_member')['enrollment_form']
     print view_member
@@ -173,7 +173,7 @@ def coordinator_members_enrollment_form():
 '''
 Return the template for the demographic data in the add member modal
 '''
-@app.route('/coordinator/members/demographic_data', methods=['GET','POST'])
+@app.route('/coordinator/members/demographic_data', methods=['POST'])
 def coordinator_members_demographic_data():
     #TODO: pass the member information from the session into the template
     return render_template('coordinator/members/member_modal/demographic_data.html')
@@ -181,7 +181,7 @@ def coordinator_members_demographic_data():
 '''
 Return the template for the self sufficiency matrix in the add member modal
 '''
-@app.route('/coordinator/members/self_sufficiency_matrix', methods=['GET','POST'])
+@app.route('/coordinator/members/self_sufficiency_matrix', methods=['POST'])
 def coordinator_members_self_sufficiency_matrix():
     #TODO: pass the member information from the session into the template
     return render_template('coordinator/members/member_modal/self_sufficiency_matrix.html')

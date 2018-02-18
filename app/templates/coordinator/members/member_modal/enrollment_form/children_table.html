@@ -22,9 +22,9 @@
                 <td><input type="text" value="{{ child.child_last_name }}" name="child_last_name" placeholder="Last Name" class="input input-sm uw-input child-input"></td>
                 <td>
                     <select name="child_gender" class="input input-sm uw-input child-input-sm">
-                        <option value="F">F</option>
-                        <option value="M">M</option>
-                        <option value="O">O</option>
+                        <option value="F"{% if child.child_gender=="F" %}selected{% endif %}>F</option>
+                        <option value="M"{% if child.child_gender=="M" %}selected{% endif %}>M</option>
+                        <option value="O"{% if child.child_gender=="O" %}selected{% endif %}>O</option>
                     </select>
                 </td>
                 <td><input value="{{ child.child_birth_date }}" name="child_birth_date" type="date" class="input input-sm uw-input child-input"></td>
