@@ -5,7 +5,7 @@ utils.py
 
 Description
 ------------
-Helper methods that are used to parse data
+Helper methods
 
 '''
 
@@ -128,6 +128,9 @@ Validate self efficacy quiz portion of member object
 def validateSelfEfficacyQuiz(self_efficacy_quiz):
     return {"success":True, "error":None}
 
+'''
+Return complete list of abbreviated US States
+'''
 def getStates():
     return ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DC", "DE", "FL", "GA",
             "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",

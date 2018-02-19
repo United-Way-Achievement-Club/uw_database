@@ -40,7 +40,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        # TODO: remove hardcoded user check and actually check for user in database
+        # TODO: *DATABASE* remove hardcoded user check and actually check for user in database
 
         if username == 'user' and password == 'pass':
             session['login'] = True
@@ -133,7 +133,7 @@ def coordinator_members():
         session['new_member'] = {'general':{}, 'enrollment_form':{}, 'demographic_data':{}, 'self_sufficiency_matrix':{}, 'self_efficacy_quiz':{}}
     members = [{"image":"default_profile_pic.png", "member_name":"Example Member", "club_name":"Example Club", "goals_completed":5, "goals_in_progress":12},{"image":"sruti.png", "member_name":"Sruti B. Guhathakurta", "club_name":"Example Club", "goals_completed":10, "goals_in_progress":2}]
 
-    #TODO: replace members list above with proper query from the database
+    #TODO: *DATABASE* replace members list above with proper query from the database
 
     return render_template('coordinator/members.html', members=members)
 
@@ -175,7 +175,9 @@ Return the template for the demographic data in the add member modal
 '''
 @app.route('/coordinator/members/demographic_data', methods=['POST'])
 def coordinator_members_demographic_data():
+
     #TODO: pass the member information from the session into the template
+
     return render_template('coordinator/members/member_modal/demographic_data.html')
 
 '''
@@ -183,7 +185,9 @@ Return the template for the self sufficiency matrix in the add member modal
 '''
 @app.route('/coordinator/members/self_sufficiency_matrix', methods=['POST'])
 def coordinator_members_self_sufficiency_matrix():
+
     #TODO: pass the member information from the session into the template
+
     return render_template('coordinator/members/member_modal/self_sufficiency_matrix.html')
 
 '''
@@ -212,7 +216,7 @@ def coordinator_create_member():
     new_member[request.form['current_page']] = new_data
     session['new_member'] = new_member
 
-    #TODO: validate fields in the new member object- edit validateMember function in utils.py
+    #TODO: validate fields in the new member object- edit validateMember function in 'utils.py'
 
     validatedMember = validateMember(session.get('new_member'))
     if validatedMember["success"]:
@@ -227,7 +231,7 @@ def coordinator_create_member():
 
         #TODO: upload profile picture
 
-        #TODO: add member to database
+        #TODO: *DATABASE* add member to database
 
         session['new_member'] = {'general':{}, 'enrollment_form':{}, 'demographic_data':{}, 'self_sufficiency_matrix':{}, 'self_efficacy_quiz':{}}
         return jsonify({"success":True, "status":200})

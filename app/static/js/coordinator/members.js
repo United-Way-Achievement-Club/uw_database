@@ -135,6 +135,9 @@ function saveGeneral() {
 }
 
 // save the enrollment form
+// push the phone numbers to a list of phone numbers
+// push information for children to a list of children, updating
+// the child index each time the last child form field is reached
 function saveEnrollmentForm() {
     var enrollmentFormObj = {"phone_numbers":[], "children":[{}]};
     var enrollmentValues = $("#enrollment-form").serializeArray();
@@ -158,15 +161,6 @@ function saveEnrollmentForm() {
         }
     }
     return enrollmentFormObj;
-}
-
-function checkBlankObject(obj, except) {
-    for (v in obj) {
-        if (obj[v] !== '' && v !== except) {
-            return false;
-        }
-    }
-    return true;
 }
 
 // save the demographic data form
@@ -221,6 +215,16 @@ function dataURItoBlob(dataURI) {
   var blob = new Blob([ab], {type: mimeString});
   return blob;
 
+}
+
+// check if an object has only blank values
+function checkBlankObject(obj, except) {
+    for (v in obj) {
+        if (obj[v] !== '' && v !== except) {
+            return false;
+        }
+    }
+    return true;
 }
 
 // ===================================== general ===============================================
