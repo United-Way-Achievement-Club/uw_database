@@ -12,6 +12,7 @@ from app import app, db, models
 from flask import render_template, redirect, session, request, jsonify, url_for
 from sqlalchemy import exc
 import json
+from utils import validateMember, getStates
 
 
 '''
@@ -167,8 +168,7 @@ Return the template for the enrollment form in the add member modal
 @app.route('/coordinator/members/enrollment_form', methods=['POST'])
 def coordinator_members_enrollment_form():
     view_member = session.get('new_member')['enrollment_form']
-    print view_member
-    return render_template('coordinator/members/member_modal/enrollment_form.html', view_member=view_member)
+    return render_template('coordinator/members/member_modal/enrollment_form.html', view_member=view_member, states=getStates())
 
 '''
 Return the template for the demographic data in the add member modal
@@ -207,20 +207,31 @@ the member to the database. Then clear the new member object in the session.
 '''
 @app.route('/coordinator/members/create_member', methods=['POST'])
 def coordinator_create_member():
-    #TODO: validate fields in the new member object
-    profile_pic = None
-    if 'profile_picture' in request.files:
-        profile_pic = request.files['profile_picture']
-    if 'profile_picture' in request.form:
-        profile_pic = request.form['profile_picture']
-    profile_pic_type = request.form['profile_pic_type']
-    print profile_pic
-    print "profile pic type: " + profile_pic_type
+    new_data = json.loads(request.form['new_data'])
+    new_member = session.get('new_member')
+    new_member[request.form['current_page']] = new_data
+    session['new_member'] = new_member
 
-    #TODO: add member to database
+    #TODO: validate fields in the new member object- edit validateMember function in utils.py
 
-    session['new_member'] = {'general':{}, 'enrollment_form':{}, 'demographic_data':{}, 'self_sufficiency_matrix':{}, 'self_efficacy_quiz':{}}
-    return jsonify({"success":True, "status":200})
+    validatedMember = validateMember(session.get('new_member'))
+    if validatedMember["success"]:
+        profile_pic = None
+        if 'profile_picture' in request.files:
+            profile_pic = request.files['profile_picture']
+        if 'profile_picture' in request.form:
+            profile_pic = request.form['profile_picture']
+        profile_pic_type = request.form['profile_pic_type']
+        print profile_pic
+        print "profile pic type: " + profile_pic_type
+
+        #TODO: upload profile picture
+
+        #TODO: add member to database
+
+        session['new_member'] = {'general':{}, 'enrollment_form':{}, 'demographic_data':{}, 'self_sufficiency_matrix':{}, 'self_efficacy_quiz':{}}
+        return jsonify({"success":True, "status":200})
+    return jsonify({"success":False, "status":400, "error_type":"validation","error_message":validatedMember["error"]})
 
 '''
 Clear the new member object in the session when the new member modal is closed

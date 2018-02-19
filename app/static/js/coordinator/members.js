@@ -1,8 +1,7 @@
 const DEFAULT_PIC_LOCATION = '/static/images/profile_pictures/default_profile_pic.png'
 
-// hide the modal initially, set the current page and storage options
+// set the current page and storage options
 $(document).ready(function() {
-    $("#memberModalLabel").modal('hide');
     sessionStorage.currentPage = "general";
     sessionStorage.profilePicIsDataURI = false;
     sessionStorage.profile_picture = DEFAULT_PIC_LOCATION;
@@ -18,6 +17,7 @@ Array.prototype.remove = function(from, to) {
 
 // close member modal and clear all fields in the general form
 function closeModal() {
+    $("#memberModal").modal('hide');
     sessionStorage.profilePicIsDataURI = false;
     sessionStorage.profile_picture = DEFAULT_PIC_LOCATION;
     sessionStorage.currentPage = "general";
@@ -45,7 +45,7 @@ function closeModal() {
 
 // save new member, send profile pic info to the server
 function saveModal() {
-    saveMemberToStorage(sessionStorage.currentPage);
+    var newData = saveMemberToStorage(sessionStorage.currentPage);
     var profile_pic_blob;
     var profile_pic_type;
     if (sessionStorage.profilePicIsDataURI === 'true') {
@@ -56,16 +56,22 @@ function saveModal() {
         profile_pic_type = "saved_file";
     }
     var form_data = new FormData();
-    form_data.append('profile_picture', profile_pic_blob)
-    form_data.append('profile_pic_type', profile_pic_type)
+    form_data.append('profile_picture', profile_pic_blob);
+    form_data.append('profile_pic_type', profile_pic_type);
+    form_data.append('current_page',sessionStorage.currentPage);
+    form_data.append('new_data', JSON.stringify(newData));
     $.ajax('members/create_member', {
         method: "POST",
         data: form_data,
         processData: false,
         contentType: false,
-        success: function () {
-          console.log('Create new member success');
-          closeModal();
+        success: function (data) {
+          if (data.success == true) {
+            console.log('Create new member success');
+            closeModal();
+          } else {
+            window.alert(data.error_message);
+          }
         },
         error: function () {
           window.alert('Error creating new member');
