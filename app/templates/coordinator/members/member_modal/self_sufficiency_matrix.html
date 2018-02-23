@@ -12,15 +12,91 @@
         <div class="form-group row">
             <input type="date" class="input input-sm uw-input col-sm-10">
         </div>
-        <label class="member-form-label">Program Name:</label>
-        <div class="form-group row">
-            <input type="text" placeholder="Program Name" class="input input-sm uw-input col-sm-10">
-        </div>
         <div class="self-sufficiency-matrix-results">
             <label class="member-form-label">Assesment Answers:</label>
             <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Housing: </label>
-                <select id="self-sufficiency-housing" class="input input-sm uw-input col-sm-1">
+                <label class="member-check-label col-sm-3">Housing: </label>
+                <select id="self-sufficiency-housing" class="input input-sm uw-input col-sm-7">
+                    <option value="1">1: Homeless or threatened with eviction</option>
+                    <option value="2">2: In transitional, temporary, or substandard housing; and/or current rent/mortgage payment is unaffordable (over 30% of income)</option>
+                    <option value="3">3: In stable housing that is safe but only marginally adequate</option>
+                    <option value="4">4: Household is in safe, adequate subsidized housing</option>
+                    <option value="5">5: Household is safe, adequate, unsubsidized housing</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Employment: </label>
+                <select id="self-sufficiency-employment" class="input input-sm uw-input col-sm-7">
+                    <option value="1">1: No job</option>
+                    <option value="2">2: Temporary, part-time, or seasonal; inadequate pay, no benefits</option>
+                    <option value="3">3: Employed full time; inadequate pay; few or no benefits</option>
+                    <option value="4">4: Employed full time with adequate pay and benefits</option>
+                    <option value="5">5: Maintains permanent employment with adequate income and benefits</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Income: </label>
+                <select id="self-sufficiency-income" class="input input-sm uw-input col-sm-7">
+                    <option value="1">1: No income</option>
+                    <option value="2">2: Inadequate income and/or spontaneous or inappropriate spending</option>
+                    <option value="3">3: Can meet basic needs with subsidy; appropriate spending</option>
+                    <option value="4">4: Can meet basic needs and manage debt without assistance</option>
+                    <option value="5">5: Income is sufficient, well manages; has discretionary income and is able to save</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Food: </label>
+                <select id="self-sufficiency-food" class="input input-sm uw-input col-sm-7">
+                    <option value="1">1: No food or means to prepare it. Relies to a significant degree on other sources of free or low-cost food</option>
+                    <option value="2">2: Household is on food stamps</option>
+                    <option value="3">3: Can meet basic food needs, but requires occasional assistance</option>
+                    <option value="4">4: Can meet basic food needs without assistance</option>
+                    <option value="5">5: Can choose to purchase any food household desires</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Child Care: </label>
+                <select id="self-sufficiency-child-care" class="input input-sm uw-input col-sm-7">
+                    <option value="1">1: Needs childcare, but none is available/accessible and/or child is not eligible</option>
+                    <option value="2">2: Childcare is unreliable or unaffordable, inadequate supervision is a problem for childcare that is available</option>
+                    <option value="3">3: Affordable subsidized childcare is available, but limited</option>
+                    <option value="4">4: Reliable, affordable childcare is available, no need for subsidies</option>
+                    <option value="5">5: Able to select quality childcare of choice</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Children's Education: </label>
+                <select id="self-sufficiency-childrens-education" class="input input-sm uw-input col-sm-7">
+                    <option value="1">1: One or more school-aged children not enrolled in school</option>
+                    <option value="2">2: One or more school-aged children enrolled in school, but not attending classes</option>
+                    <option value="3">3: Enrolled in school, but one or more children only occasionally attending classes</option>
+                    <option value="4">4: Enrolled in school and attending classes most of the time</option>
+                    <option value="5">5: All school-aged children enrolled and attending on a regular basis</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Adult Education: </label>
+                <select id="self-sufficiency-adult-education" class="input input-sm uw-input col-sm-7">
+                    <option value="1">1: Literacy problems and/or no high school diploma/GED are serious barriers to employment</option>
+                    <option value="2">2: Enrolled in literacy and/or GED program and/or has sufficient command of English to where language is not a barrier to employment</option>
+                    <option value="3">3: Has high school diploma/GED</option>
+                    <option value="4">4: Needs additional education/training to improve employment situation and/or to resolve literacy problems to where they are able to function effectively in society</option>
+                    <option value="5">5: Has completed education/training needed to become employable. No literacy problems.</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Health Care Coverage: </label>
+                <select id="self-sufficiency-health-care-coverage" class="input input-sm uw-input col-sm-7">
+                    <option value="1">1: No medical coverage with immediate need</option>
+                    <option value="2">2: No medical coverage and great difficulty accessing medical care when needed. Some household members may be in poor health.</option>
+                    <option value="3">3: Some members (e.g. Children) have medical coverage</option>
+                    <option value="4">4: All members can get medical care when needed, buy may strain budget</option>
+                    <option value="5">5: All members are covered by affordable, adequate health insurance</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Life Skills: </label>
+                <select id="self-sufficiency-life-skills" class="input input-sm uw-input col-sm-7">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -29,8 +105,8 @@
                 </select>
             </div>
             <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Employment: </label>
-                <select id="self-sufficiency-employment" class="input input-sm uw-input col-sm-1">
+                <label class="member-check-label col-sm-3">Family/Social Relations: </label>
+                <select id="self-sufficiency-family-social-relations" class="input input-sm uw-input col-sm-7">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -39,8 +115,8 @@
                 </select>
             </div>
             <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Income: </label>
-                <select id="self-sufficiency-income" class="input input-sm uw-input col-sm-1">
+                <label class="member-check-label col-sm-3">Mobility: </label>
+                <select id="self-sufficiency-mobility" class="input input-sm uw-input col-sm-7">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -49,8 +125,8 @@
                 </select>
             </div>
             <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Food: </label>
-                <select id="self-sufficiency-food" class="input input-sm uw-input col-sm-1">
+                <label class="member-check-label col-sm-3">Community Involvement: </label>
+                <select id="self-sufficiency-community-involvement" class="input input-sm uw-input col-sm-7">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -59,8 +135,8 @@
                 </select>
             </div>
             <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Child Care: </label>
-                <select id="self-sufficiency-child-care" class="input input-sm uw-input col-sm-1">
+                <label class="member-check-label col-sm-3">Parenting Skills: </label>
+                <select id="self-sufficiency-parenting-skills" class="input input-sm uw-input col-sm-7">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -69,8 +145,8 @@
                 </select>
             </div>
             <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Children's Education: </label>
-                <select id="self-sufficiency-childrens-education" class="input input-sm uw-input col-sm-1">
+                <label class="member-check-label col-sm-3">Legal: </label>
+                <select id="self-sufficiency-legal" class="input input-sm uw-input col-sm-7">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -79,8 +155,8 @@
                 </select>
             </div>
             <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Adult Education: </label>
-                <select id="self-sufficiency-adult-education" class="input input-sm uw-input col-sm-1">
+                <label class="member-check-label col-sm-3">Mental Health: </label>
+                <select id="self-sufficiency-mental-health" class="input input-sm uw-input col-sm-7">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -89,8 +165,8 @@
                 </select>
             </div>
             <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Health Care Coverage: </label>
-                <select id="self-sufficiency-health-care-coverage" class="input input-sm uw-input col-sm-1">
+                <label class="member-check-label col-sm-3">Substance Abuse: </label>
+                <select id="self-sufficiency-substance-abuse" class="input input-sm uw-input col-sm-7">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -99,8 +175,8 @@
                 </select>
             </div>
             <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Life Skills: </label>
-                <select id="self-sufficiency-life-skills" class="input input-sm uw-input col-sm-1">
+                <label class="member-check-label col-sm-3">Safety: </label>
+                <select id="self-sufficiency-safety" class="input input-sm uw-input col-sm-7">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -109,8 +185,8 @@
                 </select>
             </div>
             <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Family/Social Relations: </label>
-                <select id="self-sufficiency-family-social-relations" class="input input-sm uw-input col-sm-1">
+                <label class="member-check-label col-sm-3">Disabilities: </label>
+                <select id="self-sufficiency-disabilities" class="input input-sm uw-input col-sm-7">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -119,88 +195,8 @@
                 </select>
             </div>
             <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Mobility: </label>
-                <select id="self-sufficiency-mobility" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Community Involvement: </label>
-                <select id="self-sufficiency-community-involvement" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Parenting Skills: </label>
-                <select id="self-sufficiency-parenting-skills" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Legal: </label>
-                <select id="self-sufficiency-legal" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Mental Health: </label>
-                <select id="self-sufficiency-mental-health" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Substance Abuse: </label>
-                <select id="self-sufficiency-substance-abuse" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Safety: </label>
-                <select id="self-sufficiency-safety" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Disabilities: </label>
-                <select id="self-sufficiency-disabilities" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Other: </label>
-                <select id="self-sufficiency-other" class="input input-sm uw-input col-sm-1">
+                <label class="member-check-label col-sm-3">Other: </label>
+                <select id="self-sufficiency-other" class="input input-sm uw-input col-sm-7">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
