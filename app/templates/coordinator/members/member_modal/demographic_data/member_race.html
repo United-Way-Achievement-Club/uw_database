@@ -1,44 +1,44 @@
-<div class="member-race">
-    <label class="member-form-label col-sm-12 col-no-padding">Race:</label>
+<div id="member-race" class="member-race">
+    <label class="member-form-label col-sm-12 col-no-padding">Race (select one):</label>
     <div class="form-group row member-race-row col-sm-6">
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="american-indian" id="american-indian">
+            <input name="race" class="form-check-input" type="radio" value="american-indian" id="american-indian" {% if race and race=='american-indian' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="american-indian">
                 American Indian/Alaskan Native
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="asian-indian" id="asian-indian">
+            <input name="race" class="form-check-input" type="radio" value="asian-indian" id="asian-indian" {% if race and race=='asian-indian' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="asian-indian">
                 Asian Indian
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="african-american" id="african-american">
+            <input name="race" class="form-check-input" type="radio" value="african-american" id="african-american" {% if race and race=='african-american' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="african-american">
                 Black/African American
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="chinese" id="chinese">
+            <input name="race" class="form-check-input" type="radio" value="chinese" id="chinese" {% if race and race=='chinese' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="chinese">
                 Chinese
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="filipino" id="filipino">
+            <input name="race" class="form-check-input" type="radio" value="filipino" id="filipino" {% if race and race=='filipino' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="filipino">
                 Filipino
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="guamanian" id="guamanian">
+            <input name="race" class="form-check-input" type="radio" value="guamanian" id="guamanian" {% if race and race=='guamanian' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="guamanian">
                 Guamanian or ____Chamorro
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="hispanic" id="hispanic">
+            <input name="race" class="form-check-input" type="radio" value="hispanic" id="hispanic" {% if race and race=='hispanic' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="hispanic">
                 Hispanic/Latino
             </label>
@@ -46,47 +46,47 @@
     </div>
     <div class="form-group row member-race-row col-sm-6">
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="japanese" id="japanese">
+            <input name="race" class="form-check-input" type="radio" value="japanese" id="japanese" {% if race and race=='japanese' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="japanese">
                 Japanese
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="korean" id="korean">
+            <input name="race" class="form-check-input" type="radio" value="korean" id="korean" {% if race and race=='korean' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="korean">
                 Korean
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="native-hawaiian" id="native-hawaiian">
+            <input name="race" class="form-check-input" type="radio" value="native-hawaiian" id="native-hawaiian" {% if race and race=='native-hawaiian' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="native-hawaiian">
                 Native Hawaiian
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="samoan" id="samoan">
+            <input name="race" class="form-check-input" type="radio" value="samoan" id="samoan" {% if race and race=='samoan' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="samoan">
                 Samoan
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="vietnamese" id="vietnamese">
+            <input name="race" class="form-check-input" type="radio" value="vietnamese" id="vietnamese" {% if race and race=='vietnamese' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="vietnamese">
                 Vietnamese
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="white" id="white">
+            <input name="race" class="form-check-input" type="radio" value="white" id="white" {% if race and race=='white' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="white">
                 White
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="other" id="other">
-            <label class="form-check-label member-check-label" for="other">
+            <input name="race" class="form-check-input" type="radio" value="other" id="other-race" {% if race and race=='other' %} checked {% endif %}>
+            <label class="form-check-label member-check-label" for="other-race">
                 Other:
             </label>
-            <span><input class="input input-sm uw-input"></span>
+            <span><input {% if race and race=='other' %} value="{{ other_race }}" {% endif %} name="other_race" id="other-race-value" class="input input-sm uw-input"></span>
         </div>
     </div>
 </div>

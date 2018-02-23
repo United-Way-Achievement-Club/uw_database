@@ -1,26 +1,26 @@
-<div class="member-education">
-    <label class="member-form-label col-sm-12 col-no-padding">Education:</label>
+<div id="member-education" class="member-education">
+    <label class="member-form-label col-sm-12 col-no-padding">Education (select one):</label>
     <div class="form-group row col-sm-6">
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="did-not-complete-high-school" id="did-not-complete-high-school" value="did-not-complete-high-school">
+            <input name="education" class="form-check-input" type="radio" name="did-not-complete-high-school" id="did-not-complete-high-school" value="did-not-complete-high-school" {% if education and education=='did-not-complete-high-school' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="did-not-complete-high-school">
                 Did not complete High School
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="high-school-diploma" id="high-school-diploma" value="high-school-diploma">
+            <input name="education" class="form-check-input" type="radio" name="high-school-diploma" id="high-school-diploma" value="high-school-diploma" {% if education and education=='high-school-diploma' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="high-school-diploma">
                 High School Diploma/GED
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="technical-vocational-school" id="technical-vocational-school" value="technical-vocational-school">
+            <input name="education" class="form-check-input" type="radio" name="technical-vocational-school" id="technical-vocational-school" value="technical-vocational-school" {% if education and education=='technical-vocational-school' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="technical-vocational-school">
                 Technical/Vocational School
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="advanced-degree" id="advanced-degree" value="advanced-degree">
+            <input name="education" class="form-check-input" type="radio" name="advanced-degree" id="advanced-degree" value="advanced-degree" {% if education and education=='advanced-degree' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="advanced-degree">
                 Advanced Degree
             </label>
@@ -28,19 +28,19 @@
     </div>
     <div class="form-group col-sm-6">
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="some-college" id="some-college" value="some-college">
+            <input name="education" class="form-check-input" type="radio" name="some-college" id="some-college" value="some-college" {% if education and education=='some-college' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="some-college">
                 Some College
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="associates-degree" id="associates-degree" value="associates-degree">
+            <input name="education" class="form-check-input" type="radio" name="associates-degree" id="associates-degree" value="associates-degree" {% if education and education=='associates-degree' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="associates-degree">
                 Associates Degree
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="bachelors-degree" id="bachelors-degree" value="bachelors-degree">
+            <input name="education" class="form-check-input" type="radio" name="bachelors-degree" id="bachelors-degree" value="bachelors-degree" {% if education and education=='bachelors-degree' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="bachelors-degree">
                 Bachelors Degree
             </label>

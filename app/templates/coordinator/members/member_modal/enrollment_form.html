@@ -13,7 +13,7 @@
             <input type="text" value="{% if view_member and view_member.address_city %}{{ view_member.address_city }}{% endif %}" name="address_city" placeholder="City" class="input input-sm uw-input inline-input col-sm-4">
             <select name="address_state" class="input input-sm uw-input inline-input col-sm-1">
                 {% for state in states %}
-                <option value="{{ state }}"{% if view_member and state == view_member.address_state %} selected {% endif %}>{{ state }}</option>
+                <option value="{{ state }}"{% if view_member and view_member.address_state and state == view_member.address_state %} selected {% endif %}>{{ state }}</option>
                 {% endfor %}
             </select>
             <input type="text" value="{% if view_member and view_member.address_zip %}{{ view_member.address_zip }}{% endif %}" name="address_zip" placeholder="Zip" class="input input-sm uw-input inline-input col-sm-3">

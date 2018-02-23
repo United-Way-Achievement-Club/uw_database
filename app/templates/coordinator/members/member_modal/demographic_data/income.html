@@ -1,9 +1,9 @@
 <label class="col-sm-12 col-no-padding member-form-label">Income:</label>
 <div class="form-group row col-sm-12">
     <label class="member-check-label col-sm-3">Annual Income: </label>
-    <input type="text" class="input input-sm uw-input col-sm-4">
+    <input {% if income %} value="{{ income }}" {% endif %} name="income" type="text" class="input input-sm uw-input col-sm-4">
 </div>
 <div class="form-group row col-sm-12">
     <label class="member-check-label col-sm-3">Credit Score: </label>
-    <input type="text" class="input input-sm uw-input col-sm-4">
+    <input {% if credit_score %} value="{{ credit_score }}" {% endif %} name="credit_score" type="text" class="input input-sm uw-input col-sm-4">
 </div>

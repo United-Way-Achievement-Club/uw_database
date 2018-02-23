@@ -150,6 +150,7 @@ def coordinator_members_update():
     data = request.form['data']
     new_member[key] = json.loads(data)
     session['new_member'] = new_member
+    print session.get('new_member')
     next_page = request.form['next_page']
     URL = 'coordinator_members_%s'%(next_page)
     return redirect(url_for(URL), code=307)
@@ -175,10 +176,8 @@ Return the template for the demographic data in the add member modal
 '''
 @app.route('/coordinator/members/demographic_data', methods=['POST'])
 def coordinator_members_demographic_data():
-
-    #TODO: pass the member information from the session into the template
-
-    return render_template('coordinator/members/member_modal/demographic_data.html')
+    view_member = session.get('new_member')['demographic_data']
+    return render_template('coordinator/members/member_modal/demographic_data.html', view_member=view_member)
 
 '''
 Return the template for the self sufficiency matrix in the add member modal

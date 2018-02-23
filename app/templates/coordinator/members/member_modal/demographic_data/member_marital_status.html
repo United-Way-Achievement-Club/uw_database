@@ -1,32 +1,32 @@
-<div class="member-marital-status">
-    <label class="member-form-label col-sm-12 col-no-padding">Marital Status:</label>
+<div id="member-marital-status" class="member-marital-status">
+    <label class="member-form-label col-sm-12 col-no-padding">Marital Status (select one):</label>
     <div class="form-group row col-sm-12">
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="living-with-partner" id="living-with-partner" value="living-with-partner">
+            <input name="marital_status" class="form-check-input" type="radio" name="living-with-partner" id="living-with-partner" value="living-with-partner" {% if marital_status and marital_status=='living-with-partner' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="living-with-partner">
                 Living with a partner
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="married" id="married" value="married">
+            <input name="marital_status" class="form-check-input" type="radio" name="married" id="married" value="married" {% if marital_status and marital_status=='married' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="married">
                 Married
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="separated" id="separated" value="separated">
+            <input name="marital_status" class="form-check-input" type="radio" name="separated" id="separated" value="separated" {% if marital_status and marital_status=='separated' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="separated">
                 Separated
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="divorced" id="divorced" value="divorced">
+            <input name="marital_status" class="form-check-input" type="radio" name="divorced" id="divorced" value="divorced" {% if marital_status and marital_status=='divorced' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="divorced">
                 Divorced
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="widowed" id="widowed" value="widowed">
+            <input name="marital_status" class="form-check-input" type="radio" name="widowed" id="widowed" value="widowed" {% if marital_status and marital_status=='widowed' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="widowed">
                 Widowed
             </label>

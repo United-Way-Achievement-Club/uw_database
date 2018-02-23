@@ -147,7 +147,7 @@ function saveEnrollmentForm() {
                 enrollmentFormObj.phone_numbers.push(enrollmentValues[v].value)
             } else if (enrollmentValues[v].name.includes("child")) {
                 enrollmentFormObj.children[childIndex][enrollmentValues[v].name] = enrollmentValues[v].value;
-                if (enrollmentValues[v].name == "child_school" && v < enrollmentValues.length - 1) {
+                if (enrollmentValues[v].name === "child_school" && v < enrollmentValues.length - 1) {
                     childIndex++;
                     enrollmentFormObj.children[childIndex] = {};
                 }
@@ -165,8 +165,20 @@ function saveEnrollmentForm() {
 
 // save the demographic data form
 function saveDemographicData() {
-    var demographicDataObj = {};
-    // TODO: parse the values from the form and add to demographicDataObj
+    var demographicDataObj = {"income_sources":[], "assets":[], "wars_served":[]};
+    var demographicValues = $("#demographic-data-form").serializeArray();
+    console.log(demographicValues);
+    for (v in demographicValues) {
+        if (demographicValues[v].name === "income_sources") {
+            demographicDataObj.income_sources.push(demographicValues[v].value);
+        } else if (demographicValues[v].name === "assets") {
+            demographicDataObj.assets.push(demographicValues[v].value);
+        } else if (demographicValues[v].name === "wars_served") {
+            demographicDataObj.wars_served.push(demographicValues[v].value);
+        } else {
+            demographicDataObj[demographicValues[v].name] = demographicValues[v].value;
+        }
+    }
     return demographicDataObj;
 }
 
