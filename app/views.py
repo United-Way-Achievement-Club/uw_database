@@ -234,7 +234,7 @@ def coordinator_create_member():
 
         session['new_member'] = {'general':{}, 'enrollment_form':{}, 'demographic_data':{}, 'self_sufficiency_matrix':{}, 'self_efficacy_quiz':{}}
         return jsonify({"success":True, "status":200})
-    return jsonify({"success":False, "status":400, "error_type":"validation","error_message":validatedMember["error"]})
+    return jsonify({"success":False, "status":400, "error_type":"validation","error_message":validatedMember["error"], "form":validatedMember["form"]})
 
 '''
 Clear the new member object in the session when the new member modal is closed

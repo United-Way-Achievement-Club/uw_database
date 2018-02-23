@@ -20,22 +20,27 @@ def validateMember(memberObj):
     print memberObj
     # validate general
     general = validateGeneral(memberObj['general'])
+    general['form'] = 'general'
     if general["success"] == False:
         return general
     # validate enrollment form
     enrollment_form = validateEnrollmentForm(memberObj['enrollment_form'])
+    enrollment_form['form'] = 'enrollment_form'
     if enrollment_form["success"] == False:
         return enrollment_form
     # validate demographic data
     demographic_data = validateDemographicData(memberObj['demographic_data'])
+    demographic_data['form'] = 'demographic_data'
     if demographic_data["success"] == False:
         return demographic_data
     # validate self sufficiency matrix
     self_sufficiency_matrix = validateSelfSufficiencyMatrix(memberObj['self_sufficiency_matrix'])
+    self_sufficiency_matrix['form'] = 'self_sufficiency_matrix'
     if self_sufficiency_matrix["success"] == False:
         return self_sufficiency_matrix
     # validate self efficacy quiz
     self_efficacy_quiz = validateSelfEfficacyQuiz(memberObj['self_efficacy_quiz'])
+    self_efficacy_quiz['form'] = 'self_efficacy_quiz'
     if self_efficacy_quiz["success"] == False:
         return self_efficacy_quiz
     return {"success":True, "error":None}
@@ -114,6 +119,16 @@ def validateEnrollmentForm(enrollment_form):
 Validate demographic data portion of member object
 '''
 def validateDemographicData(demographic_data):
+    if demographic_data == {}:
+        return {"success":False, "error":"Demographic Data must be filled out"}
+    if 'race' not in demographic_data:
+        return {"success":False, "error":"Race is a required field"}
+    if 'marital_status' not in demographic_data:
+        return {"success":False, "error":"Marital Status is a required field"}
+    if 'education' not in demographic_data:
+        return {"success":False, "error":"Education is a required field"}
+    if 'employment_status' not in demographic_data:
+        return {"success":False, "error":"Employment is a required field"}
     return {"success":True, "error":None}
 
 '''

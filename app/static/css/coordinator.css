@@ -493,3 +493,10 @@
 .self-efficacy-question {
     overflow: hide;
 }
+
+.form_alert {
+    color: var(--uw_red);
+    margin-left: 3px;
+    transform: translateY(1px);
+    display: none;
+}

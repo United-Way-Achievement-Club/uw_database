@@ -14,6 +14,10 @@ Array.prototype.remove = function(from, to) {
   return this.push.apply(this, rest);
 };
 
+// hide all previous form alerts
+function hideAlerts() {
+    $(".form_alert").hide();
+}
 
 // close member modal and clear all fields in the general form
 function closeModal() {
@@ -70,6 +74,8 @@ function saveModal() {
             console.log('Create new member success');
             closeModal();
           } else {
+            $(".form_alert").hide();
+            $("#" + data.form + "_alert").show();
             window.alert(data.error_message);
           }
         },
