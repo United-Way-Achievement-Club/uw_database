@@ -24,7 +24,7 @@ Then, open a terminal and follow these steps.
         cd uw_database
 #### 3. Install the necessary requirements
     
-        pip install -r requirements.txt
+        pip install --user -r requirements.txt
 #### 4. Run this command
 
         python run.py
