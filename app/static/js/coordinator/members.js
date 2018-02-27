@@ -377,6 +377,9 @@ function saveAssesment() {
     }
     console.log(answers);
     console.log(date);
+    if (date === undefined) {
+        date = $("#date-header").html();
+    }
     $.post( "members/save_self_sufficiency_matrix", {'date':date,'answers':JSON.stringify(answers)}, function() {
       console.log( "successfully requested html for modal change" );
       })
@@ -387,9 +390,7 @@ function saveAssesment() {
             console.log( "successfully added self sufficiency matrix answer" );
             $("#member-modal-body-component").html(data);
             $("#self_sufficiency_matrix_dropdown").append('<div id="' + date + '" onclick="viewMatrix(this)" class="member-modal-nav-item-dropdown"><a><h5>' + date + '</h5></a></div>');
-
         }
-
       })
       .fail(function(err) {
         console.log( "error adding self sufficiency matrix answer" );
@@ -404,14 +405,16 @@ function viewMatrix(e) {
     var id = $(e).attr("id");
     var date = $("#" + id + " a h5").html();
     console.log($("#" + id + " a h5").html());
-    $(".member-modal-nav-item-dropdown-active").removeClass('member-modal-nav-item-dropdown-active');
-    $(e).addClass("member-modal-nav-item-dropdown-active");
+
     $.post( "members/self_sufficiency_matrix", {'date':date}, function() {
       console.log( "successfully requested html for modal change" );
       })
       .done(function(data) {
         console.log( "successfully viewing html for self sufficiency matrix" );
+        $(".member-modal-nav-item-dropdown-active").removeClass('member-modal-nav-item-dropdown-active');
+        $(e).addClass("member-modal-nav-item-dropdown-active");
         $("#member-modal-body-component").html(data);
+        $(".member-modal-nav-item-active").removeClass("member-modal-nav-item-active");
         if (!$("#self_sufficiency_matrix").hasClass('member-modal-nav-item-active')) {
             $("#self_sufficiency_matrix").addClass('member-modal-nav-item-active');
         }
@@ -428,4 +431,25 @@ function viewMatrix(e) {
       .always(function() {
         console.log( "getting html for self sufficiency matrix" );
       });
-}
+  }
+
+ function removeAssesment(date) {
+    $.post( "members/remove_self_sufficiency_matrix", {'date':date}, function() {
+      console.log( "successfully requested to remove self sufficiency matrix" );
+      })
+      .done(function(data) {
+        console.log( "successfully requested to remove self sufficiency matrix" );
+        $("#member-modal-body-component").html(data);
+        $("#self_sufficiency_matrix_dropdown .member-modal-nav-item-dropdown:first-child").addClass("member-modal-nav-item-dropdown-active");
+        $("#" + date).remove();
+        changeScore();
+
+      })
+      .fail(function(err) {
+        console.log( "error viewing html for self sufficiency matrix" );
+        console.log(err);
+      })
+      .always(function() {
+        console.log( "getting html for self sufficiency matrix" );
+      });
+ }

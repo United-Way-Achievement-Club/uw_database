@@ -192,19 +192,30 @@ def coordinator_members_self_sufficiency_matrix():
         matrix = session.get('new_member')['self_sufficiency_matrix'][date]
     return render_template('coordinator/members/member_modal/self_sufficiency_matrix.html', matrix=matrix, date=date)
 
+'''
+Save or update self sufficiency matrix values for a particular date
+'''
 @app.route('/coordinator/members/save_self_sufficiency_matrix', methods=['POST'])
 def coordinator_members_save_self_sufficiency_matrix():
     view_member = session.get('new_member')
-    print request.form
     date = request.form['date']
     answers = json.loads(request.form['answers'])
     if date == '':
         return jsonify({"success":False, "status":400, "error_message":"date can not be blank for self sufficiency matrix"})
     if date in view_member['self_sufficiency_matrix']:
-        return jsonify({"success":False, "status":400, "error_message":"there is already a self sufficiency matrix for this date"})
+        view_member['self_sufficiency_matrix'][date] = answers
+        session['new_member'] = view_member
+        return jsonify({"success":False, "status":400, "error_message":"Updated Self Sufficiency Matrix for " + date})
     view_member['self_sufficiency_matrix'][date] = answers
     session['new_member'] = view_member
-    print session.get('new_member')
+    return render_template('coordinator/members/member_modal/self_sufficiency_matrix.html')
+
+@app.route('/coordinator/members/remove_self_sufficiency_matrix', methods=['POST'])
+def coordinator_members_remove_self_sufficiency_matrix():
+    date = request.form['date']
+    view_member = session.get('new_member')
+    del view_member['self_sufficiency_matrix'][date]
+    session['new_member'] = view_member
     return render_template('coordinator/members/member_modal/self_sufficiency_matrix.html')
 
 '''
