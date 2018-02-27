@@ -404,9 +404,9 @@ function saveAssesment() {
 function viewMatrix(e) {
     var id = $(e).attr("id");
     var date = $("#" + id + " a h5").html();
-    console.log($("#" + id + " a h5").html());
-
-    $.post( "members/self_sufficiency_matrix", {'date':date}, function() {
+    var memberData = saveMemberToStorage(sessionStorage.currentPage);
+    var currentPage = sessionStorage.currentPage;
+    $.post( "members/self_sufficiency_matrix", {'date':date, 'key':currentPage, 'data':JSON.stringify(memberData)}, function() {
       console.log( "successfully requested html for modal change" );
       })
       .done(function(data) {
@@ -421,6 +421,7 @@ function viewMatrix(e) {
         if (!$("#self_sufficiency_matrix_dropdown").hasClass('member-modal-dropdown-active')) {
             $("#self_sufficiency_matrix_dropdown").addClass('member-modal-dropdown-active')
         }
+        sessionStorage.currentPage = 'self_sufficiency_matrix';
         changeScore();
 
       })

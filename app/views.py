@@ -190,6 +190,10 @@ def coordinator_members_self_sufficiency_matrix():
     if 'date' in request.form and request.form['date'] != "New":
         date = request.form['date']
         matrix = session.get('new_member')['self_sufficiency_matrix'][date]
+    if 'key' in request.form and request.form['key'] != 'self_sufficiency_matrix':
+        new_member = session.get('new_member')
+        new_member[request.form['key']] = json.loads(request.form['data'])
+        session['new_member'] = new_member
     return render_template('coordinator/members/member_modal/self_sufficiency_matrix.html', matrix=matrix, date=date)
 
 '''
