@@ -70,8 +70,8 @@
       <file leaf-file-name="self_sufficiency_matrix.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/templates/coordinator/members/member_modal/self_sufficiency_matrix.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1665">
-              <caret line="216" column="57" selection-start-line="216" selection-start-column="57" selection-end-line="216" selection-end-column="57" />
+            <state relative-caret-position="150">
+              <caret line="219" column="73" selection-start-line="219" selection-start-column="73" selection-end-line="219" selection-end-column="73" />
               <folding />
             </state>
           </provider>
@@ -1241,8 +1241,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/coordinator/members/member_modal/self_sufficiency_matrix.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1665">
-          <caret line="216" column="57" selection-start-line="216" selection-start-column="57" selection-end-line="216" selection-end-column="57" />
+        <state relative-caret-position="150">
+          <caret line="219" column="73" selection-start-line="219" selection-start-column="73" selection-end-line="219" selection-end-column="73" />
           <folding />
         </state>
       </provider>

@@ -113,111 +113,111 @@
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Life Skills: </label>
                 <select name="life_skills" id="self-sufficiency-life-skills" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
-                    <option value="1" {% if matrix and matrix.life_skills == '1' %} selected {% endif %}>1</option>
-                    <option value="2" {% if matrix and matrix.life_skills == '2' %} selected {% endif %}>2</option>
-                    <option value="3" {% if matrix and matrix.life_skills == '3' %} selected {% endif %}>3</option>
-                    <option value="4" {% if matrix and matrix.life_skills == '4' %} selected {% endif %}>4</option>
-                    <option value="5" {% if matrix and matrix.life_skills == '5' %} selected {% endif %}>5</option>
+                    <option value="1" {% if matrix and matrix.life_skills == '1' %} selected {% endif %}>1: Unable to meet the basic needs such as hygiene, food, activities of daily living</option>
+                    <option value="2" {% if matrix and matrix.life_skills == '2' %} selected {% endif %}>2: Can meet a few but not all needs of daily living without assistance</option>
+                    <option value="3" {% if matrix and matrix.life_skills == '3' %} selected {% endif %}>3: Can meet most but not all daily living needs without assistance</option>
+                    <option value="4" {% if matrix and matrix.life_skills == '4' %} selected {% endif %}>4: Able to meet all basic needs of daily living without assistance</option>
+                    <option value="5" {% if matrix and matrix.life_skills == '5' %} selected {% endif %}>5: Able to provide beyond basic needs of daily living for self and family</option>
                 </select>
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Family/Social Relations: </label>
                 <select name="family_social_relations" id="self-sufficiency-family-social-relations" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
-                    <option value="1" {% if matrix and matrix.family_social_relations == '1' %} selected {% endif %}>1</option>
-                    <option value="2" {% if matrix and matrix.family_social_relations == '2' %} selected {% endif %}>2</option>
-                    <option value="3" {% if matrix and matrix.family_social_relations == '3' %} selected {% endif %}>3</option>
-                    <option value="4" {% if matrix and matrix.family_social_relations == '4' %} selected {% endif %}>4</option>
-                    <option value="5" {% if matrix and matrix.family_social_relations == '5' %} selected {% endif %}>5</option>
+                    <option value="1" {% if matrix and matrix.family_social_relations == '1' %} selected {% endif %}>1: Lack of necessary support from family or friends; abuse (DV, child) is present or there is child neglect</option>
+                    <option value="2" {% if matrix and matrix.family_social_relations == '2' %} selected {% endif %}>2: Family/friends may be supportive, but lack ability or resources to help; family members do not relate well with one another; potential for abuse or neglect</option>
+                    <option value="3" {% if matrix and matrix.family_social_relations == '3' %} selected {% endif %}>3: Some support from family/friends; family members acknowledge and seek to change negative behaviors; are learning to communicate and support</option>
+                    <option value="4" {% if matrix and matrix.family_social_relations == '4' %} selected {% endif %}>4: Strong support from family or friends. Household members support each other's efforts</option>
+                    <option value="5" {% if matrix and matrix.family_social_relations == '5' %} selected {% endif %}>5: Has healthy/expanding support network; household is stable and communication is consistently open</option>
                 </select>
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Mobility: </label>
                 <select name="mobility" id="self-sufficiency-mobility" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
-                    <option value="1" {% if matrix and matrix.mobility == '1' %} selected {% endif %}>1</option>
-                    <option value="2" {% if matrix and matrix.mobility == '2' %} selected {% endif %}>2</option>
-                    <option value="3" {% if matrix and matrix.mobility == '3' %} selected {% endif %}>3</option>
-                    <option value="4" {% if matrix and matrix.mobility == '4' %} selected {% endif %}>4</option>
-                    <option value="5" {% if matrix and matrix.mobility == '5' %} selected {% endif %}>5</option>
+                    <option value="1" {% if matrix and matrix.mobility == '1' %} selected {% endif %}>1: No access to transportation, public or private; may have car that is inoperable</option>
+                    <option value="2" {% if matrix and matrix.mobility == '2' %} selected {% endif %}>2: Transportation is available, but unreliable, unpredictable, unaffordable; may have car but no insurance, license, etc.</option>
+                    <option value="3" {% if matrix and matrix.mobility == '3' %} selected {% endif %}>3: Transportation is available and reliable, but limited and/or inconvenient; drivers are licensed and minimally insured</option>
+                    <option value="4" {% if matrix and matrix.mobility == '4' %} selected {% endif %}>4: Transportation is generally accessible to meet basic travel needs</option>
+                    <option value="5" {% if matrix and matrix.mobility == '5' %} selected {% endif %}>5: Transportation is readily available and affordable; car is adequately insured</option>
                 </select>
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Community Involvement: </label>
                 <select name="community_involvement" id="self-sufficiency-community-involvement" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
-                    <option value="1" {% if matrix and matrix.community_involvement == '1' %} selected {% endif %}>1</option>
-                    <option value="2" {% if matrix and matrix.community_involvement == '2' %} selected {% endif %}>2</option>
-                    <option value="3" {% if matrix and matrix.community_involvement == '3' %} selected {% endif %}>3</option>
-                    <option value="4" {% if matrix and matrix.community_involvement == '4' %} selected {% endif %}>4</option>
-                    <option value="5" {% if matrix and matrix.community_involvement == '5' %} selected {% endif %}>5</option>
+                    <option value="1" {% if matrix and matrix.community_involvement == '1' %} selected {% endif %}>1: Not applicable due to crisis situation; in "survival" mode</option>
+                    <option value="2" {% if matrix and matrix.community_involvement == '2' %} selected {% endif %}>2: Socially isolated and/or no social skills and/or lacks motivation to become involved</option>
+                    <option value="3" {% if matrix and matrix.community_involvement == '3' %} selected {% endif %}>3: Lacks knowledge of ways to become involved</option>
+                    <option value="4" {% if matrix and matrix.community_involvement == '4' %} selected {% endif %}>4: Some community involvement (advisory group, support group), but has barriers such as transportation, childcare issues</option>
+                    <option value="5" {% if matrix and matrix.community_involvement == '5' %} selected {% endif %}>5: Actively involved in community</option>
                 </select>
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Parenting Skills: </label>
                 <select name="parenting_skills" id="self-sufficiency-parenting-skills" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
-                    <option value="1" {% if matrix and matrix.parenting_skills == '1' %} selected {% endif %}>1</option>
-                    <option value="2" {% if matrix and matrix.parenting_skills == '2' %} selected {% endif %}>2</option>
-                    <option value="3" {% if matrix and matrix.parenting_skills == '3' %} selected {% endif %}>3</option>
-                    <option value="4" {% if matrix and matrix.parenting_skills == '4' %} selected {% endif %}>4</option>
-                    <option value="5" {% if matrix and matrix.parenting_skills == '5' %} selected {% endif %}>5</option>
+                    <option value="1" {% if matrix and matrix.parenting_skills == '1' %} selected {% endif %}>1: There are safety concerns regarding parenting skills</option>
+                    <option value="2" {% if matrix and matrix.parenting_skills == '2' %} selected {% endif %}>2: Parenting skills are minimal</option>
+                    <option value="3" {% if matrix and matrix.parenting_skills == '3' %} selected {% endif %}>3: Parenting skills are apparent but not adequate</option>
+                    <option value="4" {% if matrix and matrix.parenting_skills == '4' %} selected {% endif %}>4: Parenting skills are adequate</option>
+                    <option value="5" {% if matrix and matrix.parenting_skills == '5' %} selected {% endif %}>5: Parenting skills are well developed</option>
                 </select>
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Legal: </label>
                 <select name="legal" id="self-sufficiency-legal" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
-                    <option value="1" {% if matrix and matrix.legal == '1' %} selected {% endif %}>1</option>
-                    <option value="2" {% if matrix and matrix.legal == '1' %} selected {% endif %}>2</option>
-                    <option value="3" {% if matrix and matrix.legal == '1' %} selected {% endif %}>3</option>
-                    <option value="4" {% if matrix and matrix.legal == '1' %} selected {% endif %}>4</option>
-                    <option value="5" {% if matrix and matrix.legal == '1' %} selected {% endif %}>5</option>
+                    <option value="1" {% if matrix and matrix.legal == '1' %} selected {% endif %}>1: Current outstanding tickets or warrants</option>
+                    <option value="2" {% if matrix and matrix.legal == '2' %} selected {% endif %}>2: Current charges/trial pending, noncompliance with probation/parole</option>
+                    <option value="3" {% if matrix and matrix.legal == '3' %} selected {% endif %}>3: Fully compliant with probation/parole terms</option>
+                    <option value="4" {% if matrix and matrix.legal == '4' %} selected {% endif %}>4: Has successfully completed probation/parole within past 12 months, no new charges filed</option>
+                    <option value="5" {% if matrix and matrix.legal == '5' %} selected {% endif %}>5: No active criminal justice involvement in more than 12 months and/or no felony criminal history</option>
                 </select>
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Mental Health: </label>
                 <select name="mental_health" id="self-sufficiency-mental-health" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
-                    <option value="1" {% if matrix and matrix.health == '1' %} selected {% endif %}>1</option>
-                    <option value="2" {% if matrix and matrix.health == '2' %} selected {% endif %}>2</option>
-                    <option value="3" {% if matrix and matrix.health == '3' %} selected {% endif %}>3</option>
-                    <option value="4" {% if matrix and matrix.health == '4' %} selected {% endif %}>4</option>
-                    <option value="5" {% if matrix and matrix.health == '5' %} selected {% endif %}>5</option>
+                    <option value="1" {% if matrix and matrix.mental_health == '1' %} selected {% endif %}>1: Danger to self or others; recurring suicidal ideation; experiencing severe difficulty in day-to-day life due to psychological problems</option>
+                    <option value="2" {% if matrix and matrix.mental_health == '2' %} selected {% endif %}>2: Recurrent mental health symptoms that may affect behavior, but not a danger to self/others; persistent problems with functioning due to mental health symptoms</option>
+                    <option value="3" {% if matrix and matrix.mental_health == '3' %} selected {% endif %}>3: Mild symptoms may be present but are transient; only moderate difficulty in functioning due to mental health problems</option>
+                    <option value="4" {% if matrix and matrix.mental_health == '4' %} selected {% endif %}>4: Minimal symptoms that are expectable responses to life stressors; only slight impairment in functioning</option>
+                    <option value="5" {% if matrix and matrix.mental_health == '5' %} selected {% endif %}>5: Symptoms are absent or rare; good or superior functioning in wide range of activities; no more than every day problems or concerns</option>
                 </select>
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Substance Abuse: </label>
                 <select name="substance_abuse" id="self-sufficiency-substance-abuse" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
-                    <option value="1" {% if matrix and matrix.substance_abuse == '1' %} selected {% endif %}>1</option>
-                    <option value="2" {% if matrix and matrix.substance_abuse == '2' %} selected {% endif %}>2</option>
-                    <option value="3" {% if matrix and matrix.substance_abuse == '3' %} selected {% endif %}>3</option>
-                    <option value="4" {% if matrix and matrix.substance_abuse == '4' %} selected {% endif %}>4</option>
-                    <option value="5" {% if matrix and matrix.substance_abuse == '5' %} selected {% endif %}>5</option>
+                    <option value="1" {% if matrix and matrix.substance_abuse == '1' %} selected {% endif %}>1: Meets criteria for severe abuse/dependence; resulting problems so severe that institutional living or hospitalization may be necessary</option>
+                    <option value="2" {% if matrix and matrix.substance_abuse == '2' %} selected {% endif %}>2: Meets criteria for dependence; preoccupation with use and/or obtaining drugs/alcohol; withdrawal or withdrawal avoidance behaviors evident; use results in avoidance or neglect of essential life activities</option>
+                    <option value="3" {% if matrix and matrix.substance_abuse == '3' %} selected {% endif %}>3: Use within last 6 months; evidence of persistent or recurrent social, occupational, emotional, or physical problems related to use (such as disruptive behavior or housing problems); problems have persisted for at least one month</option>
+                    <option value="4" {% if matrix and matrix.substance_abuse == '4' %} selected {% endif %}>4: Client has used during last 6 months, but no evidence of persistent or recurrent social, occupational, emotional, or physical problems related to use; no evidence of recurrent dangerous use</option>
+                    <option value="5" {% if matrix and matrix.substance_abuse == '5' %} selected {% endif %}>5: No drug use/alcohol abuse in last 6 months</option>
                 </select>
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Safety: </label>
                 <select name="safety" id="self-sufficiency-safety" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
-                    <option value="1" {% if matrix and matrix.safety == '1' %} selected {% endif %}>1</option>
-                    <option value="2" {% if matrix and matrix.safety == '2' %} selected {% endif %}>2</option>
-                    <option value="3" {% if matrix and matrix.safety == '3' %} selected {% endif %}>3</option>
-                    <option value="4" {% if matrix and matrix.safety == '4' %} selected {% endif %}>4</option>
-                    <option value="5" {% if matrix and matrix.safety == '5' %} selected {% endif %}>5</option>
+                    <option value="1" {% if matrix and matrix.safety == '1' %} selected {% endif %}>1: Home or residence is not safe; immediate level of lethality is extremely high; possible CPS involvement</option>
+                    <option value="2" {% if matrix and matrix.safety == '2' %} selected {% endif %}>2: Safety is threatened/temporary protection is available; level of lethality is high</option>
+                    <option value="3" {% if matrix and matrix.safety == '3' %} selected {% endif %}>3: Current level of safety is minimally adequate; ongoing safety planning is essential</option>
+                    <option value="4" {% if matrix and matrix.safety == '4' %} selected {% endif %}>4: Environment is safe, however, future of such is uncertain; safety planning is important</option>
+                    <option value="5" {% if matrix and matrix.safety == '5' %} selected {% endif %}>5: Environment is apparently safe and stable</option>
                 </select>
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Disabilities: </label>
                 <select name="disabilities" id="self-sufficiency-disabilities" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
-                    <option value="1" {% if matrix and matrix.disabilities == '1' %} selected {% endif %}>1</option>
-                    <option value="2" {% if matrix and matrix.disabilities == '2' %} selected {% endif %}>2</option>
-                    <option value="3" {% if matrix and matrix.disabilities == '3' %} selected {% endif %}>3</option>
-                    <option value="4" {% if matrix and matrix.disabilities == '4' %} selected {% endif %}>4</option>
-                    <option value="5" {% if matrix and matrix.disabilities == '5' %} selected {% endif %}>5</option>
+                    <option value="1" {% if matrix and matrix.disabilities == '1' %} selected {% endif %}>1: In crisis- acute or chronic symptoms affecting housing, employment, social interactions...etc.</option>
+                    <option value="2" {% if matrix and matrix.disabilities == '2' %} selected {% endif %}>2: Vulnerable- sometimes or periodically has acute or chronic symptoms affecting housing, employment, social interactions, etc.</option>
+                    <option value="3" {% if matrix and matrix.disabilities == '3' %} selected {% endif %}>3: Safe- rarely has acute or chronic symptoms affecting housing, employment, social interactions, etc.</option>
+                    <option value="4" {% if matrix and matrix.disabilities == '4' %} selected {% endif %}>4: Building capacity- asymptomatic- condition controlled by services or medication</option>
+                    <option value="5" {% if matrix and matrix.disabilities == '5' %} selected {% endif %}>5: Thriving- no identified disability</option>
                 </select>
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Other: </label>
                 <select name="other" id="self-sufficiency-other" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
-                    <option value="1" {% if matrix and matrix.other == '1' %} selected {% endif %}>1</option>
-                    <option value="2" {% if matrix and matrix.other == '1' %} selected {% endif %}>2</option>
-                    <option value="3" {% if matrix and matrix.other == '1' %} selected {% endif %}>3</option>
-                    <option value="4" {% if matrix and matrix.other == '1' %} selected {% endif %}>4</option>
-                    <option value="5" {% if matrix and matrix.other == '1' %} selected {% endif %}>5</option>
+                    <option value="1" {% if matrix and matrix.other == '1' %} selected {% endif %}>1: In Crisis</option>
+                    <option value="2" {% if matrix and matrix.other == '2' %} selected {% endif %}>2: Vulnerable</option>
+                    <option value="3" {% if matrix and matrix.other == '3' %} selected {% endif %}>3: Safe</option>
+                    <option value="4" {% if matrix and matrix.other == '4' %} selected {% endif %}>4: Building Capacity</option>
+                    <option value="5" {% if matrix and matrix.other == '5' %} selected {% endif %}>5: Empowered</option>
                 </select>
             </div>
         </div>
