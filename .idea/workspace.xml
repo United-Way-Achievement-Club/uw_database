@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="780b2453-8607-4cb6-a53b-9c71c21beb1e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/static/js/coordinator/members.js" afterPath="$PROJECT_DIR$/app/static/js/coordinator/members.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views.py" afterPath="$PROJECT_DIR$/app/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/self_sufficiency_matrix.html" afterPath="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/self_sufficiency_matrix.html" />
     </list>
     <ignored path="uw_database.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -34,11 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="190" column="35" selection-start-line="190" selection-start-column="35" selection-end-line="190" selection-end-column="35" />
+            <state relative-caret-position="-1626">
+              <caret line="184" column="3" selection-start-line="184" selection-start-column="3" selection-end-line="184" selection-end-column="3" />
               <folding>
                 <element signature="e#122#153#0" expanded="true" />
               </folding>
@@ -68,11 +67,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="self_sufficiency_matrix.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="self_sufficiency_matrix.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/templates/coordinator/members/member_modal/self_sufficiency_matrix.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="41" selection-start-line="9" selection-start-column="41" selection-end-line="9" selection-end-column="41" />
+            <state relative-caret-position="1665">
+              <caret line="216" column="57" selection-start-line="216" selection-start-column="57" selection-end-line="216" selection-end-column="57" />
               <folding />
             </state>
           </provider>
@@ -167,9 +166,9 @@
         <option value="$PROJECT_DIR$/app/templates/coordinator/members/add_member.html" />
         <option value="$PROJECT_DIR$/app/static/css/index.css" />
         <option value="$PROJECT_DIR$/app/static/css/coordinator.css" />
-        <option value="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/self_sufficiency_matrix.html" />
         <option value="$PROJECT_DIR$/app/static/js/coordinator/members.js" />
         <option value="$PROJECT_DIR$/app/views.py" />
+        <option value="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/self_sufficiency_matrix.html" />
       </list>
     </option>
   </component>
@@ -1222,14 +1221,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/coordinator/members/member_modal/self_sufficiency_matrix.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="41" selection-start-line="9" selection-start-column="41" selection-end-line="9" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/static/js/coordinator/members.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -1240,11 +1231,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="190" column="35" selection-start-line="190" selection-start-column="35" selection-end-line="190" selection-end-column="35" />
+        <state relative-caret-position="-1626">
+          <caret line="184" column="3" selection-start-line="184" selection-start-column="3" selection-end-line="184" selection-end-column="3" />
           <folding>
             <element signature="e#122#153#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/coordinator/members/member_modal/self_sufficiency_matrix.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1665">
+          <caret line="216" column="57" selection-start-line="216" selection-start-column="57" selection-end-line="216" selection-end-column="57" />
+          <folding />
         </state>
       </provider>
     </entry>

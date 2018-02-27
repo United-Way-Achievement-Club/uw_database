@@ -103,121 +103,121 @@
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Health Care Coverage: </label>
                 <select name="health_care_coverage" id="self-sufficiency-health-care-coverage" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
-                    <option value="1">1: No medical coverage with immediate need</option>
-                    <option value="2">2: No medical coverage and great difficulty accessing medical care when needed. Some household members may be in poor health.</option>
-                    <option value="3">3: Some members (e.g. Children) have medical coverage</option>
-                    <option value="4">4: All members can get medical care when needed, buy may strain budget</option>
-                    <option value="5">5: All members are covered by affordable, adequate health insurance</option>
+                    <option value="1" {% if matrix and matrix.health_care_coverage == '1' %} selected {% endif %}>1: No medical coverage with immediate need</option>
+                    <option value="2" {% if matrix and matrix.health_care_coverage == '2' %} selected {% endif %}>2: No medical coverage and great difficulty accessing medical care when needed. Some household members may be in poor health.</option>
+                    <option value="3" {% if matrix and matrix.health_care_coverage == '3' %} selected {% endif %}>3: Some members (e.g. Children) have medical coverage</option>
+                    <option value="4" {% if matrix and matrix.health_care_coverage == '4' %} selected {% endif %}>4: All members can get medical care when needed, buy may strain budget</option>
+                    <option value="5" {% if matrix and matrix.health_care_coverage == '5' %} selected {% endif %}>5: All members are covered by affordable, adequate health insurance</option>
                 </select>
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Life Skills: </label>
                 <select name="life_skills" id="self-sufficiency-life-skills" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <option value="1" {% if matrix and matrix.life_skills == '1' %} selected {% endif %}>1</option>
+                    <option value="2" {% if matrix and matrix.life_skills == '2' %} selected {% endif %}>2</option>
+                    <option value="3" {% if matrix and matrix.life_skills == '3' %} selected {% endif %}>3</option>
+                    <option value="4" {% if matrix and matrix.life_skills == '4' %} selected {% endif %}>4</option>
+                    <option value="5" {% if matrix and matrix.life_skills == '5' %} selected {% endif %}>5</option>
                 </select>
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Family/Social Relations: </label>
                 <select name="family_social_relations" id="self-sufficiency-family-social-relations" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <option value="1" {% if matrix and matrix.family_social_relations == '1' %} selected {% endif %}>1</option>
+                    <option value="2" {% if matrix and matrix.family_social_relations == '2' %} selected {% endif %}>2</option>
+                    <option value="3" {% if matrix and matrix.family_social_relations == '3' %} selected {% endif %}>3</option>
+                    <option value="4" {% if matrix and matrix.family_social_relations == '4' %} selected {% endif %}>4</option>
+                    <option value="5" {% if matrix and matrix.family_social_relations == '5' %} selected {% endif %}>5</option>
                 </select>
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Mobility: </label>
                 <select name="mobility" id="self-sufficiency-mobility" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <option value="1" {% if matrix and matrix.mobility == '1' %} selected {% endif %}>1</option>
+                    <option value="2" {% if matrix and matrix.mobility == '2' %} selected {% endif %}>2</option>
+                    <option value="3" {% if matrix and matrix.mobility == '3' %} selected {% endif %}>3</option>
+                    <option value="4" {% if matrix and matrix.mobility == '4' %} selected {% endif %}>4</option>
+                    <option value="5" {% if matrix and matrix.mobility == '5' %} selected {% endif %}>5</option>
                 </select>
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Community Involvement: </label>
                 <select name="community_involvement" id="self-sufficiency-community-involvement" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <option value="1" {% if matrix and matrix.community_involvement == '1' %} selected {% endif %}>1</option>
+                    <option value="2" {% if matrix and matrix.community_involvement == '2' %} selected {% endif %}>2</option>
+                    <option value="3" {% if matrix and matrix.community_involvement == '3' %} selected {% endif %}>3</option>
+                    <option value="4" {% if matrix and matrix.community_involvement == '4' %} selected {% endif %}>4</option>
+                    <option value="5" {% if matrix and matrix.community_involvement == '5' %} selected {% endif %}>5</option>
                 </select>
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Parenting Skills: </label>
                 <select name="parenting_skills" id="self-sufficiency-parenting-skills" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <option value="1" {% if matrix and matrix.parenting_skills == '1' %} selected {% endif %}>1</option>
+                    <option value="2" {% if matrix and matrix.parenting_skills == '2' %} selected {% endif %}>2</option>
+                    <option value="3" {% if matrix and matrix.parenting_skills == '3' %} selected {% endif %}>3</option>
+                    <option value="4" {% if matrix and matrix.parenting_skills == '4' %} selected {% endif %}>4</option>
+                    <option value="5" {% if matrix and matrix.parenting_skills == '5' %} selected {% endif %}>5</option>
                 </select>
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Legal: </label>
                 <select name="legal" id="self-sufficiency-legal" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <option value="1" {% if matrix and matrix.legal == '1' %} selected {% endif %}>1</option>
+                    <option value="2" {% if matrix and matrix.legal == '1' %} selected {% endif %}>2</option>
+                    <option value="3" {% if matrix and matrix.legal == '1' %} selected {% endif %}>3</option>
+                    <option value="4" {% if matrix and matrix.legal == '1' %} selected {% endif %}>4</option>
+                    <option value="5" {% if matrix and matrix.legal == '1' %} selected {% endif %}>5</option>
                 </select>
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Mental Health: </label>
                 <select name="mental_health" id="self-sufficiency-mental-health" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <option value="1" {% if matrix and matrix.health == '1' %} selected {% endif %}>1</option>
+                    <option value="2" {% if matrix and matrix.health == '2' %} selected {% endif %}>2</option>
+                    <option value="3" {% if matrix and matrix.health == '3' %} selected {% endif %}>3</option>
+                    <option value="4" {% if matrix and matrix.health == '4' %} selected {% endif %}>4</option>
+                    <option value="5" {% if matrix and matrix.health == '5' %} selected {% endif %}>5</option>
                 </select>
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Substance Abuse: </label>
                 <select name="substance_abuse" id="self-sufficiency-substance-abuse" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <option value="1" {% if matrix and matrix.substance_abuse == '1' %} selected {% endif %}>1</option>
+                    <option value="2" {% if matrix and matrix.substance_abuse == '2' %} selected {% endif %}>2</option>
+                    <option value="3" {% if matrix and matrix.substance_abuse == '3' %} selected {% endif %}>3</option>
+                    <option value="4" {% if matrix and matrix.substance_abuse == '4' %} selected {% endif %}>4</option>
+                    <option value="5" {% if matrix and matrix.substance_abuse == '5' %} selected {% endif %}>5</option>
                 </select>
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Safety: </label>
                 <select name="safety" id="self-sufficiency-safety" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <option value="1" {% if matrix and matrix.safety == '1' %} selected {% endif %}>1</option>
+                    <option value="2" {% if matrix and matrix.safety == '2' %} selected {% endif %}>2</option>
+                    <option value="3" {% if matrix and matrix.safety == '3' %} selected {% endif %}>3</option>
+                    <option value="4" {% if matrix and matrix.safety == '4' %} selected {% endif %}>4</option>
+                    <option value="5" {% if matrix and matrix.safety == '5' %} selected {% endif %}>5</option>
                 </select>
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Disabilities: </label>
                 <select name="disabilities" id="self-sufficiency-disabilities" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <option value="1" {% if matrix and matrix.disabilities == '1' %} selected {% endif %}>1</option>
+                    <option value="2" {% if matrix and matrix.disabilities == '2' %} selected {% endif %}>2</option>
+                    <option value="3" {% if matrix and matrix.disabilities == '3' %} selected {% endif %}>3</option>
+                    <option value="4" {% if matrix and matrix.disabilities == '4' %} selected {% endif %}>4</option>
+                    <option value="5" {% if matrix and matrix.disabilities == '5' %} selected {% endif %}>5</option>
                 </select>
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Other: </label>
                 <select name="other" id="self-sufficiency-other" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <option value="1" {% if matrix and matrix.other == '1' %} selected {% endif %}>1</option>
+                    <option value="2" {% if matrix and matrix.other == '1' %} selected {% endif %}>2</option>
+                    <option value="3" {% if matrix and matrix.other == '1' %} selected {% endif %}>3</option>
+                    <option value="4" {% if matrix and matrix.other == '1' %} selected {% endif %}>4</option>
+                    <option value="5" {% if matrix and matrix.other == '1' %} selected {% endif %}>5</option>
                 </select>
             </div>
         </div>
