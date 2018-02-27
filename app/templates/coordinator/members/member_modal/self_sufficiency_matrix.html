@@ -1,32 +1,39 @@
 <div class="col-sm-12">
-    <form class="form">
-        <label class="member-form-label">Assesment Type:</label>
-        <div class="form-group row">
-            <select class="input input-sm uw-input col-sm-10">
-                <option value="Initial">Initial</option>
-                <option value="Initial">Interim</option>
-                <option value="Initial">Exit</option>
-            </select>
+    <form class="form" id="self-sufficiency-matrix-form">
+        <div class="assesment-headers text-center container col-sm-12 col-no-padding">
+            <div class="col-sm-4 col-no-padding assesment-item-left">
+                <label class=""><h5>Assesment Date:</h5></label>
+                <div class="form-group row">
+                    <input {% if date %} value="{{ date }}" {% endif %} name="date" type="date" class="input input-sm uw-input col-sm-8 col-sm-offset-2">
+                </div>
+            </div>
+            <div class="col-sm-4 col-no-padding">
+                <label class=""><h5>Total Score:</h5></label>
+                <div class="form-group row">
+                    <h5 id="self-sufficiency-score" class="uw_lighter">19</h5>
+                </div>
+            </div>
+            <div class="col-sm-4 col-no-padding assesment-item-right">
+                <label class=""><h5>{% if matrix %} Update: {% else %} Save: {% endif %}</h5></label>
+                <div class="form-group row">
+                    <button onclick="saveAssesment()" type="button" class="col-sm-6 col-sm-offset-3 btn btn-sm uw-button-inverse">Click Here</button>
+                </div>
+            </div>
         </div>
-        <label class="member-form-label">Assesment Date:</label>
-        <div class="form-group row">
-            <input type="date" class="input input-sm uw-input col-sm-10">
-        </div>
-        <div class="self-sufficiency-matrix-results">
-            <label class="member-form-label">Assesment Answers:</label>
+        <div class="self-sufficiency-matrix-results col-sm-12 col-no-padding">
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Housing: </label>
-                <select id="self-sufficiency-housing" class="input input-sm uw-input col-sm-7">
-                    <option value="1">1: Homeless or threatened with eviction</option>
-                    <option value="2">2: In transitional, temporary, or substandard housing; and/or current rent/mortgage payment is unaffordable (over 30% of income)</option>
-                    <option value="3">3: In stable housing that is safe but only marginally adequate</option>
-                    <option value="4">4: Household is in safe, adequate subsidized housing</option>
-                    <option value="5">5: Household is safe, adequate, unsubsidized housing</option>
+                <select name="housing" id="self-sufficiency-housing" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
+                    <option value="1" {% if matrix and matrix.housing == '1' %} selected {% endif %}>1: Homeless or threatened with eviction</option>
+                    <option value="2" {% if matrix and matrix.housing == '2' %} selected {% endif %}>2: In transitional, temporary, or substandard housing; and/or current rent/mortgage payment is unaffordable (over 30% of income)</option>
+                    <option value="3" {% if matrix and matrix.housing == '3' %} selected {% endif %}>3: In stable housing that is safe but only marginally adequate</option>
+                    <option value="4" {% if matrix and matrix.housing == '4' %} selected {% endif %}>4: Household is in safe, adequate subsidized housing</option>
+                    <option value="5" {% if matrix and matrix.housing == '5' %} selected {% endif %}>5: Household is safe, adequate, unsubsidized housing</option>
                 </select>
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Employment: </label>
-                <select id="self-sufficiency-employment" class="input input-sm uw-input col-sm-7">
+                <select name="employment" id="self-sufficiency-employment" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
                     <option value="1">1: No job</option>
                     <option value="2">2: Temporary, part-time, or seasonal; inadequate pay, no benefits</option>
                     <option value="3">3: Employed full time; inadequate pay; few or no benefits</option>
@@ -36,7 +43,7 @@
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Income: </label>
-                <select id="self-sufficiency-income" class="input input-sm uw-input col-sm-7">
+                <select name="income" id="self-sufficiency-income" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
                     <option value="1">1: No income</option>
                     <option value="2">2: Inadequate income and/or spontaneous or inappropriate spending</option>
                     <option value="3">3: Can meet basic needs with subsidy; appropriate spending</option>
@@ -46,7 +53,7 @@
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Food: </label>
-                <select id="self-sufficiency-food" class="input input-sm uw-input col-sm-7">
+                <select name="food" id="self-sufficiency-food" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
                     <option value="1">1: No food or means to prepare it. Relies to a significant degree on other sources of free or low-cost food</option>
                     <option value="2">2: Household is on food stamps</option>
                     <option value="3">3: Can meet basic food needs, but requires occasional assistance</option>
@@ -56,7 +63,7 @@
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Child Care: </label>
-                <select id="self-sufficiency-child-care" class="input input-sm uw-input col-sm-7">
+                <select name="child_care" id="self-sufficiency-child-care" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
                     <option value="1">1: Needs childcare, but none is available/accessible and/or child is not eligible</option>
                     <option value="2">2: Childcare is unreliable or unaffordable, inadequate supervision is a problem for childcare that is available</option>
                     <option value="3">3: Affordable subsidized childcare is available, but limited</option>
@@ -66,7 +73,7 @@
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Children's Education: </label>
-                <select id="self-sufficiency-childrens-education" class="input input-sm uw-input col-sm-7">
+                <select name="childrens_education" id="self-sufficiency-childrens-education" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
                     <option value="1">1: One or more school-aged children not enrolled in school</option>
                     <option value="2">2: One or more school-aged children enrolled in school, but not attending classes</option>
                     <option value="3">3: Enrolled in school, but one or more children only occasionally attending classes</option>
@@ -76,7 +83,7 @@
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Adult Education: </label>
-                <select id="self-sufficiency-adult-education" class="input input-sm uw-input col-sm-7">
+                <select name="adult_education" id="self-sufficiency-adult-education" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
                     <option value="1">1: Literacy problems and/or no high school diploma/GED are serious barriers to employment</option>
                     <option value="2">2: Enrolled in literacy and/or GED program and/or has sufficient command of English to where language is not a barrier to employment</option>
                     <option value="3">3: Has high school diploma/GED</option>
@@ -86,7 +93,7 @@
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Health Care Coverage: </label>
-                <select id="self-sufficiency-health-care-coverage" class="input input-sm uw-input col-sm-7">
+                <select name="health_care_coverage" id="self-sufficiency-health-care-coverage" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
                     <option value="1">1: No medical coverage with immediate need</option>
                     <option value="2">2: No medical coverage and great difficulty accessing medical care when needed. Some household members may be in poor health.</option>
                     <option value="3">3: Some members (e.g. Children) have medical coverage</option>
@@ -96,7 +103,7 @@
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Life Skills: </label>
-                <select id="self-sufficiency-life-skills" class="input input-sm uw-input col-sm-7">
+                <select name="life_skills" id="self-sufficiency-life-skills" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -106,7 +113,7 @@
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Family/Social Relations: </label>
-                <select id="self-sufficiency-family-social-relations" class="input input-sm uw-input col-sm-7">
+                <select name="family_social_relations" id="self-sufficiency-family-social-relations" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -116,7 +123,7 @@
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Mobility: </label>
-                <select id="self-sufficiency-mobility" class="input input-sm uw-input col-sm-7">
+                <select name="mobility" id="self-sufficiency-mobility" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -126,7 +133,7 @@
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Community Involvement: </label>
-                <select id="self-sufficiency-community-involvement" class="input input-sm uw-input col-sm-7">
+                <select name="community_involvement" id="self-sufficiency-community-involvement" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -136,7 +143,7 @@
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Parenting Skills: </label>
-                <select id="self-sufficiency-parenting-skills" class="input input-sm uw-input col-sm-7">
+                <select name="parenting_skills" id="self-sufficiency-parenting-skills" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -146,7 +153,7 @@
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Legal: </label>
-                <select id="self-sufficiency-legal" class="input input-sm uw-input col-sm-7">
+                <select name="legal" id="self-sufficiency-legal" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -156,7 +163,7 @@
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Mental Health: </label>
-                <select id="self-sufficiency-mental-health" class="input input-sm uw-input col-sm-7">
+                <select name="mental_health" id="self-sufficiency-mental-health" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -166,7 +173,7 @@
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Substance Abuse: </label>
-                <select id="self-sufficiency-substance-abuse" class="input input-sm uw-input col-sm-7">
+                <select name="substance_abuse" id="self-sufficiency-substance-abuse" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -176,7 +183,7 @@
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Safety: </label>
-                <select id="self-sufficiency-safety" class="input input-sm uw-input col-sm-7">
+                <select name="safety" id="self-sufficiency-safety" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -186,7 +193,7 @@
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Disabilities: </label>
-                <select id="self-sufficiency-disabilities" class="input input-sm uw-input col-sm-7">
+                <select name="disabilities" id="self-sufficiency-disabilities" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -196,7 +203,7 @@
             </div>
             <div class="form-group row assesment-answer">
                 <label class="member-check-label col-sm-3">Other: </label>
-                <select id="self-sufficiency-other" class="input input-sm uw-input col-sm-7">
+                <select name="other" id="self-sufficiency-other" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -204,6 +211,9 @@
                     <option value="5">5</option>
                 </select>
             </div>
+        </div>
+        <div class="form-group row col-sm-12 col-no-padding text-center">
+            <button type="button" class="btn btn-sm uw-button-inverse" onclick="saveAssesment()">Save Assesment</button>
         </div>
     </form>
 </div>

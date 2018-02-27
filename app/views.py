@@ -148,8 +148,9 @@ def coordinator_members_update():
     new_member = session.get('new_member')
     key = request.form['key']
     data = request.form['data']
-    new_member[key] = json.loads(data)
-    session['new_member'] = new_member
+    if key != 'self_sufficiency_matrix' and key != 'self_efficacy_quiz':
+        new_member[key] = json.loads(data)
+        session['new_member'] = new_member
     print session.get('new_member')
     next_page = request.form['next_page']
     URL = 'coordinator_members_%s'%(next_page)
@@ -184,9 +185,26 @@ Return the template for the self sufficiency matrix in the add member modal
 '''
 @app.route('/coordinator/members/self_sufficiency_matrix', methods=['POST'])
 def coordinator_members_self_sufficiency_matrix():
+    matrix = None
+    date = None
+    if 'date' in request.form and request.form['date'] != "New":
+        date = request.form['date']
+        matrix = session.get('new_member')['self_sufficiency_matrix'][date]
+    return render_template('coordinator/members/member_modal/self_sufficiency_matrix.html', matrix=matrix, date=date)
 
-    #TODO: pass the member information from the session into the template
-
+@app.route('/coordinator/members/save_self_sufficiency_matrix', methods=['POST'])
+def coordinator_members_save_self_sufficiency_matrix():
+    view_member = session.get('new_member')
+    print request.form
+    date = request.form['date']
+    answers = json.loads(request.form['answers'])
+    if date == '':
+        return jsonify({"success":False, "status":400, "error_message":"date can not be blank for self sufficiency matrix"})
+    if date in view_member['self_sufficiency_matrix']:
+        return jsonify({"success":False, "status":400, "error_message":"there is already a self sufficiency matrix for this date"})
+    view_member['self_sufficiency_matrix'][date] = answers
+    session['new_member'] = view_member
+    print session.get('new_member')
     return render_template('coordinator/members/member_modal/self_sufficiency_matrix.html')
 
 '''
