@@ -2,9 +2,6 @@ from app import db, models
 
 def loginUser(username, password):
     match = models.User.query.get(username)
-    print models.User.query.all()
-    print username
-    print match
     if match == None:
         return None
     if password != match.password:
