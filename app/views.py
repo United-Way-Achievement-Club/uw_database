@@ -8,7 +8,8 @@ Description
 Handle requests to the server by returning proper data or template
 
 '''
-from app import app, db, models
+from app import app
+from db_accessor import *
 from flask import render_template, redirect, session, request, jsonify, url_for
 from sqlalchemy import exc
 import json
@@ -40,13 +41,12 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        # TODO: *DATABASE* remove hardcoded user check and actually check for user in database
-
-        if username == 'user' and password == 'pass':
+        user = loginUser(username, password)
+        if user != None:
             session['login'] = True
-            session['member_type'] = 'coord'
-            member_type = 'coord'
-            if member_type == 'coord':
+            session['member_type'] = user.type
+            member_type = user.type
+            if member_type == 'coordinator':
                 return redirect('coordinator/home')
             else:
                 return redirect('member/home')
@@ -214,6 +214,9 @@ def coordinator_members_save_self_sufficiency_matrix():
     session['new_member'] = view_member
     return render_template('coordinator/members/member_modal/self_sufficiency_matrix.html')
 
+'''
+Remove the self sufficiency matrix from the session
+'''
 @app.route('/coordinator/members/remove_self_sufficiency_matrix', methods=['POST'])
 def coordinator_members_remove_self_sufficiency_matrix():
     date = request.form['date']
@@ -257,6 +260,9 @@ def coordinator_members_save_self_efficacy_quiz():
     session['new_member'] = view_member
     return render_template('coordinator/members/member_modal/self_efficacy_quiz.html')
 
+'''
+Remove the self efficacy quiz from the session
+'''
 @app.route('/coordinator/members/remove_self_efficacy_quiz', methods=['POST'])
 def coordinator_members_remove_self_efficacy_quiz():
     date = request.form['date']
@@ -299,7 +305,7 @@ def coordinator_create_member():
 
         #TODO: upload profile picture
 
-        #TODO: *DATABASE* add member to database
+        #TODO: *DATABASE* add member to database- see addMember function in db_accessor.py
 
         session['new_member'] = {'general':{}, 'enrollment_form':{}, 'demographic_data':{}, 'self_sufficiency_matrix':{}, 'self_efficacy_quiz':{}}
         return jsonify({"success":True, "status":200})
