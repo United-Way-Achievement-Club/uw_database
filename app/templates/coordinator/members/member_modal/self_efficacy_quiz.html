@@ -1,22 +1,48 @@
 <div class="col-sm-12">
-    <form class="form">
-        <label class="member-form-label">Assesment Type:</label>
-        <div class="form-group row">
-            <select id="self-efficacy-type" class="input input-sm uw-input col-sm-10">
-                <option value="Initial">Initial</option>
-                <option value="Initial">Interim</option>
-                <option value="Initial">Exit</option>
-            </select>
-        </div>
-        <label class="member-form-label">Assesment Date:</label>
-        <div class="form-group row">
-            <input id="self-efficacy-date" type="date" class="input input-sm uw-input col-sm-10">
+    <form class="form" id="self-efficacy-quiz-form">
+        <div class="assesment-headers text-center container col-sm-12 col-no-padding">
+            <div class="col-sm-4 col-no-padding assesment-item-left">
+                <label class=""><h5>Assesment Date:</h5></label>
+                <div class="form-group row">
+                    {% if not date or date == None %}
+                    <input name="date" id="self-efficacy-date" type="date" class="input input-sm uw-input col-sm-8 col-sm-offset-2">
+                    {% else %}
+                    <h5 id="quiz-date-header" class="uw_lighter">{{ date }}</h5>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-sm-4 col-no-padding">
+                <label class=""><h5>Total Score:</h5></label>
+                <div class="form-group row">
+                    <h5 id="self-efficacy-score" class="uw_lighter">-24</h5>
+                </div>
+            </div>
+            <div class="col-sm-4 col-no-padding assesment-item-right">
+                <label class=""><h5>{% if quiz %} Options: {% else %} Save: {% endif %}</h5></label>
+                <div class="form-group row">
+                    {% if quiz %}
+                    <button onclick="saveQuiz()" type="button" class="col-sm-4 col-sm-offset-2 btn btn-sm uw-button-inverse matrix-options-left">Update</button>
+                    <button onclick="removeQuiz('{{ date }}')" type="button" class="col-sm-4 btn btn-sm uw-button-danger matrix-options-right">Remove</button>
+                    {% else %}
+                    <button onclick="saveQuiz()" type="button" class="col-sm-6 col-sm-offset-3 btn btn-sm uw-button-inverse">Click Here</button>
+                    {% endif %}
+                </div>
+            </div>
         </div>
         <div class="self-efficacy-quiz-results">
-            <label class="member-form-label">Quiz Answers:</label>
             <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-9 self-efficacy-question">If I make plans, I am convinced I will succeed in executing them </label>
-                <select id="self-efficacy-1" class="input input-sm uw-input col-sm-1">
+                <label class="member-check-label col-sm-10 self-efficacy-question">If I make plans, I am convinced I will succeed in executing them </label>
+                <select name="self_efficacy_1" id="self-efficacy-1" class="input input-sm uw-input col-sm-1 self-efficacy-answer" onchange="changeQuizScore()">
+                    <option value="-2" {% if quiz and quiz.self_efficacy_1 == '-2' %} selected {% endif %}>-2</option>
+                    <option value="-1" {% if quiz and quiz.self_efficacy_1 == '-1' %} selected {% endif %}>-1</option>
+                    <option value="0" {% if quiz and quiz.self_efficacy_1 == '0' %} selected {% endif %}>0</option>
+                    <option value="1" {% if quiz and quiz.self_efficacy_1 == '1' %} selected {% endif %}>1</option>
+                    <option value="2" {% if quiz and quiz.self_efficacy_1 == '2' %} selected {% endif %}>2</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-10 self-efficacy-question">If I have a failure the first time, I bite into it until it is going better </label>
+                <select name="self_efficacy_2" id="self-efficacy-2" class="input input-sm uw-input col-sm-1 self-efficacy-answer" onchange="changeQuizScore()">
                     <option value="-2">-2</option>
                     <option value="-1">-1</option>
                     <option value="0">0</option>
@@ -25,18 +51,8 @@
                 </select>
             </div>
             <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-9 self-efficacy-question">If I have a failure the first time, I bite into it until it is going better </label>
-                <select id="self-efficacy-2" class="input input-sm uw-input col-sm-1">
-                    <option value="1">-2</option>
-                    <option value="2">-1</option>
-                    <option value="3">0</option>
-                    <option value="4">1</option>
-                    <option value="5">2</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-9 self-efficacy-question">If I absolutely want something, it usually goes wrong </label>
-                <select id="self-efficacy-3" class="input input-sm uw-input col-sm-1">
+                <label class="member-check-label col-sm-10 self-efficacy-question">If I absolutely want something, it usually goes wrong </label>
+                <select name="self_efficacy_3" id="self-efficacy-3" class="input input-sm uw-input col-sm-1 self-efficacy-answer" onchange="changeQuizScore()">
                     <option value="-2">-2</option>
                     <option value="-1">-1</option>
                     <option value="0">0</option>
@@ -45,8 +61,8 @@
                 </select>
             </div>
             <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-9 self-efficacy-question">If I have the impression something new is complicated, I do not start it </label>
-                <select id="self-efficacy-4" class="input input-sm uw-input col-sm-1">
+                <label class="member-check-label col-sm-10 self-efficacy-question">If I have the impression something new is complicated, I do not start it </label>
+                <select name="self_efficacy_4" id="self-efficacy-4" class="input input-sm uw-input col-sm-1 self-efficacy-answer" onchange="changeQuizScore()">
                     <option value="-2">-2</option>
                     <option value="-1">-1</option>
                     <option value="0">0</option>
@@ -55,8 +71,8 @@
                 </select>
             </div>
             <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-9 self-efficacy-question">Even with unpleasant tasks, I hold on until I am finished </label>
-                <select id="self-efficacy-5" class="input input-sm uw-input col-sm-1">
+                <label class="member-check-label col-sm-10 self-efficacy-question">Even with unpleasant tasks, I hold on until I am finished </label>
+                <select name="self_efficacy_5" id="self-efficacy-5" class="input input-sm uw-input col-sm-1 self-efficacy-answer" onchange="changeQuizScore()">
                     <option value="-2">-2</option>
                     <option value="-1">-1</option>
                     <option value="0">0</option>
@@ -65,8 +81,8 @@
                 </select>
             </div>
             <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-9 self-efficacy-question">I have difficulties solving problems well in my life</label>
-                <select id="self-efficacy-6" class="input input-sm uw-input col-sm-1">
+                <label class="member-check-label col-sm-10 self-efficacy-question">I have difficulties solving problems well in my life</label>
+                <select name="self_efficacy_6" id="self-efficacy-6" class="input input-sm uw-input col-sm-1 self-efficacy-answer" onchange="changeQuizScore()">
                     <option value="-2">-2</option>
                     <option value="-1">-1</option>
                     <option value="0">0</option>
@@ -75,8 +91,8 @@
                 </select>
             </div>
             <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-9 self-efficacy-question">If I made a decision to do something, I will do it </label>
-                <select id="self-efficacy-7" class="input input-sm uw-input col-sm-1">
+                <label class="member-check-label col-sm-10 self-efficacy-question">If I made a decision to do something, I will do it </label>
+                <select name="self_efficacy_7" id="self-efficacy-7" class="input input-sm uw-input col-sm-1 self-efficacy-answer" onchange="changeQuizScore()">
                     <option value="-2">-2</option>
                     <option value="-1">-1</option>
                     <option value="0">0</option>
@@ -85,8 +101,8 @@
                 </select>
             </div>
             <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-9 self-efficacy-question">If I start something new, I soon have to have the idea I'm on the right track, otherwise I quit </label>
-                <select id="self-efficacy-8" class="input input-sm uw-input col-sm-1">
+                <label class="member-check-label col-sm-10 self-efficacy-question">If I start something new, I soon have to have the idea I'm on the right track, otherwise I quit </label>
+                <select name="self_efficacy_8" id="self-efficacy-8" class="input input-sm uw-input col-sm-1 self-efficacy-answer" onchange="changeQuizScore()">
                     <option value="-2">-2</option>
                     <option value="-1">-1</option>
                     <option value="0">0</option>
@@ -95,8 +111,8 @@
                 </select>
             </div>
             <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-9 self-efficacy-question">Unexpected problems make me quickly lose my balance</label>
-                <select id="self-efficacy-9" class="input input-sm uw-input col-sm-1">
+                <label class="member-check-label col-sm-10 self-efficacy-question">Unexpected problems make me quickly lose my balance</label>
+                <select name="self_efficacy_9" id="self-efficacy-9" class="input input-sm uw-input col-sm-1 self-efficacy-answer" onchange="changeQuizScore()">
                     <option value="-2">-2</option>
                     <option value="-1">-1</option>
                     <option value="0">0</option>
@@ -105,8 +121,8 @@
                 </select>
             </div>
             <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-9 self-efficacy-question">If I make a mistake, I try even harder </label>
-                <select id="self-efficacy-10" class="input input-sm uw-input col-sm-1">
+                <label class="member-check-label col-sm-10 self-efficacy-question">If I make a mistake, I try even harder </label>
+                <select name="self_efficacy_10" id="self-efficacy-10" class="input input-sm uw-input col-sm-1 self-efficacy-answer" onchange="changeQuizScore()">
                     <option value="-2">-2</option>
                     <option value="-1">-1</option>
                     <option value="0">0</option>
@@ -115,8 +131,8 @@
                 </select>
             </div>
             <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-9 self-efficacy-question">I do not start learning new things if I think they are too difficult </label>
-                <select id="self-efficacy-11" class="input input-sm uw-input col-sm-1">
+                <label class="member-check-label col-sm-10 self-efficacy-question">I do not start learning new things if I think they are too difficult </label>
+                <select name="self_efficacy_11" id="self-efficacy-11" class="input input-sm uw-input col-sm-1 self-efficacy-answer" onchange="changeQuizScore()">
                     <option value="-2">-2</option>
                     <option value="-1">-1</option>
                     <option value="0">0</option>
@@ -125,8 +141,8 @@
                 </select>
             </div>
             <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-9 self-efficacy-question">I doubt myself </label>
-                <select id="self-efficacy-12" class="input input-sm uw-input col-sm-1">
+                <label class="member-check-label col-sm-10 self-efficacy-question">I doubt myself </label>
+                <select name="self_efficacy_12" id="self-efficacy-12" class="input input-sm uw-input col-sm-1 self-efficacy-answer" onchange="changeQuizScore()">
                     <option value="-2">-2</option>
                     <option value="-1">-1</option>
                     <option value="0">0</option>
@@ -134,6 +150,9 @@
                     <option value="2">2</option>
                 </select>
             </div>
+        </div>
+        <div class="form-group row col-sm-12 col-no-padding text-center">
+            <button type="button" class="btn btn-sm uw-button-inverse" onclick="saveQuiz()">Save Assesment</button>
         </div>
     </form>
 </div>

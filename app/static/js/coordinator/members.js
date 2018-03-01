@@ -31,12 +31,20 @@ function closeModal() {
     $("#crop-success-button").hide();
     $("#member-profile-pic").attr('src', DEFAULT_PIC_LOCATION);
     $("#self-sufficiency-score").html('19');
+    $("#self-efficacy-score").html('19');
     $("#self_sufficiency_matrix_dropdown .member-modal-nav-item-dropdown").not("#self_sufficiency_matrix_dropdown .member-modal-nav-item-dropdown:first").remove();
+    $("#self_efficacy_quiz_dropdown .member-modal-nav-item-dropdown").not("#self_efficacy_quiz_dropdown .member-modal-nav-item-dropdown:first").remove();
     if (!$("#self_sufficiency_matrix_dropdown").is(":hidden")) {
         $("#self_sufficiency_matrix_dropdown").hide();
         $(".member-modal-dropdown-active").removeClass("member-modal-dropdown-active");
         $(".member-modal-nav-item-dropdown-active").removeClass("member-modal-nav-item-dropdown-active");
         $("#self_sufficiency_matrix_ic").css({"transform": "rotate(" + 0 + "deg) translateY(-1px)"});
+    }
+    if (!$("#self_efficacy_quiz_dropdown").is(":hidden")) {
+        $("#self_efficacy_quiz_dropdown").hide();
+        $(".member-modal-dropdown-active").removeClass("member-modal-dropdown-active");
+        $(".member-modal-nav-item-dropdown-active").removeClass("member-modal-nav-item-dropdown-active");
+        $("#self_efficacy_quiz_ic").css({"transform": "rotate(" + 0 + "deg) translateY(-1px)"});
     }
     $.post( "members/clear_new_member", function() {
       console.log( "successfully requested clear session" );
@@ -98,7 +106,7 @@ function saveModal() {
 function memberModalChange(e) {
     var id = $(e).attr("id");
     var memberData = saveMemberToStorage(sessionStorage.currentPage);
-    if (id == "self_sufficiency_matrix") {
+    if (id == "self_sufficiency_matrix" || id == "self_efficacy_quiz") {
         showDropdown(id + "_dropdown", id + "_ic");
     }
     $.post( "members/update", {'key':sessionStorage.currentPage,'data':JSON.stringify(memberData),'next_page':id}, function() {
@@ -391,6 +399,7 @@ function saveAssesment() {
             $("#member-modal-body-component").html(data);
             $("#self_sufficiency_matrix_dropdown").append('<div id="' + date + '" onclick="viewMatrix(this)" class="member-modal-nav-item-dropdown"><a><h5>' + date + '</h5></a></div>');
         }
+        changeScore();
       })
       .fail(function(err) {
         console.log( "error adding self sufficiency matrix answer" );
@@ -415,6 +424,7 @@ function viewMatrix(e) {
         $(e).addClass("member-modal-nav-item-dropdown-active");
         $("#member-modal-body-component").html(data);
         $(".member-modal-nav-item-active").removeClass("member-modal-nav-item-active");
+        $(".member-modal-dropdown-active").removeClass('member-modal-dropdown-active');
         if (!$("#self_sufficiency_matrix").hasClass('member-modal-nav-item-active')) {
             $("#self_sufficiency_matrix").addClass('member-modal-nav-item-active');
         }
@@ -444,6 +454,108 @@ function viewMatrix(e) {
         $("#self_sufficiency_matrix_dropdown .member-modal-nav-item-dropdown:first-child").addClass("member-modal-nav-item-dropdown-active");
         $("#" + date).remove();
         changeScore();
+
+      })
+      .fail(function(err) {
+        console.log( "error viewing html for self sufficiency matrix" );
+        console.log(err);
+      })
+      .always(function() {
+        console.log( "getting html for self sufficiency matrix" );
+      });
+ }
+
+ // ===================================== self efficacy quiz ===============================================
+
+
+function changeQuizScore() {
+    var score = 0;
+    $(".self-efficacy-answer").each(function(i, obj) {
+        score += parseInt($(obj).val());
+    });
+    $("#self-efficacy-score").html(score);
+}
+
+function saveQuiz() {
+    var selfEfficacyValues = $("#self-efficacy-quiz-form").serializeArray();
+    var date;
+    var answers = {};
+    for (v in selfEfficacyValues) {
+        if (selfEfficacyValues[v].name === 'date') {
+            date = selfEfficacyValues[v].value;
+        } else {
+            answers[selfEfficacyValues[v].name] = selfEfficacyValues[v].value;
+        }
+    }
+    if (date === undefined) {
+        date = $("#quiz-date-header").html();
+    }
+    $.post( "members/save_self_efficacy_quiz", {'date':date,'answers':JSON.stringify(answers)}, function() {
+      console.log( "successfully requested html for modal change" );
+      })
+      .done(function(data) {
+        if (data.success == false) {
+            window.alert(data.error_message);
+        } else {
+            console.log( "successfully added self efficacy quiz answer" );
+            $("#member-modal-body-component").html(data);
+            $("#self_efficacy_quiz_dropdown").append('<div id="' + date + '" onclick="viewQuiz(this)" class="member-modal-nav-item-dropdown"><a><h5>' + date + '</h5></a></div>');
+        }
+        changeQuizScore();
+      })
+      .fail(function(err) {
+        console.log( "error adding self efficacy quiz answer" );
+        console.log(err);
+      })
+      .always(function() {
+        console.log( "adding self efficacy quiz answer" );
+      });
+}
+
+function viewQuiz(e) {
+    var id = $(e).attr("id");
+    var date = $("#" + id + " a h5").html();
+    var memberData = saveMemberToStorage(sessionStorage.currentPage);
+    var currentPage = sessionStorage.currentPage;
+    $.post( "members/self_efficacy_quiz", {'date':date, 'key':currentPage, 'data':JSON.stringify(memberData)}, function() {
+      console.log( "successfully requested html for modal change" );
+      })
+      .done(function(data) {
+        console.log( "successfully viewing html for self sufficiency efficacy quiz" );
+        $(".member-modal-nav-item-dropdown-active").removeClass('member-modal-nav-item-dropdown-active');
+        $(e).addClass("member-modal-nav-item-dropdown-active");
+        $("#member-modal-body-component").html(data);
+        $(".member-modal-nav-item-active").removeClass("member-modal-nav-item-active");
+        $(".member-modal-dropdown-active").removeClass('member-modal-dropdown-active');
+        if (!$("#self_efficacy_quiz").hasClass('member-modal-nav-item-active')) {
+            $("#self_efficacy_quiz").addClass('member-modal-nav-item-active');
+        }
+        if (!$("#self_efficacy_quiz_dropdown").hasClass('member-modal-dropdown-active')) {
+            $("#self_efficacy_quiz_dropdown").addClass('member-modal-dropdown-active')
+        }
+        sessionStorage.currentPage = 'self_efficacy_quiz';
+        changeQuizScore();
+
+      })
+      .fail(function(err) {
+        console.log( "error viewing html for self efficacy quiz" );
+        console.log(err);
+      })
+      .always(function() {
+        console.log( "getting html for self efficacy quiz" );
+      });
+  }
+
+ function removeQuiz(date) {
+    $.post( "members/remove_self_efficacy_quiz", {'date':date}, function() {
+      console.log( "successfully requested to remove self efficacy quiz" );
+      })
+      .done(function(data) {
+        console.log( "successfully requested to remove self efficacy quiz" );
+        $("#member-modal-body-component").html(data);
+        $("#self_efficacy_quiz_dropdown .member-modal-nav-item-dropdown:first-child").addClass("member-modal-nav-item-dropdown-active");
+        $("#" + date).remove();
+        changeQuizScore();
 
       })
       .fail(function(err) {

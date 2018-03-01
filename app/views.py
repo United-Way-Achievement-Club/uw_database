@@ -190,7 +190,7 @@ def coordinator_members_self_sufficiency_matrix():
     if 'date' in request.form and request.form['date'] != "New":
         date = request.form['date']
         matrix = session.get('new_member')['self_sufficiency_matrix'][date]
-    if 'key' in request.form and request.form['key'] != 'self_sufficiency_matrix':
+    if 'key' in request.form and request.form['key'] != 'self_sufficiency_matrix' and request.form['key'] != 'self_efficacy_quiz':
         new_member = session.get('new_member')
         new_member[request.form['key']] = json.loads(request.form['data'])
         session['new_member'] = new_member
@@ -227,6 +227,42 @@ Return the template for the self efficacy quiz in the add member modal
 '''
 @app.route('/coordinator/members/self_efficacy_quiz', methods=['GET','POST'])
 def coordinator_members_self_efficacy_quiz():
+    quiz = None
+    date = None
+    if 'date' in request.form and request.form['date'] != "New":
+        date = request.form['date']
+        print session.get('new_member')['self_efficacy_quiz']
+        quiz = session.get('new_member')['self_efficacy_quiz'][date]
+    if 'key' in request.form and request.form['key'] != 'self_efficacy_quiz' and request.form['key'] != 'self_sufficiency_matrix':
+        new_member = session.get('new_member')
+        new_member[request.form['key']] = json.loads(request.form['data'])
+        session['new_member'] = new_member
+    return render_template('coordinator/members/member_modal/self_efficacy_quiz.html', quiz=quiz, date=date)
+
+'''
+Save or update self efficacy quiz values for a particular date
+'''
+@app.route('/coordinator/members/save_self_efficacy_quiz', methods=['POST'])
+def coordinator_members_save_self_efficacy_quiz():
+    view_member = session.get('new_member')
+    date = request.form['date']
+    answers = json.loads(request.form['answers'])
+    if date == '':
+        return jsonify({"success":False, "status":400, "error_message":"date can not be blank for self efficacy quiz"})
+    if date in view_member['self_efficacy_quiz']:
+        view_member['self_efficacy_quiz'][date] = answers
+        session['new_member'] = view_member
+        return jsonify({"success":False, "status":400, "error_message":"Updated Self Efficacy Quiz for " + date})
+    view_member['self_efficacy_quiz'][date] = answers
+    session['new_member'] = view_member
+    return render_template('coordinator/members/member_modal/self_efficacy_quiz.html')
+
+@app.route('/coordinator/members/remove_self_efficacy_quiz', methods=['POST'])
+def coordinator_members_remove_self_efficacy_quiz():
+    date = request.form['date']
+    view_member = session.get('new_member')
+    del view_member['self_efficacy_quiz'][date]
+    session['new_member'] = view_member
     return render_template('coordinator/members/member_modal/self_efficacy_quiz.html')
 
 '''
