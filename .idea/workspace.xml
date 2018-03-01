@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="780b2453-8607-4cb6-a53b-9c71c21beb1e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/db_accessor.py" afterPath="$PROJECT_DIR$/app/db_accessor.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views.py" afterPath="$PROJECT_DIR$/app/views.py" />
     </list>
     <ignored path="uw_database.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,8 +36,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="135" column="84" selection-start-line="135" selection-start-column="84" selection-end-line="135" selection-end-column="84" />
+            <state relative-caret-position="255">
+              <caret line="83" column="32" selection-start-line="83" selection-start-column="32" selection-end-line="83" selection-end-column="32" />
               <folding>
                 <element signature="e#122#141#0" expanded="true" />
               </folding>
@@ -145,8 +145,8 @@
         <option value="$PROJECT_DIR$/app/templates/coordinator/members/member_modal/self_efficacy_quiz.html" />
         <option value="$PROJECT_DIR$/app/templates/member/layout.html" />
         <option value="$PROJECT_DIR$/app/templates/member/home.html" />
-        <option value="$PROJECT_DIR$/app/views.py" />
         <option value="$PROJECT_DIR$/app/db_accessor.py" />
+        <option value="$PROJECT_DIR$/app/views.py" />
       </list>
     </option>
   </component>
@@ -1258,8 +1258,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="135" column="84" selection-start-line="135" selection-start-column="84" selection-end-line="135" selection-end-column="84" />
+        <state relative-caret-position="255">
+          <caret line="83" column="32" selection-start-line="83" selection-start-column="32" selection-end-line="83" selection-end-column="32" />
           <folding>
             <element signature="e#122#141#0" expanded="true" />
           </folding>

@@ -80,6 +80,8 @@ Member home page
 '''
 @app.route('/member/home')
 def member_home():
+    if not session.get('login'):
+        return redirect('login')
     return render_template('member/home.html')
 
 # ================================================= COORDINATOR ====================================================
@@ -101,6 +103,8 @@ Coordinator home page
 '''
 @app.route('/coordinator/home')
 def coordinator_home():
+    if not session.get('login'):
+        return redirect('login')
     return render_template('coordinator/home.html')
 
 # -- goals --
@@ -110,6 +114,8 @@ Coordinator goals page
 '''
 @app.route('/coordinator/goals')
 def coordinator_goals():
+    if not session.get('login'):
+        return redirect('login')
     return render_template('coordinator/goals.html')
 
 # -- approve --
@@ -119,6 +125,8 @@ Coordinator approve page
 '''
 @app.route('/coordinator/approve')
 def coordinator_approve():
+    if not session.get('login'):
+        return redirect('login')
     return render_template('coordinator/approve.html')
 
 # -- members --
@@ -129,6 +137,8 @@ Query members from the database and send to template
 '''
 @app.route('/coordinator/members')
 def coordinator_members():
+    if not session.get('login'):
+        return redirect('login')
     if not session.get('new_member'):
         session['new_member'] = {'general':{}, 'enrollment_form':{}, 'demographic_data':{}, 'self_sufficiency_matrix':{}, 'self_efficacy_quiz':{}}
     members = [{"image":"default_profile_pic.png", "member_name":"Example Member", "club_name":"Example Club", "goals_completed":5, "goals_in_progress":12},{"image":"sruti.png", "member_name":"Sruti B. Guhathakurta", "club_name":"Example Club", "goals_completed":10, "goals_in_progress":2}]
@@ -145,6 +155,8 @@ session temporarily, then redirect to the next page.
 '''
 @app.route('/coordinator/members/update', methods=['POST'])
 def coordinator_members_update():
+    if not session.get('login'):
+        return redirect('login')
     new_member = session.get('new_member')
     key = request.form['key']
     data = request.form['data']
@@ -161,6 +173,8 @@ Return the template for the general page in the add member modal
 '''
 @app.route('/coordinator/members/general', methods=['POST'])
 def coordinator_members_general():
+    if not session.get('login'):
+        return redirect('login')
     view_member = session.get('new_member')['general']
     return render_template('coordinator/members/member_modal/general.html', view_member=view_member)
 
@@ -169,6 +183,8 @@ Return the template for the enrollment form in the add member modal
 '''
 @app.route('/coordinator/members/enrollment_form', methods=['POST'])
 def coordinator_members_enrollment_form():
+    if not session.get('login'):
+        return redirect('login')
     view_member = session.get('new_member')['enrollment_form']
     return render_template('coordinator/members/member_modal/enrollment_form.html', view_member=view_member, states=getStates())
 
@@ -177,6 +193,8 @@ Return the template for the demographic data in the add member modal
 '''
 @app.route('/coordinator/members/demographic_data', methods=['POST'])
 def coordinator_members_demographic_data():
+    if not session.get('login'):
+        return redirect('login')
     view_member = session.get('new_member')['demographic_data']
     return render_template('coordinator/members/member_modal/demographic_data.html', view_member=view_member)
 
@@ -185,6 +203,8 @@ Return the template for the self sufficiency matrix in the add member modal
 '''
 @app.route('/coordinator/members/self_sufficiency_matrix', methods=['POST'])
 def coordinator_members_self_sufficiency_matrix():
+    if not session.get('login'):
+        return redirect('login')
     matrix = None
     date = None
     if 'date' in request.form and request.form['date'] != "New":
@@ -201,6 +221,8 @@ Save or update self sufficiency matrix values for a particular date
 '''
 @app.route('/coordinator/members/save_self_sufficiency_matrix', methods=['POST'])
 def coordinator_members_save_self_sufficiency_matrix():
+    if not session.get('login'):
+        return redirect('login')
     view_member = session.get('new_member')
     date = request.form['date']
     answers = json.loads(request.form['answers'])
@@ -219,6 +241,8 @@ Remove the self sufficiency matrix from the session
 '''
 @app.route('/coordinator/members/remove_self_sufficiency_matrix', methods=['POST'])
 def coordinator_members_remove_self_sufficiency_matrix():
+    if not session.get('login'):
+        return redirect('login')
     date = request.form['date']
     view_member = session.get('new_member')
     del view_member['self_sufficiency_matrix'][date]
@@ -230,6 +254,8 @@ Return the template for the self efficacy quiz in the add member modal
 '''
 @app.route('/coordinator/members/self_efficacy_quiz', methods=['GET','POST'])
 def coordinator_members_self_efficacy_quiz():
+    if not session.get('login'):
+        return redirect('login')
     quiz = None
     date = None
     if 'date' in request.form and request.form['date'] != "New":
@@ -247,6 +273,8 @@ Save or update self efficacy quiz values for a particular date
 '''
 @app.route('/coordinator/members/save_self_efficacy_quiz', methods=['POST'])
 def coordinator_members_save_self_efficacy_quiz():
+    if not session.get('login'):
+        return redirect('login')
     view_member = session.get('new_member')
     date = request.form['date']
     answers = json.loads(request.form['answers'])
@@ -265,6 +293,8 @@ Remove the self efficacy quiz from the session
 '''
 @app.route('/coordinator/members/remove_self_efficacy_quiz', methods=['POST'])
 def coordinator_members_remove_self_efficacy_quiz():
+    if not session.get('login'):
+        return redirect('login')
     date = request.form['date']
     view_member = session.get('new_member')
     del view_member['self_efficacy_quiz'][date]
@@ -276,6 +306,8 @@ Return the template for goals in the add member modal
 '''
 @app.route('/coordinator/members/goals', methods=['POST'])
 def coordinator_members_goals():
+    if not session.get('login'):
+        return redirect('login')
     return render_template('coordinator/members/member_modal/goals.html')
 
 '''
@@ -285,6 +317,8 @@ the member to the database. Then clear the new member object in the session.
 '''
 @app.route('/coordinator/members/create_member', methods=['POST'])
 def coordinator_create_member():
+    if not session.get('login'):
+        return redirect('login')
     new_data = json.loads(request.form['new_data'])
     new_member = session.get('new_member')
     new_member[request.form['current_page']] = new_data
@@ -317,6 +351,8 @@ Clear the new member object in the session when the new member modal is closed
 '''
 @app.route('/coordinator/members/clear_new_member', methods=['POST'])
 def coordinator_clear_new_member():
+    if not session.get('login'):
+        return redirect('login')
     session['new_member'] = {'general':{}, 'enrollment_form':{}, 'demographic_data':{}, 'self_sufficiency_matrix':{}, 'self_efficacy_quiz':{}}
     return render_template('coordinator/members/member_modal/general.html')
 
@@ -327,6 +363,8 @@ Coordinator clubs page
 '''
 @app.route('/coordinator/clubs')
 def coordinator_clubs():
+    if not session.get('login'):
+        return redirect('login')
     return render_template('coordinator/clubs.html')
 
 # -- messages --
@@ -336,6 +374,8 @@ Coordinator messages page
 '''
 @app.route('/coordinator/messages')
 def coordinator_messages():
+    if not session.get('login'):
+        return redirect('login')
     return render_template('coordinator/messages.html')
 
 # -- other --
