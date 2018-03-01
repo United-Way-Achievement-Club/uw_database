@@ -38,12 +38,26 @@ def getCoordinators():
 Add a new member to the database
 '''
 def addMember(member_obj):
+    # general contains general fields like username, password, join date...etc.
     general = member_obj['general']
+
+    # the enrollment form has basic data like first name, last name, email, phone numbers...etc.
     enrollment_form = member_obj['enrollment_form']
+
+    # demographic data has info on the demographics such as race, marital status...etc.
     demographic_data = member_obj['demographic_data']
+
+    # self sufficiency matrix is a dictionary with dates as keys and dictionaries as values containing questions and answers
     self_sufficiency_matrix = member_obj['self_sufficiency_matrix']
+
+    # self efficacy quiz is a dictionary in the same structure as self sufficiency matrix
     self_efficacy_quiz = member_obj['self_efficacy_quiz']
-    # TODO: parse values from these objects and create a new member based on them
-    # db.session.add(models.User(username=username ...))
-    # db.session.add(models.Member(username=username ...))
-    # db.session.commit()
+
+    # TODO: parse values from these dictionaries and create a new member based on them
+    # first, db.session.add(models.User(username=username ...))
+    # then, db.session.add(models.Member(username=username ...))
+    # if applicable, iterate through phone numbers and do db.session.add(models.Member_Phone(username=username, phone=phone))
+    # if applicable, same thing for children to Child table
+    # if applicable, same thing for the db tables Member_Sources_Of_Income, Member_Assets, Member_Medical_Issues,
+    # Member_Wars_Served, Member_Self_Sufficiency_Matrix, Member_Self_Efficacy_Quiz
+    # lastly, db.session.commit()
