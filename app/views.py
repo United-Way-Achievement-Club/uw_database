@@ -8,7 +8,8 @@ Description
 Handle requests to the server by returning proper data or template
 
 '''
-from app import app, db, models
+from app import app
+from db_accessor import *
 from flask import render_template, redirect, session, request, jsonify, url_for
 from sqlalchemy import exc
 import json
@@ -40,13 +41,12 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        # TODO: *DATABASE* remove hardcoded user check and actually check for user in database
-
-        if username == 'user' and password == 'pass':
+        user = loginUser(username, password)
+        if user != None:
             session['login'] = True
-            session['member_type'] = 'coord'
-            member_type = 'coord'
-            if member_type == 'coord':
+            session['member_type'] = user.type
+            member_type = user.type
+            if member_type == 'coordinator':
                 return redirect('coordinator/home')
             else:
                 return redirect('member/home')
@@ -148,8 +148,9 @@ def coordinator_members_update():
     new_member = session.get('new_member')
     key = request.form['key']
     data = request.form['data']
-    new_member[key] = json.loads(data)
-    session['new_member'] = new_member
+    if key != 'self_sufficiency_matrix' and key != 'self_efficacy_quiz':
+        new_member[key] = json.loads(data)
+        session['new_member'] = new_member
     print session.get('new_member')
     next_page = request.form['next_page']
     URL = 'coordinator_members_%s'%(next_page)
@@ -184,9 +185,44 @@ Return the template for the self sufficiency matrix in the add member modal
 '''
 @app.route('/coordinator/members/self_sufficiency_matrix', methods=['POST'])
 def coordinator_members_self_sufficiency_matrix():
+    matrix = None
+    date = None
+    if 'date' in request.form and request.form['date'] != "New":
+        date = request.form['date']
+        matrix = session.get('new_member')['self_sufficiency_matrix'][date]
+    if 'key' in request.form and request.form['key'] != 'self_sufficiency_matrix' and request.form['key'] != 'self_efficacy_quiz':
+        new_member = session.get('new_member')
+        new_member[request.form['key']] = json.loads(request.form['data'])
+        session['new_member'] = new_member
+    return render_template('coordinator/members/member_modal/self_sufficiency_matrix.html', matrix=matrix, date=date)
 
-    #TODO: pass the member information from the session into the template
+'''
+Save or update self sufficiency matrix values for a particular date
+'''
+@app.route('/coordinator/members/save_self_sufficiency_matrix', methods=['POST'])
+def coordinator_members_save_self_sufficiency_matrix():
+    view_member = session.get('new_member')
+    date = request.form['date']
+    answers = json.loads(request.form['answers'])
+    if date == '':
+        return jsonify({"success":False, "status":400, "error_message":"date can not be blank for self sufficiency matrix"})
+    if date in view_member['self_sufficiency_matrix']:
+        view_member['self_sufficiency_matrix'][date] = answers
+        session['new_member'] = view_member
+        return jsonify({"success":False, "status":400, "error_message":"Updated Self Sufficiency Matrix for " + date})
+    view_member['self_sufficiency_matrix'][date] = answers
+    session['new_member'] = view_member
+    return render_template('coordinator/members/member_modal/self_sufficiency_matrix.html')
 
+'''
+Remove the self sufficiency matrix from the session
+'''
+@app.route('/coordinator/members/remove_self_sufficiency_matrix', methods=['POST'])
+def coordinator_members_remove_self_sufficiency_matrix():
+    date = request.form['date']
+    view_member = session.get('new_member')
+    del view_member['self_sufficiency_matrix'][date]
+    session['new_member'] = view_member
     return render_template('coordinator/members/member_modal/self_sufficiency_matrix.html')
 
 '''
@@ -194,6 +230,45 @@ Return the template for the self efficacy quiz in the add member modal
 '''
 @app.route('/coordinator/members/self_efficacy_quiz', methods=['GET','POST'])
 def coordinator_members_self_efficacy_quiz():
+    quiz = None
+    date = None
+    if 'date' in request.form and request.form['date'] != "New":
+        date = request.form['date']
+        print session.get('new_member')['self_efficacy_quiz']
+        quiz = session.get('new_member')['self_efficacy_quiz'][date]
+    if 'key' in request.form and request.form['key'] != 'self_efficacy_quiz' and request.form['key'] != 'self_sufficiency_matrix':
+        new_member = session.get('new_member')
+        new_member[request.form['key']] = json.loads(request.form['data'])
+        session['new_member'] = new_member
+    return render_template('coordinator/members/member_modal/self_efficacy_quiz.html', quiz=quiz, date=date)
+
+'''
+Save or update self efficacy quiz values for a particular date
+'''
+@app.route('/coordinator/members/save_self_efficacy_quiz', methods=['POST'])
+def coordinator_members_save_self_efficacy_quiz():
+    view_member = session.get('new_member')
+    date = request.form['date']
+    answers = json.loads(request.form['answers'])
+    if date == '':
+        return jsonify({"success":False, "status":400, "error_message":"date can not be blank for self efficacy quiz"})
+    if date in view_member['self_efficacy_quiz']:
+        view_member['self_efficacy_quiz'][date] = answers
+        session['new_member'] = view_member
+        return jsonify({"success":False, "status":400, "error_message":"Updated Self Efficacy Quiz for " + date})
+    view_member['self_efficacy_quiz'][date] = answers
+    session['new_member'] = view_member
+    return render_template('coordinator/members/member_modal/self_efficacy_quiz.html')
+
+'''
+Remove the self efficacy quiz from the session
+'''
+@app.route('/coordinator/members/remove_self_efficacy_quiz', methods=['POST'])
+def coordinator_members_remove_self_efficacy_quiz():
+    date = request.form['date']
+    view_member = session.get('new_member')
+    del view_member['self_efficacy_quiz'][date]
+    session['new_member'] = view_member
     return render_template('coordinator/members/member_modal/self_efficacy_quiz.html')
 
 '''
@@ -230,7 +305,7 @@ def coordinator_create_member():
 
         #TODO: upload profile picture
 
-        #TODO: *DATABASE* add member to database
+        #TODO: *DATABASE* add member to database- see addMember function in db_accessor.py
 
         session['new_member'] = {'general':{}, 'enrollment_form':{}, 'demographic_data':{}, 'self_sufficiency_matrix':{}, 'self_efficacy_quiz':{}}
         return jsonify({"success":True, "status":200})
