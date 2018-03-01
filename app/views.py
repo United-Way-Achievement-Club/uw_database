@@ -306,6 +306,7 @@ def coordinator_create_member():
         #TODO: upload profile picture to static/images/profile_pictures
 
         #TODO: *DATABASE* add member to database- see addMember function in db_accessor.py
+        addMember(session.get('new_member'))
 
         session['new_member'] = {'general':{}, 'enrollment_form':{}, 'demographic_data':{}, 'self_sufficiency_matrix':{}, 'self_efficacy_quiz':{}}
         return jsonify({"success":True, "status":200})
