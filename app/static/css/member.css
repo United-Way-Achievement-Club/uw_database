@@ -1,0 +1,73 @@
+@charset "utf-8";
+
+/*===================================colors===================================*/
+
+:root {
+    --uw_blue: #101B7B;
+    --uw_red: #ff334b;
+    --uw_orange: #FF9A36;
+    --uw_lavender: #767DAC;
+    --uw_white: #FFF;
+    --primary_dark: #0C1562;
+    --primary_light: #EEE;
+    --primary: #AAA;
+    --primary_light: #EEEEF5;
+    --primary: 	#B7BAD7;
+    --uw_white: #FCFCFD;
+    --light_red: #ff4d61;
+    --light_orange: #FFA54A;
+    --light_blue: #15229e;
+    --light_lavender: #8f95bc;
+    --border_color: #cfcfe3;
+}
+
+/*===================================general===================================*/
+
+
+/*===================================home===================================*/
+
+.profile {
+    height: 225px;
+}
+
+.profile-header {
+    margin-top: 0;
+}
+
+.profile-pic-wrapper {
+    height: 100%;
+}
+
+.home-profile-pic {
+    height: 100%;
+    width: auto;
+}
+
+.profile-edit {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: right;
+    padding: 10px;
+}
+
+.edit-profile-ic:hover {
+    cursor: pointer;
+    color: var(--uw_red);
+}
+
+.profile-info-wrapper {
+    display: table;
+    height: 100%;
+    padding-left: 50px;
+}
+
+.profile-info {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.profile-non-headers h5 {
+    font-weight: 300;
+}
