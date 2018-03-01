@@ -290,7 +290,7 @@ def coordinator_create_member():
     new_member[request.form['current_page']] = new_data
     session['new_member'] = new_member
 
-    #TODO: validate fields in the new member object- edit validateMember function in 'utils.py'
+    #TODO: complete validateMember function in 'utils.py'
 
     validatedMember = validateMember(session.get('new_member'))
     if validatedMember["success"]:
@@ -303,7 +303,7 @@ def coordinator_create_member():
         print profile_pic
         print "profile pic type: " + profile_pic_type
 
-        #TODO: upload profile picture
+        #TODO: upload profile picture to static/images/profile_pictures
 
         #TODO: *DATABASE* add member to database- see addMember function in db_accessor.py
 
