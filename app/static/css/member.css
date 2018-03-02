@@ -122,3 +122,8 @@
 .profile-input>option {
     height: 25px;
 }
+
+.club {
+    height: 250px;
+    padding: 10px;
+}

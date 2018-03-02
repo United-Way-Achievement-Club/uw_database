@@ -5,4 +5,9 @@
     {% include 'member/home/profile.html' %}
     {% endwith %}
 </div>
+<div id="member-club">
+    {% with club=member[1].club_name %}
+    {% include 'member/home/club.html' %}
+    {% endwith %}
+</div>
 {% endblock %}

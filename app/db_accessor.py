@@ -34,7 +34,7 @@ def getMembers():
 Get member by username
 '''
 def getMember(username):
-    member = models.User.query.join(models.Member).filter_by(username=username).first()
+    member = db.session.query(models.User, models.Member).filter_by(username=username).first()
     return member
 
 '''
