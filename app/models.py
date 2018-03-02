@@ -41,6 +41,7 @@ class User(db.Model):
     birth_date = db.Column(db.DateTime)
     tags = db.relationship('Club', secondary=Coordinator_Club, lazy='subquery',
            backref=db.backref('users', lazy=True))
+    member = db.relationship("Member", back_populates="user")
 
     def __repr__(self):
         return '<User %r>' % (self.username)
@@ -77,6 +78,7 @@ class Member(db.Model):
     wars_served = db.relationship('Member_Wars_Served', backref='member', lazy=True)
     self_sufficiency_matrices = db.relationship('Member_Self_Sufficiency_Matrix', backref='member', lazy=True)
     self_efficacy_quizzes = db.relationship('Member_Self_Efficacy_Quiz', backref='member', lazy=True)
+    user = db.relationship("User", back_populates="member", lazy=True)
 
 '''
 Member-Sources of Income (1-n)

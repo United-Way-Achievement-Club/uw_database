@@ -29,6 +29,19 @@ def getMembers():
     return models.Member.query.all()
 
 '''
+Get member by username
+'''
+def getMember(username):
+    member = models.User.query.join(models.Member).filter_by(username=username).first()
+    return member
+
+'''
+Get coordinator by username
+'''
+def getCoordinator(username):
+    return models.User.query.get(username)
+
+'''
 Return all of the coordinators in the database
 '''
 def getCoordinators():

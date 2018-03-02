@@ -5,26 +5,32 @@
         </div>
         <div class="col-sm-8 profile-info-wrapper">
             <div class="profile-edit">
-                <span class="glyphicon glyphicon-pencil orange-text edit-profile-ic"></span>
+                <span id="profile-edit-ic" onclick="editProfile()" class="glyphicon glyphicon-pencil orange-text edit-profile-ic"></span>
             </div>
             <div class="profile-info">
                 <div class="col-sm-12 col-no-padding">
                     <h3 class="profile-header">Example Member</h3>
                 </div>
                 <div class="profile-non-headers">
-                    <div class="col-sm-12 col-no-padding">
-                        <h5><span class="glyphicon glyphicon-map-marker"></span> 123 Example St. NW Atlanta, GA 30307</h5>
-                    </div>
-                    <div class="col-sm-12 col-no-padding">
-                        <div class="col-sm-5 col-no-padding">
-                            <h5><span class="glyphicon glyphicon-grain"></span> 24 January, 1997</h5>
+                    <div id="view_profile">
+                        <div class="col-sm-12 col-no-padding">
+                            <h5><span class="glyphicon glyphicon-map-marker"></span> 123 Example St. NW Atlanta, GA 30307</h5>
                         </div>
-                        <div class="col-sm-7 col-no-padding">
-                            <h5><span class="glyphicon glyphicon-earphone"></span> (123) 456-7890 </h5>
+                        <div class="col-sm-12 col-no-padding">
+                            <h5><span class="glyphicon glyphicon-envelope"></span> example@example.com</h5>
+                        </div>
+                        <div class="col-sm-12 col-no-padding">
+                            <div class="col-sm-5 col-no-padding">
+                                <h5><span class="glyphicon glyphicon-grain"></span> 24 January, 1997</h5>
+                            </div>
+                            <div class="col-sm-5 col-no-padding">
+                                <h5><span class="glyphicon glyphicon-earphone"></span> (123) 456-7890 </h5>
+                                <h5><span class="glyphicon glyphicon-earphone"></span> (123) 456-7890 </h5>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-no-padding">
-                        <h5><span class="glyphicon glyphicon-envelope"></span> example@example.com</h5>
+                    <div id="edit_profile">
+                        {% include 'member/home/edit_profile.html' %}
                     </div>
                 </div>
             </div>

@@ -26,7 +26,7 @@ def index():
         return redirect('login')
     else:
         member_type = session.get('member_type')
-        if member_type == 'coord':
+        if member_type == 'coordinator':
             return redirect('coordinator/home')
         else:
             return redirect('member/home')
@@ -47,8 +47,10 @@ def login():
             session['member_type'] = user.type
             member_type = user.type
             if member_type == 'coordinator':
+                session['coordinator'] = user.username
                 return redirect('coordinator/home')
             else:
+                session['member'] = user.username
                 return redirect('member/home')
     return render_template('login.html', error=False)
 
@@ -82,7 +84,8 @@ Member home page
 def member_home():
     if not session.get('login'):
         return redirect('login')
-    return render_template('member/home.html')
+    member = getMember(session.get('member'))
+    return render_template('member/home.html', member=member)
 
 # ================================================= COORDINATOR ====================================================
 

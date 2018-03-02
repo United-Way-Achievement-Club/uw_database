@@ -2,6 +2,12 @@
     <label class="member-form-label col-sm-12 col-no-padding">Marital Status (select one):</label>
     <div class="form-group row col-sm-12">
         <div class="form-check">
+            <input name="marital_status" class="form-check-input" type="radio" name="single" id="single" value="single" {% if marital_status and marital_status=='single' %} checked {% endif %}>
+            <label class="form-check-label member-check-label" for="single">
+                Single
+            </label>
+        </div>
+        <div class="form-check">
             <input name="marital_status" class="form-check-input" type="radio" name="living-with-partner" id="living-with-partner" value="living-with-partner" {% if marital_status and marital_status=='living-with-partner' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="living-with-partner">
                 Living with a partner
