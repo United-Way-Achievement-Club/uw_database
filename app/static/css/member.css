@@ -87,3 +87,38 @@
 .phone-input {
 
 }
+
+.address-zip {
+    width: calc(25% - 15px);
+}
+
+.profile-phone-number:not(:last-child) {
+    margin-bottom: 5px;
+}
+
+.profile-ic {
+    margin-right: 5px;
+    transform: translateY(1px);
+}
+
+.phone-ic {
+    font-size: 1.3em;
+    transform: translate(0px, 2px);
+}
+
+.phone-ic:hover {
+    color: var(--primary);
+    cursor: pointer;
+}
+
+.address-margin {
+    margin-right: 5px;
+}
+
+.profile-input {
+    height: 25px ! important;
+}
+
+.profile-input>option {
+    height: 25px;
+}

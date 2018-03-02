@@ -9,6 +9,8 @@ Retrieve and add items to the database
 
 '''
 from app import db, models
+from datetime import datetime
+
 
 '''
 See if a user with the username and password
@@ -34,6 +36,35 @@ Get member by username
 def getMember(username):
     member = models.User.query.join(models.Member).filter_by(username=username).first()
     return member
+
+def updateMember(member_data, username):
+    member = models.User.query.get(username)
+    member.birth_date = datetime.strptime(member_data['birth_date'], '%Y-%m-%d')
+    member.address_street = member_data['address_street']
+    member.address_state = member_data['address_state']
+    member.address_city = member_data['address_city']
+    member.address_zip = member_data['address_zip']
+    member.email = member_data['email']
+    old_phones = models.Member_Phone.query.filter_by(username=username)
+    for number in old_phones:
+        if number.phone in member_data['phone_numbers']:
+            index = member_data['phone_numbers'].index(number.phone)
+            del member_data['phone_numbers'][index]
+        else:
+            models.Member_Phone.query.filter_by(username=username, phone=number.phone).delete()
+    for phone in member_data['phone_numbers']:
+        db.session.add(models.Member_Phone(username=username, phone=phone))
+    db.session.commit()
+
+
+    db.session.commit()
+
+'''
+Get member phone numbers by username
+'''
+def getPhoneNumbers(username):
+    phone_numbers = models.Member_Phone.query.filter_by(username=username).all()
+    return phone_numbers
 
 '''
 Get coordinator by username

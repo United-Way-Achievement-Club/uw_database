@@ -1,6 +1,8 @@
 {% extends 'member/layout.html' %}
 {% block m_content %}
-<div>
+<div id="member-profile">
+    {% with member=member, phone_numbers=phone_numbers, states=states %}
     {% include 'member/home/profile.html' %}
+    {% endwith %}
 </div>
 {% endblock %}
