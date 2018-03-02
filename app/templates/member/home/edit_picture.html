@@ -1,0 +1,35 @@
+<!-- Modal -->
+<div class="modal fade" id="editPicture" tabindex="-1" role="dialog" aria-labelledby="editPictureLabel" aria-hidden="true">
+    <div class="modal-dialog picture-modal-dialog" role="document">
+        <div class="modal-content picture-modal-content">
+            <div class="modal-header picture-modal-header col-md-12">
+                <div class="col-md-12">
+                    <h4 class="modal-title" id="editPictureLabel">Edit Profile Picture</h4>
+                </div>
+            </div>
+            <div class="modal-body picture-modal-body">
+                <div class="col-md-6">
+                    <div class="member-profile-pic-wrapper">
+                        <img id="member-profile-pic" class="member-profile-pic" src="{{ url_for('static', filename='images/profile_pictures/' + profile_picture) }}">
+                    </div>
+                    <div class="form-group row col-sm-12 col-no-padding file-btn-wrapper text-center">
+                        <label class="profile-pic-label" for="profile-pic"><span class="glyphicon glyphicon-upload upload-img-ic"></span>Upload Image</label>
+                        <input onchange="readURL(this)" type="file" id="profile-pic" placeholder="upload image" class="input input-sm member-file-input" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row text-center col-sm-12 col-no-padding file-btn-wrapper show-profile-img-wrapper">
+                        <img id="show-profile-img" src="#" alt=""/>
+                    </div>
+                    <div class="form-group row col-sm-12 col-no-padding file-btn-wrapper text-center">
+                        <button onclick="cropImage()" type="button" class="btn-default btn-sm btn uw-button" id="crop-success-button">Crop</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer picture-modal-footer">
+                <button type="button" class="btn uw-button" onclick="closeModal()">Close</button>
+                <button type="button" class="btn uw-button-inverse" onclick="savePicture()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

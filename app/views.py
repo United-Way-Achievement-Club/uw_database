@@ -99,6 +99,18 @@ def member_edit_profile():
     phone_numbers = getPhoneNumbers(session.get('member'))
     return render_template('member/home/profile.html', member=getMember(username), phone_numbers=phone_numbers, states=getStates())
 
+'''
+Edit the member's profile picture
+'''
+@app.route('/member/edit_profile_picture', methods=['POST'])
+def member_edit_profile_picture():
+    profile_picture = request.files['profile_picture']
+    username = session.get('member')
+    editProfilePic(username)
+    phone_numbers = getPhoneNumbers(session.get('member'))
+    profile_picture.save(os.path.join(app.config['UPLOAD_FOLDER'], username + '.jpg'))
+    return render_template('member/home/profile.html', member=getMember(username), phone_numbers=phone_numbers, states=getStates())
+
 # ================================================= COORDINATOR ====================================================
 
 '''
@@ -156,8 +168,6 @@ def coordinator_members():
         return redirect('login')
     if not session.get('new_member'):
         session['new_member'] = {'general':{}, 'enrollment_form':{}, 'demographic_data':{}, 'self_sufficiency_matrix':{}, 'self_efficacy_quiz':{}}
-    members = [{"image":"default_profile_pic.png", "member_name":"Example Member", "club_name":"Example Club", "goals_completed":5, "goals_in_progress":12},{"image":"sruti.png", "member_name":"Sruti B. Guhathakurta", "club_name":"Example Club", "goals_completed":10, "goals_in_progress":2}]
-
     members = getMembers()
 
     return render_template('coordinator/members.html', members=members)
@@ -340,7 +350,7 @@ def coordinator_create_member():
 
     #TODO: complete validateMember function in 'utils.py'
     validatedMember = validateMember(new_member)
-    
+
     if validatedMember["success"]:
         profile_pic = None
         if 'profile_picture' in request.files:

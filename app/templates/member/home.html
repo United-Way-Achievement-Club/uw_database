@@ -1,4 +1,13 @@
 {% extends 'member/layout.html' %}
+
+{% block m_extrastyle %}
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static', filename='css/lib/cropper.min.css') }}">
+{% endblock %}
+
+{% block m_extrascript %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/lib/cropper.min.js') }}"></script>
+{% endblock %}
+
 {% block m_content %}
 <div id="member-profile">
     {% with member=member, phone_numbers=phone_numbers, states=states %}

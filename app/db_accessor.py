@@ -37,6 +37,11 @@ def getMember(username):
     member = db.session.query(models.User, models.Member).filter_by(username=username).first()
     return member
 
+def editProfilePic(username):
+    user = models.User.query.get(username)
+    user.profile_picture = username + '.jpg'
+    db.session.commit()
+
 '''
 Update a member after edit profile
 '''
