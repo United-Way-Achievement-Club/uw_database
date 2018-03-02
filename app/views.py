@@ -14,6 +14,7 @@ from flask import render_template, redirect, session, request, jsonify, url_for
 from sqlalchemy import exc
 import json
 from utils import validateMember, getStates
+import os
 
 
 '''
@@ -326,8 +327,8 @@ def coordinator_members_goals():
 
 '''
 Create a new member. Take the new member stored in the session,
-validate that all required information is filled out, and add
-the member to the database. Then clear the new member object in the session.
+validate that all required information is filled out, and upload the profile
+picture (if it's not default). Then clear the new member object in the session.
 '''
 @app.route('/coordinator/members/create_member', methods=['POST'])
 def coordinator_create_member():
@@ -336,22 +337,22 @@ def coordinator_create_member():
     new_data = json.loads(request.form['new_data'])
     new_member = session.get('new_member')
     new_member[request.form['current_page']] = new_data
-    session['new_member'] = new_member
 
     #TODO: complete validateMember function in 'utils.py'
-
-    validatedMember = validateMember(session.get('new_member'))
+    validatedMember = validateMember(new_member)
+    
     if validatedMember["success"]:
         profile_pic = None
         if 'profile_picture' in request.files:
-            profile_pic = request.files['profile_picture']
+            profile_pic_file = request.files['profile_picture']
+            profile_pic = session.get('new_member')['general']['username'] + '.jpg'
+            profile_pic_file.save(os.path.join(app.config['UPLOAD_FOLDER'], profile_pic))
         if 'profile_picture' in request.form:
             profile_pic = request.form['profile_picture']
-        profile_pic_type = request.form['profile_pic_type']
-        print profile_pic
-        print "profile pic type: " + profile_pic_type
+        # profile_pic_type = request.form['profile_pic_type']
 
-        #TODO: upload profile picture to static/images/profile_pictures
+        new_member['general']['profile_picture'] = profile_pic
+        session['new_member'] = new_member
 
         #TODO: *DATABASE* add member to database- see addMember function in db_accessor.py
         addMember(session.get('new_member'))
