@@ -157,7 +157,7 @@ def coordinator_members():
         session['new_member'] = {'general':{}, 'enrollment_form':{}, 'demographic_data':{}, 'self_sufficiency_matrix':{}, 'self_efficacy_quiz':{}}
     members = [{"image":"default_profile_pic.png", "member_name":"Example Member", "club_name":"Example Club", "goals_completed":5, "goals_in_progress":12},{"image":"sruti.png", "member_name":"Sruti B. Guhathakurta", "club_name":"Example Club", "goals_completed":10, "goals_in_progress":2}]
 
-    #TODO: *DATABASE* replace members list above with proper query from the database
+    members = getMembers()
 
     return render_template('coordinator/members.html', members=members)
 

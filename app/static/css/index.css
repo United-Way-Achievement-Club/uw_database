@@ -242,13 +242,14 @@ body {
 .nav-img {
     height: 65px;
     width: 65px;
+    border-radius: 50%;
+    border: 2px solid var(--uw_orange);
 }
 
 .nav-img-wrapper {
     height: 66px;
     width: 66px;
     border-radius: 50%;
-    background-color: var(--uw_orange);
     margin: auto;
 }
 

@@ -1,18 +1,18 @@
 <div class="members-list-item">
     <div class="members-list-item-wrapper col-sm-1">
-        <img class="members-list-item-content members-list-item-image" src="{{ url_for('static', filename='images/profile_pictures/' + member.image) }}">
+        <img class="members-list-item-content members-list-item-image" src="{{ url_for('static', filename='images/profile_pictures/' + member[0].profile_picture) }}">
     </div>
     <div class="members-list-item-wrapper col-sm-3">
-        <h5 class="members-list-item-content">{{ member.member_name }}</h5>
+        <h5 class="members-list-item-content">{{ member[0].first_name + " " + member[0].last_name }}</h5>
     </div>
     <div class="members-list-item-wrapper col-sm-3">
-        <h5 class="members-list-item-content">{{ member.club_name }}</h5>
+        <h5 class="members-list-item-content">{{ member[1].club_name }}</h5>
     </div>
     <div class="members-list-item-wrapper col-sm-2">
-        <h5 class="members-list-item-content">{{ member.goals_completed }}</h5>
+        <h5 class="members-list-item-content">10</h5>
     </div>
     <div class="members-list-item-wrapper col-sm-2">
-        <h5 class="members-list-item-content">{{ member.goals_in_progress }}</h5>
+        <h5 class="members-list-item-content">5</h5>
     </div>
     <div class="members-list-item-wrapper col-sm-1">
         <span class="glyphicon glyphicon-resize-full members-list-item-content member-view"></span>

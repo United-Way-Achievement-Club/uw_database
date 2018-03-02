@@ -28,7 +28,7 @@ def loginUser(username, password):
 Return all of the members in the database
 '''
 def getMembers():
-    return models.Member.query.all()
+    return db.session.query(models.User, models.Member).filter_by(type='member').join(models.Member).all()
 
 '''
 Get member by username
