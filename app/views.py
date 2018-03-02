@@ -40,7 +40,6 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-
         user = loginUser(username, password)
         if user != None:
             session['login'] = True
@@ -88,10 +87,12 @@ def member_home():
     phone_numbers = getPhoneNumbers(session.get('member'))
     return render_template('member/home.html', member=member, phone_numbers=phone_numbers, states=getStates())
 
+'''
+Edit the member's profile information
+'''
 @app.route('/member/edit_profile', methods=['POST'])
 def member_edit_profile():
     member_data = json.loads(request.form['member_data'])
-    print member_data
     username = session.get('member')
     updateMember(member_data, username)
     phone_numbers = getPhoneNumbers(session.get('member'))

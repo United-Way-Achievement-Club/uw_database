@@ -37,6 +37,9 @@ def getMember(username):
     member = models.User.query.join(models.Member).filter_by(username=username).first()
     return member
 
+'''
+Update a member after edit profile
+'''
 def updateMember(member_data, username):
     member = models.User.query.get(username)
     member.birth_date = datetime.strptime(member_data['birth_date'], '%Y-%m-%d')
@@ -54,9 +57,6 @@ def updateMember(member_data, username):
             models.Member_Phone.query.filter_by(username=username, phone=number.phone).delete()
     for phone in member_data['phone_numbers']:
         db.session.add(models.Member_Phone(username=username, phone=phone))
-    db.session.commit()
-
-
     db.session.commit()
 
 '''
