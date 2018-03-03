@@ -137,6 +137,18 @@ body {
     border: 1px solid var(--primary);
 }
 
+.uw-button-danger {
+    border: 1px solid var(--uw_red);
+    background-color: var(--uw_red);
+    color: var(--uw_white);
+}
+
+.uw-button-danger:hover {
+    background-color: var(--light_red);
+    color: var(--uw_white);
+    border: 1px solid var(--light_red);
+}
+
 .uw-input {
     background-color: var(--primary_light);
     border: 0;
@@ -230,13 +242,14 @@ body {
 .nav-img {
     height: 65px;
     width: 65px;
+    border-radius: 50%;
+    border: 2px solid var(--uw_orange);
 }
 
 .nav-img-wrapper {
     height: 66px;
     width: 66px;
     border-radius: 50%;
-    background-color: var(--uw_orange);
     margin: auto;
 }
 

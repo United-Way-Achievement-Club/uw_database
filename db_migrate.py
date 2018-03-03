@@ -1,3 +1,4 @@
+#!/usr/bin/env python2.7
 import imp
 from migrate.versioning import api
 from app import db

@@ -1,3 +1,4 @@
+#!/usr/bin/env python2.7
 from app import app
 from migrate.versioning import api
 from app.config import SQLALCHEMY_DATABASE_URI

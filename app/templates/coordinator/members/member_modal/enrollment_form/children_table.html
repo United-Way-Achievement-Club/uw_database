@@ -8,13 +8,32 @@
             <th scope="col">Last Name</th>
             <th scope="col">Gender</th>
             <th scope="col">DOB</th>
-            <th scope="col">Age</th>
             <th scope="col">Grade Level</th>
             <th scope="col">Grades</th>
             <th scope="col">School</th>
         </tr>
         </thead>
         <tbody class="member-children-table" id="member-children-table">
+            {% if view_member and view_member.children and view_member.children|length > 0 %}
+            {% for child in view_member.children %}
+            <tr class="member-child">
+                <th class="child-num" scope="col">{{ loop.index }}</th>
+                <td><input type="text" value="{{ child.child_first_name }}" name="child_first_name" placeholder="First Name" class="input input-sm uw-input child-input"></td>
+                <td><input type="text" value="{{ child.child_last_name }}" name="child_last_name" placeholder="Last Name" class="input input-sm uw-input child-input"></td>
+                <td>
+                    <select name="child_gender" class="input input-sm uw-input child-input-sm">
+                        <option value="F"{% if child.child_gender=="F" %}selected{% endif %}>F</option>
+                        <option value="M"{% if child.child_gender=="M" %}selected{% endif %}>M</option>
+                        <option value="O"{% if child.child_gender=="O" %}selected{% endif %}>O</option>
+                    </select>
+                </td>
+                <td><input value="{{ child.child_birth_date }}" name="child_birth_date" type="date" class="input input-sm uw-input child-input"></td>
+                <td><input value="{{ child.child_grade_level }}" name="child_grade_level" type="text" placeholder="Grade Level" class="input input-sm uw-input child-input"></td>
+                <td><input value="{{ child.child_grades }}" name="child_grades" type="text" placeholder="Grades" class="input input-sm uw-input child-input"></td>
+                <td><input value="{{ child.child_school }}" name="child_school" type="text" placeholder="School" class="input input-sm uw-input child-input"></td>
+            </tr>
+            {% endfor %}
+            {% else %}
             <tr class="member-child">
                 <th class="child-num" scope="col">1</th>
                 <td><input type="text" name="child_first_name" placeholder="First Name" class="input input-sm uw-input child-input"></td>
@@ -27,11 +46,11 @@
                     </select>
                 </td>
                 <td><input name="child_birth_date" type="date" class="input input-sm uw-input child-input"></td>
-                <td><input name="child_age" type="text" placeholder="Age" class="input input-sm uw-input child-input-sm"></td>
                 <td><input name="child_grade_level" type="text" placeholder="Grade Level" class="input input-sm uw-input child-input"></td>
                 <td><input name="child_grades" type="text" placeholder="Grades" class="input input-sm uw-input child-input"></td>
                 <td><input name="child_school" type="text" placeholder="School" class="input input-sm uw-input child-input"></td>
             </tr>
+            {% endif %}
         </tbody>
     </table>
 </div>

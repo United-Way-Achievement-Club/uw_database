@@ -2,50 +2,79 @@
     <div class="demographic-data-header col-sm-10 col-sm-offset-1 text-center">
         <h5 class="uw_lighter"><strong>Demographic Data: </strong>This information is voluntary and is collected strictly for use in demographic analysis reports and statistical information.</h5>
     </div>
-    <form class="form">
+    <form class="form" id="demographic-data-form">
         <label class="member-form-label">Gender:</label>
         <div class="form-group row">
-            <select class="col-sm-4 input input-sm uw-input">
-                <option value="Female">Female</option>
-                <option value="Male">Male</option>
-                <option value="Other">Other</option>
+            <select name="gender" class="col-sm-4 input input-sm uw-input">
+                <option value="Female" {% if view_member and view_member.gender and view_member.gender == 'Female' %} selected {% endif %}>Female</option>
+                <option value="Male" {% if view_member and view_member.gender and view_member.gender == 'Male' %} selected {% endif %}>Male</option>
+                <option value="Other" {% if view_member and view_member.gender and view_member.gender == 'Other' %} selected {% endif %}>Other</option>
             </select>
         </div>
+
+        {% with race=view_member.race, other_race=view_member.other_race %}
         {% include 'coordinator/members/member_modal/demographic_data/member_race.html' %}
+        {% endwith %}
+
+        {% with marital_status=view_member.marital_status %}
         {% include 'coordinator/members/member_modal/demographic_data/member_marital_status.html' %}
+        {% endwith %}
+
+        {% with education=view_member.education %}
         {% include 'coordinator/members/member_modal/demographic_data/member_education.html' %}
+        {% endwith %}
+
         <label class="member-form-label col-sm-12 col-no-padding">English Proficiency:</label>
         <div class="form-group row">
-            <select class="col-sm-4 input input-sm uw-input">
-                <option value="primary-language">Primary Language</option>
-                <option value="fluent">Fluent</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="beginner">Beginner</option>
+            <select name="english_proficiency" class="col-sm-4 input input-sm uw-input">
+                <option value="primary-language" {% if view_member.english_proficiency and view_member.english_proficiency == 'primary-language' %} selected {% endif %}>Primary Language</option>
+                <option value="fluent" {% if view_member.english_proficiency and view_member.english_proficiency == 'fluent' %} selected {% endif %}>Fluent</option>
+                <option value="intermediate" {% if view_member.english_proficiency and view_member.english_proficiency == 'intermediate' %} selected {% endif %}>Intermediate</option>
+                <option value="beginner" {% if view_member.english_proficiency and view_member.english_proficiency == 'beginner' %} selected {% endif %}>Beginner</option>
             </select>
         </div>
         <label class="member-form-label">English Reading Level:</label>
         <div class="form-group row">
-            <select class="col-sm-4 input input-sm uw-input">
-                <option value="fluent">Fluent</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="beginner">Beginner</option>
-                <option value="primary-language">None</option>
+            <select name="english_reading_level" class="col-sm-4 input input-sm uw-input">
+                <option value="fluent" {% if view_member.english_reading_level and view_member.english_reading_level == 'fluent' %} selected {% endif %}>Fluent</option>
+                <option value="intermediate" {% if view_member.english_reading_level and view_member.english_reading_level == 'intermediate' %} selected {% endif %}>Intermediate</option>
+                <option value="beginner" {% if view_member.english_reading_level and view_member.english_reading_level == 'beginner' %} selected {% endif %}>Beginner</option>
+                <option value="none" {% if view_member.english_reading_level and view_member.english_reading_level == 'none' %} selected {% endif %}>None</option>
             </select>
         </div>
-        <label class="member-form-label">English Writing Level:</label>
+        <label class="member_form_label">English Writing Level:</label>
         <div class="form-group row">
-            <select class="col-sm-4 input input-sm uw-input">
-                <option value="fluent">Fluent</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="beginner">Beginner</option>
-                <option value="primary-language">None</option>
+            <select name="english_writing_level" class="col-sm-4 input input-sm uw-input">
+                <option value="fluent" {% if view_member.english_writing_level and view_member.english_writing_level == 'fluent' %} selected {% endif %}>Fluent</option>
+                <option value="intermediate" {% if view_member.english_writing_level and view_member.english_writing_level == 'intermediate' %} selected {% endif %}>Intermediate</option>
+                <option value="beginner" {% if view_member.english_writing_level and view_member.english_writing_level == 'beginner' %} selected {% endif %}>Beginner</option>
+                <option value="none" {% if view_member.english_writing_level and view_member.english_writing_level == 'none' %} selected {% endif %}>None</option>
             </select>
         </div>
+
+        {% with employment_status=view_member.employment_status %}
         {% include 'coordinator/members/member_modal/demographic_data/member_employment.html' %}
+        {% endwith %}
+
+        {% with income=view_member.income, credit_score=view_member.credit_score %}
         {% include 'coordinator/members/member_modal/demographic_data/income.html' %}
+        {% endwith %}
+
+        {% with income_sources=view_member.income_sources %}
         {% include 'coordinator/members/member_modal/demographic_data/member_sources_of_income.html' %}
+        {% endwith %}
+
+        {% with assets=view_member.assets, has_car=view_member.has_car %}
         {% include 'coordinator/members/member_modal/demographic_data/member_assets.html' %}
+        {% endwith %}
+
+        {% with has_primary_care_doctor=view_member.has_primary_care_doctor, has_health_insurance=view_member.has_health_insurance, medical_issues=view_member.medical_issues %}
         {% include 'coordinator/members/member_modal/demographic_data/health.html' %}
+        {% endwith %}
+
+        {% with wars_served=view_member.wars_served, enrolled_in_military=view_member.enrolled_in_military, has_served_in_military=view_member.has_served_in_military, other_war=view_member.other_war %}
         {% include 'coordinator/members/member_modal/demographic_data/member_military.html' %}
+        {% endwith %}
+
     </form>
 </div>

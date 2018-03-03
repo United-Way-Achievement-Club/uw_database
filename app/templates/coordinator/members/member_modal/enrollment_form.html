@@ -2,41 +2,60 @@
     <form class="form" id="enrollment-form">
         <label class="member-form-label">Member Name:</label>
         <div class="form-group row">
-            <input type="text" name="first_name" placeholder="First Name" class="col-sm-4 input input-sm uw-input inline-input">
-            <input type="text" name="last_name" placeholder="Last Name" class="col-sm-4 input input-sm uw-input inline-input">
+            <input type="text" value="{% if view_member and view_member.first_name %}{{ view_member.first_name }}{% endif %}" name="first_name" placeholder="First Name" class="col-sm-4 input input-sm uw-input inline-input">
+            <input type="text" value="{% if view_member and view_member.last_name %}{{ view_member.last_name }}{% endif %}" name="last_name" placeholder="Last Name" class="col-sm-4 input input-sm uw-input inline-input">
         </div>
         <label class="member-form-label">Address:</label>
         <div class="form-group row address-input-row">
-            <input name="address_street" type="text" placeholder="Street" class="input input-sm uw-input street-address-input">
+            <input value="{% if view_member and view_member.address_street %}{{ view_member.address_street }}{% endif %}" name="address_street" type="text" placeholder="Street" class="input input-sm uw-input street-address-input">
         </div>
         <div class="form-group row">
-            <input type="text" name="address_city" placeholder="City" class="input input-sm uw-input inline-input col-sm-4">
-            <input type="text" name="address_state" placeholder="State" class="input input-sm uw-input inline-input col-sm-1">
-            <input type="text" name="address_zip" placeholder="Zip" class="input input-sm uw-input inline-input col-sm-3">
+            <input type="text" value="{% if view_member and view_member.address_city %}{{ view_member.address_city }}{% endif %}" name="address_city" placeholder="City" class="input input-sm uw-input inline-input col-sm-4">
+            <select name="address_state" class="input input-sm uw-input inline-input col-sm-1">
+                {% for state in states %}
+                <option value="{{ state }}"{% if view_member and view_member.address_state and state == view_member.address_state %} selected {% endif %}>{{ state }}</option>
+                {% endfor %}
+            </select>
+            <input type="text" value="{% if view_member and view_member.address_zip %}{{ view_member.address_zip }}{% endif %}" name="address_zip" placeholder="Zip" class="input input-sm uw-input inline-input col-sm-3">
         </div>
         <label class="member-form-label">Date of Birth:</label>
         <div class="form-group row">
-            <input name="birth_date" type="date" class="input input-sm uw-input col-sm-4">
+            <input value="{% if view_member and view_member.birth_date %}{{ view_member.birth_date }}{% endif %}" name="birth_date" type="date" class="input input-sm uw-input col-sm-4">
         </div>
         <label class="member-form-label">Email Address:</label>
         <div class="form-group row">
-            <input name="email" type="text" placeholder="Email Address" class="input input-sm uw-input col-sm-8">
+            <input value="{% if view_member and view_member.email %}{{ view_member.email }}{% endif %}" name="email" type="text" placeholder="Email Address" class="input input-sm uw-input col-sm-8">
         </div>
         <label class="member-form-label">Referral Source:</label>
         <div class="form-group row">
-            <input name="referral_source" type="text" placeholder="Referral Source" class="input input-sm uw-input col-sm-8">
+            <input value="{% if view_member and view_member.referral_source %}{{ view_member.referral_source }}{% endif %}" name="referral_source" type="text" placeholder="Referral Source" class="input input-sm uw-input col-sm-8">
         </div>
         <div class="member-phone-numbers" id="member-phone-numbers">
             <label class="member-form-label">Phone Number(s): <span><button type="button" onclick="addPhoneNumber()" id="add-phone-btn" class="btn btn-sm uw-button-inverse add-phone-button"><span class="glyphicon glyphicon-plus add-phone-ic"></span></button></span></label>
+            {% if view_member and view_member.phone_numbers %}
+            {% for number in view_member.phone_numbers %}
+            <div class="form-group row">
+                <input name="phone_numbers" value="{{number}}" type="tel" placeholder="Phone Number" class="input input-sm uw-input col-sm-4 phone-number">
+                {% if loop.index > 1 %}
+                <button onclick="removeNum(this)" class="btn btn-sm uw-button">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+                {% endif %}
+            </div>
+            {% endfor %}
+            {% else %}
             <div class="form-group row">
                 <input name="phone_numbers" type="tel" placeholder="Phone Number" class="input input-sm uw-input col-sm-4 phone-number">
             </div>
+            {% endif %}
         </div>
         <label class="member-form-label">Spouse's Name:</label>
         <div class="form-group row">
-            <input name="spouse_first_name" type="text" placeholder="First Name" class="col-sm-4 input input-sm uw-input inline-input">
-            <input name="spouse_last_name" type="text" placeholder="Last Name" class="col-sm-4 input input-sm uw-input inline-input">
+            <input value="{% if view_member and view_member.spouse_first_name %}{{ view_member.spouse_first_name }}{% endif %}" name="spouse_first_name" type="text" placeholder="First Name" class="col-sm-4 input input-sm uw-input inline-input">
+            <input value="{% if view_member and view_member.spouse_last_name %}{{ view_member.spouse_last_name }}{% endif %}" name="spouse_last_name" type="text" placeholder="Last Name" class="col-sm-4 input input-sm uw-input inline-input">
         </div>
+        {% with view_member=view_member %}
         {% include 'coordinator/members/member_modal/enrollment_form/children_table.html' %}
+        {% endwith %}
     </form>
 </div>

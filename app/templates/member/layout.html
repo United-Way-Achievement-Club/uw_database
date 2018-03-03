@@ -1,6 +1,44 @@
 {% extends 'layout.html' %}
+
 {% block extrastyle %}
 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static', filename='css/member.css') }}">
+{% block m_extrastyle %}{% endblock %}
 {% endblock %}
+
+{% block extrascript %}
+<script src="{{ url_for('static', filename='js/member.js') }}"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="{{ url_for('static', filename='js/lib/c3.min.js') }}"></script>
+{% block m_extrascript %}{% endblock %}
+{% endblock %}
+
 {% block content %}
+<div class="nav text-center">
+    <div class="nav-header">
+        <div class="nav-img-wrapper">
+            <img class="nav-img" src="{{ url_for('static', filename='images/profile_pictures/' + member[0].profile_picture) }}">
+        </div>
+        <h4 class="nav-header-text">Welcome, {{ member[0].username }}!</h4>
+        <h5><a class="nav-header-anchor" href="{{ url_for('logout') }}">Logout</a></h5>
+    </div>
+    <div id="home" class="nav-item active">
+        <h4 class="nav-item-text"><span class="glyphicon glyphicon-home nav-icon"></span><a href="{{ url_for('member_home') }}">Home</a></h4>
+    </div>
+    <div id="goals" class="nav-item">
+        <h4 class="nav-item-text"><span class="glyphicon glyphicon-star nav-icon"></span><a href="{{ url_for('member_home') }}">Goals</a></h4>
+    </div>
+    <div id="upload" class="nav-item">
+        <h4 class="nav-item-text"><span class="glyphicon glyphicon-upload nav-icon"></span><a href="{{ url_for('member_home') }}">Upload</a></h4>
+    </div>
+    <div id="messages" class="nav-item">
+        <h4 class="nav-item-text"><span class="glyphicon glyphicon-comment nav-icon"></span><a href="{{ url_for('member_home') }}">Messages</a></h4>
+    </div>
+    <div id="calendar" class="nav-item">
+        <h4 class="nav-item-text"><span class="glyphicon glyphicon-calendar nav-icon"></span><a href="{{ url_for('member_home') }}">Calendar</a></h4>
+    </div>
+</div>
+<div class="body-wrapper">
+    {% block m_content %}
+    {% endblock %}
+</div>
 {% endblock %}

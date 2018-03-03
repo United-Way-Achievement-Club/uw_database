@@ -3,7 +3,7 @@
 ### Example user template
 
 # IntelliJ project files
-.idea
+.idea/*
 *.iml
 out
 gen
@@ -11,3 +11,6 @@ gen
 # Database files
 app/db_repository
 app/app.db
+
+# pyc files
+*.pyc

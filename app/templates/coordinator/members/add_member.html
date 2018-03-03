@@ -8,19 +8,29 @@
             <div class="modal-body member-modal-body">
                 <div class="member-modal-nav col-sm-3">
                     <div class="member-modal-nav-item member-modal-nav-item-active" id="general" onclick="memberModalChange(this)">
-                        <a><h5>General</h5></a>
+                        <a><h5>General <span id="general_alert" class="form_alert glyphicon glyphicon-exclamation-sign"></span></h5></a>
                     </div>
                     <div class="member-modal-nav-item" id="enrollment_form" onclick="memberModalChange(this)">
-                        <a><h5>Enrollment Form</h5></a>
+                        <a><h5>Enrollment Form <span id="enrollment_form_alert" class="form_alert glyphicon glyphicon-exclamation-sign"></span></h5></a>
                     </div>
                     <div class="member-modal-nav-item" id="demographic_data" onclick="memberModalChange(this)">
-                        <a><h5>Demographic Data</h5></a>
+                        <a><h5>Demographic Data <span id="demographic_data_alert" class="form_alert glyphicon glyphicon-exclamation-sign"></span></h5></a>
                     </div>
-                    <div class="member-modal-nav-item" id="self_sufficiency_matrix" onclick="memberModalChange(this)">
-                        <a><h5>Self-Sufficiency Matrix</h5></a>
+                    <div class="member-modal-nav-item" id="self_sufficiency_matrix" onclick="dropdownChange(this)">
+                        <a><h5>Self-Sufficiency Matrix <span id="self_sufficiency_matrix_ic" class="dropdown-ic glyphicon glyphicon-chevron-right"></span><span id="self_sufficiency_matrix_alert" class="form_alert glyphicon glyphicon-exclamation-sign"></span></h5></a>
                     </div>
-                    <div class="member-modal-nav-item" id="self_efficacy_quiz" onclick="memberModalChange(this)">
-                        <a><h5>Self-Efficacy Quiz</h5></a>
+                    <div id="self_sufficiency_matrix_dropdown" class="member-modal-dropdown">
+                        <div id="new" onclick="viewMatrix(this)" class="member-modal-nav-item-dropdown-active member-modal-nav-item-dropdown">
+                            <a><h5>New</h5></a>
+                        </div>
+                    </div>
+                    <div class="member-modal-nav-item" id="self_efficacy_quiz" onclick="dropdownChange(this)">
+                        <a><h5>Self-Efficacy Quiz <span id="self_efficacy_quiz_ic" class="dropdown-ic glyphicon glyphicon-chevron-right"></span><span id="self_efficacy_quiz_alert" class="form_alert glyphicon glyphicon-exclamation-sign"></span></h5></a>
+                    </div>
+                    <div id="self_efficacy_quiz_dropdown" class="member-modal-dropdown">
+                        <div id="new_quiz" onclick="viewQuiz(this)" class="member-modal-nav-item-dropdown-active member-modal-nav-item-dropdown">
+                            <a><h5>New</h5></a>
+                        </div>
                     </div>
                     <div class="member-modal-nav-item" id="goals" onclick="memberModalChange(this)">
                         <a><h5>Goals</h5></a>
@@ -31,8 +41,8 @@
                 </div>
             </div>
             <div class="modal-footer member-modal-footer">
-                <button type="button" class="btn uw-button" data-dismiss="modal" onclick="closeModal()">Close</button>
-                <button type="button" class="btn uw-button-inverse" data-dismiss="modal" onclick="saveModal()">Save changes</button>
+                <button type="button" class="btn uw-button" onclick="closeModal()">Close</button>
+                <button type="button" class="btn uw-button-inverse" onclick="saveModal()">Save changes</button>
             </div>
         </div>
     </div>

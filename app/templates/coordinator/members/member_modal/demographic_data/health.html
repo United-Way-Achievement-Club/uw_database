@@ -1,29 +1,29 @@
 <label class="member-form-label col-sm-12 col-no-padding">Health:</label>
-<div class="form-group row col-sm-12">
+<div id="member-health-insurance" class="form-group row col-sm-12">
     <label class="member-check-label col-sm-6 col-no-padding">Do you have health insurance? </label>
     <div class="form-check col-sm-2">
-        <input class="form-check-input" type="radio" name="has-health-insurance" id="has-health-insurance" value="has-health-insurance">
+        <input class="form-check-input" type="radio" name="has_health_insurance" id="has-health-insurance" value="true" {% if has_health_insurance and has_health_insurance=='true' %} checked {% endif %}>
         <label class="form-check-label member-check-label" for="has-health-insurance">
             Yes
         </label>
     </div>
     <div class="form-check col-sm-2">
-        <input class="form-check-input" type="radio" name="no-health-insurance" id="no-health-insurance" value="no-health-insurance">
+        <input class="form-check-input" type="radio" name="has_health_insurance" id="no-health-insurance" value="false" {% if has_health_insurance and has_health_insurance=='false' %} checked {% endif %}>
         <label class="form-check-label member-check-label" for="no-health-insurance">
             No
         </label>
     </div>
 </div>
-<div class="form-group row col-sm-12">
+<div id="member-primary-care" class="form-group row col-sm-12">
     <label class="member-check-label col-sm-6 col-no-padding">Do you have a primary care doctor? </label>
     <div class="form-check col-sm-2">
-        <input class="form-check-input" type="radio" name="has-doctor" id="has-doctor" value="has-doctor">
+        <input class="form-check-input" type="radio" name="has_primary_care_doctor" id="has-doctor" value="true" {% if has_primary_care_doctor and has_primary_care_doctor=='true' %} checked {% endif %}>
         <label class="form-check-label member-check-label" for="has-doctor">
             Yes
         </label>
     </div>
     <div class="form-check col-sm-2">
-        <input class="form-check-input" type="radio" name="no-doctor" id="no-doctor" value="no-doctor">
+        <input class="form-check-input" type="radio" name="has_primary_care_doctor" id="no-doctor" value="false" {% if has_primary_care_doctor and has_primary_care_doctor=='false' %} checked {% endif %}>
         <label class="form-check-label member-check-label" for="no-doctor">
             No
         </label>
@@ -33,5 +33,5 @@
     <label class="member-check-label col-no-padding">Medical Issues: </label>
 </div>
 <div class="form-group row col-sm-12">
-    <textarea class="input input-sm uw-input col-sm-10"></textarea>
+    <textarea name="medical_issues" class="input input-sm uw-input col-sm-10">{% if medical_issues %}{{ medical_issues }}{% endif %}</textarea>
 </div>
