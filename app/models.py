@@ -39,8 +39,8 @@ class User(db.Model):
     county = db.Column(db.String(64))
     address_zip = db.Column(db.String(20))
     birth_date = db.Column(db.DateTime)
-    tags = db.relationship('Club', secondary=Coordinator_Club, lazy='subquery',
-           backref=db.backref('users', lazy=True))
+    tags = db.relationship('Club', secondary=Coordinator_Club, lazy='subquery', 
+	    backref=db.backref('users', lazy=True))
 
     def __repr__(self):
         return '<User %r>' % (self.username)

@@ -3,6 +3,7 @@ Title
 -----
 views.py
 
+
 Description
 -----------
 Handle requests to the server by returning proper data or template
@@ -38,7 +39,9 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+
         # TODO: remove hardcoded user check and actually check for user in database
+		# old code
         if username == 'user' and password == 'pass':
             session['login'] = True
             session['member_type'] = 'coord'
@@ -47,6 +50,8 @@ def login():
                 return redirect('coordinator/home')
             else:
                 return redirect('member/home')
+		# Daniel's attempt
+		if username in user.query(
     return render_template('login.html', error=False)
 
 '''
@@ -129,7 +134,9 @@ def coordinator_members():
     if not session.get('new_member'):
         session['new_member'] = {'general':{}, 'enrollment_form':{}, 'demographic_data':{}, 'self_sufficiency_matrix':{}, 'self_efficacy_quiz':{}}
     members = [{"image":"default_profile_pic.png", "member_name":"Example Member", "club_name":"Example Club", "goals_completed":5, "goals_in_progress":12},{"image":"sruti.png", "member_name":"Sruti B. Guhathakurta", "club_name":"Example Club", "goals_completed":10, "goals_in_progress":2}]
+
     #TODO: replace members list above with proper query from the database
+
     return render_template('coordinator/members.html', members=members)
 
 '''
@@ -211,7 +218,9 @@ def coordinator_create_member():
     profile_pic_type = request.form['profile_pic_type']
     print profile_pic
     print "profile pic type: " + profile_pic_type
+
     #TODO: add member to database
+
     session['new_member'] = {'general':{}, 'enrollment_form':{}, 'demographic_data':{}, 'self_sufficiency_matrix':{}, 'self_efficacy_quiz':{}}
     return jsonify({"success":True, "status":200})
 
