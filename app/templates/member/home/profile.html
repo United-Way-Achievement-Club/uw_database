@@ -1,0 +1,55 @@
+<div class="dash-item col-sm-8">
+    <div class="dash-item-wrapper col-sm-12 container profile">
+        <div class="profile-pic col-sm-4 col-no-padding">
+            <div class="profile-pic-wrapper">
+                <img src="{{ url_for('static', filename='images/profile_pictures/' + member[0].profile_picture) }}" class="home-profile-pic">
+            </div>
+            <div class="profile_pic_edit">
+                <div onclick="openEditPictureModal()" class="edit-profile-pic-wrapper">
+                    <div class="edit-profile-pic">
+                        <h3><span class="glyphicon glyphicon-pencil edit-picture-ic"></span> Edit Picture</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8 profile-info-wrapper">
+            <div class="profile-edit">
+                <span id="profile-edit-ic" onclick="editProfile()" class="glyphicon glyphicon-pencil orange-text edit-profile-ic"></span>
+            </div>
+            <div class="profile-info">
+                <div class="col-sm-12 col-no-padding">
+                    <h3 class="profile-header">{{ member[0].first_name + " " + member[0].last_name }}</h3>
+                </div>
+                <div class="profile-non-headers">
+                    <div id="view_profile">
+                        <div class="col-sm-12 col-no-padding">
+                            <h5><span class="glyphicon glyphicon-map-marker profile-ic"></span> {{ member[0].address_street + " " + member[0].address_city + ", " + member[0].address_state + " " + member[0].address_zip }}</h5>
+                        </div>
+                        <div class="col-sm-12 col-no-padding">
+                            <h5><span class="glyphicon glyphicon-envelope profile-ic"></span> {{ member[0].email }}</h5>
+                        </div>
+                        <div class="col-sm-12 col-no-padding">
+                            <div class="col-sm-5 col-no-padding">
+                                <h5><span class="glyphicon glyphicon-grain profile-ic"></span> {{ member[0].birth_date.strftime('%b %d, %Y') }}</h5>
+                            </div>
+                            <div class="col-sm-5 col-no-padding">
+                                {% for number in phone_numbers %}
+                                <h5><span class="glyphicon glyphicon-earphone profile-ic"></span> {{ "(" + number.phone[0:3] + ") " + number.phone[3:6] + "-" + number.phone[6:] }} </h5>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div id="edit_profile">
+                        {% with member=member[0], phone_numbers=phone_numbers, states=states %}
+                        {% include 'member/home/edit_profile.html' %}
+                        {% endwith %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% with profile_picture=member[0].profile_picture %}
+{% include 'member/home/edit_picture.html' %}
+{% endwith %}

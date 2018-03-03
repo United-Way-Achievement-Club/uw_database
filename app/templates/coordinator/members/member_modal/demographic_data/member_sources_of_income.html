@@ -1,26 +1,26 @@
-<div class="member-income-src">
-    <label class="member-form-label col-sm-12 col-no-padding">Sources of Income:</label>
+<div id="member-income-source" class="member-income-source">
+    <label class="member-form-label col-sm-12 col-no-padding">Sources of Income (select all that apply):</label>
     <div class="form-group row member-race-row col-sm-6">
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="work" id="work">
+            <input name="income_sources" class="form-check-input" type="checkbox" value="work" id="work" {% if income_sources and 'work' in income_sources %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="work">
                 Work
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="public-assistance" id="public-assistance">
+            <input name="income_sources" class="form-check-input" type="checkbox" value="public-assistance" id="public-assistance" {% if income_sources and 'public-assistance' in income_sources %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="public-assistance">
                 Public Assistance
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="child-support" id="child-support">
+            <input name="income_sources" class="form-check-input" type="checkbox" value="child-support" id="child-support" {% if income_sources and 'child-support' in income_sources %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="child-support">
                 Alimony/Child Support
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="disability" id="disability">
+            <input name="income_sources" class="form-check-input" type="checkbox" value="disability" id="disability" {% if income_sources and 'disability' in income_sources %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="disability">
                 Disability
             </label>
@@ -28,25 +28,25 @@
     </div>
     <div class="form-group row member-race-row col-sm-6">
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="unemployment-benefits" id="unemployment-benefits">
+            <input name="income_sources" class="form-check-input" type="checkbox" value="unemployment-benefits" id="unemployment-benefits" {% if income_sources and 'unemployment-benefits' in income_sources %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="unemployment-benefits">
                 Unemployment Benefits
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="pension-retirement" id="pension-retirement">
+            <input name="income_sources" class="form-check-input" type="checkbox" value="pension-retirement" id="pension-retirement" {% if income_sources and 'pension-retirement' in income_sources %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="pension-retirement">
                 Pension/Retirement
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="ssi" id="ssi">
+            <input name="income_sources" class="form-check-input" type="checkbox" value="ssi" id="ssi" {% if income_sources and 'ssi' in income_sources %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="ssi">
                 SSI
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="income-src-other" id="income-src-other">
+            <input name="income_sources" class="form-check-input" type="checkbox" value="other" id="income-src-other" {% if income_sources and 'other' in income_sources %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="income-src-other">
                 Other
             </label>

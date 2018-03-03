@@ -1,213 +1,228 @@
 <div class="col-sm-12">
-    <form class="form">
-        <label class="member-form-label">Assesment Type:</label>
-        <div class="form-group row">
-            <select class="input input-sm uw-input col-sm-10">
-                <option value="Initial">Initial</option>
-                <option value="Initial">Interim</option>
-                <option value="Initial">Exit</option>
-            </select>
+    <form class="form" id="self-sufficiency-matrix-form">
+        <div class="assesment-headers text-center container col-sm-12 col-no-padding">
+            <div class="col-sm-4 col-no-padding assesment-item-left">
+                <label class=""><h5>Assesment Date:</h5></label>
+                <div class="form-group row">
+                    {% if not date or date == None %}
+                    <input name="date" id="self-sufficiency-date" type="date" class="input input-sm uw-input col-sm-8 col-sm-offset-2">
+                    {% else %}
+                    <h5 id="date-header" class="uw_lighter">{{ date }}</h5>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-sm-4 col-no-padding">
+                <label class=""><h5>Total Score:</h5></label>
+                <div class="form-group row">
+                    <h5 id="self-sufficiency-score" class="uw_lighter">19</h5>
+                </div>
+            </div>
+            <div class="col-sm-4 col-no-padding assesment-item-right">
+                <label class=""><h5>{% if matrix %} Options: {% else %} Save: {% endif %}</h5></label>
+                <div class="form-group row">
+                    {% if matrix %}
+                    <button onclick="saveAssesment()" type="button" class="col-sm-4 col-sm-offset-2 btn btn-sm uw-button-inverse matrix-options-left">Update</button>
+                    <button onclick="removeAssesment('{{ date }}')" type="button" class="col-sm-4 btn btn-sm uw-button-danger matrix-options-right">Remove</button>
+                    {% else %}
+                    <button onclick="saveAssesment()" type="button" class="col-sm-6 col-sm-offset-3 btn btn-sm uw-button-inverse">Click Here</button>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-        <label class="member-form-label">Assesment Date:</label>
-        <div class="form-group row">
-            <input type="date" class="input input-sm uw-input col-sm-10">
+        <div class="self-sufficiency-matrix-results col-sm-12 col-no-padding">
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Housing: </label>
+                <select name="housing" id="self-sufficiency-housing" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
+                    <option value="1" {% if matrix and matrix.housing == '1' %} selected {% endif %}>1: Homeless or threatened with eviction</option>
+                    <option value="2" {% if matrix and matrix.housing == '2' %} selected {% endif %}>2: In transitional, temporary, or substandard housing; and/or current rent/mortgage payment is unaffordable (over 30% of income)</option>
+                    <option value="3" {% if matrix and matrix.housing == '3' %} selected {% endif %}>3: In stable housing that is safe but only marginally adequate</option>
+                    <option value="4" {% if matrix and matrix.housing == '4' %} selected {% endif %}>4: Household is in safe, adequate subsidized housing</option>
+                    <option value="5" {% if matrix and matrix.housing == '5' %} selected {% endif %}>5: Household is safe, adequate, unsubsidized housing</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Employment: </label>
+                <select name="employment" id="self-sufficiency-employment" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
+                    <option value="1" {% if matrix and matrix.employment == '1' %} selected {% endif %}>1: No job</option>
+                    <option value="2" {% if matrix and matrix.employment == '2' %} selected {% endif %}>2: Temporary, part-time, or seasonal; inadequate pay, no benefits</option>
+                    <option value="3" {% if matrix and matrix.employment == '3' %} selected {% endif %}>3: Employed full time; inadequate pay; few or no benefits</option>
+                    <option value="4" {% if matrix and matrix.employment == '4' %} selected {% endif %}>4: Employed full time with adequate pay and benefits</option>
+                    <option value="5" {% if matrix and matrix.employment == '5' %} selected {% endif %}>5: Maintains permanent employment with adequate income and benefits</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Income: </label>
+                <select name="income" id="self-sufficiency-income" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
+                    <option value="1" {% if matrix and matrix.income == '1' %} selected {% endif %}>1: No income</option>
+                    <option value="2" {% if matrix and matrix.income == '2' %} selected {% endif %}>2: Inadequate income and/or spontaneous or inappropriate spending</option>
+                    <option value="3" {% if matrix and matrix.income == '3' %} selected {% endif %}>3: Can meet basic needs with subsidy; appropriate spending</option>
+                    <option value="4" {% if matrix and matrix.income == '4' %} selected {% endif %}>4: Can meet basic needs and manage debt without assistance</option>
+                    <option value="5" {% if matrix and matrix.income == '5' %} selected {% endif %}>5: Income is sufficient, well manages; has discretionary income and is able to save</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Food: </label>
+                <select name="food" id="self-sufficiency-food" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
+                    <option value="1" {% if matrix and matrix.food == '1' %} selected {% endif %}>1: No food or means to prepare it. Relies to a significant degree on other sources of free or low-cost food</option>
+                    <option value="2" {% if matrix and matrix.food == '2' %} selected {% endif %}>2: Household is on food stamps</option>
+                    <option value="3" {% if matrix and matrix.food == '3' %} selected {% endif %}>3: Can meet basic food needs, but requires occasional assistance</option>
+                    <option value="4" {% if matrix and matrix.food == '4' %} selected {% endif %}>4: Can meet basic food needs without assistance</option>
+                    <option value="5" {% if matrix and matrix.food == '5' %} selected {% endif %}>5: Can choose to purchase any food household desires</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Child Care: </label>
+                <select name="child_care" id="self-sufficiency-child-care" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
+                    <option value="1" {% if matrix and matrix.child_care == '1' %} selected {% endif %}>1: Needs childcare, but none is available/accessible and/or child is not eligible</option>
+                    <option value="2" {% if matrix and matrix.child_care == '2' %} selected {% endif %}>2: Childcare is unreliable or unaffordable, inadequate supervision is a problem for childcare that is available</option>
+                    <option value="3" {% if matrix and matrix.child_care == '3' %} selected {% endif %}>3: Affordable subsidized childcare is available, but limited</option>
+                    <option value="4" {% if matrix and matrix.child_care == '4' %} selected {% endif %}>4: Reliable, affordable childcare is available, no need for subsidies</option>
+                    <option value="5" {% if matrix and matrix.child_care == '5' %} selected {% endif %}>5: Able to select quality childcare of choice</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Children's Education: </label>
+                <select name="childrens_education" id="self-sufficiency-childrens-education" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
+                    <option value="1" {% if matrix and matrix.childrens_education == '1' %} selected {% endif %}>1: One or more school-aged children not enrolled in school</option>
+                    <option value="2" {% if matrix and matrix.childrens_education == '2' %} selected {% endif %}>2: One or more school-aged children enrolled in school, but not attending classes</option>
+                    <option value="3" {% if matrix and matrix.childrens_education == '3' %} selected {% endif %}>3: Enrolled in school, but one or more children only occasionally attending classes</option>
+                    <option value="4" {% if matrix and matrix.childrens_education == '4' %} selected {% endif %}>4: Enrolled in school and attending classes most of the time</option>
+                    <option value="5" {% if matrix and matrix.childrens_education == '5' %} selected {% endif %}>5: All school-aged children enrolled and attending on a regular basis</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Adult Education: </label>
+                <select name="adult_education" id="self-sufficiency-adult-education" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
+                    <option value="1" {% if matrix and matrix.adult_education == '1' %} selected {% endif %}>1: Literacy problems and/or no high school diploma/GED are serious barriers to employment</option>
+                    <option value="2" {% if matrix and matrix.adult_education == '2' %} selected {% endif %}>2: Enrolled in literacy and/or GED program and/or has sufficient command of English to where language is not a barrier to employment</option>
+                    <option value="3" {% if matrix and matrix.adult_education == '3' %} selected {% endif %}>3: Has high school diploma/GED</option>
+                    <option value="4" {% if matrix and matrix.adult_education == '4' %} selected {% endif %}>4: Needs additional education/training to improve employment situation and/or to resolve literacy problems to where they are able to function effectively in society</option>
+                    <option value="5" {% if matrix and matrix.adult_education == '5' %} selected {% endif %}>5: Has completed education/training needed to become employable. No literacy problems.</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Health Care Coverage: </label>
+                <select name="health_care_coverage" id="self-sufficiency-health-care-coverage" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
+                    <option value="1" {% if matrix and matrix.health_care_coverage == '1' %} selected {% endif %}>1: No medical coverage with immediate need</option>
+                    <option value="2" {% if matrix and matrix.health_care_coverage == '2' %} selected {% endif %}>2: No medical coverage and great difficulty accessing medical care when needed. Some household members may be in poor health.</option>
+                    <option value="3" {% if matrix and matrix.health_care_coverage == '3' %} selected {% endif %}>3: Some members (e.g. Children) have medical coverage</option>
+                    <option value="4" {% if matrix and matrix.health_care_coverage == '4' %} selected {% endif %}>4: All members can get medical care when needed, buy may strain budget</option>
+                    <option value="5" {% if matrix and matrix.health_care_coverage == '5' %} selected {% endif %}>5: All members are covered by affordable, adequate health insurance</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Life Skills: </label>
+                <select name="life_skills" id="self-sufficiency-life-skills" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
+                    <option value="1" {% if matrix and matrix.life_skills == '1' %} selected {% endif %}>1: Unable to meet the basic needs such as hygiene, food, activities of daily living</option>
+                    <option value="2" {% if matrix and matrix.life_skills == '2' %} selected {% endif %}>2: Can meet a few but not all needs of daily living without assistance</option>
+                    <option value="3" {% if matrix and matrix.life_skills == '3' %} selected {% endif %}>3: Can meet most but not all daily living needs without assistance</option>
+                    <option value="4" {% if matrix and matrix.life_skills == '4' %} selected {% endif %}>4: Able to meet all basic needs of daily living without assistance</option>
+                    <option value="5" {% if matrix and matrix.life_skills == '5' %} selected {% endif %}>5: Able to provide beyond basic needs of daily living for self and family</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Family/Social Relations: </label>
+                <select name="family_social_relations" id="self-sufficiency-family-social-relations" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
+                    <option value="1" {% if matrix and matrix.family_social_relations == '1' %} selected {% endif %}>1: Lack of necessary support from family or friends; abuse (DV, child) is present or there is child neglect</option>
+                    <option value="2" {% if matrix and matrix.family_social_relations == '2' %} selected {% endif %}>2: Family/friends may be supportive, but lack ability or resources to help; family members do not relate well with one another; potential for abuse or neglect</option>
+                    <option value="3" {% if matrix and matrix.family_social_relations == '3' %} selected {% endif %}>3: Some support from family/friends; family members acknowledge and seek to change negative behaviors; are learning to communicate and support</option>
+                    <option value="4" {% if matrix and matrix.family_social_relations == '4' %} selected {% endif %}>4: Strong support from family or friends. Household members support each other's efforts</option>
+                    <option value="5" {% if matrix and matrix.family_social_relations == '5' %} selected {% endif %}>5: Has healthy/expanding support network; household is stable and communication is consistently open</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Mobility: </label>
+                <select name="mobility" id="self-sufficiency-mobility" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
+                    <option value="1" {% if matrix and matrix.mobility == '1' %} selected {% endif %}>1: No access to transportation, public or private; may have car that is inoperable</option>
+                    <option value="2" {% if matrix and matrix.mobility == '2' %} selected {% endif %}>2: Transportation is available, but unreliable, unpredictable, unaffordable; may have car but no insurance, license, etc.</option>
+                    <option value="3" {% if matrix and matrix.mobility == '3' %} selected {% endif %}>3: Transportation is available and reliable, but limited and/or inconvenient; drivers are licensed and minimally insured</option>
+                    <option value="4" {% if matrix and matrix.mobility == '4' %} selected {% endif %}>4: Transportation is generally accessible to meet basic travel needs</option>
+                    <option value="5" {% if matrix and matrix.mobility == '5' %} selected {% endif %}>5: Transportation is readily available and affordable; car is adequately insured</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Community Involvement: </label>
+                <select name="community_involvement" id="self-sufficiency-community-involvement" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
+                    <option value="1" {% if matrix and matrix.community_involvement == '1' %} selected {% endif %}>1: Not applicable due to crisis situation; in "survival" mode</option>
+                    <option value="2" {% if matrix and matrix.community_involvement == '2' %} selected {% endif %}>2: Socially isolated and/or no social skills and/or lacks motivation to become involved</option>
+                    <option value="3" {% if matrix and matrix.community_involvement == '3' %} selected {% endif %}>3: Lacks knowledge of ways to become involved</option>
+                    <option value="4" {% if matrix and matrix.community_involvement == '4' %} selected {% endif %}>4: Some community involvement (advisory group, support group), but has barriers such as transportation, childcare issues</option>
+                    <option value="5" {% if matrix and matrix.community_involvement == '5' %} selected {% endif %}>5: Actively involved in community</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Parenting Skills: </label>
+                <select name="parenting_skills" id="self-sufficiency-parenting-skills" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
+                    <option value="1" {% if matrix and matrix.parenting_skills == '1' %} selected {% endif %}>1: There are safety concerns regarding parenting skills</option>
+                    <option value="2" {% if matrix and matrix.parenting_skills == '2' %} selected {% endif %}>2: Parenting skills are minimal</option>
+                    <option value="3" {% if matrix and matrix.parenting_skills == '3' %} selected {% endif %}>3: Parenting skills are apparent but not adequate</option>
+                    <option value="4" {% if matrix and matrix.parenting_skills == '4' %} selected {% endif %}>4: Parenting skills are adequate</option>
+                    <option value="5" {% if matrix and matrix.parenting_skills == '5' %} selected {% endif %}>5: Parenting skills are well developed</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Legal: </label>
+                <select name="legal" id="self-sufficiency-legal" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
+                    <option value="1" {% if matrix and matrix.legal == '1' %} selected {% endif %}>1: Current outstanding tickets or warrants</option>
+                    <option value="2" {% if matrix and matrix.legal == '2' %} selected {% endif %}>2: Current charges/trial pending, noncompliance with probation/parole</option>
+                    <option value="3" {% if matrix and matrix.legal == '3' %} selected {% endif %}>3: Fully compliant with probation/parole terms</option>
+                    <option value="4" {% if matrix and matrix.legal == '4' %} selected {% endif %}>4: Has successfully completed probation/parole within past 12 months, no new charges filed</option>
+                    <option value="5" {% if matrix and matrix.legal == '5' %} selected {% endif %}>5: No active criminal justice involvement in more than 12 months and/or no felony criminal history</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Mental Health: </label>
+                <select name="mental_health" id="self-sufficiency-mental-health" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
+                    <option value="1" {% if matrix and matrix.mental_health == '1' %} selected {% endif %}>1: Danger to self or others; recurring suicidal ideation; experiencing severe difficulty in day-to-day life due to psychological problems</option>
+                    <option value="2" {% if matrix and matrix.mental_health == '2' %} selected {% endif %}>2: Recurrent mental health symptoms that may affect behavior, but not a danger to self/others; persistent problems with functioning due to mental health symptoms</option>
+                    <option value="3" {% if matrix and matrix.mental_health == '3' %} selected {% endif %}>3: Mild symptoms may be present but are transient; only moderate difficulty in functioning due to mental health problems</option>
+                    <option value="4" {% if matrix and matrix.mental_health == '4' %} selected {% endif %}>4: Minimal symptoms that are expectable responses to life stressors; only slight impairment in functioning</option>
+                    <option value="5" {% if matrix and matrix.mental_health == '5' %} selected {% endif %}>5: Symptoms are absent or rare; good or superior functioning in wide range of activities; no more than every day problems or concerns</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Substance Abuse: </label>
+                <select name="substance_abuse" id="self-sufficiency-substance-abuse" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
+                    <option value="1" {% if matrix and matrix.substance_abuse == '1' %} selected {% endif %}>1: Meets criteria for severe abuse/dependence; resulting problems so severe that institutional living or hospitalization may be necessary</option>
+                    <option value="2" {% if matrix and matrix.substance_abuse == '2' %} selected {% endif %}>2: Meets criteria for dependence; preoccupation with use and/or obtaining drugs/alcohol; withdrawal or withdrawal avoidance behaviors evident; use results in avoidance or neglect of essential life activities</option>
+                    <option value="3" {% if matrix and matrix.substance_abuse == '3' %} selected {% endif %}>3: Use within last 6 months; evidence of persistent or recurrent social, occupational, emotional, or physical problems related to use (such as disruptive behavior or housing problems); problems have persisted for at least one month</option>
+                    <option value="4" {% if matrix and matrix.substance_abuse == '4' %} selected {% endif %}>4: Client has used during last 6 months, but no evidence of persistent or recurrent social, occupational, emotional, or physical problems related to use; no evidence of recurrent dangerous use</option>
+                    <option value="5" {% if matrix and matrix.substance_abuse == '5' %} selected {% endif %}>5: No drug use/alcohol abuse in last 6 months</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Safety: </label>
+                <select name="safety" id="self-sufficiency-safety" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
+                    <option value="1" {% if matrix and matrix.safety == '1' %} selected {% endif %}>1: Home or residence is not safe; immediate level of lethality is extremely high; possible CPS involvement</option>
+                    <option value="2" {% if matrix and matrix.safety == '2' %} selected {% endif %}>2: Safety is threatened/temporary protection is available; level of lethality is high</option>
+                    <option value="3" {% if matrix and matrix.safety == '3' %} selected {% endif %}>3: Current level of safety is minimally adequate; ongoing safety planning is essential</option>
+                    <option value="4" {% if matrix and matrix.safety == '4' %} selected {% endif %}>4: Environment is safe, however, future of such is uncertain; safety planning is important</option>
+                    <option value="5" {% if matrix and matrix.safety == '5' %} selected {% endif %}>5: Environment is apparently safe and stable</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Disabilities: </label>
+                <select name="disabilities" id="self-sufficiency-disabilities" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
+                    <option value="1" {% if matrix and matrix.disabilities == '1' %} selected {% endif %}>1: In crisis- acute or chronic symptoms affecting housing, employment, social interactions...etc.</option>
+                    <option value="2" {% if matrix and matrix.disabilities == '2' %} selected {% endif %}>2: Vulnerable- sometimes or periodically has acute or chronic symptoms affecting housing, employment, social interactions, etc.</option>
+                    <option value="3" {% if matrix and matrix.disabilities == '3' %} selected {% endif %}>3: Safe- rarely has acute or chronic symptoms affecting housing, employment, social interactions, etc.</option>
+                    <option value="4" {% if matrix and matrix.disabilities == '4' %} selected {% endif %}>4: Building capacity- asymptomatic- condition controlled by services or medication</option>
+                    <option value="5" {% if matrix and matrix.disabilities == '5' %} selected {% endif %}>5: Thriving- no identified disability</option>
+                </select>
+            </div>
+            <div class="form-group row assesment-answer">
+                <label class="member-check-label col-sm-3">Other: </label>
+                <select name="other" id="self-sufficiency-other" class="self-sufficiency-answer input input-sm uw-input col-sm-9" onchange="changeScore();">
+                    <option value="1" {% if matrix and matrix.other == '1' %} selected {% endif %}>1: In Crisis</option>
+                    <option value="2" {% if matrix and matrix.other == '2' %} selected {% endif %}>2: Vulnerable</option>
+                    <option value="3" {% if matrix and matrix.other == '3' %} selected {% endif %}>3: Safe</option>
+                    <option value="4" {% if matrix and matrix.other == '4' %} selected {% endif %}>4: Building Capacity</option>
+                    <option value="5" {% if matrix and matrix.other == '5' %} selected {% endif %}>5: Empowered</option>
+                </select>
+            </div>
         </div>
-        <label class="member-form-label">Program Name:</label>
-        <div class="form-group row">
-            <input type="text" placeholder="Program Name" class="input input-sm uw-input col-sm-10">
-        </div>
-        <div class="self-sufficiency-matrix-results">
-            <label class="member-form-label">Assesment Answers:</label>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Housing: </label>
-                <select id="self-sufficiency-housing" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Employment: </label>
-                <select id="self-sufficiency-employment" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Income: </label>
-                <select id="self-sufficiency-income" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Food: </label>
-                <select id="self-sufficiency-food" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Child Care: </label>
-                <select id="self-sufficiency-child-care" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Children's Education: </label>
-                <select id="self-sufficiency-childrens-education" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Adult Education: </label>
-                <select id="self-sufficiency-adult-education" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Health Care Coverage: </label>
-                <select id="self-sufficiency-health-care-coverage" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Life Skills: </label>
-                <select id="self-sufficiency-life-skills" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Family/Social Relations: </label>
-                <select id="self-sufficiency-family-social-relations" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Mobility: </label>
-                <select id="self-sufficiency-mobility" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Community Involvement: </label>
-                <select id="self-sufficiency-community-involvement" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Parenting Skills: </label>
-                <select id="self-sufficiency-parenting-skills" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Legal: </label>
-                <select id="self-sufficiency-legal" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Mental Health: </label>
-                <select id="self-sufficiency-mental-health" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Substance Abuse: </label>
-                <select id="self-sufficiency-substance-abuse" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Safety: </label>
-                <select id="self-sufficiency-safety" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Disabilities: </label>
-                <select id="self-sufficiency-disabilities" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group row assesment-answer">
-                <label class="member-check-label col-sm-6">Other: </label>
-                <select id="self-sufficiency-other" class="input input-sm uw-input col-sm-1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
+        <div class="form-group row col-sm-12 col-no-padding text-center">
+            <button type="button" class="btn btn-sm uw-button-inverse" onclick="saveAssesment()">Save Assesment</button>
         </div>
     </form>
 </div>

@@ -1,29 +1,29 @@
-<div class="member-military">
-    <div class="form-group row col-sm-12 col-no-padding">
+<div id="member-military" class="member-military">
+    <div id="enrolled-in-military" class="form-group row col-sm-12 col-no-padding">
         <label class="col-sm-12 col-no-padding">Are you currently enrolled in any branch of the United States Military? </label>
         <div class="form-check col-sm-2">
-            <input class="form-check-input" type="radio" name="current-military" id="current-military" value="current-military">
+            <input class="form-check-input" type="radio" name="enrolled_in_military" id="current-military" value="true" {% if enrolled_in_military and enrolled_in_military == 'true' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="current-military">
                 Yes
             </label>
         </div>
         <div class="form-check col-sm-2">
-            <input class="form-check-input" type="radio" name="no-current-military" id="no-current-military" value="no-current-military">
+            <input class="form-check-input" type="radio" name="enrolled_in_military" id="no-current-military" value="false" {% if enrolled_in_military and enrolled_in_military == 'false' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="no-current-military">
                 No
             </label>
         </div>
     </div>
-    <div class="form-group row col-sm-12 col-no-padding">
+    <div id="served-in-military" class="form-group row col-sm-12 col-no-padding">
         <label class="col-sm-12 col-no-padding">Have you ever served in the US Military? </label>
         <div class="form-check col-sm-2">
-            <input class="form-check-input" type="radio" name="ever-served" id="ever-served" value="ever-served">
+            <input class="form-check-input" type="radio" name="has_served_in_military" id="ever-served" value="true" {% if has_served_in_military and has_served_in_military == 'true' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="ever-served">
                 Yes
             </label>
         </div>
         <div class="form-check col-sm-2">
-            <input class="form-check-input" type="radio" name="never-served" id="never-served" value="never-served">
+            <input class="form-check-input" type="radio" name="has_served_in_military" id="never-served" value="false" {% if has_served_in_military and has_served_in_military == 'false' %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="never-served">
                 No
             </label>
@@ -32,47 +32,47 @@
     <label class="member-form-label col-sm-12 col-no-padding">If yes, which war/war era did you serve in? (Check all that apply)</label>
     <div class="form-group row member-race-row col-sm-12">
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="korean-war" id="korean-war">
+            <input name="wars_served" class="form-check-input" type="checkbox" value="korean-war" id="korean-war" {% if wars_served and 'korean-war' in wars_served %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="korean-war">
                 Korean War, June 1950-January 1955
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="vietnam-war" id="vietnam-war">
+            <input name="wars_served" class="form-check-input" type="checkbox" value="vietnam-war" id="vietnam-war" {% if wars_served and 'vietnam-war' in wars_served %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="vietnam-war">
                 Vietnam War, August 1964-April 1975
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="post-vietnam" id="post-vietnam">
+            <input name="wars_served" class="form-check-input" type="checkbox" value="post-vietnam" id="post-vietnam" {% if wars_served and 'post-vietnam' in wars_served %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="post-vietnam">
                 Post-Vietnam, May 1975-July 1991
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="persian-gulf-era" id="persian-gulf-era">
+            <input name="wars_served" class="form-check-input" type="checkbox" value="persian-gulf-era" id="persian-gulf-era" {% if wars_served and 'persian-gulf-era' in wars_served %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="persian-gulf-era">
                 Persian Gulf Era, August 1991-Present
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="afghanistan" id="afghanistan">
+            <input name="wars_served" class="form-check-input" type="checkbox" value="afghanistan" id="afghanistan" {% if wars_served and 'afghanistan' in wars_served %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="afghanistan">
                 Afghanistan, 2001-Present
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="iraq" id="iraq">
+            <input name="wars_served" class="form-check-input" type="checkbox" value="iraq" id="iraq" {% if wars_served and 'iraq' in wars_served %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="iraq">
                 Iraq, 2003-Present
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="other-war" id="other-war">
+            <input name="wars_served" class="form-check-input" type="checkbox" value="other" id="other-war" {% if wars_served and 'other' in wars_served %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="other-war">
                 Other, Specify:
             </label>
-            <span><input class="input input-sm uw-input"></span>
+            <span><input  {% if wars_served and 'other' in wars_served %} value="{{ other_war }}" {% endif %}name="other_war" class="input input-sm uw-input"></span>
         </div>
     </div>
 </div>
