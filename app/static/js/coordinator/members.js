@@ -19,8 +19,7 @@ function hideAlerts() {
     $(".form_alert").hide();
 }
 
-// close member modal and clear all fields in the general form
-function closeModal() {
+function emptyModal() {
     $("#memberModal").modal('hide');
     sessionStorage.profilePicIsDataURI = false;
     sessionStorage.profile_picture = DEFAULT_PIC_LOCATION;
@@ -46,6 +45,11 @@ function closeModal() {
         $(".member-modal-nav-item-dropdown-active").removeClass("member-modal-nav-item-dropdown-active");
         $("#self_efficacy_quiz_ic").css({"transform": "rotate(" + 0 + "deg) translateY(-1px)"});
     }
+}
+
+// close member modal and clear all fields in the general form
+function closeModal() {
+    emptyModal();
     $.post( "members/clear_new_member", function() {
       console.log( "successfully requested clear session" );
       })
@@ -99,6 +103,45 @@ function saveModal() {
           window.alert('Error creating new member');
         }
     });
+}
+
+function closeEditModal() {
+    $.post( "members/clear_edit_member", function() {
+      console.log( "successfully closed modal" );
+      })
+      .done(function(data) {
+        emptyModal();
+        $(".member-modal-nav-item-active").removeClass("member-modal-nav-item-active");
+        $("#general").addClass("member-modal-nav-item-active");
+        $("#member-modal-body-component").html(data);
+      })
+      .fail(function() {
+        console.log( "error clearing edit member session..." );
+      })
+      .always(function() {
+        console.log( "closing modal" );
+      });
+}
+
+function saveEditModal() {
+    closeEditModal();
+}
+
+function openEditModal(username) {
+    $.post( "members/edit", {'username':username}, function() {
+      console.log( "successfully requested to edit user " + username );
+      })
+      .done(function(data) {
+        console.log( "successfully opened edit user modal" );
+        $("#member-modal-wrapper").html(data);
+        $("#memberModal").modal('show');
+      })
+      .fail(function() {
+        console.log( "error opening modal..." );
+      })
+      .always(function() {
+        console.log( "opening edit member modal" );
+      });
 }
 
 // change page on member modal. Save info from the current page, send to server to temporarily save

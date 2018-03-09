@@ -123,10 +123,15 @@ def getGeneral(username):
     general['join_date'] = member.member[0].join_date
     general['commitment_pledge'] = member.member[0].commitment_pledge
     general['photo_release'] = member.member[0].photo_release
+    general['profile_picture'] = member.profile_picture
     return general
 
+'''
+Get the enrollment form information for a member to put into the member modal
+'''
 def getEnrollmentForm(username):
     member = models.User.query.get(username)
+    children = models.Child.query.filter_by(parent=username)
     enrollment_form = {}
     enrollment_form['first_name'] = member.first_name
     enrollment_form['last_name'] = member.last_name
@@ -139,6 +144,44 @@ def getEnrollmentForm(username):
     enrollment_form['phone_numbers'] = []
     for entry in member.member[0].phone_numbers:
         enrollment_form['phone_numbers'].append(entry.phone)
-    enrollment_form['spouse_first_name'] = member.spouse_first_name
-    enrollment_form['spouse_last_name'] = member.spouse_last_name
+    enrollment_form['spouse_first_name'] = member.member[0].spouse_first_name
+    enrollment_form['spouse_last_name'] = member.member[0].spouse_last_name
+    enrollment_form['children'] = []
+    for entry in children:
+        child_obj = {}
+        child_obj['child_first_name'] = entry.first_name
+        child_obj['child_last_name'] = entry.last_name
+        child_obj['child_gender'] = entry.gender
+        child_obj['child_birth_date'] = entry.birth_date
+        child_obj['child_school'] = entry.school
+        child_obj['child_grade_level'] = entry.grade_level
+        child_obj['child_grades'] = entry.grades
+        enrollment_form['children'].append(child_obj)
     return enrollment_form
+
+'''
+Get the demographic data information for a member to put into the member modal
+'''
+def getDemographicData(username):
+    member = models.User.query.get(username)
+    demographic_data = {}
+    # TODO: populate demographic data object
+    return demographic_data
+
+'''
+Get the self sufficiency matrices for a member to put into the member modal
+'''
+def getSelfSufficiencyMatrix(username):
+    member = models.User.query.get(username)
+    self_sufficiency_matrix = {}
+    # TODO: populate self_sufficiency_matrix object
+    return self_sufficiency_matrix
+
+'''
+Get the self efficacy quizzes for a member to put into the member modal
+'''
+def getSelfEfficacyQuiz(username):
+    member = models.User.query.get(username)
+    self_efficacy_quiz = {}
+    # TODO: populate self_efficacy_quiz object
+    return self_efficacy_quiz

@@ -37,12 +37,18 @@
                     </div>
                 </div>
                 <div class="member-modal-right" id="member-modal-body-component">
+                    {% if member %}
+                    {% with view_member=member.general, initial_edit=initial_edit %}
                     {% include 'coordinator/members/member_modal/general.html' %}
+                    {% endwith %}
+                    {% else %}
+                    {% include 'coordinator/members/member_modal/general.html' %}
+                    {% endif %}
                 </div>
             </div>
             <div class="modal-footer member-modal-footer">
-                <button type="button" class="btn uw-button" onclick="closeModal()">Close</button>
-                <button type="button" class="btn uw-button-inverse" onclick="saveModal()">Save changes</button>
+                <button type="button" class="btn uw-button" {% if initial_edit %} onclick="closeEditModal()" {% else %} onclick="closeModal()" {% endif %}>Close</button>
+                <button type="button" class="btn uw-button-inverse" {% if initial_edit %} {% else %} onclick="saveEditModal()" {% endif %}>Save changes</button>
             </div>
         </div>
     </div>
