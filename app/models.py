@@ -39,7 +39,7 @@ class User(db.Model):
     county = db.Column(db.String(64))
     address_zip = db.Column(db.String(20))
     birth_date = db.Column(db.DateTime)
-    tags = db.relationship('Club', secondary=Coordinator_Club, lazy='subquery',
+    clubs = db.relationship('Club', secondary=Coordinator_Club, lazy='subquery',
            backref=db.backref('users', lazy=True))
     member = db.relationship("Member", back_populates="user")
 

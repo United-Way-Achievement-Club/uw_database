@@ -11,7 +11,6 @@ Handle requests to the server by returning proper data or template
 from app import app
 from db_accessor import *
 from flask import render_template, redirect, session, request, jsonify, url_for
-from sqlalchemy import exc
 import json
 from utils import validateMember, getStates
 import os

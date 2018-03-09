@@ -110,3 +110,35 @@ def addMember(member_obj):
     # if applicable, same thing for the db tables Member_Sources_Of_Income, Member_Assets, Member_Medical_Issues,
     # Member_Wars_Served, Member_Self_Sufficiency_Matrix, Member_Self_Efficacy_Quiz
     # lastly, db.session.commit()
+
+'''
+Get the general information for a member to put into the member modal
+'''
+def getGeneral(username):
+    member = models.User.query.get(username)
+    general = {}
+    general['username'] = username
+    general['password'] = member.password
+    general['club_name'] = member.member[0].club_name
+    general['join_date'] = member.member[0].join_date
+    general['commitment_pledge'] = member.member[0].commitment_pledge
+    general['photo_release'] = member.member[0].photo_release
+    return general
+
+def getEnrollmentForm(username):
+    member = models.User.query.get(username)
+    enrollment_form = {}
+    enrollment_form['first_name'] = member.first_name
+    enrollment_form['last_name'] = member.last_name
+    enrollment_form['address_street'] = member.address_street
+    enrollment_form['address_state'] = member.address_state
+    enrollment_form['address_city'] = member.address_city
+    enrollment_form['address_zip'] = member.address_zip
+    enrollment_form['birth_date'] = member.birth_date
+    enrollment_form['email'] = member.email
+    enrollment_form['phone_numbers'] = []
+    for entry in member.member[0].phone_numbers:
+        enrollment_form['phone_numbers'].append(entry.phone)
+    enrollment_form['spouse_first_name'] = member.spouse_first_name
+    enrollment_form['spouse_last_name'] = member.spouse_last_name
+    return enrollment_form
