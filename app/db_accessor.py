@@ -112,6 +112,14 @@ def addMember(member_obj):
     # lastly, db.session.commit()
 
 '''
+Compare the updated member to the old member and
+update necessary fields in the database
+'''
+def editMember(updated_member, old_member):
+    # TODO: implement edit member function
+    return True
+
+'''
 Get the general information for a member to put into the member modal
 '''
 def getGeneral(username):

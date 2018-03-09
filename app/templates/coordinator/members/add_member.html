@@ -48,7 +48,7 @@
             </div>
             <div class="modal-footer member-modal-footer">
                 <button type="button" class="btn uw-button" {% if initial_edit %} onclick="closeEditModal()" {% else %} onclick="closeModal()" {% endif %}>Close</button>
-                <button type="button" class="btn uw-button-inverse" {% if initial_edit %} {% else %} onclick="saveEditModal()" {% endif %}>Save changes</button>
+                <button type="button" class="btn uw-button-inverse" {% if initial_edit %} onclick="saveEditModal()" {% else %} onclick="saveModal()" {% endif %}>Save changes</button>
             </div>
         </div>
     </div>

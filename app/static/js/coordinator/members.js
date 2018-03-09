@@ -49,12 +49,12 @@ function emptyModal() {
 
 // close member modal and clear all fields in the general form
 function closeModal() {
-    emptyModal();
     $.post( "members/clear_new_member", function() {
       console.log( "successfully requested clear session" );
       })
       .done(function(data) {
         console.log( "successfully cleared session" );
+        emptyModal();
         $(".member-modal-nav-item-active").removeClass("member-modal-nav-item-active");
         $("#general").addClass("member-modal-nav-item-active");
         $("#member-modal-body-component").html(data);
@@ -92,7 +92,10 @@ function saveModal() {
         success: function (data) {
           if (data.success == true) {
             console.log('Create new member success');
-            closeModal();
+            emptyModal();
+            $(".member-modal-nav-item-active").removeClass("member-modal-nav-item-active");
+            $("#general").addClass("member-modal-nav-item-active");
+            $("#member-modal-body-component").html(data.template);
           } else {
             $(".form_alert").hide();
             $("#" + data.form + "_alert").show();
@@ -105,6 +108,7 @@ function saveModal() {
     });
 }
 
+// close the modal in edit mode
 function closeEditModal() {
     $.post( "members/clear_edit_member", function() {
       console.log( "successfully closed modal" );
@@ -113,7 +117,9 @@ function closeEditModal() {
         emptyModal();
         $(".member-modal-nav-item-active").removeClass("member-modal-nav-item-active");
         $("#general").addClass("member-modal-nav-item-active");
-        $("#member-modal-body-component").html(data);
+        $("#member-modal-wrapper").html(data);
+        $("body").removeClass("modal-open");
+        $('.modal-backdrop').remove();
       })
       .fail(function() {
         console.log( "error clearing edit member session..." );
@@ -123,8 +129,48 @@ function closeEditModal() {
       });
 }
 
+// save the modal in edit mode
 function saveEditModal() {
-    closeEditModal();
+    var newData = saveMemberToStorage(sessionStorage.currentPage);
+    var profile_pic_blob;
+    var profile_pic_type;
+    if (sessionStorage.profilePicIsDataURI === 'true') {
+        profile_pic_blob = dataURItoBlob(sessionStorage.profile_picture);
+        profile_pic_type = "blob";
+    } else {
+        profile_pic_blob = sessionStorage.profile_picture;
+        profile_pic_type = "saved_file";
+    }
+    var form_data = new FormData();
+    form_data.append('profile_picture', profile_pic_blob);
+    form_data.append('profile_pic_type', profile_pic_type);
+    form_data.append('current_page',sessionStorage.currentPage);
+    form_data.append('new_data', JSON.stringify(newData));
+    $.ajax('members/update_member', {
+        method: "POST",
+        data: form_data,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+          if (data.success == true) {
+            console.log('Update member success');
+            emptyModal();
+            $(".member-modal-nav-item-active").removeClass("member-modal-nav-item-active");
+            $("#general").addClass("member-modal-nav-item-active");
+            $("#member-modal-wrapper").html(data.template);
+            $("body").removeClass("modal-open");
+            $('.modal-backdrop').remove();
+          } else {
+            $(".form_alert").hide();
+            $("#" + data.form + "_alert").show();
+            window.alert(data.error_message);
+
+          }
+        },
+        error: function () {
+          window.alert('Error creating new member');
+        }
+    });
 }
 
 function openEditModal(username) {

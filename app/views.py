@@ -450,7 +450,45 @@ def coordinator_create_member():
         addMember(session.get('new_member'))
 
         session['new_member'] = {'general':{}, 'enrollment_form':{}, 'demographic_data':{}, 'self_sufficiency_matrix':{}, 'self_efficacy_quiz':{}}
-        return jsonify({"success":True, "status":200})
+        return jsonify({"success":True, "status":200, "template":render_template('coordinator/members/member_modal/general.html')})
+    return jsonify({"success":False, "status":400, "error_type":"validation","error_message":validatedMember["error"], "form":validatedMember["form"]})
+
+'''
+Create a new member. Take the new member stored in the session,
+validate that all required information is filled out, and upload the profile
+picture (if it's not default). Then clear the new member object in the session.
+'''
+@app.route('/coordinator/members/update_member', methods=['POST'])
+def coordinator_update_member():
+    if not session.get('login'):
+        return redirect('login')
+    new_data = json.loads(request.form['new_data'])
+    edit_member = session.get('edit_member')
+    edit_member[request.form['current_page']] = new_data
+
+    #TODO: complete validateMember function in 'utils.py'
+    validatedMember = validateMember(edit_member)
+
+    if validatedMember["success"]:
+        profile_pic = None
+        if 'profile_picture' in request.files:
+            profile_pic_file = request.files['profile_picture']
+            profile_pic = session.get('edit_member')['general']['username'] + '.jpg'
+            profile_pic_file.save(os.path.join(app.config['UPLOAD_FOLDER'], profile_pic))
+        if 'profile_picture' in request.form:
+            profile_pic = request.form['profile_picture']
+        # profile_pic_type = request.form['profile_pic_type']
+
+        edit_member['general']['profile_picture'] = profile_pic
+        session['edit_member'] = edit_member
+
+        #TODO: *DATABASE* edit member in database- see editMember function in db_accessor.py
+
+        editMember(session.get('edit_member'), session.get('old_edit_member'))
+        session['edit_member'] = None
+        session['old_edit_member'] = None
+        session['modal_mode'] = 'add'
+        return jsonify({"success":True, "status":200, "template":render_template('coordinator/members/add_member.html')})
     return jsonify({"success":False, "status":400, "error_type":"validation","error_message":validatedMember["error"], "form":validatedMember["form"]})
 
 '''
@@ -471,7 +509,7 @@ def coordinator_clear_edit_member():
     session['edit_member'] = None
     session['old_edit_member'] = None
     session['modal_mode'] = 'add'
-    return render_template('coordinator/members/member_modal/general.html')
+    return render_template('coordinator/members/add_member.html')
 
 # -- clubs --
 
