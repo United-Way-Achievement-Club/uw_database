@@ -5,7 +5,10 @@ $(document).ready(function() {
     sessionStorage.currentPage = "general";
     sessionStorage.profilePicIsDataURI = false;
     sessionStorage.profile_picture = DEFAULT_PIC_LOCATION;
+
 });
+
+
 
 // Array Remove - By John Resig (MIT Licensed)
 Array.prototype.remove = function(from, to) {
@@ -19,8 +22,7 @@ function hideAlerts() {
     $(".form_alert").hide();
 }
 
-// close member modal and clear all fields in the general form
-function closeModal() {
+function emptyModal() {
     $("#memberModal").modal('hide');
     sessionStorage.profilePicIsDataURI = false;
     sessionStorage.profile_picture = DEFAULT_PIC_LOCATION;
@@ -46,11 +48,16 @@ function closeModal() {
         $(".member-modal-nav-item-dropdown-active").removeClass("member-modal-nav-item-dropdown-active");
         $("#self_efficacy_quiz_ic").css({"transform": "rotate(" + 0 + "deg) translateY(-1px)"});
     }
+}
+
+// close member modal and clear all fields in the general form
+function closeModal() {
     $.post( "members/clear_new_member", function() {
       console.log( "successfully requested clear session" );
       })
       .done(function(data) {
         console.log( "successfully cleared session" );
+        emptyModal();
         $(".member-modal-nav-item-active").removeClass("member-modal-nav-item-active");
         $("#general").addClass("member-modal-nav-item-active");
         $("#member-modal-body-component").html(data);
@@ -88,7 +95,10 @@ function saveModal() {
         success: function (data) {
           if (data.success == true) {
             console.log('Create new member success');
-            closeModal();
+            emptyModal();
+            $(".member-modal-nav-item-active").removeClass("member-modal-nav-item-active");
+            $("#general").addClass("member-modal-nav-item-active");
+            $("#member-modal-body-component").html(data.template);
           } else {
             $(".form_alert").hide();
             $("#" + data.form + "_alert").show();
@@ -99,6 +109,88 @@ function saveModal() {
           window.alert('Error creating new member');
         }
     });
+}
+
+// close the modal in edit mode
+function closeEditModal() {
+    $.post( "members/clear_edit_member", function() {
+      console.log( "successfully closed modal" );
+      })
+      .done(function(data) {
+        emptyModal();
+        $(".member-modal-nav-item-active").removeClass("member-modal-nav-item-active");
+        $("#general").addClass("member-modal-nav-item-active");
+        $("#member-modal-wrapper").html(data);
+        $("body").removeClass("modal-open");
+        $('.modal-backdrop').remove();
+      })
+      .fail(function() {
+        console.log( "error clearing edit member session..." );
+      })
+      .always(function() {
+        console.log( "closing modal" );
+      });
+}
+
+// save the modal in edit mode
+function saveEditModal() {
+    var newData = saveMemberToStorage(sessionStorage.currentPage);
+    var profile_pic_blob;
+    var profile_pic_type;
+    if (sessionStorage.profilePicIsDataURI === 'true') {
+        profile_pic_blob = dataURItoBlob(sessionStorage.profile_picture);
+        profile_pic_type = "blob";
+    } else {
+        profile_pic_blob = sessionStorage.profile_picture;
+        profile_pic_type = "saved_file";
+    }
+    var form_data = new FormData();
+    form_data.append('profile_picture', profile_pic_blob);
+    form_data.append('profile_pic_type', profile_pic_type);
+    form_data.append('current_page',sessionStorage.currentPage);
+    form_data.append('new_data', JSON.stringify(newData));
+    $.ajax('members/update_member', {
+        method: "POST",
+        data: form_data,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+          if (data.success == true) {
+            console.log('Update member success');
+            emptyModal();
+            $(".member-modal-nav-item-active").removeClass("member-modal-nav-item-active");
+            $("#general").addClass("member-modal-nav-item-active");
+            $("#member-modal-wrapper").html(data.template);
+            $("body").removeClass("modal-open");
+            $('.modal-backdrop').remove();
+          } else {
+            $(".form_alert").hide();
+            $("#" + data.form + "_alert").show();
+            window.alert(data.error_message);
+
+          }
+        },
+        error: function () {
+          window.alert('Error creating new member');
+        }
+    });
+}
+
+function openEditModal(username) {
+    $.post( "members/edit", {'username':username}, function() {
+      console.log( "successfully requested to edit user " + username );
+      })
+      .done(function(data) {
+        console.log( "successfully opened edit user modal" );
+        $("#member-modal-wrapper").html(data);
+        $("#memberModal").modal({backdrop: 'static', keyboard: false});
+      })
+      .fail(function() {
+        console.log( "error opening modal..." );
+      })
+      .always(function() {
+        console.log( "opening edit member modal" );
+      });
 }
 
 // change page on member modal. Save info from the current page, send to server to temporarily save
@@ -234,7 +326,7 @@ function saveEnrollmentForm() {
 function saveDemographicData() {
     var demographicDataObj = {"income_sources":[], "assets":[], "wars_served":[]};
     var demographicValues = $("#demographic-data-form").serializeArray();
-    console.log(demographicValues);
+    var medical_issues;
     for (v in demographicValues) {
         if (demographicValues[v].name === "income_sources") {
             demographicDataObj.income_sources.push(demographicValues[v].value);
@@ -242,6 +334,14 @@ function saveDemographicData() {
             demographicDataObj.assets.push(demographicValues[v].value);
         } else if (demographicValues[v].name === "wars_served") {
             demographicDataObj.wars_served.push(demographicValues[v].value);
+        } else if (demographicValues[v].name === "medical_issues") {
+            medical_issues = (demographicValues[v].value).split(",");
+            for (issue in medical_issues) {
+                if (!(typeof medical_issues[issue] === "function")) {
+                    medical_issues[issue] = (medical_issues[issue]).trim();
+                }
+            }
+            demographicDataObj['medical_issues'] = medical_issues
         } else {
             demographicDataObj[demographicValues[v].name] = demographicValues[v].value;
         }
@@ -252,14 +352,12 @@ function saveDemographicData() {
 // save the self sufficiency matrix form
 function saveSelfSufficiencyMatrix() {
     var selfSufficiencyObj = {};
-    // TODO: parse the values from the form and add to selfSufficiencyObj
     return selfSufficiencyObj;
 }
 
 // save the self efficacy quiz form
 function saveSelfEfficacyQuiz() {
     var selfEfficacyObj = {};
-    // TODO: parse the values from the form and add to selfEfficacyObj
     return selfEfficacyObj;
 }
 

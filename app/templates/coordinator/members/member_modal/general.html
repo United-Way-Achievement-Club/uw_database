@@ -1,6 +1,11 @@
+<script>
+    {% if initial_edit and view_member.profile_picture %}
+    sessionStorage.profile_picture = '/static/images/profile_pictures/{{ view_member.profile_picture }}';
+    {% endif %}
+</script>
 <div class="col-xs-6 col-sm-5 col-no-padding">
     <div class="member-profile-pic-wrapper">
-        <img id="member-profile-pic" class="member-profile-pic" src="{{ url_for('static', filename='images/profile_pictures/default_profile_pic.png') }}">
+        <img id="member-profile-pic" class="member-profile-pic" {% if initial_edit and view_member.profile_picture %} src="{{ url_for('static', filename='images/profile_pictures/' + view_member.profile_picture) }}" {% else %} src="{{ url_for('static', filename='images/profile_pictures/default_profile_pic.png') }}" {% endif %}>
         <!--<div class="member-profile-pic-edit">
             <span class="glyphicon glyphicon-pencil propic-edit-icon"></span>
         </div>-->
@@ -20,7 +25,7 @@
     <form class="form" id="general-form">
         <label class="member-form-label">Username:</label>
         <div class="form-group row">
-            <input id="username" type="text" name="username" value="{% if view_member and view_member.username %}{{ view_member.username }}{% endif %}" placeholder="username" class="input input-sm uw-input" autocomplete="off">
+            <input id="username" type="text" name="username" value="{% if view_member and view_member.username %}{{ view_member.username }}{% endif %}" placeholder="username" class="input input-sm uw-input" autocomplete="off" {% if disable_username and disable_username==True %} disabled {% endif %}>
         </div>
         <label class="member-form-label">Password:</label>
         <div class="form-group row">
