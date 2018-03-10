@@ -117,7 +117,29 @@ update necessary fields in the database
 '''
 def editMember(updated_member, old_member):
     # TODO: implement edit member function
-    return True
+    # compare each field in the updated member and old member
+    # only make database queries when there is a difference
+    # in one of the fields.
+
+    # NOTE: the username will be the same in updated_member and old_member
+    # because they shouldn't be able to change their username.
+    user = models.User.query.get(old_member['general']['username'])
+
+    # in order to access fields in the 'User' table, just access the field directly (ex. user.password)
+    # in order to access fields in the 'Member' table, say user.member[0].<field_name> (ex. user.member[0].join_date)
+
+    general = updated_member['general']
+    old_general = old_member['general']
+    for key in general:
+        if general[key] != old_general[key]:
+            print "updating item in database"
+            print key
+            print general[key]
+            # make a database query here to update the value
+
+    # do the same for enrollment form, demographic data, self sufficiency matrix, self efficacy quiz
+    # at the end, db.session.commit()
+
 
 '''
 Get the general information for a member to put into the member modal
@@ -147,7 +169,7 @@ def getEnrollmentForm(username):
     enrollment_form['address_state'] = member.address_state
     enrollment_form['address_city'] = member.address_city
     enrollment_form['address_zip'] = member.address_zip
-    enrollment_form['birth_date'] = member.birth_date
+    enrollment_form['birth_date'] = datetime.strftime(member.birth_date, '%Y-%m-%d')
     enrollment_form['email'] = member.email
     enrollment_form['phone_numbers'] = []
     for entry in member.member[0].phone_numbers:

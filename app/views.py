@@ -181,7 +181,7 @@ def coordinator_members_edit():
     session['modal_mode'] = 'edit'
     session['edit_member'] = {'general':getGeneral(username), 'enrollment_form':getEnrollmentForm(username), 'demographic_data':getDemographicData(username), 'self_sufficiency_matrix':getSelfSufficiencyMatrix(username), 'self_efficacy_quiz':getSelfEfficacyQuiz(username)}
     session['old_edit_member'] = session.get('edit_member')
-    return render_template('coordinator/members/add_member.html', member=session.get('edit_member'), initial_edit=True)
+    return render_template('coordinator/members/add_member.html', member=session.get('edit_member'), initial_edit=True, disable_username=True)
 
 '''
 Update the current page in the add member modal
@@ -229,7 +229,7 @@ def coordinator_members_edit_general():
     if not session.get('login'):
         return redirect('login')
     view_member = session.get('edit_member')['general']
-    return render_template('coordinator/members/member_modal/general.html', view_member=view_member)
+    return render_template('coordinator/members/member_modal/general.html', view_member=view_member, disable_username=True)
 
 '''
 Return the template for the enrollment form in the add member modal
@@ -458,7 +458,7 @@ def coordinator_create_member():
     new_member[request.form['current_page']] = new_data
 
     #TODO: complete validateMember function in 'utils.py'
-    validatedMember = validateMember(new_member)
+    validatedMember = validateMember(new_member, False)
 
     if validatedMember["success"]:
         profile_pic = None
@@ -481,9 +481,9 @@ def coordinator_create_member():
     return jsonify({"success":False, "status":400, "error_type":"validation","error_message":validatedMember["error"], "form":validatedMember["form"]})
 
 '''
-Create a new member. Take the new member stored in the session,
+Update the member in the database. Take the updated member stored in the session,
 validate that all required information is filled out, and upload the profile
-picture (if it's not default). Then clear the new member object in the session.
+picture (if it's not the same as before). Then clear the edit member object in the session.
 '''
 @app.route('/coordinator/members/update_member', methods=['POST'])
 def coordinator_update_member():
@@ -494,7 +494,7 @@ def coordinator_update_member():
     edit_member[request.form['current_page']] = new_data
 
     #TODO: complete validateMember function in 'utils.py'
-    validatedMember = validateMember(edit_member)
+    validatedMember = validateMember(edit_member, True)
 
     if validatedMember["success"]:
         profile_pic = None
@@ -502,11 +502,8 @@ def coordinator_update_member():
             profile_pic_file = request.files['profile_picture']
             profile_pic = session.get('edit_member')['general']['username'] + '.jpg'
             profile_pic_file.save(os.path.join(app.config['UPLOAD_FOLDER'], profile_pic))
-        if 'profile_picture' in request.form:
-            profile_pic = request.form['profile_picture']
-        # profile_pic_type = request.form['profile_pic_type']
+            edit_member['general']['profile_picture'] = profile_pic
 
-        edit_member['general']['profile_picture'] = profile_pic
         session['edit_member'] = edit_member
 
         #TODO: *DATABASE* edit member in database- see editMember function in db_accessor.py
@@ -528,6 +525,9 @@ def coordinator_clear_new_member():
     session['new_member'] = {'general':{}, 'enrollment_form':{}, 'demographic_data':{}, 'self_sufficiency_matrix':{}, 'self_efficacy_quiz':{}}
     return render_template('coordinator/members/member_modal/general.html')
 
+'''
+Clear the member being edited from the flask session
+'''
 @app.route('/coordinator/members/clear_edit_member', methods=['POST'])
 def coordinator_clear_edit_member():
     if not session.get('login'):

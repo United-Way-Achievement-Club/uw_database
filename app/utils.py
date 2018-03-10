@@ -16,10 +16,10 @@ import re
 Validate member object, check if all required fields
 are completed and in the correct format
 '''
-def validateMember(memberObj):
+def validateMember(memberObj, edit):
     print memberObj
     # validate general
-    general = validateGeneral(memberObj['general'])
+    general = validateGeneral(memberObj['general'], edit)
     general['form'] = 'general'
     if general["success"] == False:
         return general
@@ -48,13 +48,13 @@ def validateMember(memberObj):
 '''
 Validate general portion of member object
 '''
-def validateGeneral(general):
+def validateGeneral(general, edit):
     date_string = "%Y-%m-%d"
     if general == {}:
         return {"success":False, "error":"general form must be filled out"}
-    if general['username'] == '':
+    if not edit and general['username'] == '':
         return {"success":False, "error":"Username can not be blank"}
-    elif len(general['username']) < 5:
+    elif not edit and len(general['username']) < 5:
         return {"success":False, "error":"Username must be greater than 5 characters"}
     elif len(general['password']) < 8:
         return {"success":False, "error":"Password must be 8 or more characters"}
