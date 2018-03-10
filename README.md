@@ -67,6 +67,29 @@ Mockups for the portal can be found [here](https://balsamiq.cloud/sll25/prfco/r2
 
 More details about what features have been completed and what there is yet to do can be found in the task board.
 
+### Making changes to the database schema
+If you make changes to the database schema by modifying **models.py**, you must first delete the current set of migrations by deleting the directory **app/db_repository** and the database snapshot in **app/app.db**. 
+
+Then, run this command to give executable permissions to the db_create.py file
+                
+    chmod +x db_create.py
+Same for the db_migrate.py file
+
+    chmod +x db_migrate.py
+Then, recreate the database
+    
+    ./db_create.py
+And the migrations
+    
+    ./db_migate.py
+
+To repopulate the database with some default data, add to the default_data.py file and give executable permissions. Then run it.
+
+    chmod +x default_data.py
+Then,
+
+    ./default_data.py
+
 ### References
 
 * [Flask](http://flask.pocoo.org/docs/0.12/)
