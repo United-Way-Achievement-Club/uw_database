@@ -133,8 +133,6 @@ def editMember(updated_member, old_member):
     for key in general:
         if general[key] != old_general[key]:
             print "updating item in database"
-            print key
-            print general[key]
             # make a database query here to update the value
 
     # do the same for enrollment form, demographic data, self sufficiency matrix, self efficacy quiz
