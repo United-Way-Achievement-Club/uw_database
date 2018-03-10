@@ -5,7 +5,10 @@ $(document).ready(function() {
     sessionStorage.currentPage = "general";
     sessionStorage.profilePicIsDataURI = false;
     sessionStorage.profile_picture = DEFAULT_PIC_LOCATION;
+
 });
+
+
 
 // Array Remove - By John Resig (MIT Licensed)
 Array.prototype.remove = function(from, to) {
@@ -180,7 +183,7 @@ function openEditModal(username) {
       .done(function(data) {
         console.log( "successfully opened edit user modal" );
         $("#member-modal-wrapper").html(data);
-        $("#memberModal").modal('show');
+        $("#memberModal").modal({backdrop: 'static', keyboard: false});
       })
       .fail(function() {
         console.log( "error opening modal..." );
@@ -323,7 +326,7 @@ function saveEnrollmentForm() {
 function saveDemographicData() {
     var demographicDataObj = {"income_sources":[], "assets":[], "wars_served":[]};
     var demographicValues = $("#demographic-data-form").serializeArray();
-    console.log(demographicValues);
+    var medical_issues;
     for (v in demographicValues) {
         if (demographicValues[v].name === "income_sources") {
             demographicDataObj.income_sources.push(demographicValues[v].value);
@@ -331,6 +334,14 @@ function saveDemographicData() {
             demographicDataObj.assets.push(demographicValues[v].value);
         } else if (demographicValues[v].name === "wars_served") {
             demographicDataObj.wars_served.push(demographicValues[v].value);
+        } else if (demographicValues[v].name === "medical_issues") {
+            medical_issues = (demographicValues[v].value).split(",");
+            for (issue in medical_issues) {
+                if (!(typeof medical_issues[issue] === "function")) {
+                    medical_issues[issue] = (medical_issues[issue]).trim();
+                }
+            }
+            demographicDataObj['medical_issues'] = medical_issues
         } else {
             demographicDataObj[demographicValues[v].name] = demographicValues[v].value;
         }
@@ -341,14 +352,12 @@ function saveDemographicData() {
 // save the self sufficiency matrix form
 function saveSelfSufficiencyMatrix() {
     var selfSufficiencyObj = {};
-    // TODO: parse the values from the form and add to selfSufficiencyObj
     return selfSufficiencyObj;
 }
 
 // save the self efficacy quiz form
 function saveSelfEfficacyQuiz() {
     var selfEfficacyObj = {};
-    // TODO: parse the values from the form and add to selfEfficacyObj
     return selfEfficacyObj;
 }
 

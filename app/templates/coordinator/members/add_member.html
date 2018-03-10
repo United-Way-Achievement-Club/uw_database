@@ -3,7 +3,7 @@
     <div class="modal-dialog member-modal-dialog" role="document">
         <div class="modal-content member-modal-content">
             <div class="modal-header member-modal-header">
-                <h4 class="modal-title" id="memberModalLabel">Add Member</h4>
+                <h4 class="modal-title" id="memberModalLabel">{% if initial_edit %} Edit {% else %} Add {% endif %} Member</h4>
             </div>
             <div class="modal-body member-modal-body">
                 <div class="member-modal-nav col-sm-3">
@@ -23,6 +23,11 @@
                         <div id="new" onclick="viewMatrix(this)" class="member-modal-nav-item-dropdown-active member-modal-nav-item-dropdown">
                             <a><h5>New</h5></a>
                         </div>
+                        {% if member %}
+                        {% for key in member.self_sufficiency_matrix %}
+                        <div id="{{ key }}" onclick="viewMatrix(this)" class="member-modal-nav-item-dropdown"><a><h5>{{ key }}</h5></a></div>
+                        {% endfor %}
+                        {% endif %}
                     </div>
                     <div class="member-modal-nav-item" id="self_efficacy_quiz" onclick="dropdownChange(this)">
                         <a><h5>Self-Efficacy Quiz <span id="self_efficacy_quiz_ic" class="dropdown-ic glyphicon glyphicon-chevron-right"></span><span id="self_efficacy_quiz_alert" class="form_alert glyphicon glyphicon-exclamation-sign"></span></h5></a>

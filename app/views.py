@@ -278,15 +278,19 @@ Return the template for the self sufficiency matrix in the add member modal
 def coordinator_members_self_sufficiency_matrix():
     if not session.get('login'):
         return redirect('login')
+    if session.get('modal_mode') == 'add':
+        member_type = 'new_member'
+    elif session.get('modal_mode') == 'edit':
+        member_type = 'edit_member'
     matrix = None
     date = None
     if 'date' in request.form and request.form['date'] != "New":
         date = request.form['date']
-        matrix = session.get('new_member')['self_sufficiency_matrix'][date]
+        matrix = session.get(member_type)['self_sufficiency_matrix'][date]
     if 'key' in request.form and request.form['key'] != 'self_sufficiency_matrix' and request.form['key'] != 'self_efficacy_quiz':
-        new_member = session.get('new_member')
-        new_member[request.form['key']] = json.loads(request.form['data'])
-        session['new_member'] = new_member
+        view_member = session.get(member_type)
+        view_member[request.form['key']] = json.loads(request.form['data'])
+        session[member_type] = view_member
     return render_template('coordinator/members/member_modal/self_sufficiency_matrix.html', matrix=matrix, date=date)
 
 '''
@@ -355,16 +359,39 @@ Return the template for the self efficacy quiz in the add member modal
 def coordinator_members_self_efficacy_quiz():
     if not session.get('login'):
         return redirect('login')
+    if session.get('modal_mode') == 'add':
+        member_type = 'new_member'
+    elif session.get('modal_mode') == 'edit':
+        member_type = 'edit_member'
     quiz = None
     date = None
     if 'date' in request.form and request.form['date'] != "New":
         date = request.form['date']
-        print session.get('new_member')['self_efficacy_quiz']
-        quiz = session.get('new_member')['self_efficacy_quiz'][date]
+        print session.get(member_type)['self_efficacy_quiz']
+        quiz = session.get(member_type)['self_efficacy_quiz'][date]
     if 'key' in request.form and request.form['key'] != 'self_efficacy_quiz' and request.form['key'] != 'self_sufficiency_matrix':
-        new_member = session.get('new_member')
+        new_member = session.get(member_type)
         new_member[request.form['key']] = json.loads(request.form['data'])
-        session['new_member'] = new_member
+        session[member_type] = new_member
+    return render_template('coordinator/members/member_modal/self_efficacy_quiz.html', quiz=quiz, date=date)
+
+'''
+Return the template for the self efficacy quiz in the add member modal
+'''
+@app.route('/coordinator/members/edit/self_efficacy_quiz', methods=['GET','POST'])
+def coordinator_members_edit_self_efficacy_quiz():
+    if not session.get('login'):
+        return redirect('login')
+    quiz = None
+    date = None
+    if 'date' in request.form and request.form['date'] != "New":
+        date = request.form['date']
+        print session.get('edit_member')['self_efficacy_quiz']
+        quiz = session.get('edit_member')['self_efficacy_quiz'][date]
+    if 'key' in request.form and request.form['key'] != 'self_efficacy_quiz' and request.form['key'] != 'self_sufficiency_matrix':
+        new_member = session.get('edit_member')
+        new_member[request.form['key']] = json.loads(request.form['data'])
+        session['edit_member'] = new_member
     return render_template('coordinator/members/member_modal/self_efficacy_quiz.html', quiz=quiz, date=date)
 
 '''

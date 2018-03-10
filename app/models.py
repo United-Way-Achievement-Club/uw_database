@@ -120,7 +120,7 @@ Member-Self Sufficiency Matrix results (1-n)
 '''
 class Member_Self_Sufficiency_Matrix(db.Model):
     username = db.Column(db.String(64), db.ForeignKey('member.username'), primary_key=True)
-    assesment_date = db.Column(db.DateTime, primary_key=True)
+    assessment_date = db.Column(db.DateTime, primary_key=True)
     housing = db.Column(db.Integer)
     employment = db.Column(db.Integer)
     income = db.Column(db.Integer)
@@ -146,7 +146,7 @@ Member-Self Efficacy Quiz Results (1-n)
 '''
 class Member_Self_Efficacy_Quiz(db.Model):
     username = db.Column(db.String(64), db.ForeignKey('member.username'), primary_key=True)
-    assesment_date = db.Column(db.DateTime, primary_key=True)
+    assessment_date = db.Column(db.DateTime, primary_key=True)
     question_1 = db.Column(db.Integer)
     question_2 = db.Column(db.Integer)
     question_3 = db.Column(db.Integer)

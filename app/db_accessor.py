@@ -128,9 +128,9 @@ def getGeneral(username):
     general['username'] = username
     general['password'] = member.password
     general['club_name'] = member.member[0].club_name
-    general['join_date'] = member.member[0].join_date
-    general['commitment_pledge'] = member.member[0].commitment_pledge
-    general['photo_release'] = member.member[0].photo_release
+    general['join_date'] = datetime.strftime(member.member[0].join_date, '%Y-%m-%d')
+    general['commitment_pledge'] = datetime.strftime(member.member[0].commitment_pledge, '%Y-%m-%d')
+    general['photo_release'] = datetime.strftime(member.member[0].photo_release, '%Y-%m-%d')
     general['profile_picture'] = member.profile_picture
     return general
 
@@ -160,7 +160,7 @@ def getEnrollmentForm(username):
         child_obj['child_first_name'] = entry.first_name
         child_obj['child_last_name'] = entry.last_name
         child_obj['child_gender'] = entry.gender
-        child_obj['child_birth_date'] = entry.birth_date
+        child_obj['child_birth_date'] = datetime.strftime(entry.birth_date, '%Y-%m-%d')
         child_obj['child_school'] = entry.school
         child_obj['child_grade_level'] = entry.grade_level
         child_obj['child_grades'] = entry.grades
@@ -173,7 +173,32 @@ Get the demographic data information for a member to put into the member modal
 def getDemographicData(username):
     member = models.User.query.get(username)
     demographic_data = {}
-    # TODO: populate demographic data object
+    demographic_data['gender'] = member.gender
+    demographic_data['race'] = member.race
+    demographic_data['marital_status'] = member.member[0].marital_status
+    demographic_data['education'] = member.member[0].education
+    demographic_data['english_proficiency'] = member.member[0].english_proficiency
+    demographic_data['english_reading_level'] = member.member[0].english_reading_level
+    demographic_data['english_writing_level'] = member.member[0].english_writing_level
+    demographic_data['employment_status'] = member.member[0].employment_status
+    demographic_data['income'] = member.member[0].income
+    demographic_data['income_sources'] = []
+    for entry in member.member[0].income_sources:
+        demographic_data['income_sources'].append(entry.income_source)
+    demographic_data['assets'] = []
+    for entry in member.member[0].assets:
+        demographic_data['assets'].append(entry.asset)
+    demographic_data['has_car'] = member.member[0].has_car
+    demographic_data['has_health_insurance'] = member.member[0].has_health_insurance
+    demographic_data['has_primary_care_doctor'] = member.member[0].has_primary_care_doctor
+    demographic_data['medical_issues'] = []
+    for entry in member.member[0].medical_issues:
+        demographic_data['medical_issues'].append(entry.medical_issue)
+    demographic_data['enrolled_in_military'] = member.member[0].enrolled_in_military
+    demographic_data['has_served_in_military'] = member.member[0].has_served_in_military
+    demographic_data['wars_served'] = []
+    for entry in member.member[0].wars_served:
+        demographic_data['wars_served'].append(entry.war_served)
     return demographic_data
 
 '''
@@ -182,7 +207,13 @@ Get the self sufficiency matrices for a member to put into the member modal
 def getSelfSufficiencyMatrix(username):
     member = models.User.query.get(username)
     self_sufficiency_matrix = {}
-    # TODO: populate self_sufficiency_matrix object
+    for entry in member.member[0].self_sufficiency_matrices:
+        date = datetime.strftime(entry.assessment_date, '%Y-%m-%d')
+        self_sufficiency_matrix[date] = {}
+        entry_items = entry.__dict__
+        for key, value in entry_items.items():
+            if key != 'assessment_date' and key != '_sa_instance_state' and key != 'username':
+                self_sufficiency_matrix[date][key] = str(value)
     return self_sufficiency_matrix
 
 '''
@@ -191,5 +222,11 @@ Get the self efficacy quizzes for a member to put into the member modal
 def getSelfEfficacyQuiz(username):
     member = models.User.query.get(username)
     self_efficacy_quiz = {}
-    # TODO: populate self_efficacy_quiz object
+    for entry in member.member[0].self_efficacy_quizzes:
+        date = datetime.strftime(entry.assessment_date, '%Y-%m-%d')
+        self_efficacy_quiz[date] = {}
+        entry_items = entry.__dict__
+        for key, value in entry_items.items():
+            if key != 'assessment_date' and key != '_sa_instance_state' and key != 'username':
+                self_efficacy_quiz[date][key] = str(value)
     return self_efficacy_quiz
