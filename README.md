@@ -7,12 +7,12 @@ The United Way Achievement Club aims to empower families to achieve their own go
 ## How to run
 
 First ensure that you have Python version 2.6+ installed on your machine. To confirm,
-run the following command to ensure that python is installed and it is the correct version.
+open a terminal and run the following command to ensure that python is installed and it is the correct version.
 
     python --version
     
 
-Then, open a terminal and follow these steps.
+Then, follow these steps.
 
 
 #### 1. Clone this repository
@@ -25,10 +25,13 @@ Then, open a terminal and follow these steps.
 #### 3. Install the necessary requirements
     
         pip install --user -r requirements.txt
-#### 4. Run this command
+#### 4. Make sure that the run.py file has executable permissions
 
-        python run.py
-#### 5. Navigate to the URL *127.0.0.1:8090* in your browser
+        chmod +x run.py
+#### 5. Run this command
+
+        ./run.py
+#### 6. Navigate to the URL *127.0.0.1:8090* in your browser
    A login page should appear. Currently, the test user has the credentials username:*user* and password:*password* and navigates to the coordinator home page.
 
 ## How to contribute
