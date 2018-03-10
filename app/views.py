@@ -92,6 +92,8 @@ Edit the member's profile information
 '''
 @app.route('/member/edit_profile', methods=['POST'])
 def member_edit_profile():
+    if not session.get('login'):
+        return redirect('login')
     member_data = json.loads(request.form['member_data'])
     username = session.get('member')
     updateMember(member_data, username)
@@ -103,12 +105,27 @@ Edit the member's profile picture
 '''
 @app.route('/member/edit_profile_picture', methods=['POST'])
 def member_edit_profile_picture():
+    if not session.get('login'):
+        return redirect('login')
     profile_picture = request.files['profile_picture']
     username = session.get('member')
     editProfilePic(username)
     phone_numbers = getPhoneNumbers(session.get('member'))
     profile_picture.save(os.path.join(app.config['UPLOAD_FOLDER'], username + '.jpg'))
     return render_template('member/home/profile.html', member=getMember(username), phone_numbers=phone_numbers, states=getStates())
+
+# -- goals --
+
+'''
+Member goals page
+'''
+@app.route('/member/goals')
+def member_goals():
+    if not session.get('login'):
+        return redirect('login')
+    username = session.get('member')
+    return render_template('member/goals.html', member=getMember(username))
+
 
 # ================================================= COORDINATOR ====================================================
 
@@ -229,6 +246,7 @@ def coordinator_members_edit_general():
     if not session.get('login'):
         return redirect('login')
     view_member = session.get('edit_member')['general']
+    view_member['username'] = session.get('old_edit_member')['general']['username']
     return render_template('coordinator/members/member_modal/general.html', view_member=view_member, disable_username=True)
 
 '''
