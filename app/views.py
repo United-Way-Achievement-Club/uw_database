@@ -52,8 +52,6 @@ def login():
             else:
                 session['member'] = user.username
                 return redirect('member/home')
-		# Daniel's attempt
-		# if username in user.query(
     return render_template('login.html', error=False)
 
 '''
@@ -349,7 +347,7 @@ def coordinator_create_member():
     new_data = json.loads(request.form['new_data'])
     new_member = session.get('new_member')
     new_member[request.form['current_page']] = new_data
-
+    
     #TODO: complete validateMember function in 'utils.py'
     validatedMember = validateMember(new_member)
 
