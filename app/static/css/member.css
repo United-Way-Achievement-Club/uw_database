@@ -227,3 +227,19 @@
 .profile-pic-label:hover {
     background-color: var(--light_lavender);
 }
+
+/*===================================goals===================================*/
+
+.add-goal {
+    height: 200px;
+    display: table;
+}
+
+.add-goal-content {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.goals-stats {
+    height: 200px;
+}

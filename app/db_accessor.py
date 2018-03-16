@@ -81,7 +81,7 @@ def getCoordinator(username):
 Return all of the coordinators in the database
 '''
 def getCoordinators():
-    return models.Coordinator.query.all()
+    return models.User.query.filter_by(type='coordinator').all()
 
 '''
 Add a new member to the database
