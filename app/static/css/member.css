@@ -243,3 +243,134 @@
 .goals-stats {
     height: 200px;
 }
+
+.goals-list {
+    height: calc(100vh - 290px);
+    overflow-y: scroll;
+}
+
+.goal-title {
+    color: var(--uw_lavender);
+    font-size: 1.3em;
+    display: inline-block;
+}
+
+.goal-title:hover {
+    text-decoration: none ! important;
+    color: var(--uw_orange);
+}
+
+.goal-header-ic {
+    margin-right: 3px;
+    transform: translateY(-1px);
+}
+
+.goal-heading {
+    text-align: left;
+    height: 75px;
+    width: 100%;
+    background-color: var(--uw_white) ! important;
+    border: 0;
+    border-radius: 0;
+    display: table;
+}
+
+.goal-heading-content {
+    display: table-cell;
+    vertical-align: middle;
+    position: relative;
+}
+
+.member-goal {
+    border: 1px solid var(--primary_light);
+    border-radius: 0 ! important;
+    text-align: left;
+}
+
+.goals-completed {
+    color: var(--uw_orange);
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    width: 100px;
+}
+
+.goals-progress {
+    margin-bottom: 0;
+}
+
+.goals-progress-bar {
+    background-color: var(--uw_lavender);
+}
+
+.goal-footer {
+    background-color: var(--uw_white);
+}
+
+.goal-steps-list {
+    margin-left: 30px;
+}
+
+.goal-step-name:hover {
+    cursor: pointer;
+}
+
+.goal-step {
+    margin: 20px 0 20px 0;
+}
+
+.goal-step-completed {
+    color: var(--primary);
+}
+
+.goal-step-completed h5, .goal-step-completed h6 {
+    font-weight: 300;
+}
+
+.goal-step-active {
+    color: var(--uw_orange);
+}
+
+.goal-step-active h5 {
+    font-size: 1.2em ! important;
+}
+
+.goal-step-incomplete h5 {
+    color: var(--uw_lavender);
+}
+
+.proof-completed {
+    color: var(--primary);
+}
+
+.proof-completed h6 {
+    font-weight: 300;
+}
+
+.goal-step-completed .goal-proofs-list, .goal-step-incomplete .goal-proofs-list {
+    display: none;
+}
+
+.goal-proof {
+    margin: 10px 0 10px 0;
+}
+
+.goal-proof-title {
+    font-size: 1em;
+}
+
+.proof-completed-label {
+    font-size: 0.8em;
+    margin-left: 5px;
+}
+
+.proof-upload-label {
+    background-color: var(--primary);
+    color: var(--uw_white);
+    padding: 2px 5px 2px 5px;
+    border-radius: 3px;
+    font-size: 0.8em;
+    margin-left: 5px;
+}

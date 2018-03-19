@@ -12,6 +12,95 @@ Helper methods
 import datetime
 import re
 
+# this is somewhat how a goals object should be structured when
+# pulling from the database
+goals = [
+    {
+        "goal_name": "Focus on my Child's Future",
+        "category": "Education",
+        "steps":
+            [
+                {
+                    "step_name":"Be Active at Home",
+                    "completed": True,
+                    "current_step": False,
+                    "proofs":
+                        [
+                            {"proof_name": "Copy of a reading log",
+                             "proof_description": "Read to my child every night or have my child read to me every night for one month",
+                             "document_name":"reading_log",
+                             "completed": True,
+                             "date":"3/1/18",
+                             "document":"username_focus_on_my_childs_future_be_active_at_home_reading_log.pdf"},
+                            {"proof_name":"Copy or a photo of the library cards",
+                             "proof_description": "Get a library card for me and my child.",
+                             "document_name": "library_card",
+                             "completed": True,
+                             "date":"3/1/18",
+                             "document": "username_focus_on_my_childs_future_be_active_at_home_library_card.pdf"},
+                            {"proof_name":"Copy or a photo of the homework.",
+                             "proof_description": "Help my child with homework every night for a month",
+                             "document_name":"homework",
+                             "completed": True,
+                             "date":"3/1/18",
+                             "document": "username_focus_on_my_childs_future_be_active_at_home_homework.pdf"}
+                        ]
+                },
+                {
+                    "step_name":"Be Active at the School",
+                    "completed": False,
+                    "current_step": True,
+                    "proofs":
+                        [
+                            {"proof_name": "Letter from the teacher on school letterhead",
+                             "proof_description": "Attend a parent teacher conference",
+                             "document_name":"teacher_letter",
+                             "completed": True,
+                             "date":"3/1/18",
+                             "document":"username_focus_on_my_childs_future_be_active_at_school_teacher_letter.pdf"},
+                            {"proof_name":"Letter from the volunteer leader",
+                             "proof_description": "Volunteer at my child's school",
+                             "document_name": "volunteer_leader_letter",
+                             "completed": False,
+                             "document": None},
+                            {"proof_name":"Letter from the committee leader",
+                             "proof_description": "Join a committee at my child's school",
+                             "document_name":"committee_leader_letter",
+                             "completed": True,
+                             "date":"3/1/18",
+                             "document": "username_focus_on_my_childs_future_be_active_at_school_committee_leader_letter.pdf"}
+                        ]
+                },
+                {
+                    "step_name":"Plan for the Future",
+                    "completed": False,
+                    "current_step": False,
+                    "proofs":
+                        [
+                            {"proof_name": "Copy of your plan",
+                             "proof_description": "Discover education requirements for my child's dream job. Make a plan for how they can meet these requirements.",
+                             "document_name":"plan",
+                             "completed": False,
+                             "document": None},
+                            {"proof_name":"Letter from the interviewee",
+                             "proof_description": "Together, interview someone who works at your child's dream job.",
+                             "document_name": "interviewee_letter",
+                             "completed": False,
+                             "document": None}
+                        ]
+                }
+            ]
+    }
+]
+
+'''
+Return goals object
+this function is temporary
+until the database is set up
+'''
+def getGoals():
+    return goals
+
 '''
 Validate member object, check if all required fields
 are completed and in the correct format

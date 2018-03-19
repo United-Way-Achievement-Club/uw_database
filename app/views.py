@@ -12,7 +12,7 @@ from app import app
 from db_accessor import *
 from flask import render_template, redirect, session, request, jsonify, url_for
 import json
-from utils import validateMember, getStates
+from utils import validateMember, getStates, getGoals
 import os
 
 
@@ -124,7 +124,7 @@ def member_goals():
     if not session.get('login'):
         return redirect('login')
     username = session.get('member')
-    return render_template('member/goals.html', member=getMember(username))
+    return render_template('member/goals.html', member=getMember(username), goals=getGoals())
 
 
 # ================================================= COORDINATOR ====================================================

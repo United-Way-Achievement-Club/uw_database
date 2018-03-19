@@ -1,7 +1,15 @@
 {% extends 'member/layout.html' %}
+
+{% block m_extrascript %}
+<script src="{{ url_for('static', filename='js/member/goals.js') }}"></script>
+{% endblock %}
+
 {% block m_content %}
 
-{% include 'member/goals/add_goal.html' %}
-{% include 'member/goals/goals_stats.html' %}
+{% with goals=goals %}
+    {% include 'member/goals/add_goal.html' %}
+    {% include 'member/goals/goals_stats.html' %}
+    {% include 'member/goals/goals_list.html' %}
+{% endwith %}
 
 {% endblock %}
