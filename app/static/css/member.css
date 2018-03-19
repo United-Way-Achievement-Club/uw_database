@@ -258,12 +258,12 @@
 
 .home-goals-header-content {
     padding-bottom: 20px;
-    border-bottom: 1px solid var(--primary_light);
+    border-bottom: 1px solid var(--border_color);
     margin-bottom: 20px;
 }
 
 .home-goals-header-item {
-    border-right: 1px solid var(--primary_light);
+    border-right: 1px solid var(--border_color);
 }
 
 .home-goals-sub-header {
@@ -304,7 +304,7 @@
 }
 
 .goal-steps {
-    border-right: 1px solid var(--primary_light);
+    border-right: 1px solid var(--border_color);
 }
 
 .add-goal-button {
