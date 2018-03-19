@@ -1,0 +1,40 @@
+<div id="member_goals"></div>
+<script>
+    var chart = c3.generate({
+        data: {
+            columns: [
+                ['data1', 30, 200, 100, 400, 150, 250],
+                ]
+        },
+        bindto: document.getElementById('member_goals'),
+        size: {
+            height: 150
+        },
+        legend: {
+            show: false
+        },
+        padding: {
+            right: 30,
+            left: 60
+        },
+        color: {
+            pattern: ['#ff334b']
+        },
+        axis: {
+            x: {
+                label: {
+                     text:'week',
+                     position: 'outer-center'
+                }
+            },
+            y: {
+                label: {
+                    text:'milestones',
+                    position: 'outer-middle'
+                }
+            }
+        }
+    }
+    );
+
+</script>

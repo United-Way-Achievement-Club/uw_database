@@ -242,6 +242,34 @@
 
 .goals-stats {
     height: 200px;
+    display: table;
+}
+
+.goals-stats-content {
+    display: table-cell;
+    vertical-align: middle;
+    width: 50%;
+}
+
+.c3 .c3-axis-x path, .c3 .c3-axis-x line {
+    stroke: var(--uw_lavender);
+    color: var(--uw_lavender);
+}
+.c3 .c3-axis-y path, .c3 .c3-axis-y line {
+    stroke: var(--uw_lavender);
+}
+
+.c3 .c3-axis-y text,
+.c3 .c3-axis-x text {
+    fill: var(--uw_lavender);
+}
+
+.goals-stats-num, .goals-stats-date {
+    font-size: 1.4em;
+}
+
+.goals-stats-date {
+    color: var(--uw_orange);
 }
 
 .goals-list {
