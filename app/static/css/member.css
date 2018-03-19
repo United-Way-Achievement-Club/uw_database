@@ -243,6 +243,16 @@
     padding-top: 20px;
 }
 
+.add-goal-btn {
+    background-color: var(--primary);
+    color: var(--uw_white);
+}
+
+.add-goal-btn:hover {
+    background-color: var(--uw_lavender);
+    color: var(--uw_white);
+}
+
 .add-goal-content {
     display: table-cell;
     vertical-align: middle;
