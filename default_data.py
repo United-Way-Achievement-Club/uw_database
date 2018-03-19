@@ -31,7 +31,7 @@ db.session.add(models.Member_Assets(username='srutig', asset='stocks'))
 db.session.add(models.Member_Self_Sufficiency_Matrix(username='srutig', assessment_date=date, housing="4", employment="5", income="5", food="5", child_care="1", childrens_education="1", adult_education="4", health_care_coverage="5", life_skills="5", family_social_relations="5", mobility="5", community_involvement="5", parenting_skills="1", legal="5", mental_health="5", substance_abuse="5", safety="5", disabilities="5", other="5"))
 
 
-db.session.add(models.User(username='hpotter', password='password', first_name='Harry', last_name='Potter', email='harry.potter@gmail.com', profile_picture='hpotter.jpg', type='member', gender='Male', race='white', address_street='123 Hogwarts Rd', address_city='Atlanta', address_state='GA', address_zip='30307', birth_date=birth_date))
+db.session.add(models.User(username='hpotter', password='password', first_name='Harry', last_name='Potter', email='harry.potter@gmail.com', profile_picture='hpotter.jpg', type='member', gender='Male', race='white', address_street='123 Hogwarts Rd', address_city='Atlanta', address_state='GA', address_zip='30313', birth_date=birth_date))
 db.session.add(models.Member(username='hpotter', join_date=date, club_name='United Way', commitment_pledge=date, photo_release=date, education='some-college', marital_status='single', income='200000'))
 db.session.add(models.Member_Phone(username='hpotter', phone='0001112222'))
 db.session.add(models.Member_Phone(username='hpotter', phone='2223334444'))
