@@ -4,7 +4,7 @@
         {% if proof.completed %}
         <span class="proof-completed-label"><span class="glyphicon glyphicon-check"></span> Completed {{ proof.date }}</span>
         {% elif active == True %}
-        <span class="proof-upload-label"><span class="glyphicon glyphicon-upload"></span> Upload Proof</span>
+        <span class="proof-upload-label" onclick="openProofModal('{{ proof.proof_name }}','{{ proof.document_name }}')"><span class="glyphicon glyphicon-upload"></span> Upload Proof</span>
         {% endif %}
     </h6>
 </li>

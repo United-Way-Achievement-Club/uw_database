@@ -374,3 +374,24 @@
     font-size: 0.8em;
     margin-left: 5px;
 }
+
+.proof-upload-label:hover {
+    background-color: var(--uw_lavender);
+    cursor: pointer;
+}
+
+#proofModal {
+    color: var(--uw_lavender);
+}
+
+.proof-upload-wrapper {
+    padding: 20px;
+}
+
+.proof-upload-title {
+    margin-bottom: 20px;
+}
+
+.proof-modal-content {
+    border-radius: 0;
+}
