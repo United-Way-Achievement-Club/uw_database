@@ -235,9 +235,21 @@
     display: table;
 }
 
+.goal-steps {
+    border-right: 1px solid var(--primary_light);
+}
+
+.add-goal-button {
+    padding-top: 20px;
+}
+
 .add-goal-content {
     display: table-cell;
     vertical-align: middle;
+}
+
+.add-goal-title {
+    margin-bottom: 20px;
 }
 
 .goals-stats {
