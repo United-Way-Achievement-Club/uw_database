@@ -228,6 +228,33 @@
     background-color: var(--light_lavender);
 }
 
+.money-raised {
+    height: 150px;
+    display: table;
+}
+
+.money-raised-content {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.money-raised-header {
+    margin-top: 0;
+}
+
+.money-raised-sub-header {
+    color: var(--primary);
+    font-weight: 300;
+}
+
+.home-calendar {
+    height: 300px;
+}
+
+.home-goals {
+    height: 300px;
+}
+
 /*===================================goals===================================*/
 
 .add-goal {
