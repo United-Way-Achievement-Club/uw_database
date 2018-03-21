@@ -305,7 +305,7 @@
 }
 
 .goal-steps {
-    border-right: 1px solid var(--border_color);
+    border-right: 1px solid var(--primary_light);
 }
 
 .add-goal-button {
