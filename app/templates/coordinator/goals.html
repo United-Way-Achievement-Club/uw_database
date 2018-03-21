@@ -1,4 +1,13 @@
 {% extends 'coordinator/layout.html' %}
+
+{% block c_extrascript %}
+<script src="{{ url_for('static', filename='js/coordinator/goals.js') }}"></script>
+{% endblock %}
+
 {% block c_content %}
+
+{% include 'coordinator/goals/topbar.html' %}
+{% include 'coordinator/goals/goals_list.html' %}
+{% include 'coordinator/goals/add_goal.html' %}
 
 {% endblock %}

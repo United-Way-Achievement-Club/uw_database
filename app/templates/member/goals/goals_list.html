@@ -1,0 +1,11 @@
+<div class="dash-item col-sm-12">
+    <div class="dash-item-wrapper col-sm-12 container text-center goals-list">
+        <div class="panel-group">
+            {% for goal in goals %}
+                {% with goal=goal,index=loop.index %}
+                {% include 'member/goals/goal.html' %}
+                {% endwith %}
+            {% endfor %}
+        </div>
+    </div>
+</div>

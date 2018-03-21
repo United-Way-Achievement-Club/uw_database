@@ -1,0 +1,24 @@
+<!-- Modal -->
+<div class="modal fade" id="proofModal" tabindex="-1" role="dialog" aria-labelledby="proofModalLabel" aria-hidden="true">
+    <div class="modal-dialog proof-modal-dialog" role="document">
+        <div class="modal-content proof-modal-content">
+            <div class="modal-header proof-modal-header">
+                <h5 class="modal-title" id="proofModalLabel">Upload Proof</h5>
+            </div>
+            <div class="modal-body proof-modal-body">
+                <div class="proof-upload-wrapper">
+                    <form id="upload-proof-form">
+                        <h4 class="proof-upload-title">Proof: <span class="uw_lighter" id="upload_proof_name"></span></h4>
+                        <div class="form-group row">
+                            <input type="file" name="proof input input-sm uw-input">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer proof-modal-footer">
+                <button type="button" class="btn btn-sm uw-button" onclick="closeProofModal()">Cancel</button>
+                <button type="button" class="btn btn-sm uw-button-inverse" onclick="saveProof()">Upload</button>
+            </div>
+        </div>
+    </div>
+</div>
