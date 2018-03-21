@@ -15,11 +15,40 @@ function filterGoals() {
 }
 
 function closeGoalModal() {
+    $(".goal-modal-body input").val("");
+    $(".goal-modal-body textarea").val("");
     $("#goalModal").modal('hide');
 }
 
 function saveGoalModal() {
-    $("#goalModal").modal('hide');
+    var goalObj = {"steps":[]};
+    var general_form = $("#general-form").serializeArray();
+    for (value in general_form) {
+        goalObj[general_form[value].name] = general_form[value].value;
+    }
+    goalObj.steps.push(createProofObject("step1-form"));
+    goalObj.steps.push(createProofObject("step2-form"));
+    goalObj.steps.push(createProofObject("step3-form"));
+
+    closeGoalModal();
+}
+
+function createProofObject(form) {
+    var form_name = $("#" + form).serializeArray();
+    var formObj = {"step_name":form_name[0].value,"proofs":[]}
+    var createObj = true;
+    var proofs = {};
+    for (var y = 1; y < form_name.length; y++) {
+        proofs[form_name[y].name] = form_name[y].value;
+        if (createObj) {
+            createObj = false;
+        } else {
+            formObj.proofs.push(proofs);
+            proofs = {};
+            createObj = true;
+        }
+    }
+    return formObj;
 }
 
 function addProof(step) {
