@@ -20,6 +20,7 @@
     --light_lavender: #8f95bc;
     --border_color: #cfcfe3;
     --progress_orange: #ffe6cc;
+    --panel_expand: rgba(238, 238, 245, 0.4);
 }
 
 /*===================================general===================================*/
@@ -400,7 +401,9 @@
 }
 
 .member-goal {
-    border: 1px solid var(--primary_light);
+    border: 0;
+    box-shadow: none ! important;
+    border-bottom: 1px solid var(--primary_light) ! important;
     border-radius: 0 ! important;
     text-align: left;
 }
@@ -425,6 +428,12 @@
 
 .goal-footer {
     background-color: var(--uw_white);
+}
+
+
+.goal-body {
+    background-color: var(--uw_white);
+    border-top: 1px solid var(--primary_light) ! important;
 }
 
 .goal-steps-list {
