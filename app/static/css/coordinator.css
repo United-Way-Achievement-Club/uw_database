@@ -339,10 +339,10 @@
     border-radius: 50%;
 }
 
-.goal-step-proof h4 {
+.goal-step-proof h5 {
     font-weight: 300;
     margin-left: 10px;
-    font-size: 1.1em;
+    /*font-size: 1.1em;*/
 }
 
 .goal-step-proof {
