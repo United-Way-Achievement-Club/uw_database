@@ -223,12 +223,16 @@
 }
 
 .goal-item {
-    border-radius: 0;
+    border-radius: 0 ! important;
+    box-shadow: none ! important;
+    border: 0 ! important;
+    border-bottom: 1px solid var(--primary_light) ! important;
 }
 
 .goal-heading {
     height: 64px;
     padding: 0;
+    border-radius: 0 ! important;
 }
 
 .goal-heading h5 {
@@ -286,6 +290,8 @@
 .goal-body {
     background-color: var(--panel_expand);
     height: 300px;
+    border-top: 1px solid var(--border_color) ! important;
+    border-bottom: 1px solid var(--border_color) ! important;
 }
 
 .goal-steps-nav {
@@ -320,7 +326,7 @@
     background-color: var(--uw_white);
     border-radius: 0;
     text-align: right;
-    border-top: 1px solid var(--border_color) ! important;
+    border-bottom: 1px solid var(--border_color) ! important;
 }
 
 .goal-steps-content {
