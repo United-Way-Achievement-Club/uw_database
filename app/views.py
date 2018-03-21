@@ -12,7 +12,7 @@ from app import app
 from db_accessor import *
 from flask import render_template, redirect, session, request, jsonify, url_for
 import json
-from utils import validateMember, getStates, getGoals
+from utils import validateMember, getStates, getGoals, validateGoal
 import os
 
 
@@ -160,6 +160,28 @@ def coordinator_goals():
     if not session.get('login'):
         return redirect('login')
     return render_template('coordinator/goals.html')
+
+'''
+Coordinator add a new goal to the database
+First validate the goal (ensure the fields are
+correct and that it doesn't already exist)
+then add the goal to the database
+'''
+@app.route('/coordinator/goals/add_goal', methods=['POST'])
+def coordinator_goals_add_goal():
+    if not session.get('login'):
+        return redirect('login')
+    goal_obj = json.loads(request.form['goal'])
+
+    # TODO: finish validateGoal in utils.py
+    validation = validateGoal(goal_obj)
+    if not validation['success']:
+        return jsonify({"status_code":200, "message":validation['error'], "success":False})
+
+    # TODO: database implement addGoal function in db_accessor.py
+    addGoal(goal_obj)
+    print goal_obj
+    return jsonify({"status_code":200, "message":"Successfully added goal", "success":True})
 
 # -- approve --
 

@@ -29,8 +29,19 @@ function saveGoalModal() {
     goalObj.steps.push(createProofObject("step1-form"));
     goalObj.steps.push(createProofObject("step2-form"));
     goalObj.steps.push(createProofObject("step3-form"));
-
-    closeGoalModal();
+    $.post( "goals/add_goal", {'goal':JSON.stringify(goalObj)}, function() {
+      console.log( "successfully requested to add goal" );
+      })
+      .done(function(data) {
+        if (data.success == false) {
+            window.alert(data.message);
+        } else {
+            closeGoalModal();
+        }
+      })
+      .fail(function(err) {
+        console.log(err);
+      });
 }
 
 function createProofObject(form) {

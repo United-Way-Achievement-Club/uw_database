@@ -250,3 +250,28 @@ def getSelfEfficacyQuiz(username):
             if key != 'assessment_date' and key != '_sa_instance_state' and key != 'username':
                 self_efficacy_quiz[date][key] = str(value)
     return self_efficacy_quiz
+
+'''
+Add new goal to the database
+'''
+def addGoal(goal):
+    # TODO: implement this function
+    '''
+    The goal parameter will be in the format
+    {
+        goal_name: String,
+        goal_category: String,
+        steps: [step]
+    }
+    steps will be in the format
+    {
+        step_name: String,
+        proofs: [proof]
+    }
+    proofs will be in the format
+    {
+        proof_description: String,
+        proof_document: String
+    }
+    '''
+    return True

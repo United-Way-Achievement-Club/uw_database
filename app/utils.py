@@ -241,6 +241,16 @@ def validateSelfEfficacyQuiz(self_efficacy_quiz):
     return {"success":True, "error":None}
 
 '''
+Validate goal object
+'''
+def validateGoal(goal):
+    # TODO: finish validate goal function
+    for step in goal['steps']:
+        if step['step_name'] == '':
+            return {"success":False, "error":"Step Name can not be blank"}
+    return {"success":True, "error":None}
+
+'''
 Return complete list of abbreviated US States
 '''
 def getStates():
