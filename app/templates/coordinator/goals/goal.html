@@ -1,0 +1,82 @@
+<div class="panel panel-default goal-item">
+    <div class="goal-heading panel-heading text-center">
+        <div class="goal-heading-content col-sm-12 col-no-padding">
+                <a class="goal-heading-wrapper" data-toggle="collapse" href="#goal1">
+                    <div class="col-sm-1 goal-title-wrapper">
+                        <h4 class="goal-title goal-title-ic text-center">
+                            <span class="glyphicon glyphicon-apple goal-heading-ic"></span>
+                        </h4>
+                    </div>
+                    <div class="col-sm-4 goal-title-wrapper">
+                        <h5 class="goal-title">
+                            Focus on my Child's Future
+                        </h5>
+                    </div>
+                    <div class="col-sm-3 goal-title-wrapper">
+                        <h5 class="goal-title">
+                            Education
+                        </h5>
+                    </div>
+                    <div class="col-sm-4 goal-title-wrapper">
+                        <div class="goal-title">
+                            <div class="goal-member-img-wrapper">
+                                <img src="{{ url_for('static', filename='images/profile_pictures/srutig.jpg') }}">
+                                <img src="{{ url_for('static', filename='images/profile_pictures/hpotter.jpg') }}">
+                                <img src="{{ url_for('static', filename='images/profile_pictures/default_profile_pic.png') }}">
+                                <img src="{{ url_for('static', filename='images/profile_pictures/bsmith.jpg') }}">
+                                <h6 class="more-images goals-body-header">+ 3 more</h6>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+        </div>
+    </div>
+    <div id="goal1" class="panel-collapse collapse {% if index == 1 %} in {% endif %}">
+        <div class="panel-body goal-body">
+            <div class="goal-steps-nav col-sm-3">
+                <div class="goal-steps-title">
+                    <h6 class="goals-body-header">Steps</h6>
+                </div>
+                <div class="goal-steps-nav-item goal-steps-nav-item-active">
+                    <h5>Be Active At Home</h5>
+                </div>
+                <div class="goal-steps-nav-item">
+                    <h5>Be Active At the School</h5>
+                </div>
+                <div class="goal-steps-nav-item">
+                    <h5>Plan for the Future</h5>
+                </div>
+            </div>
+            <div class="goal-steps-content col-sm-9">
+                <div class="goal-steps-content-wrapper">
+                    <div class="col-sm-8">
+                        <h6 class="goals-body-header">Proofs</h6>
+                        <div class="goal-step-proof">
+                            <h4>Read to my child every night or have my child read to me every night for a month</h4>
+                            <h4><span class="proof-header">Proof:</span> Copy of a reading log</h4>
+                        </div>
+                        <div class="goal-step-proof">
+                            <h4>Get a library card for me and my child</h4>
+                            <h4><span class="proof-header">Proof:</span> Copy or a photo of the library cards</h4>
+                        </div>
+                        <div class="goal-step-proof">
+                            <h4>Help my child with homework every night for a month</h4>
+                            <h4><span class="proof-header">Proof:</span> Copy or a photo of the homework</h4>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <h6 class="goals-body-header">Members working on this step</h6>
+                        <div class="goals-steps-content-img-wrapper">
+                            <img src="{{ url_for('static', filename='images/profile_pictures/default_profile_pic.png') }}">
+                            <img src="{{ url_for('static', filename='images/profile_pictures/bsmith.jpg') }}">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer goal-footer">
+            <h5 class="edit-goal"><span class="glyphicon glyphicon-pencil"></span> Edit goal</h5>
+        </div>
+    </div>
+</div>
