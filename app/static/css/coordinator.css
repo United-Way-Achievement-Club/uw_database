@@ -358,6 +358,68 @@
     cursor: pointer;
 }
 
+.goal-modal-dialog {
+    width: 90%;
+}
+
+.goal-modal-content {
+    border-radius: 0;
+    color: var(--uw_lavender);
+}
+
+.goal-modal-body {
+    height: 70vh;
+    padding: 0;
+}
+
+.goal-modal-header {
+    background-color: var(--uw_lavender);
+    color: var(--uw_white);
+}
+
+.goal-modal-footer {
+    border-top: 1px solid var(--primary);
+}
+
+.goal-modal-general {
+    height: 100px;
+    border-bottom: 1px solid var(--border_color);
+}
+
+.goal-modal-steps {
+    height: calc(100% - 100px);
+}
+
+.goal-modal-section {
+    border-right: 1px solid var(--border_color);
+    height: 100%;
+    overflow-y: scroll;
+}
+
+#proof-html-hide {
+    display: none;
+}
+
+.form-proof {
+    padding: 25px 0 25px 0;
+    margin-bottom: 20px;
+    border: 1px solid var(--primary_light);
+    position: relative;
+}
+
+.remove-proof {
+    color: var(--uw_red);
+    margin: 0;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.remove-proof:hover {
+    color: var(--light_red);
+    cursor: pointer;
+}
+
 /*===================================members===================================*/
 
 .members-topbar {
