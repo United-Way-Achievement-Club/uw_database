@@ -53,14 +53,14 @@ Mockups for the portal can be found [here](https://balsamiq.cloud/sll25/prfco/r2
 
 #### Member
 * Home- *in progress*
-* Goals- *not started*
+* Goals- *in progress*
 * Calendar- *not started*
 * Messages- *not started*
 * Upload- *not started*
 
 #### Coordinator
 * Home- *in progress*
-* Goals- *not started*
+* Goals- *in progress*
 * Approve- *not started*
 * Members- *in progress*
 * Clubs- *not started*
