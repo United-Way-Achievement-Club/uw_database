@@ -1,0 +1,10 @@
+general
+[u'username', u'photo_release', u'club_name', u'join_date', 'profile_picture', u'commitment_pledge', u'password']
+enrollment_form
+[u'spouse_first_name', u'address_city', u'last_name', u'referral_source', u'first_name', u'email', u'spouse_last_name', u'address_state', u'birth_date', u'phone_numbers', u'address_street', u'children', u'address_zip']
+demographic_data
+[u'has_health_insurance', u'marital_status', u'assets', u'has_served_in_military', u'credit_score', u'gender', u'employment_status', u'english_reading_level', u'has_car', u'medical_issues', u'enrolled_in_military', u'wars_served', u'has_primary_care_doctor', u'race', u'other_race', u'income', u'other_war', u'english_proficiency', u'education', u'income_sources', u'english_writing_level']
+self_sufficiency_matrix
+{u'adult_education': u'1', u'substance_abuse': u'1', u'life_skills': u'1', u'mental_health': u'1', u'mobility': u'1', u'food': u'1', u'disabilities': u'1', u'income': u'1', u'safety': u'1', u'legal': u'1', u'childrens_education': u'1', u'other': u'1', u'child_care': u'1', u'health_care_coverage': u'1', u'community_involvement': u'1', u'family_social_relations': u'1', u'employment': u'1', u'housing': u'1', u'parenting_skills': u'1'}
+self_efficacy_quiz
+{u'self_efficacy_6': u'-2', u'self_efficacy_9': u'-2', u'self_efficacy_8': u'-2', u'self_efficacy_11': u'-2', u'self_efficacy_10': u'-2', u'self_efficacy_7': u'-2', u'self_efficacy_12': u'-2', u'self_efficacy_1': u'-2', u'self_efficacy_3': u'-2', u'self_efficacy_2': u'-2', u'self_efficacy_5': u'-2', u'self_efficacy_4': u'-2'}

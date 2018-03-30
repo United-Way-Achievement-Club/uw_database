@@ -1,8 +1,4 @@
 #!/usr/bin/env python2.7
-<<<<<<< HEAD
-
-=======
->>>>>>> 052b215141b60f308d505cc158be3aab5e7a7c3b
 import imp
 from migrate.versioning import api
 from app import db

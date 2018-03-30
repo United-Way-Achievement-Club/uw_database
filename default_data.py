@@ -14,14 +14,22 @@ from app import db, models
 from datetime import datetime
 
 date = datetime.strptime('2018-03-01', '%Y-%m-%d')
+child_birth_date = datetime.strptime('2010-02-11', '%Y-%m-%d')
 birth_date = datetime.strptime('1997-01-24', '%Y-%m-%d')
 
 db.session.add(models.Club(club_name='Pebblebrook High School'))
 
 db.session.add(models.User(username='srutig', password='password', first_name='Sruti', last_name='Guhathakurta', email='sruti.guhathakurta@gmail.com', profile_picture='srutig.jpg', type='member', gender='Female', race='asian-indian', address_street='351 Sinclair Ave NE', address_city='Atlanta', address_state='GA', address_zip='30307', birth_date=birth_date))
-db.session.add(models.Member(username='srutig', join_date=date, club_name='Pebblebrook High School', commitment_pledge=date, photo_release=date, education='some-college', marital_status='single', income='10000'))
+db.session.add(models.Member(username='srutig', join_date=date, club_name='Pebblebrook High School', commitment_pledge=date, photo_release=date, education='some-college', marital_status='single', income='10000', has_car=True, employment_status='employed-part-time'))
 db.session.add(models.Member_Phone(username='srutig', phone='1234567890'))
 db.session.add(models.Member_Phone(username='srutig', phone='0987654321'))
+db.session.add(models.Child(parent='srutig', first_name='Fake', last_name='Child', birth_date=child_birth_date))
+db.session.add(models.Member_Sources_Of_Income(username='srutig', income_source='other'))
+db.session.add(models.Member_Sources_Of_Income(username='srutig', income_source='work'))
+db.session.add(models.Member_Assets(username='srutig', asset='savings-account'))
+db.session.add(models.Member_Assets(username='srutig', asset='stocks'))
+db.session.add(models.Member_Self_Sufficiency_Matrix(username='srutig', assessment_date=date, housing="4", employment="5", income="5", food="5", child_care="1", childrens_education="1", adult_education="4", health_care_coverage="5", life_skills="5", family_social_relations="5", mobility="5", community_involvement="5", parenting_skills="1", legal="5", mental_health="5", substance_abuse="5", safety="5", disabilities="5", other="5"))
+
 
 db.session.add(models.User(username='hpotter', password='password', first_name='Harry', last_name='Potter', email='harry.potter@gmail.com', profile_picture='hpotter.jpg', type='member', gender='Male', race='white', address_street='123 Hogwarts Rd', address_city='Atlanta', address_state='GA', address_zip='30307', birth_date=birth_date))
 db.session.add(models.Member(username='hpotter', join_date=date, club_name='United Way', commitment_pledge=date, photo_release=date, education='some-college', marital_status='single', income='200000'))

@@ -37,13 +37,13 @@
     <div id="member-car" class="form-group row col-sm-12">
         <label class="member-check-label col-sm-6 col-no-padding">Do you have a car? </label>
         <div class="form-check col-sm-2">
-            <input class="form-check-input" type="radio" name="has_car" id="has-car" value="true" {% if has_car and has_car=='true' %} checked {% endif %}>
+            <input class="form-check-input" type="radio" name="has_car" id="has-car" value="true" {% if has_car and has_car=='true' or has_car == True %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="has-car">
                 Yes
             </label>
         </div>
         <div class="form-check col-sm-2">
-            <input class="form-check-input" type="radio" name="has_car" id="no-car" value="false" {% if has_car and has_car == 'false' %} checked {% endif %}>
+            <input class="form-check-input" type="radio" name="has_car" id="no-car" value="false" {% if has_car and has_car == 'false' or has_car == False %} checked {% endif %}>
             <label class="form-check-label member-check-label" for="no-car">
                 No
             </label>

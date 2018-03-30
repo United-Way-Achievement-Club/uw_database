@@ -30,8 +30,8 @@
     </div>
 </div>
 <div class="form-group row col-sm-12 medical-issues-row">
-    <label class="member-check-label col-no-padding">Medical Issues: </label>
+    <label class="member-check-label col-no-padding">Medical Issues (separate by commas): </label>
 </div>
 <div class="form-group row col-sm-12">
-    <textarea name="medical_issues" class="input input-sm uw-input col-sm-10">{% if medical_issues %}{{ medical_issues }}{% endif %}</textarea>
+    <textarea name="medical_issues" class="input input-sm uw-input col-sm-10">{% if medical_issues %}{% for issue in medical_issues %}{% if loop.index == medical_issues|length %}{{ issue }}{% else %}{{ issue }}, {% endif %}{% endfor %}{% endif %}</textarea>
 </div>

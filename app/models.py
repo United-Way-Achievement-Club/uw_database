@@ -39,7 +39,7 @@ class User(db.Model):
     county = db.Column(db.String(64))
     address_zip = db.Column(db.String(20))
     birth_date = db.Column(db.DateTime)
-    tags = db.relationship('Club', secondary=Coordinator_Club, lazy='subquery',
+    clubs = db.relationship('Club', secondary=Coordinator_Club, lazy='subquery',
            backref=db.backref('users', lazy=True))
     member = db.relationship("Member", back_populates="user")
 
@@ -120,7 +120,7 @@ Member-Self Sufficiency Matrix results (1-n)
 '''
 class Member_Self_Sufficiency_Matrix(db.Model):
     username = db.Column(db.String(64), db.ForeignKey('member.username'), primary_key=True)
-    assesment_date = db.Column(db.DateTime, primary_key=True)
+    assessment_date = db.Column(db.DateTime, primary_key=True)
     housing = db.Column(db.Integer)
     employment = db.Column(db.Integer)
     income = db.Column(db.Integer)
@@ -146,19 +146,19 @@ Member-Self Efficacy Quiz Results (1-n)
 '''
 class Member_Self_Efficacy_Quiz(db.Model):
     username = db.Column(db.String(64), db.ForeignKey('member.username'), primary_key=True)
-    assesment_date = db.Column(db.DateTime, primary_key=True)
-    question_1 = db.Column(db.Integer)
-    question_2 = db.Column(db.Integer)
-    question_3 = db.Column(db.Integer)
-    question_4 = db.Column(db.Integer)
-    question_5 = db.Column(db.Integer)
-    question_6 = db.Column(db.Integer)
-    question_7 = db.Column(db.Integer)
-    question_8 = db.Column(db.Integer)
-    question_9 = db.Column(db.Integer)
-    question_10 = db.Column(db.Integer)
-    question_11 = db.Column(db.Integer)
-    question_12 = db.Column(db.Integer)
+    assessment_date = db.Column(db.DateTime, primary_key=True)
+    self_efficacy_1 = db.Column(db.Integer)
+    self_efficacy_2 = db.Column(db.Integer)
+    self_efficacy_3 = db.Column(db.Integer)
+    self_efficacy_4 = db.Column(db.Integer)
+    self_efficacy_5 = db.Column(db.Integer)
+    self_efficacy_6 = db.Column(db.Integer)
+    self_efficacy_7 = db.Column(db.Integer)
+    self_efficacy_8 = db.Column(db.Integer)
+    self_efficacy_9 = db.Column(db.Integer)
+    self_efficacy_10 = db.Column(db.Integer)
+    self_efficacy_11 = db.Column(db.Integer)
+    self_efficacy_12 = db.Column(db.Integer)
 
 '''
 Member-Child (1-n)
