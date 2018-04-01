@@ -46,6 +46,7 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % (self.username)
 
+
 '''
 Member table for info specific to a member
 '''
