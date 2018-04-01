@@ -23,7 +23,7 @@ db.session.add(models.User(username='srutig', password='password', first_name='S
 db.session.add(models.Member(username='srutig', join_date=date, club_name='Pebblebrook High School', commitment_pledge=date, photo_release=date, education='some-college', marital_status='single', income='10000', has_car=True, employment_status='employed-part-time'))
 db.session.add(models.Member_Phone(username='srutig', phone='1234567890'))
 db.session.add(models.Member_Phone(username='srutig', phone='0987654321'))
-db.session.add(models.Child(parent='srutig', first_name='Fake', last_name='Child', birth_date=child_birth_date))
+db.session.add(models.Child(parent='srutig', child_first_name='Fake', child_last_name='Child', child_birth_date=child_birth_date))
 db.session.add(models.Member_Sources_Of_Income(username='srutig', income_source='other'))
 db.session.add(models.Member_Sources_Of_Income(username='srutig', income_source='work'))
 db.session.add(models.Member_Assets(username='srutig', asset='savings-account'))

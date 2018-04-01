@@ -165,13 +165,13 @@ Member-Child (1-n)
 '''
 class Child(db.Model):
     parent = db.Column(db.String(64), db.ForeignKey('member.username'), primary_key=True)
-    first_name = db.Column(db.String(64), primary_key=True)
-    last_name = db.Column(db.String(64), primary_key=True)
-    birth_date = db.Column(db.DateTime)
-    gender = db.Column(db.String(64))
-    grade_level = db.Column(db.Integer)
-    grades = db.Column(db.String(64))
-    school = db.Column(db.String(120))
+    child_first_name = db.Column(db.String(64), primary_key=True)
+    child_last_name = db.Column(db.String(64), primary_key=True)
+    child_birth_date = db.Column(db.DateTime)
+    child_gender = db.Column(db.String(64))
+    child_grade_level = db.Column(db.Integer)
+    child_grades = db.Column(db.String(64))
+    child_school = db.Column(db.String(120))
 
 # ============================================== GOALS ==============================================
 
