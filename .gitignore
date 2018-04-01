@@ -9,8 +9,8 @@ out
 gen
 
 # Database files
-app/db_repository
-app/app.db
+# app/db_repository
+# app/app.db
 
 # pyc files
 *.pyc
