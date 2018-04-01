@@ -381,6 +381,7 @@ def getDemographicData(username):
     demographic_data['english_writing_level'] = member.member[0].english_writing_level
     demographic_data['employment_status'] = member.member[0].employment_status
     demographic_data['income'] = member.member[0].income
+    demographic_data['credit_score'] = member.member[0].credit_score
     demographic_data['income_sources'] = []
     for entry in member.member[0].income_sources:
         demographic_data['income_sources'].append(entry.income_source)
