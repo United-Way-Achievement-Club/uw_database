@@ -14,6 +14,7 @@ from flask import render_template, redirect, session, request, jsonify, url_for
 import json
 from utils import validateMember, getStates, getGoals, validateGoal
 import os
+from sqlalchemy import MetaData
 
 
 '''
@@ -496,7 +497,7 @@ def coordinator_create_member():
     new_data = json.loads(request.form['new_data'])
     new_member = session.get('new_member')
     new_member[request.form['current_page']] = new_data
-
+    
     #TODO: complete validateMember function in 'utils.py'
     validatedMember = validateMember(new_member, False)
 

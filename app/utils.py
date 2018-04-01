@@ -114,7 +114,7 @@ Validate member object, check if all required fields
 are completed and in the correct format
 '''
 def validateMember(memberObj, edit):
-    print memberObj
+    # print memberObj
     # validate general
     general = validateGeneral(memberObj['general'], edit)
     general['form'] = 'general'
