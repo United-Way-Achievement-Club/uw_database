@@ -20,7 +20,7 @@ birth_date = datetime.strptime('1997-01-24', '%Y-%m-%d')
 db.session.add(models.Club(club_name='Pebblebrook High School'))
 
 db.session.add(models.User(username='srutig', password='password', first_name='Sruti', last_name='Guhathakurta', email='sruti.guhathakurta@gmail.com', profile_picture='srutig.jpg', type='member', gender='Female', race='asian-indian', address_street='123 Example Ave SE', address_city='Atlanta', address_state='GA', address_zip='30318', birth_date=birth_date))
-db.session.add(models.Member(username='srutig', join_date=date, club_name='Pebblebrook High School', commitment_pledge=date, photo_release=date, education='some-college', marital_status='single', income='10000', has_car=True, employment_status='employed-part-time'))
+db.session.add(models.Member(username='srutig', join_date=date, club_name='Pebblebrook High School', commitment_pledge=date, photo_release=date, education='some-college', marital_status='single', income='10000', has_car='true', employment_status='employed-part-time'))
 db.session.add(models.Member_Phone(username='srutig', phone='1234567890'))
 db.session.add(models.Member_Phone(username='srutig', phone='0987654321'))
 db.session.add(models.Child(parent='srutig', child_first_name='Fake', child_last_name='Child', child_birth_date=child_birth_date))
