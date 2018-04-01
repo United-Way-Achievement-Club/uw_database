@@ -356,13 +356,13 @@ def getEnrollmentForm(username):
     enrollment_form['children'] = []
     for entry in children:
         child_obj = {}
-        child_obj['child_first_name'] = entry.first_name
-        child_obj['child_last_name'] = entry.last_name
-        child_obj['child_gender'] = entry.gender
-        child_obj['child_birth_date'] = datetime.strftime(entry.birth_date, '%Y-%m-%d')
-        child_obj['child_school'] = entry.school
-        child_obj['child_grade_level'] = entry.grade_level
-        child_obj['child_grades'] = entry.grades
+        child_obj['child_first_name'] = entry.child_first_name
+        child_obj['child_last_name'] = entry.child_last_name
+        child_obj['child_gender'] = entry.child_gender
+        child_obj['child_birth_date'] = datetime.strftime(entry.child_birth_date, '%Y-%m-%d')
+        child_obj['child_school'] = entry.child_school
+        child_obj['child_grade_level'] = entry.child_grade_level
+        child_obj['child_grades'] = entry.child_grades
         enrollment_form['children'].append(child_obj)
     return enrollment_form
 
