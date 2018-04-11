@@ -286,7 +286,7 @@ def editMember(updated_member, old_member):
                 if enrollment_form[key] != old_enrollment_form[key]:
                     user.key = enrollment_form[key]
         for key in demographic_data:
-            if key == column.name and column.name != 'username' and key != 'credit_score':
+            if key == column.name and column.name != 'username':
                 if demographic_data[key] != old_demographic_data[key]:
                     user.key = demographic_data[key]
                     
@@ -304,11 +304,30 @@ def editMember(updated_member, old_member):
                 if enrollment_form[key] != old_enrollment_form[key]:
                     user.member[0].key = enrollment_form[key]
         for key in demographic_data:
-            if key == column.name and column.name != 'username' and key != 'credit_score':
+            if key == column.name and column.name != 'username':
                 if demographic_data[key] != old_demographic_data[key]:
-                    user.member[0].key = demographic_data[key] 
+                    user.member[0].key = demographic_data[key]
                     
-    #I need to do the rest of the tables, but I'm banging my head against a wall trying to get datatypes I can work with. 
+    for income_source in old_demographic_data:
+        if income_source.income_source in demographic_data['income_sources']:
+            index = demographic_data['income_sources'].index(income_source.income_source)
+            del member_data['phone_numbers'][index]
+        else:
+            models.member_sources_of_income.query.filter_by(username=general['username'], income_source=income_source.income_source).delete()
+    for record in user.member[0].income_sources:
+        if record.income_source not in old_demographic_data['income_sources']:
+            db.session.add(models.member_sources_of_income(username=general['username'], income_source=record.income_source))
+            
+    # for source in old_demographic_data['income_sources']:
+        # if source not in demographic_data['income_source']:
+            # models.member_sources_of_income.query.filter_by(username=general['username'], income_source=income_source.income_source).delete()
+    # for entry in new_data:
+        # if not in old_data:
+            # add to database
+            
+                    
+    #see updateMember
+    #old_dicts have all the data from the database, they mirror it, use them for comparison
 
     # do the same for enrollment form, demographic data, self sufficiency matrix, self efficacy quiz
     # for key in enrollment_form:
@@ -444,6 +463,7 @@ def addGoal(goal):
         steps: [step]
     }
     steps will be in the format
+    always three steps
     {
         step_name: String,
         proofs: [proof]
