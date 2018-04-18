@@ -89,9 +89,6 @@ class Member(db.Model):
     goal_name = db.relationship('Member_Goals', backref='member', lazy=True)
     step_name = db.relationship('Member_Steps', backref='member', lazy=True)
     proof_name = db.relationship('Member_Proofs', backref='member', lazy=True)
-    
-    # def columns(self):
-        # return self.__table__.columns
 
 '''
 Member-Sources of Income (1-n)
@@ -226,7 +223,7 @@ Goals
 '''
 class Goals(db.Model):
     goal_name = db.Column(db.String(64), primary_key=True)
-    goal_category = db.Column(db.String(64))
+    goal_category = db.Column(db.String(64), db.ForeignKey('categories.category_name'))
     description = db.Column(db.String(64))
     num_of_steps = db.Column(db.Integer)
     
@@ -248,6 +245,11 @@ class Proof(db.Model):
     step_name = db.Column(db.String(64), db.ForeignKey('steps.step_name'), primary_key=True)
     description = db.Column(db.String(64))
     proof_num = db.Column(db.Integer)
+    
+'''Categories
+'''
+class Categories(db.Model):
+    category_name = db.Column(db.String(64), primary_key=True)
 
 # ============================================== OTHER ==============================================
 

@@ -244,28 +244,12 @@ Compare the updated member to the old member and
 update necessary fields in the database
 '''
 def editMember(updated_member, old_member):
-    print 'hello'
     # TODO: implement edit member function
     # compare each field in the updated member and old member
     # only make database queries when there is a difference
     # in one of the fields.
     # NOTE: the username will be the same in updated_member and old_member
     # because they shouldn't be able to change their username.
-        
-    user = models.User.query.get(old_member['general']['username'])
-    member = models.Member.query.get(old_member['general']['username'])
-    # member_sources_of_income = models.Member_Sources_Of_Income.query.get(old_member['general']['username'])
-    # member_assets = models.Member_Assets.query.get(old_member['general']['username'])
-    # member_phone = models.Member_Phone.query.get(old_member['general']['username'])
-    # member_medical_issues = models.Member_Medical_Issues.query.get(old_member['general']['username'])
-    # member_wars_served = models.Member_Wars_Served.query.get(old_member['general']['username'])
-    # member_self_sufficiency_matrix = models.Member_Self_Sufficiency_Matrix.query.get(old_member['general']['username'])
-    # member_self_efficacy_quiz = models.Member_Self_Efficacy_Quiz.query.get(old_member['general']['username'])
-    # child = models.Child.query.get(old_member['general']['username'])
-
-    # in order to access fields in the 'User' table, just access the field directly (ex. user.password)
-    # in order to access fields in the 'Member' table, say user.member[0].<field_name> (ex. user.member[0].join_date)
-
     general = updated_member['general']
     old_general = old_member['general']
     
@@ -275,59 +259,170 @@ def editMember(updated_member, old_member):
     demographic_data = updated_member['demographic_data']
     old_demographic_data = old_member['demographic_data']
     
-    user_columns = models.User().__table__.columns
-    for column in user_columns:
-        for key in general:
-            if key == column.name and column.name != 'username':
-                if general[key] != old_general[key]:
-                    user.key = general[key]
-        for key in enrollment_form:
-            if key == column.name and column.name != 'username':
-                if enrollment_form[key] != old_enrollment_form[key]:
-                    user.key = enrollment_form[key]
-        for key in demographic_data:
-            if key == column.name and column.name != 'username':
-                if demographic_data[key] != old_demographic_data[key]:
-                    user.key = demographic_data[key]
-                    
-    if demographic_data['race']=='other':
-        user.race = demographic_data['other_race']
+    self_sufficiency_matrices = updated_member['self_sufficiency_matrix']
+    old_self_sufficiency_matrices = old_member['self_sufficiency_matrix']
     
-    member_columns = models.Member().__table__.columns
-    for column in member_columns:
-        for key in general:
-            if key == column.name and column.name != 'username':
-                if general[key] != old_general[key]:
-                    user.member[0].key = general[key]
-        for key in enrollment_form:
-            if key == column.name and column.name != 'username':
-                if enrollment_form[key] != old_enrollment_form[key]:
-                    user.member[0].key = enrollment_form[key]
-        for key in demographic_data:
-            if key == column.name and column.name != 'username':
-                if demographic_data[key] != old_demographic_data[key]:
-                    user.member[0].key = demographic_data[key]
-                    
-    for income_source in old_demographic_data:
-        if income_source.income_source in demographic_data['income_sources']:
-            index = demographic_data['income_sources'].index(income_source.income_source)
-            del member_data['phone_numbers'][index]
-        else:
-            models.member_sources_of_income.query.filter_by(username=general['username'], income_source=income_source.income_source).delete()
-    for record in user.member[0].income_sources:
-        if record.income_source not in old_demographic_data['income_sources']:
-            db.session.add(models.member_sources_of_income(username=general['username'], income_source=record.income_source))
+    self_efficacy_quizzes = updated_member['self_efficacy_quiz']
+    old_self_efficacy_quizzes = old_member['self_efficacy_quiz']
+    
+    user=models.User.query.filter_by(username=general['username']).first()
+    member=models.User.query.filter_by(username=general['username']).first()
+    
+    if general['password'] != old_general['password']:
+        user.password=general['password']
+    if general['profile_picture'] != old_general['profile_picture']:
+        user.profile_picture = general['profile_picture']
+    if enrollment_form['first_name'] != old_enrollment_form['first_name']:
+        user.first_name = enrollment_form['first_name']
+    if enrollment_form['last_name'] != old_enrollment_form['last_name']:
+        user.last_name = enrollment_form['last_name']
+    if enrollment_form['email'] != old_enrollment_form['email']:
+        user.email = enrollment_form['email']
+    if enrollment_form['race'] == 'other':
+        if enrollment_form['other_race'] != old_enrollment_form['other_race']:
+            user.race = enrollment_form['other_race']
+    elif enrollment_form['race'] != old_enrollment_form['race']:
+        user.race = enrollment_form['race']
+    if enrollment_form['address_street'] != old_enrollment_form['address_street']:
+        user.address_street = enrollment_form['address_street']
+    if enrollment_form['address_city'] != old_enrollment_form['address_city']:
+        user.address_city = enrollment_form['address_city']
+    if enrollment_form['address_state'] != old_enrollment_form['address_state']:
+        user.address_state = enrollment_form['address_state']
+    if enrollment_form['address_zip'] != old_enrollment_form['address_zip']:
+        user.address_zip = enrollment_form['address_zip']
+    if enrollment_form['birth_date'] != old_enrollment_form['birth_date']:
+        user.birth_date = datetime.strptime(enrollment_form['birth_date'], "%Y-%m-%d")
+        
+    if general['join_date'] != old_general['join_date']:
+        user.member[0].join_date = datetime.strptime(general['join_date'], "%Y-%m-%d")
+    if general['club_name'] != old_general['club_name']:
+        user.member[0].club_name = general['club_name']
+    if general['commitment_pledge'] != old_general['commitment_pledge']:
+        user.member[0].commitment_pledge = datetime.strptime(general['commitment_pledge'], "%Y-%m-%d")
+    if general['photo_release'] != old_general['photo_release']:
+        user.member[0].photo_release = datetime.strptime(general['photo_release'], "%Y-%m-%d")
+    if demographic_data['education'] != old_demographic_data['education']:
+        user.member[0].education = demographic_data['education']
+    if demographic_data['marital_status'] != old_demographic_data['marital_status']:
+        user.member[0].marital_status = demographic_data['marital_status']
+    if demographic_data['income'] != old_demographic_data['income']:
+        user.member[0].income = demographic_data['income']
+    if demographic_data['credit_score'] != old_demographic_data['credit_score']:
+        user.member[0].credit_score = int(demographic_data['credit_score'])
+    if demographic_data['employment_status'] != old_demographic_data['employment_status']:
+        user.member[0].employment_status = demographic_data['employment_status']
+    if enrollment_form['referral_source'] != old_enrollment_form['referral_source']:
+        user.member[0].referral_source = enrollment_form['referral_source']
+    if enrollment_form['spouse_first_name'] != old_enrollment_form['spouse_first_name']:
+        user.member[0].spouse_first_name = enrollment_form['spouse_first_name']
+    if enrollment_form['spouse_last_name'] != old_enrollment_form['spouse_last_name']:
+        user.member[0].spouse_last_name = enrollment_form['spouse_last_name']
+    if demographic_data['english_proficiency'] != old_demographic_data['english_proficiency']:
+        user.member[0].english_proficiency = demographic_data['english_proficiency']
+    if demographic_data['english_reading_level'] != old_demographic_data['english_reading_level']:
+        user.member[0].english_reading_level = demographic_data['english_reading_level']
+    if demographic_data['english_writing_level'] != old_demographic_data['english_writing_level']:
+        user.member[0].english_writing_level = demographic_data['english_writing_level']
+    if demographic_data['has_car'] != old_demographic_data['has_car']:
+        user.member[0].has_car = demographic_data['has_car']
+    if demographic_data['has_health_insurance'] != old_demographic_data['has_health_insurance']:
+        user.member[0].has_health_insurance = demographic_data['has_health_insurance']
+    if demographic_data['has_primary_care_doctor'] != old_demographic_data['has_primary_care_doctor']:
+        user.member[0].has_primary_care_doctor = demographic_data['has_primary_care_doctor']
+    if demographic_data['enrolled_in_military'] != old_demographic_data['enrolled_in_military']:
+        user.member[0].enrolled_in_military = demographic_data['enrolled_in_military']
+    if demographic_data['has_served_in_military'] != old_demographic_data['has_served_in_military']:
+        user.member[0].has_served_in_military = demographic_data['has_served_in_military']
+    
+    for income_source in user.member[0].income_sources:
+        if income_source.income_source not in demographic_data['income_sources']:
+            db.session.delete(income_source)
+    for item in demographic_data['income_sources']:
+        if item not in old_demographic_data['income_sources']:
+            db.session.add(models.Member_Sources_Of_Income(username = general['username'], income_source = item))
+    
+    for asset in user.member[0].assets:
+        if asset.asset not in demographic_data['assets']:
+            db.session.delete(asset)
+    for item in demographic_data['assets']:
+        if item not in old_demographic_data['assets']:
+            db.session.add(models.Member_Assets(username = general['username'], asset = item))
             
-    # for source in old_demographic_data['income_sources']:
-        # if source not in demographic_data['income_source']:
-            # models.member_sources_of_income.query.filter_by(username=general['username'], income_source=income_source.income_source).delete()
-    # for entry in new_data:
-        # if not in old_data:
-            # add to database
+    for number in user.member[0].phone_numbers:
+        if number.phone not in demographic_data['phone_numbers']:
+            db.session.delete(number)
+    for item in demographic_data['phone_numbers']:
+        if item not in old_demographic_data['phone_numbers']:
+            db.session.add(models.Member_Phone(username = general['username'], phone = item))
+    
+    for issue in user.member[0].medical_issues:
+        if issue.medical_issue not in demographic_data['medical_issues']:
+            db.session.delete(issue)
+    for item in demographic_data['medical_issues']:
+        if item not in old_demographic_data['medical_issues']:
+            db.session.add(models.Member_Medical_Issues(username = general['username'], medical_issue = item))
+    
+    for war in user.member[0].wars_served:
+        if war.war_served not in demographic_data['wars_served']:
+            db.session.delete(war)
+    for item in demographic_data['wars_served']:
+        if item not in old_demographic_data['wars_served']:
+            db.session.add(models.Member_Wars_Served(username = general['username'], war_served = item))
+        
+    for matrix in user.member[0].self_sufficiency_matrices:
+        db.session.delete(matrix)
+    for date in self_sufficiency_matrices:
+        db.session.add(models.Member_Self_Sufficiency_Matrix( username = general['username'],
+                                                                                            assessment_date = datetime.strptime(date, "%Y-%m-%d"),
+                                                                                            housing = self_sufficiency_matrices[date]['housing'],
+                                                                                            employment = self_sufficiency_matrices[date]['employment'],
+                                                                                            income = self_sufficiency_matrices[date]['income'],
+                                                                                            food = self_sufficiency_matrices[date]['food'],
+                                                                                            child_care = self_sufficiency_matrices[date]['child_care'],
+                                                                                            childrens_education = self_sufficiency_matrices[date]['childrens_education'],
+                                                                                            adult_education = self_sufficiency_matrices[date]['adult_education'],
+                                                                                            health_care_coverage = self_sufficiency_matrices[date]['health_care_coverage'],
+                                                                                            life_skills = self_sufficiency_matrices[date]['life_skills'],
+                                                                                            family_social_relations = self_sufficiency_matrices[date]['family_social_relations'],
+                                                                                            mobility = self_sufficiency_matrices[date]['mobility'],
+                                                                                            community_involvement = self_sufficiency_matrices[date]['community_involvement'],
+                                                                                            parenting_skills = self_sufficiency_matrices[date]['parenting_skills'],
+                                                                                            legal = self_sufficiency_matrices[date]['legal'],
+                                                                                            mental_health = self_sufficiency_matrices[date]['mental_health'],
+                                                                                            substance_abuse = self_sufficiency_matrices[date]['substance_abuse'],
+                                                                                            safety = self_sufficiency_matrices[date]['safety'],
+                                                                                            disabilities = self_sufficiency_matrices[date]['disabilities'],
+                                                                                            other = self_sufficiency_matrices[date]['other']
+                                                                                            )
+                                                                                            
+    for quiz in user.member[0].self_efficacy_quizzes:
+        db.session.delete(quiz)
+    for date in self_efficacy_quizzes:
+        db.session.add(models.Member_Self_Efficacy_Quiz( username = general['username'],
+                                                                                    assesment_date = datetime.strptime(date, "%Y-%m-%d"),
+                                                                                    self_efficacy_1 = self_efficacy_quizzes[date]['self_efficacy_1'],
+                                                                                    self_efficacy_2 = self_efficacy_quizzes[date]['self_efficacy_2'],
+                                                                                    self_efficacy_3 = self_efficacy_quizzes[date]['self_efficacy_3'],
+                                                                                    self_efficacy_4 = self_efficacy_quizzes[date]['self_efficacy_4'],
+                                                                                    self_efficacy_5 = self_efficacy_quizzes[date]['self_efficacy_5'],
+                                                                                    self_efficacy_6 = self_efficacy_quizzes[date]['self_efficacy_6'],
+                                                                                    self_efficacy_7 = self_efficacy_quizzes[date]['self_efficacy_7'],
+                                                                                    self_efficacy_8 = self_efficacy_quizzes[date]['self_efficacy_8'],
+                                                                                    self_efficacy_9 = self_efficacy_quizzes[date]['self_efficacy_9'],
+                                                                                    self_efficacy_10 = self_efficacy_quizzes[date]['self_efficacy_10'],
+                                                                                    self_efficacy_11 = self_efficacy_quizzes[date]['self_efficacy_11'],
+                                                                                    self_efficacy_12 = self_efficacy_quizzes[date]['self_efficacy_12']
+                                                                                    )
             
-                    
-    #see updateMember
-    #old_dicts have all the data from the database, they mirror it, use them for comparison
+    
+    # self_sufficiency_matrices = db.relationship('Member_Self_Sufficiency_Matrix', backref='member', lazy=True)
+    # self_efficacy_quizzes = db.relationship('Member_Self_Efficacy_Quiz', backref='member', lazy=True)
+
+    # in order to access fields in the 'User' table, just access the field directly (ex. user.password)
+    # in order to access fields in the 'Member' table, say user.member[0].<field_name> (ex. user.member[0].join_date)
+
+
 
     # do the same for enrollment form, demographic data, self sufficiency matrix, self efficacy quiz
     # for key in enrollment_form:

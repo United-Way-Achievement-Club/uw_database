@@ -497,15 +497,6 @@ def coordinator_create_member():
     new_member = session.get('new_member')
     new_member[request.form['current_page']] = new_data
     
-    #delete me
-    # user = models.User.query.get('srutig')
-    # for item in user.member[0].income_sources:
-        # print item
-        # print item.income_source
-    for c in models.User().__table__.columns:
-        print models.User().c
-    #end delete me
-    
     #TODO: complete validateMember function in 'utils.py'
     validatedMember = validateMember(new_member, False)
 
@@ -541,7 +532,7 @@ def coordinator_update_member():
     new_data = json.loads(request.form['new_data'])
     edit_member = session.get('edit_member')
     edit_member[request.form['current_page']] = new_data
-
+    
     #TODO: complete validateMember function in 'utils.py'
     validatedMember = validateMember(edit_member, True)
 
