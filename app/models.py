@@ -45,6 +45,13 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User %r>' % (self.username)
+        
+    def columns(self):
+        self.columns = {
+                            'username': {'label':'username','type':'string'},
+                            'password': {'label':'password','type':'string'},
+                        }
+        return self.columns
 
 
 '''
@@ -80,6 +87,9 @@ class Member(db.Model):
     self_sufficiency_matrices = db.relationship('Member_Self_Sufficiency_Matrix', backref='member', lazy=True)
     self_efficacy_quizzes = db.relationship('Member_Self_Efficacy_Quiz', backref='member', lazy=True)
     user = db.relationship("User", back_populates="member", lazy=True)
+    goal_name = db.relationship('Member_Goals', backref='member', lazy=True)
+    step_name = db.relationship('Member_Steps', backref='member', lazy=True)
+    proof_name = db.relationship('Member_Proofs', backref='member', lazy=True)
 
 '''
 Member-Sources of Income (1-n)
@@ -174,8 +184,73 @@ class Child(db.Model):
     child_grades = db.Column(db.String(64))
     child_school = db.Column(db.String(120))
 
-# ============================================== GOALS ==============================================
+'''
+Member-Goals  (1-n)
+'''
+class Member_Goals(db.Model):
+    username = db.Column(db.String(64), db.ForeignKey('member.username'), primary_key=True)
+    goal_name = db.Column(db.String(64), db.ForeignKey('goals.goal_name'), primary_key=True)
+    significance = db.Column(db.String(512))
+    goal_status = db.Column(db.String(64))
+    date_completed = db.Column(db.DateTime)
+    steps_completed = db.Column(db.Integer)
 
+'''
+Member-Step (1-n)
+'''
+class Member_Steps(db.Model):
+    username = db.Column(db.String(64), db.ForeignKey('member.username'), primary_key=True)
+    step_name = db.Column(db.String(64), db.ForeignKey('steps.step_name'), primary_key=True)
+    date_completed = db.Column(db.DateTime)
+    step_status = db.Column(db.String(64))
+    current_proof = db.Column(db.String(64), db.ForeignKey('proof.proof_name'))
+    proofs_completed = db.Column(db.Integer)
+    
+'''
+Member-Proof (1-n)
+'''
+class Member_Proofs(db.Model):
+    proof_name = db.Column(db.String(64), db.ForeignKey('proof.proof_name'), primary_key=True)
+    username = db.Column(db.String(64), db.ForeignKey('member.username'))
+    proof_verified_by = db.Column(db.String(64))
+    proof_document = db.Column(db.String(64), db.ForeignKey('proof.proof_document'), primary_key=True)
+    accepted = db.Column(db.String(64))
+    reason = db.Column(db.String(64))
+    date_completed = db.Column(db.DateTime)
+    
+# ============================================== GOALS ==============================================
+'''
+Goals
+'''
+class Goals(db.Model):
+    goal_name = db.Column(db.String(64), primary_key=True)
+    goal_category = db.Column(db.String(64), db.ForeignKey('categories.category_name'))
+    description = db.Column(db.String(64))
+    num_of_steps = db.Column(db.Integer)
+    
+'''
+Steps
+'''
+class Steps(db.Model):
+    step_name = db.Column(db.String(64), primary_key=True)
+    goal_name = db.Column(db.String(64), db.ForeignKey('goals.goal_name'), primary_key=True)
+    description = db.Column(db.String(128))
+    step_num = db.Column(db.Integer)
+    num_of_proofs = db.Column(db.Integer)
+    
+'''
+Proof
+'''
+class Proof(db.Model):
+    proof_name = db.Column(db.String(64), primary_key=True)
+    step_name = db.Column(db.String(64), db.ForeignKey('steps.step_name'), primary_key=True)
+    description = db.Column(db.String(64))
+    proof_num = db.Column(db.Integer)
+    
+'''Categories
+'''
+class Categories(db.Model):
+    category_name = db.Column(db.String(64), primary_key=True)
 
 # ============================================== OTHER ==============================================
 
