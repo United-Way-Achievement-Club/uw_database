@@ -265,24 +265,22 @@ def editMember(updated_member, old_member):
     self_efficacy_quizzes = updated_member['self_efficacy_quiz']
     old_self_efficacy_quizzes = old_member['self_efficacy_quiz']
     
-    user=models.User.query.filter_by(username=general['username']).first()
-    member=models.User.query.filter_by(username=general['username']).first()
+    user=models.User.query.filter_by(username=old_general['username']).first()
+    member=models.User.query.filter_by(username=old_general['username']).first()
     
     if general['password'] != old_general['password']:
         user.password=general['password']
-    if general['profile_picture'] != old_general['profile_picture']:
-        user.profile_picture = general['profile_picture']
     if enrollment_form['first_name'] != old_enrollment_form['first_name']:
         user.first_name = enrollment_form['first_name']
     if enrollment_form['last_name'] != old_enrollment_form['last_name']:
         user.last_name = enrollment_form['last_name']
     if enrollment_form['email'] != old_enrollment_form['email']:
         user.email = enrollment_form['email']
-    if enrollment_form['race'] == 'other':
-        if enrollment_form['other_race'] != old_enrollment_form['other_race']:
-            user.race = enrollment_form['other_race']
-    elif enrollment_form['race'] != old_enrollment_form['race']:
-        user.race = enrollment_form['race']
+    if demographic_data['race'] == 'other':
+        if demographic_data['other_race'] != old_demographic_data['other_race']:
+            user.race = demographic_data['other_race']
+    elif demographic_data['race'] != old_demographic_data['race']:
+        user.race = demographic_data['race']
     if enrollment_form['address_street'] != old_enrollment_form['address_street']:
         user.address_street = enrollment_form['address_street']
     if enrollment_form['address_city'] != old_enrollment_form['address_city']:
@@ -312,8 +310,9 @@ def editMember(updated_member, old_member):
         user.member[0].credit_score = int(demographic_data['credit_score'])
     if demographic_data['employment_status'] != old_demographic_data['employment_status']:
         user.member[0].employment_status = demographic_data['employment_status']
-    if enrollment_form['referral_source'] != old_enrollment_form['referral_source']:
-        user.member[0].referral_source = enrollment_form['referral_source']
+        #keyError with referral_source.
+    # if enrollment_form['referral_source'] != old_enrollment_form['referral_source']:
+        # user.member[0].referral_source = enrollment_form['referral_source']
     if enrollment_form['spouse_first_name'] != old_enrollment_form['spouse_first_name']:
         user.member[0].spouse_first_name = enrollment_form['spouse_first_name']
     if enrollment_form['spouse_last_name'] != old_enrollment_form['spouse_last_name']:
@@ -340,40 +339,40 @@ def editMember(updated_member, old_member):
             db.session.delete(income_source)
     for item in demographic_data['income_sources']:
         if item not in old_demographic_data['income_sources']:
-            db.session.add(models.Member_Sources_Of_Income(username = general['username'], income_source = item))
+            db.session.add(models.Member_Sources_Of_Income(username = old_general['username'], income_source = item))
     
     for asset in user.member[0].assets:
         if asset.asset not in demographic_data['assets']:
             db.session.delete(asset)
     for item in demographic_data['assets']:
         if item not in old_demographic_data['assets']:
-            db.session.add(models.Member_Assets(username = general['username'], asset = item))
+            db.session.add(models.Member_Assets(username = old_general['username'], asset = item))
             
     for number in user.member[0].phone_numbers:
-        if number.phone not in demographic_data['phone_numbers']:
+        if number.phone not in enrollment_form['phone_numbers']:
             db.session.delete(number)
-    for item in demographic_data['phone_numbers']:
-        if item not in old_demographic_data['phone_numbers']:
-            db.session.add(models.Member_Phone(username = general['username'], phone = item))
+    for item in enrollment_form['phone_numbers']:
+        if item not in old_enrollment_form['phone_numbers']:
+            db.session.add(models.Member_Phone(username = old_general['username'], phone = item))
     
     for issue in user.member[0].medical_issues:
         if issue.medical_issue not in demographic_data['medical_issues']:
             db.session.delete(issue)
     for item in demographic_data['medical_issues']:
         if item not in old_demographic_data['medical_issues']:
-            db.session.add(models.Member_Medical_Issues(username = general['username'], medical_issue = item))
+            db.session.add(models.Member_Medical_Issues(username = old_general['username'], medical_issue = item))
     
     for war in user.member[0].wars_served:
         if war.war_served not in demographic_data['wars_served']:
             db.session.delete(war)
     for item in demographic_data['wars_served']:
         if item not in old_demographic_data['wars_served']:
-            db.session.add(models.Member_Wars_Served(username = general['username'], war_served = item))
+            db.session.add(models.Member_Wars_Served(username = old_general['username'], war_served = item))
         
     for matrix in user.member[0].self_sufficiency_matrices:
         db.session.delete(matrix)
     for date in self_sufficiency_matrices:
-        db.session.add(models.Member_Self_Sufficiency_Matrix( username = general['username'],
+        db.session.add(models.Member_Self_Sufficiency_Matrix( username = old_general['username'],
                                                                                             assessment_date = datetime.strptime(date, "%Y-%m-%d"),
                                                                                             housing = self_sufficiency_matrices[date]['housing'],
                                                                                             employment = self_sufficiency_matrices[date]['employment'],
@@ -394,12 +393,12 @@ def editMember(updated_member, old_member):
                                                                                             safety = self_sufficiency_matrices[date]['safety'],
                                                                                             disabilities = self_sufficiency_matrices[date]['disabilities'],
                                                                                             other = self_sufficiency_matrices[date]['other']
-                                                                                            )
-                                                                                            
+                                                                                            ))
+
     for quiz in user.member[0].self_efficacy_quizzes:
         db.session.delete(quiz)
     for date in self_efficacy_quizzes:
-        db.session.add(models.Member_Self_Efficacy_Quiz( username = general['username'],
+        db.session.add(models.Member_Self_Efficacy_Quiz( username = old_general['username'],
                                                                                     assesment_date = datetime.strptime(date, "%Y-%m-%d"),
                                                                                     self_efficacy_1 = self_efficacy_quizzes[date]['self_efficacy_1'],
                                                                                     self_efficacy_2 = self_efficacy_quizzes[date]['self_efficacy_2'],
@@ -413,23 +412,9 @@ def editMember(updated_member, old_member):
                                                                                     self_efficacy_10 = self_efficacy_quizzes[date]['self_efficacy_10'],
                                                                                     self_efficacy_11 = self_efficacy_quizzes[date]['self_efficacy_11'],
                                                                                     self_efficacy_12 = self_efficacy_quizzes[date]['self_efficacy_12']
-                                                                                    )
-            
-    
-    # self_sufficiency_matrices = db.relationship('Member_Self_Sufficiency_Matrix', backref='member', lazy=True)
-    # self_efficacy_quizzes = db.relationship('Member_Self_Efficacy_Quiz', backref='member', lazy=True)
-
-    # in order to access fields in the 'User' table, just access the field directly (ex. user.password)
-    # in order to access fields in the 'Member' table, say user.member[0].<field_name> (ex. user.member[0].join_date)
-
-
-
-    # do the same for enrollment form, demographic data, self sufficiency matrix, self efficacy quiz
-    # for key in enrollment_form:
-        # if enrollment_form[key] != old_enrollment_form[key]:
-            # user.key = enrollment_form[key]
-            # member.key = e
-    # at the end, db.session.commit()
+                                                                                    ))
+                                                                                    
+    db.session.commit()
 
 
 '''
