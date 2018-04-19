@@ -306,6 +306,8 @@ def editMember(updated_member, old_member):
         user.member[0].marital_status = demographic_data['marital_status']
     if demographic_data['income'] != old_demographic_data['income']:
         user.member[0].income = demographic_data['income']
+    if demographic_data['credit_score'] == '':
+        demographic_data['credit_score'] = None
     if demographic_data['credit_score'] != old_demographic_data['credit_score']:
         user.member[0].credit_score = int(demographic_data['credit_score'])
     if demographic_data['employment_status'] != old_demographic_data['employment_status']:
@@ -325,13 +327,13 @@ def editMember(updated_member, old_member):
         user.member[0].english_writing_level = demographic_data['english_writing_level']
     if demographic_data['has_car'] != old_demographic_data['has_car']:
         user.member[0].has_car = demographic_data['has_car']
-    if demographic_data['has_health_insurance'] != old_demographic_data['has_health_insurance']:
+    if 'has_health_insurance' in demographic_data and demographic_data['has_health_insurance'] != old_demographic_data['has_health_insurance']:
         user.member[0].has_health_insurance = demographic_data['has_health_insurance']
-    if demographic_data['has_primary_care_doctor'] != old_demographic_data['has_primary_care_doctor']:
+    if 'has_primary_care_doctor' in demographic_data and demographic_data['has_primary_care_doctor'] != old_demographic_data['has_primary_care_doctor']:
         user.member[0].has_primary_care_doctor = demographic_data['has_primary_care_doctor']
-    if demographic_data['enrolled_in_military'] != old_demographic_data['enrolled_in_military']:
+    if 'enrolled_in_military' in demographic_data and demographic_data['enrolled_in_military'] != old_demographic_data['enrolled_in_military']:
         user.member[0].enrolled_in_military = demographic_data['enrolled_in_military']
-    if demographic_data['has_served_in_military'] != old_demographic_data['has_served_in_military']:
+    if 'has_served_in_military' in demographic_data and demographic_data['has_served_in_military'] != old_demographic_data['has_served_in_military']:
         user.member[0].has_served_in_military = demographic_data['has_served_in_military']
     
     for income_source in user.member[0].income_sources:
