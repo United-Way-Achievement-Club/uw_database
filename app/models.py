@@ -247,7 +247,8 @@ class Proof(db.Model):
     description = db.Column(db.String(64))
     proof_num = db.Column(db.Integer)
     
-'''Categories
+'''
+Categories
 '''
 class Categories(db.Model):
     category_name = db.Column(db.String(64), primary_key=True)
