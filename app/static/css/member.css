@@ -400,6 +400,11 @@
     position: relative;
 }
 
+.goal-star-ic {
+    margin-right: 5px;
+    transform: translateY(0.5px);
+}
+
 .member-goal {
     border: 0;
     box-shadow: none ! important;
@@ -456,7 +461,7 @@
     font-weight: 300;
 }
 
-.goal-step-active {
+.goal-step-active, .goal-step-incomplete {
     color: var(--uw_orange);
 }
 
@@ -465,7 +470,7 @@
 }
 
 .goal-step-incomplete h5 {
-    color: var(--uw_lavender);
+    color: var(--uw_orange);
 }
 
 .proof-completed {
