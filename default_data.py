@@ -17,7 +17,11 @@ date = datetime.strptime('2018-03-01', '%Y-%m-%d')
 child_birth_date = datetime.strptime('2010-02-11', '%Y-%m-%d')
 birth_date = datetime.strptime('1997-01-24', '%Y-%m-%d')
 
+# Clubs
+
 db.session.add(models.Club(club_name='Pebblebrook High School'))
+
+# Members and Coordinators
 
 db.session.add(models.User(username='srutig', password='password', first_name='Sruti', last_name='Guhathakurta', email='sruti.guhathakurta@gmail.com', profile_picture='srutig.jpg', type='member', gender='Female', race='asian-indian', address_street='123 Example Ave SE', address_city='Atlanta', address_state='GA', address_zip='30318', birth_date=birth_date))
 db.session.add(models.Member(username='srutig', join_date=date, club_name='Pebblebrook High School', commitment_pledge=date, photo_release=date, education='some-college', marital_status='single', income='10000', has_car='true', employment_status='employed-part-time'))
@@ -38,5 +42,32 @@ db.session.add(models.Member_Phone(username='hpotter', phone='2223334444'))
 
 db.session.add(models.User(username='coordinator', password='password', first_name='Example', last_name='Coordinator', type='coordinator'))
 db.session.add(models.User(username='user', password='password', first_name='Another', last_name='Coordinator', type='coordinator'))
+
+# Categories
+
+db.session.add(models.Categories(category_name="Education"))
+db.session.add(models.Categories(category_name="Health"))
+db.session.add(models.Categories(category_name="Income"))
+db.session.add(models.Categories(category_name="Community"))
+db.session.add(models.Categories(category_name="Civic"))
+
+# Goals
+
+db.session.add(models.Goals(goal_name="Focus On My Child's Future", goal_category="Education", num_of_steps=3))
+
+db.session.add(models.Steps(step_name="Be Active At Home", goal_name="Focus On My Child's Future", step_num=1, num_of_proofs=3))
+db.session.add(models.Steps(step_name="Be Active At The School", goal_name="Focus On My Child's Future", step_num=2, num_of_proofs=3))
+db.session.add(models.Steps(step_name="Plan For The Future", goal_name="Focus On My Child's Future", step_num=3, num_of_proofs=2))
+
+db.session.add(models.Proof(proof_name="Copy of a reading log", step_name="Be Active At Home", description="Read to my child every night or have my child read to me every night for one month", proof_num=1))
+db.session.add(models.Proof(proof_name="Copy or a photo of the library cards", step_name="Be Active At Home", description="Get a library card for me and my child", proof_num=2))
+db.session.add(models.Proof(proof_name="Copy or a photo of the homework", step_name="Be Active At Home", description="Help my child with homework every night for a month", proof_num=3))
+
+db.session.add(models.Proof(proof_name="Letter from the teacher on school letterhead", step_name="Be Active At The School", description="Attend a parent-teacher conference", proof_num=1))
+db.session.add(models.Proof(proof_name="Letter from the volunteer leader", step_name="Be Active At The School", description="Volunteer at my child's school", proof_num=2))
+db.session.add(models.Proof(proof_name="Letter from the committee leader", step_name="Be Active At The School", description="Join a committee at my child's school", proof_num=3))
+
+db.session.add(models.Proof(proof_name="Copy of your plan", step_name="Plan For The Future", description="Discover education requirements for my child's dream job. Make a plan for how they can meet these requirements", proof_num=1))
+db.session.add(models.Proof(proof_name="Letter from the interviewee", step_name="Plan For The Future", description="Together, interview someone who works at your child's dream job", proof_num=2))
 
 db.session.commit()

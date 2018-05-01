@@ -211,9 +211,9 @@ Member-Proof (1-n)
 '''
 class Member_Proofs(db.Model):
     proof_name = db.Column(db.String(64), db.ForeignKey('proof.proof_name'), primary_key=True)
-    username = db.Column(db.String(64), db.ForeignKey('member.username'))
+    username = db.Column(db.String(64), db.ForeignKey('member.username'), primary_key=True)
     proof_verified_by = db.Column(db.String(64))
-    proof_document = db.Column(db.String(64), db.ForeignKey('proof.proof_document'), primary_key=True)
+    proof_document = db.Column(db.String(64))
     accepted = db.Column(db.String(64))
     reason = db.Column(db.String(64))
     date_completed = db.Column(db.DateTime)
@@ -246,8 +246,7 @@ class Proof(db.Model):
     step_name = db.Column(db.String(64), db.ForeignKey('steps.step_name'), primary_key=True)
     description = db.Column(db.String(64))
     proof_num = db.Column(db.Integer)
-    proof_document = db.Column(db.String(300))
-    
+
 '''
 Categories
 '''
