@@ -246,6 +246,7 @@ class Proof(db.Model):
     step_name = db.Column(db.String(64), db.ForeignKey('steps.step_name'), primary_key=True)
     description = db.Column(db.String(64))
     proof_num = db.Column(db.Integer)
+    proof_document = db.Column(db.String(300))
     
 '''
 Categories
