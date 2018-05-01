@@ -177,7 +177,7 @@ def coordinator_goals_add_goal():
     validation = validateGoal(goal_obj)
     if not validation['success']:
         return jsonify({"status_code":200, "message":validation['error'], "success":False})
-
+        
     # TODO: database implement addGoal function in db_accessor.py
     addGoal(goal_obj)
     print goal_obj

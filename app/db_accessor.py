@@ -536,24 +536,45 @@ def getSelfEfficacyQuiz(username):
 Add new goal to the database
 '''
 def addGoal(goal):
-    # TODO: implement this function
-    '''
-    The goal parameter will be in the format
-    {
-        goal_name: String,
-        goal_category: String,
-        steps: [step]
-    }
-    steps will be in the format
-    always three steps
-    {
-        step_name: String,
-        proofs: [proof]
-    }
-    proofs will be in the format
-    {
-        proof_description: String,
-        proof_document: String
-    }
-    '''
-    return True
+    goal_dict = goal
+    goal_record = models.Goals( goal_name = goal_dict['goal_name'],
+                                goal_category = goal_dict['goal_category'],
+                                description = 'none',
+                                num_of_steps = 3
+                                )
+    db.session.add(goal_record)
+    
+    step1 = models.Steps(step_name = goal_dict['steps'][0]['step_name'],
+                        goal_name = goal_dict['goal_name'],
+                        description = 'none',
+                        step_num = 1,
+                        num_of_proofs = len(goal_dict['steps'][0]['proofs'])
+                        )
+    db.session.add(step1)
+    
+    step2 = models.Steps(step_name = goal_dict['steps'][1]['step_name'],
+                        goal_name = goal_dict['goal_name'],
+                        description = 'none',
+                        step_num = 2,
+                        num_of_proofs = len(goal_dict['steps'][1]['proofs'])
+                        )
+    db.session.add(step2)
+                        
+    step3 = models.Steps(step_name = goal_dict['steps'][2]['step_name'],
+                        goal_name = goal_dict['goal_name'],
+                        description = 'none',
+                        step_num = 3,
+                        num_of_proofs = len(goal_dict['steps'][2]['proofs'])
+                        )
+    db.session.add(step3)
+                        
+    for i in range(0,len(goal_dict['steps'])):
+        for j in range(0,len(goal_dict['steps'][i]['proofs'])):
+            proof = models.Proof(   proof_name = goal_dict['steps'][i]['proofs'][j]['proof_document'],
+                                    step_name = goal_dict['steps'][i]['step_name'],
+                                    description = goal_dict['steps'][i]['proofs'][j]['proof_description'],
+                                    proof_num = j+1
+                                    )
+            db.session.add(proof)
+            
+    db.session.commit()
