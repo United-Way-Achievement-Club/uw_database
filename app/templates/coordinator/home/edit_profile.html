@@ -1,0 +1,36 @@
+<form id="edit-profile-form">
+    <div class="edit-profile-form-group form-group row col-sm-11">
+        <input value="{{ coordinator.address_street }}" name="address_street" type="text" class="address-margin col-sm-4 uw-input profile-input input input-sm">
+        <input value="{{ coordinator.address_city }}" name="address_city" type="text" class="address-margin col-sm-3 uw-input profile-input input input-sm">
+        <select name="address_state" type="text" class="address-margin col-sm-2 uw-input profile-input input input-sm">
+            {% for state in states %}
+            <option value="{{ state }}" {% if coordinator.address_state == state %} selected {% endif %}>{{ state }}</option>
+            {% endfor %}
+        </select>
+        <input value="{{ coordinator.address_zip }}" name="address_zip" type="text" class="address-zip uw-input profile-input input input-sm">
+    </div>
+    <div class="edit-profile-form-group form-group row col-sm-11">
+        <input value="{{ coordinator.email }}" name="email" class="col-sm-12 uw-input profile-input input input-sm">
+    </div>
+    <div class="edit-profile-form-group form-group row col-sm-12">
+        <div class="birth-date-input col-sm-5 col-no-padding">
+            <input value="{{ coordinator.birth_date.strftime('%Y-%m-%d') }}" name="birth_date" type="date" class="col-sm-12 uw-input profile-input input input-sm">
+        </div>
+        <div id="profile-phone-numbers" class="phone-input col-sm-7 col-no-padding">
+            {% if phone_numbers | length == 0 %}
+            <input placeholder="(000)000-0000" name="phone_number" type="tel" class="profile-phone-number col-sm-10 uw-input profile-input input input-sm">
+            {% endif %}
+            {% for number in phone_numbers %}
+            <input value="{{ number.phone }}" name="phone_number" type="tel" class="profile-phone-number col-sm-10 uw-input profile-input input input-sm">
+            {% if loop.index == 1 %}
+            <div class="col-sm-1">
+                <span onclick="addPhoneNumber()" class="glyphicon glyphicon-plus-sign phone-ic"></span>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="edit-profile-form-group form-group row col-sm-11">
+        <button onclick="saveProfile()" type="button" class="col-sm-12 btn btn-sm btn-default uw-button-inverse">Save</button>
+    </div>
+</form>

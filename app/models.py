@@ -39,6 +39,7 @@ class User(db.Model):
     county = db.Column(db.String(64))
     address_zip = db.Column(db.String(20))
     birth_date = db.Column(db.DateTime)
+    phone_numbers = db.relationship('User_Phone', backref='user', lazy=True)
     clubs = db.relationship('Club', secondary=Coordinator_Club, lazy='subquery',
            backref=db.backref('users', lazy=True))
     member = db.relationship("Member", back_populates="user")
@@ -81,7 +82,6 @@ class Member(db.Model):
     has_served_in_military = db.Column(db.String(32))
     income_sources = db.relationship('Member_Sources_Of_Income', backref='member', lazy=True)
     assets = db.relationship('Member_Assets', backref='member', lazy=True)
-    phone_numbers = db.relationship('Member_Phone', backref='member', lazy=True)
     medical_issues = db.relationship('Member_Medical_Issues', backref='member', lazy=True)
     wars_served = db.relationship('Member_Wars_Served', backref='member', lazy=True)
     self_sufficiency_matrices = db.relationship('Member_Self_Sufficiency_Matrix', backref='member', lazy=True)
@@ -106,10 +106,10 @@ class Member_Assets(db.Model):
     asset = db.Column(db.String(64), primary_key=True)
 
 '''
-Member-Phone Numbers (1-n)
+User-Phone Numbers (1-n)
 '''
-class Member_Phone(db.Model):
-    username = db.Column(db.String(64), db.ForeignKey('member.username'), primary_key=True)
+class User_Phone(db.Model):
+    username = db.Column(db.String(64), db.ForeignKey('user.username'), primary_key=True)
     phone = db.Column(db.String(32), primary_key=True)
 
 '''
