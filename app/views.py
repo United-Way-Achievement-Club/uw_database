@@ -162,7 +162,7 @@ def coordinator_edit_profile():
     username = session.get('coordinator')
     updateUser(user_data, username)
     phone_numbers = getPhoneNumbers(session.get('coordinator'))
-    return render_template('coordinator/home/profile.html', coordinator=getCoordinator(username), phone_numbers=phone_numbers, states=getStates())
+    return render_template('coordinator/home/profile.html', coordinator = getCoordinator(username), phone_numbers=phone_numbers, states=getStates())
 
 '''
 Edit the coordinator's profile picture
@@ -176,7 +176,7 @@ def coordinator_edit_profile_picture():
     editProfilePic(username)
     phone_numbers = getPhoneNumbers(session.get('coordinator'))
     profile_picture.save(os.path.join(app.config['UPLOAD_FOLDER'], username + '.jpg'))
-    return render_template('coordinator/home/profile.html', coordinator=getCoordinator(username), phone_numbers=phone_numbers, states=getStates())
+    return render_template('coordinator/home/profile.html', coordinator = getCoordinator(username), phone_numbers=phone_numbers, states=getStates())
 
 # -- goals --
 
@@ -187,7 +187,7 @@ Coordinator goals page
 def coordinator_goals():
     if not session.get('login'):
         return redirect('login')
-    return render_template('coordinator/goals.html')
+    return render_template('coordinator/goals.html', coordinator = getCoordinator(session.get('coordinator')))
 
 '''
 Coordinator add a new goal to the database
@@ -220,7 +220,7 @@ Coordinator approve page
 def coordinator_approve():
     if not session.get('login'):
         return redirect('login')
-    return render_template('coordinator/approve.html')
+    return render_template('coordinator/approve.html', coordinator = getCoordinator(session.get('coordinator')))
 
 # -- members --
 
@@ -238,7 +238,7 @@ def coordinator_members():
         session['modal_mode'] = 'add'
     members = getMembers()
 
-    return render_template('coordinator/members.html', members=members)
+    return render_template('coordinator/members.html', members=members, coordinator = getCoordinator(session.get('coordinator')))
 
 @app.route('/coordinator/members/edit', methods=['POST'])
 def coordinator_members_edit():
@@ -510,7 +510,7 @@ Return the template for goals in the add member modal
 def coordinator_members_goals():
     if not session.get('login'):
         return redirect('login')
-    return render_template('coordinator/members/member_modal/goals.html')
+    return render_template('coordinator/members/member_modal/goals.html', coordinator = getCoordinator(session.get('coordinator')))
 
 '''
 Create a new member. Take the new member stored in the session,

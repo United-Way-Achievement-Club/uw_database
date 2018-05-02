@@ -257,36 +257,56 @@
     min-height: 300px;
 }
 
-.home-approve {
-    background-color: var(--uw_orange);
+.home-approve .home-alert-ic-wrapper {
+    background-color: var(--primary);
     /*background: linear-gradient(to bottom, var(--uw_orange), var(--light_orange));*/
 }
 
-.home-messages {
-    background-color: var(--uw_red);
+.home-messages .home-alert-ic-wrapper {
+    background-color: var(--primary);
     /*background: linear-gradient(to bottom, var(--uw_red), var(--light_red));*/
 }
 
-.home-new-members {
-    background-color: var(--uw_lavender);
-    /*background: linear-gradient(to bottom, var(--uw_lavender), var(--light_lavender));*/
+.home-alert-num {
+    margin-top: 0;
+    color: var(--uw_orange);
 }
 
 .home-alert {
-    height: calc(25vh - 16px);
-    min-height: 150px;
+    height: 110px;
+}
+
+.home-alert-ic {
+    margin: 0;
+}
+
+.home-alert-left, .home-alert-right {
+    height: 100%;
+    display: inline-block;
+}
+
+.home-alert-left {
+    width: 110px;
+}
+
+.home-alert-right {
+    width: calc(100% - 114px);
+}
+
+.home-alert-block {
     display: table;
-    border: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.home-alert-vert-center {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
 }
 
 .home-alert-content {
-    display: table-cell;
-    vertical-align: middle;
-}
-
-.home-alert-header {
-    font-size: 2em;
-    margin-top: 5px;
+    height: 100%;
 }
 
 .home-alert-btn {
