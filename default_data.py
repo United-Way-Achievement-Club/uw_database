@@ -36,7 +36,12 @@ db.session.add(models.Member(username='hpotter', join_date=date, club_name='Unit
 db.session.add(models.User_Phone(username='hpotter', phone='0001112222'))
 db.session.add(models.User_Phone(username='hpotter', phone='2223334444'))
 
-db.session.add(models.User(username='coordinator', password='password', profile_picture='coordinator.jpg', first_name='Example', last_name='Coordinator', type='coordinator', address_street='123 Example Ave SE', address_city='Atlanta', address_state='GA', address_zip='30318', birth_date=birth_date))
-db.session.add(models.User(username='user', profile_picture='user.jpg', password='password', first_name='Another', last_name='Coordinator', type='coordinator', address_street='123 Example Ave SE', address_city='Atlanta', address_state='GA', address_zip='30318', birth_date=birth_date))
+db.session.add(models.User(username='coordinator', password='password', email='coordinator@achievementclub.com', profile_picture='coordinator.jpg', first_name='Example', last_name='Coordinator', type='coordinator', address_street='123 Example Ave SE', address_city='Atlanta', address_state='GA', address_zip='30318', birth_date=birth_date))
+db.session.add(models.User(username='user', profile_picture='user.jpg', email='user@achievementclub.com', password='password', first_name='Another', last_name='Coordinator', type='coordinator', address_street='123 Example Ave SE', address_city='Atlanta', address_state='GA', address_zip='30318', birth_date=birth_date))
+
+db.session.add(models.User_Phone(username='coordinator', phone='0001212222'))
+db.session.add(models.User_Phone(username='coordinator', phone='2223354444'))
+db.session.add(models.User_Phone(username='user', phone='0001122222'))
+db.session.add(models.User_Phone(username='user', phone='2223834444'))
 
 db.session.commit()
