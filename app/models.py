@@ -213,7 +213,7 @@ class Member_Proofs(db.Model):
     proof_name = db.Column(db.String(64), db.ForeignKey('proof.proof_name'), primary_key=True)
     username = db.Column(db.String(64), db.ForeignKey('member.username'))
     proof_verified_by = db.Column(db.String(64))
-    proof_document = db.Column(db.String(64), db.ForeignKey('proof.proof_document'), primary_key=True)
+    proof_name = db.Column(db.String(64), db.ForeignKey('proof.proof_name'), primary_key=True)
     accepted = db.Column(db.String(64))
     reason = db.Column(db.String(64))
     date_completed = db.Column(db.DateTime)
