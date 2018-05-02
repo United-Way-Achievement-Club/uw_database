@@ -309,28 +309,42 @@
     height: 100%;
 }
 
-.home-alert-btn {
-    margin-top: 5px;
-    border: 1px solid var(--uw_white);
-    color: var(--uw_white);
-    background-color: transparent;
+.divider {
+    margin: 20px 0 20px 0;
+    height: 50px;
+    display: inline-block;
+    width: 100%;
 }
 
-.home-alert-btn:hover {
-    border: 1px solid var(--uw_white);
-    color: var(--uw_white);
+.divider-left, .divider-right, .divider-text {
+    display: inline-block;
+    height: 100%;
 }
 
-.home-approve-btn:hover {
-    background-color: var(--light_orange);
+.divider-left, .divider-right {
+    width: 70%;
 }
 
-.home-messages-btn:hover {
-    background-color: var(--light_red);
+.divider-top {
+    height: 25px;
+    border-bottom: 1px solid var(--border_color);
 }
 
-.home-new-members-btn:hover {
-    background-color: var(--light_lavender);
+.divider-bottom {
+    height: 25px;
+}
+
+.divider-text {
+    width: 27%;
+    color: var(--uw_lavender);
+    text-align: center;
+    vertical-align: middle;
+    /*transform: translateY(-25px);*/
+}
+
+.divider-text h4 {
+    line-height: 0;
+    margin-top: 0;
 }
 
 .goals-graph {

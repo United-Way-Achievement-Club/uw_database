@@ -615,7 +615,7 @@ Coordinator clubs page
 def coordinator_clubs():
     if not session.get('login'):
         return redirect('login')
-    return render_template('coordinator/clubs.html')
+    return render_template('coordinator/clubs.html', coordinator = getCoordinator(session.get('coordinator')))
 
 # -- messages --
 
@@ -626,7 +626,7 @@ Coordinator messages page
 def coordinator_messages():
     if not session.get('login'):
         return redirect('login')
-    return render_template('coordinator/messages.html')
+    return render_template('coordinator/messages.html', coordinator = getCoordinator(session.get('coordinator')))
 
 # -- other --
 
