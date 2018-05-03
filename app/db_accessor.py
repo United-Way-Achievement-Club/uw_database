@@ -44,32 +44,32 @@ def editProfilePic(username):
     db.session.commit()
 
 '''
-Update a member after edit profile
+Update a user after edit profile
 '''
-def updateMember(member_data, username):
-    member = models.User.query.get(username)
-    member.birth_date = datetime.strptime(member_data['birth_date'], '%Y-%m-%d')
-    member.address_street = member_data['address_street']
-    member.address_state = member_data['address_state']
-    member.address_city = member_data['address_city']
-    member.address_zip = member_data['address_zip']
-    member.email = member_data['email']
-    old_phones = models.Member_Phone.query.filter_by(username=username)
+def updateUser(user_data, username):
+    user = models.User.query.get(username)
+    user.birth_date = datetime.strptime(user_data['birth_date'], '%Y-%m-%d')
+    user.address_street = user_data['address_street']
+    user.address_state = user_data['address_state']
+    user.address_city = user_data['address_city']
+    user.address_zip = user_data['address_zip']
+    user.email = user_data['email']
+    old_phones = models.User_Phone.query.filter_by(username=username)
     for number in old_phones:
-        if number.phone in member_data['phone_numbers']:
-            index = member_data['phone_numbers'].index(number.phone)
-            del member_data['phone_numbers'][index]
+        if number.phone in user_data['phone_numbers']:
+            index = user_data['phone_numbers'].index(number.phone)
+            del user_data['phone_numbers'][index]
         else:
-            models.Member_Phone.query.filter_by(username=username, phone=number.phone).delete()
-    for phone in member_data['phone_numbers']:
-        db.session.add(models.Member_Phone(username=username, phone=phone))
+            models.User_Phone.query.filter_by(username=username, phone=number.phone).delete()
+    for phone in user_data['phone_numbers']:
+        db.session.add(models.User_Phone(username=username, phone=phone))
     db.session.commit()
 
 '''
 Get member phone numbers by username
 '''
 def getPhoneNumbers(username):
-    phone_numbers = models.Member_Phone.query.filter_by(username=username).all()
+    phone_numbers = models.User_Phone.query.filter_by(username=username).all()
     return phone_numbers
 
 '''
@@ -164,7 +164,7 @@ def addMember(member_obj):
                               )
                                                                                      
     for phone_number in enrollment_form['phone_numbers']:
-        db.session.add(models.Member_Phone(  username = general['username'],
+        db.session.add(models.User_Phone(  username = general['username'],
                                                                     phone = phone_number
                                                                  )
                               )
@@ -350,12 +350,12 @@ def editMember(updated_member, old_member):
         if item not in old_demographic_data['assets']:
             db.session.add(models.Member_Assets(username = old_general['username'], asset = item))
             
-    for number in user.member[0].phone_numbers:
+    for number in user.phone_numbers:
         if number.phone not in enrollment_form['phone_numbers']:
             db.session.delete(number)
     for item in enrollment_form['phone_numbers']:
         if item not in old_enrollment_form['phone_numbers']:
-            db.session.add(models.Member_Phone(username = old_general['username'], phone = item))
+            db.session.add(models.User_Phone(username = old_general['username'], phone = item))
     
     for issue in user.member[0].medical_issues:
         if issue.medical_issue not in demographic_data['medical_issues']:
@@ -450,7 +450,7 @@ def getEnrollmentForm(username):
     enrollment_form['birth_date'] = datetime.strftime(member.birth_date, '%Y-%m-%d')
     enrollment_form['email'] = member.email
     enrollment_form['phone_numbers'] = []
-    for entry in member.member[0].phone_numbers:
+    for entry in member.phone_numbers:
         enrollment_form['phone_numbers'].append(entry.phone)
     enrollment_form['spouse_first_name'] = member.member[0].spouse_first_name
     enrollment_form['spouse_last_name'] = member.member[0].spouse_last_name
