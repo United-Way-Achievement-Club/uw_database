@@ -96,7 +96,7 @@ def member_edit_profile():
         return redirect('login')
     member_data = json.loads(request.form['member_data'])
     username = session.get('member')
-    updateMember(member_data, username)
+    updateUser(member_data, username)
     phone_numbers = getPhoneNumbers(session.get('member'))
     return render_template('member/home/profile.html', member=getMember(username), phone_numbers=phone_numbers, states=getStates())
 
@@ -148,7 +148,35 @@ Coordinator home page
 def coordinator_home():
     if not session.get('login'):
         return redirect('login')
-    return render_template('coordinator/home.html')
+    phone_numbers = getPhoneNumbers(session.get('coordinator'))
+    return render_template('coordinator/home.html', coordinator=getCoordinator(session.get('coordinator')), phone_numbers=phone_numbers, states=getStates())
+
+'''
+Edit the coordinator's profile information
+'''
+@app.route('/coordinator/edit_profile', methods=['POST'])
+def coordinator_edit_profile():
+    if not session.get('login'):
+        return redirect('login')
+    user_data = json.loads(request.form['user_data'])
+    username = session.get('coordinator')
+    updateUser(user_data, username)
+    phone_numbers = getPhoneNumbers(session.get('coordinator'))
+    return render_template('coordinator/home/profile.html', coordinator = getCoordinator(username), phone_numbers=phone_numbers, states=getStates())
+
+'''
+Edit the coordinator's profile picture
+'''
+@app.route('/coordinator/edit_profile_picture', methods=['POST'])
+def coordinator_edit_profile_picture():
+    if not session.get('login'):
+        return redirect('login')
+    profile_picture = request.files['profile_picture']
+    username = session.get('coordinator')
+    editProfilePic(username)
+    phone_numbers = getPhoneNumbers(session.get('coordinator'))
+    profile_picture.save(os.path.join(app.config['UPLOAD_FOLDER'], username + '.jpg'))
+    return render_template('coordinator/home/profile.html', coordinator = getCoordinator(username), phone_numbers=phone_numbers, states=getStates())
 
 # -- goals --
 
@@ -159,7 +187,7 @@ Coordinator goals page
 def coordinator_goals():
     if not session.get('login'):
         return redirect('login')
-    return render_template('coordinator/goals.html')
+    return render_template('coordinator/goals.html', coordinator = getCoordinator(session.get('coordinator')))
 
 '''
 Coordinator add a new goal to the database
@@ -192,7 +220,7 @@ Coordinator approve page
 def coordinator_approve():
     if not session.get('login'):
         return redirect('login')
-    return render_template('coordinator/approve.html')
+    return render_template('coordinator/approve.html', coordinator = getCoordinator(session.get('coordinator')))
 
 # -- members --
 
@@ -210,7 +238,7 @@ def coordinator_members():
         session['modal_mode'] = 'add'
     members = getMembers()
 
-    return render_template('coordinator/members.html', members=members)
+    return render_template('coordinator/members.html', members=members, coordinator = getCoordinator(session.get('coordinator')))
 
 @app.route('/coordinator/members/edit', methods=['POST'])
 def coordinator_members_edit():
@@ -482,7 +510,7 @@ Return the template for goals in the add member modal
 def coordinator_members_goals():
     if not session.get('login'):
         return redirect('login')
-    return render_template('coordinator/members/member_modal/goals.html')
+    return render_template('coordinator/members/member_modal/goals.html', coordinator = getCoordinator(session.get('coordinator')))
 
 '''
 Create a new member. Take the new member stored in the session,
@@ -587,7 +615,7 @@ Coordinator clubs page
 def coordinator_clubs():
     if not session.get('login'):
         return redirect('login')
-    return render_template('coordinator/clubs.html')
+    return render_template('coordinator/clubs.html', coordinator = getCoordinator(session.get('coordinator')))
 
 # -- messages --
 
@@ -598,7 +626,7 @@ Coordinator messages page
 def coordinator_messages():
     if not session.get('login'):
         return redirect('login')
-    return render_template('coordinator/messages.html')
+    return render_template('coordinator/messages.html', coordinator = getCoordinator(session.get('coordinator')))
 
 # -- other --
 
