@@ -459,6 +459,18 @@
     text-align: center;
 }
 
+.goal-action-ic {
+    margin-right: 5px;
+}
+
+.goal-action-ic-remove {
+    color: var(--error-red);
+}
+
+.goal-action-ic:hover {
+    opacity: 0.5;
+}
+
 .goals-list-header-item h6 {
     font-weight: 400;
 }

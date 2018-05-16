@@ -85,26 +85,6 @@ def getCoordinators():
     return models.User.query.filter_by(type='coordinator').all()
 
 '''
-Return all of the goals in the database
-'''
-def getGoals():
-    goals = models.Goals.query.all()
-    for goal in goals:
-        steps = models.Steps.query.filter_by(goal_name=goal.goal_name).all()
-        for step in steps:
-            proofs = models.Proof.query.filter_by(step_name=step.step_name).all()
-            step.proofs = proofs
-        goal.steps = steps
-    return goals
-
-
-'''
-Return all of the categories in the database
-'''
-def getCategories():
-    return models.Categories.query.all()
-
-'''
 Add a new member to the database
 '''
 def addMember(member_obj):
@@ -598,3 +578,69 @@ def addGoal(goal):
             db.session.add(proof)
             
     db.session.commit()
+
+'''
+Edit the goal in the database
+'''
+def editGoal(goal):
+
+    print goal
+
+    old_goal = models.Goals.query.get(goal['goal_name'])
+
+    '''
+    The 'goal' parameter is in the same format as the one
+    in the addGoal function.
+
+    The old_goal variable is the db model for the goal before editing
+
+    Check what has been changed in the goal and compare it
+    to old_goal. Based on that, update attributes in old_goal.
+
+    NOTE: the goal name and the goal category will not change so
+    no need to check for those
+    '''
+
+    old_steps = models.Steps.query.filter_by(goal_name=goal['goal_name'])
+    new_steps = goal['steps']
+    # TODO compare the step names to the ones in the old goal and update accordingly
+    # this might be tough because they may have changed just a few letters in the step name
+    # therefore, using the 'step_num' attribute will be very useful for this
+
+    # also update the proofs for each step if necessary
+
+    db.session.commit()
+
+'''
+Return all of the goals in the database
+'''
+def getGoals():
+    goals = models.Goals.query.all()
+    for goal in goals:
+        steps = models.Steps.query.filter_by(goal_name=goal.goal_name).all()
+        for step in steps:
+            proofs = models.Proof.query.filter_by(step_name=step.step_name).all()
+            step.proofs = proofs
+        goal.steps = steps
+    return goals
+
+'''
+Get a goal by the goal name
+'''
+def getGoal(goal_name):
+    print goal_name
+    goal = models.Goals.query.get(goal_name)
+    if goal == None:
+        return None
+    steps = models.Steps.query.filter_by(goal_name=goal.goal_name).all()
+    for step in steps:
+        proofs = models.Proof.query.filter_by(step_name=step.step_name).all()
+        step.proofs = proofs
+    goal.steps = steps
+    return goal
+
+'''
+Return all of the categories in the database
+'''
+def getCategories():
+    return models.Categories.query.all()

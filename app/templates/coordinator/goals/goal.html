@@ -7,7 +7,7 @@
                             <span class="glyphicon glyphicon-apple goal-heading-ic"></span>
                         </h4>
                     </div>
-                    <div class="col-sm-4 goal-title-wrapper">
+                    <div class="col-sm-3 goal-title-wrapper">
                         <h5 class="goal-title">
                             {{ goal.goal_name }}
                         </h5>
@@ -17,7 +17,7 @@
                             {{ goal.goal_category }}
                         </h5>
                     </div>
-                    <div class="col-sm-4 goal-title-wrapper">
+                    <div class="col-sm-3 goal-title-wrapper">
                         <div class="goal-title">
                             <div class="goal-member-img-wrapper">
                                 <img src="{{ url_for('static', filename='images/profile_pictures/srutig.jpg') }}">
@@ -27,6 +27,12 @@
                                 <h6 class="more-images goals-body-header">+ 3 more</h6>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-sm-2 goal-title-wrapper">
+                        <h5 class="goal-title">
+                            <span onclick='editGoal({{ goal.goal_name | tojson }})' class="glyphicon glyphicon-pencil goal-action-ic"></span>
+                            <span onclick='deleteGoal({{ goal.goal_name | tojson }})' class="glyphicon glyphicon-remove goal-action-ic goal-action-ic-remove"></span>
+                        </h5>
                     </div>
                 </a>
         </div>
@@ -67,9 +73,6 @@
                     {% endfor %}
                 </div>
             </div>
-        </div>
-        <div class="panel-footer goal-footer">
-            <h5 onclick="editGoal()" class="edit-goal"><span class="glyphicon glyphicon-pencil"></span> Edit goal</h5>
         </div>
     </div>
 </div>
