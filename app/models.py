@@ -227,23 +227,25 @@ class Goals(db.Model):
     goal_category = db.Column(db.String(64), db.ForeignKey('categories.category_name'))
     description = db.Column(db.String(64))
     num_of_steps = db.Column(db.Integer)
+    steps = db.relationship("Steps", cascade="all,delete", backref="goals", passive_deletes=True)
     
 '''
 Steps
 '''
 class Steps(db.Model):
     step_name = db.Column(db.String(64), primary_key=True)
-    goal_name = db.Column(db.String(64), db.ForeignKey('goals.goal_name'), primary_key=True)
+    goal_name = db.Column(db.String(64), db.ForeignKey('goals.goal_name', ondelete='CASCADE'), primary_key=True)
     description = db.Column(db.String(128))
     step_num = db.Column(db.Integer)
     num_of_proofs = db.Column(db.Integer)
+    proofs = db.relationship("Proof", cascade="all,delete", backref="steps", passive_deletes=True)
     
 '''
 Proof
 '''
 class Proof(db.Model):
     proof_name = db.Column(db.String(64), primary_key=True)
-    step_name = db.Column(db.String(64), db.ForeignKey('steps.step_name'), primary_key=True)
+    step_name = db.Column(db.String(64), db.ForeignKey('steps.step_name', ondelete='CASCADE'), primary_key=True)
     description = db.Column(db.String(64))
     proof_num = db.Column(db.Integer)
 

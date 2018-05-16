@@ -605,11 +605,18 @@ def editGoal(goal):
     new_steps = goal['steps']
     # TODO compare the step names to the ones in the old goal and update accordingly
     # this might be tough because they may have changed just a few letters in the step name
-    # therefore, using the 'step_num' attribute will be very useful for this
+    # therefore, using the 'step_num' attribute for the steps in old_steps will be very useful for this
+    # assume that new_steps is in order (step 1 is new_steps[0], step 2 is new_steps[1]...etc.)
 
     # also update the proofs for each step if necessary
 
     db.session.commit()
+
+'''
+Delete a goal
+'''
+def deleteGoal(goal_name):
+    models.Goals.query.get(goal_name).delete()
 
 '''
 Return all of the goals in the database

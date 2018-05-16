@@ -238,6 +238,17 @@ def coordinator_goals_edit_goal():
     editGoal(goal_obj)
     return jsonify({"status_code":200, "message":"Successfully added goal", "success":True})
 
+'''
+Delete a goal
+'''
+@app.route('/coordinator/goals/delete_goal', methods=['POST'])
+def coordinator_goals_delete_goal():
+    if not session.get('login'):
+        return redirect('login')
+    goal_name = request.form['goal_name']
+    deleteGoal(goal_name)
+    return jsonify({"status_code":200, "message":"Successfully deleted goal", "success":True})
+
 # -- approve --
 
 '''
