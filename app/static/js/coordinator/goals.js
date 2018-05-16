@@ -73,3 +73,10 @@ function removeProof(e) {
     var grand_parent = $(parent).parent();
     $(grand_parent).remove();
 }
+
+function showStep(e, stepName) {
+    $('.goal-steps-nav-item').removeClass('goal-steps-nav-item-active');
+    $(e).addClass('goal-steps-nav-item-active');
+    $('.goal-proofs').addClass('goal-proofs-hide');
+    $('#' + stepName).removeClass('goal-proofs-hide');
+}

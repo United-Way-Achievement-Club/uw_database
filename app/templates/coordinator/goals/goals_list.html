@@ -15,7 +15,11 @@
         </div>
         <div class="goals-list-items col-sm-12">
             <div class="panel-group">
+                {% for goal in goals %}
+                {% with goal=goal, index=loop.index %}
                 {% include 'coordinator/goals/goal.html' %}
+                {% endwith %}
+                {% endfor %}
             </div>
         </div>
     </div>

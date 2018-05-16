@@ -85,6 +85,26 @@ def getCoordinators():
     return models.User.query.filter_by(type='coordinator').all()
 
 '''
+Return all of the goals in the database
+'''
+def getGoals():
+    goals = models.Goals.query.all()
+    for goal in goals:
+        steps = models.Steps.query.filter_by(goal_name=goal.goal_name).all()
+        for step in steps:
+            proofs = models.Proof.query.filter_by(step_name=step.step_name).all()
+            step.proofs = proofs
+        goal.steps = steps
+    return goals
+
+
+'''
+Return all of the categories in the database
+'''
+def getCategories():
+    return models.Categories.query.all()
+
+'''
 Add a new member to the database
 '''
 def addMember(member_obj):
