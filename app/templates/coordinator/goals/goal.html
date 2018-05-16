@@ -1,7 +1,7 @@
 <div class="panel panel-default goal-item">
     <div class="goal-heading panel-heading text-center">
         <div class="goal-heading-content col-sm-12 col-no-padding">
-                <a class="goal-heading-wrapper" data-toggle="collapse" href="#goal1">
+                <a class="goal-heading-wrapper" data-toggle="collapse" href="#goal{{index}}">
                     <div class="col-sm-1 goal-title-wrapper">
                         <h4 class="goal-title goal-title-ic text-center">
                             <span class="glyphicon glyphicon-apple goal-heading-ic"></span>
@@ -31,14 +31,14 @@
                 </a>
         </div>
     </div>
-    <div id="goal1" class="panel-collapse collapse {% if index == 1 %} in {% endif %}">
+    <div id="goal{{index}}" class="panel-collapse collapse {% if index == 1 %} in {% endif %}">
         <div class="panel-body goal-body">
             <div class="goal-steps-nav col-sm-3">
                 <div class="goal-steps-title">
                     <h6 class="goals-body-header">Steps</h6>
                 </div>
                 {% for step in goal.steps %}
-                    <div onclick="showStep(this, 'goal{{ index }}step{{ loop.index }}')" class="goal-steps-nav-item {% if loop.index == 1 %} goal-steps-nav-item-active {% endif %}">
+                    <div onclick="showStep(this, {{ index }}, 'goal{{ index }}step{{ loop.index }}')" class="goal-steps-nav-item goal-steps-nav-item{{index}} {% if loop.index == 1 %} goal-steps-nav-item-active {% endif %}">
                         <h5>{{ step.step_name }}</h5>
                     </div>
                 {% endfor %}
@@ -46,7 +46,7 @@
             <div class="goal-steps-content col-sm-9">
                 <div class="goal-steps-content-wrapper">
                     {% for step in goal.steps %}
-                    <div class="goal-proofs {% if loop.index != 1 %} goal-proofs-hide {% endif %}" id="goal{{ index }}step{{ loop.index }}">
+                    <div class="goal-proofs{{index}} {% if loop.index != 1 %} goal-proofs-hide {% endif %}" id="goal{{ index }}step{{ loop.index }}">
                         <div class="col-sm-8">
                             <h6 class="goals-body-header">Proofs</h6>
                             {% for proof in step.proofs %}

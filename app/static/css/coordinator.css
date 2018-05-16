@@ -464,8 +464,9 @@
 }
 
 .goals-list-items {
-    overflow-y: scroll;
     padding: 0;
+    height: calc(100vh - 165px);
+    overflow-y: scroll;
 }
 
 .goal-item {
@@ -473,6 +474,7 @@
     box-shadow: none ! important;
     border: 0 ! important;
     border-bottom: 1px solid var(--primary_light) ! important;
+    margin-top: 0 ! important;
 }
 
 .goal-heading {
