@@ -5,8 +5,9 @@
 {% endblock %}
 
 {% block c_content %}
-
+{% with num_goals=goals|length %}
 {% include 'coordinator/goals/topbar.html' %}
+{% endwith %}
 {% with goals=goals %}
 {% include 'coordinator/goals/goals_list.html' %}
 {% endwith %}
