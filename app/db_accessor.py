@@ -607,6 +607,8 @@ def editGoal(goal):
     # this might be tough because they may have changed just a few letters in the step name
     # therefore, using the 'step_num' attribute for the steps in old_steps will be very useful for this
     # assume that new_steps is in order (step 1 is new_steps[0], step 2 is new_steps[1]...etc.)
+    # make sure that the cascades are implemented properly in models.py so that updating a step
+    # updates it for all proofs, member_steps, member_proofs...etc.
 
     # also update the proofs for each step if necessary
 
@@ -616,6 +618,7 @@ def editGoal(goal):
 Delete a goal
 '''
 def deleteGoal(goal_name):
+    # TODO: make sure cascades are right in models.py so that deleting a goal deletes all steps/proofs
     models.Goals.query.get(goal_name).delete()
 
 '''
