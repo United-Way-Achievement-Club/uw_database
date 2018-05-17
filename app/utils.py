@@ -19,7 +19,7 @@ import json
 global clubs
 clubs = [
     {
-        "club_name":"Kroger",
+        "club_name":"Atlanta High School",
         "address_street": "1225 Caroline St NE",
         "address_city": "Atlanta",
         "address_state": "GA",

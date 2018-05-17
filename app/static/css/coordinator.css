@@ -1120,12 +1120,101 @@
     position: relative;
 }
 
-#clubs-map {
+#clubs-body-content {
     width: 100vh;
     max-width: 75vw;
     height: 100%;
     border-right: 1px groove var(--border_color);
     display: inline-block;
+    position: relative;
+}
+
+#club-details {
+    height: calc(98% - 50px);
+    width: 70%;
+    position: absolute;
+    top: calc(1% + 50px);
+    left: 29%;
+    background-color: var(--uw_white);
+    z-index: 50;
+    padding: 25px;
+    border: 1px groove var(--border_color);
+    /*overflow-y: scroll;*/
+    display: none;
+}
+
+.club-details-header {
+    border-bottom: 1px groove var(--border_color);
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    font-size: 30px;
+    height: 100px;
+}
+
+.club-details-element {
+    padding: 0 0 25px 0;
+}
+
+.club-details-body {
+    overflow-y: scroll;
+    height: calc(100% - 120px);
+}
+
+.club-details-sub {
+    color: var(--primary);
+}
+
+.club-details-img {
+    display: inline-block;
+    height: 125px;
+}
+
+.club-details-photos {
+    width: 100%;
+    overflow-y: scroll;
+    height: 150px;
+}
+
+.exit-club-wrapper {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.exit-club-ic {
+    font-size: 0.8em;
+    color: var(--primary);
+}
+
+.exit-club-ic:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.coordinator-item-img, .member-item-img {
+    height: 30px;
+    width: 30px;
+    display: table-cell;
+    vertical-align: middle;
+    border-radius: 50%;
+    float: center;
+}
+
+.coordinator-item-name, .member-item-name {
+    transform: translateX(10px);
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.coordinators-item, .members-item {
+    display: table;
+    height: 30px;
+    margin-top: 10px;
+}
+
+#clubs-map {
+    height: 100%;
+    width: 100%;
 }
 
 .clubs-list {
@@ -1168,7 +1257,7 @@
     display: table;
     width: 100%;
     height: 150px;
-    padding: 5px;
+    padding: 5px 5px 5px 15px;
     border-bottom: 1px groove var(--border_color);
 }
 
