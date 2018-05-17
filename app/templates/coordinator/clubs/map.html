@@ -16,6 +16,7 @@
     var united_way = {lat: 33.754740, lng: -84.385578};
     var clubs = {{ clubs | tojson }}
     var map_icon = window.location.origin + '/static/images/logo/uw_icon.png';
+    var bounds = new google.maps.LatLngBounds();
     var map = new google.maps.Map(document.getElementById('clubs-map'), {
       center: united_way,
       zoom: 9,
@@ -31,8 +32,10 @@
               icon: map_icon,
               title: clubs[x].club_name
             });
+            bounds.extend(marker.position);
         }
     }
+    map.fitBounds(bounds);
   }
 
 </script>
