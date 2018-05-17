@@ -12,7 +12,11 @@ Helper methods
 import datetime
 import re
 
+import requests
+import json
+
 # temporary clubs object
+global clubs
 clubs = [
     {
         "club_name":"Kroger",
@@ -27,7 +31,7 @@ clubs = [
     },
     {
         "club_name":"Georgia Institute of Technology",
-        "address_street": "North Ave NW",
+        "address_street": "266 Ferst Dr NW",
         "address_city": "Atlanta",
         "address_state": "GA",
         "address_zip": "30332",
@@ -161,8 +165,17 @@ def getGoals():
 Return clubs object
 This function is temporary until
 the database is set up
+It gets the latitude and longitude
+once to map the locations
 '''
 def getTempClubs():
+    global clubs
+    for club in clubs:
+        if 'latitude' not in club or 'longitude' not in club:
+            results = getCoordinatesAndCounty(club['address_street'] + ' ' + club['address_city'] + ', ' + club['address_state'] + ' ' + club['address_zip'])
+            print results
+            club['latitude'] = results['latitude']
+            club['longitude'] = results['longitude']
     return clubs
 
 '''
@@ -315,3 +328,23 @@ def getStates():
             "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
             "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
             "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
+
+'''
+Use the Google Geocoding API to get the location
+and county of an address
+'''
+def getCoordinatesAndCounty(address):
+    query_address_list = address.split(' ')
+    query_address = '+'.join(query_address_list)
+    apikey = 'AIzaSyAOZ9KV5NeXE2_Bw6G0Ot4OebKi1WSu3y4'
+    response = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + query_address + '&key=' + apikey)
+    resp_json_payload = response.json()
+    if len(resp_json_payload['results']) == 0:
+        return {'latitude': None, 'longitude': None, 'county': None, 'success': False}
+    lat = resp_json_payload['results'][0]['geometry']['location']['lat']
+    long = resp_json_payload['results'][0]['geometry']['location']['lng']
+    county = None
+    for x in resp_json_payload['results'][0]['address_components']:
+        if 'administrative_area_level_2' in x['types']:
+            county = x['long_name']
+    return {'latitude': lat, 'longitude': long, 'county': county, 'success': True}

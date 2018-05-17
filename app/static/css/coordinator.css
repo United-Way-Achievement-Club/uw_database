@@ -1120,7 +1120,7 @@
     position: relative;
 }
 
-.clubs-map {
+#clubs-map {
     width: 100vh;
     max-width: 75vw;
     height: 100%;

@@ -1,3 +1,40 @@
-<div class="clubs-map">
+<div id="clubs-map">
 
 </div>
+<script>
+  function initMap() {
+    var styles = {};
+    $.get( "/mapstyles", function() {
+      console.log("getting map styles")
+    }).done(function(data) {
+        styles=JSON.parse(data.data);
+        createMap(styles);
+    });
+  }
+
+  function createMap(styles) {
+    var united_way = {lat: 33.754740, lng: -84.385578};
+    var clubs = {{ clubs | tojson }}
+    var map_icon = window.location.origin + '/static/images/logo/uw_icon.png';
+    var map = new google.maps.Map(document.getElementById('clubs-map'), {
+      center: united_way,
+      zoom: 9,
+      gestureHandling: 'none',
+      disableDefaultUI: true,
+      styles: styles
+    });
+    for (x in clubs) {
+        if (clubs[x].latitude !== null) {
+            var marker = new google.maps.Marker({
+              position: {lat:clubs[x].latitude, lng:clubs[x].longitude},
+              map: map,
+              icon: map_icon,
+              title: clubs[x].club_name
+            });
+        }
+    }
+  }
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOZ9KV5NeXE2_Bw6G0Ot4OebKi1WSu3y4&callback=initMap"
+        async defer></script>
