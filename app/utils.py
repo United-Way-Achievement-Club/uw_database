@@ -22,6 +22,8 @@ clubs = [
         "address_zip": "30307",
         "county": "Fulton",
         "own_club": False,
+        "num_members": 40,
+        "num_coordinators": 3
     },
     {
         "club_name":"Georgia Institute of Technology",
@@ -31,6 +33,8 @@ clubs = [
         "address_zip": "30332",
         "county": "Fulton",
         "own_club": False,
+        "num_members": 35,
+        "num_coordinators": 2
     },
     {
         "club_name":"United Way of Greater Atlanta",
@@ -39,7 +43,9 @@ clubs = [
         "address_state": "GA",
         "address_zip": "30303",
         "county": "Fulton",
-        "own_club": False
+        "own_club": False,
+        "num_members": 24,
+        "num_coordinators": 1
     },
     {
         "club_name":"Pebblebrook High School",
@@ -48,7 +54,9 @@ clubs = [
         "address_state": "GA",
         "address_zip": "30126",
         "county": "Cobb",
-        "own_club": True
+        "own_club": True,
+        "num_members": 27,
+        "num_coordinators": 2
     }
 ]
 

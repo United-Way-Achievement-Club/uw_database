@@ -1,3 +1,7 @@
 <div class="clubs-list">
-
+    {% for club in clubs %}
+    {% with club=club, index=loop.index %}
+    {% include 'coordinator/clubs/clubs_list_item.html' %}
+    {% endwith %}
+    {% endfor %}
 </div>

@@ -1125,10 +1125,15 @@
     max-width: 75vw;
     height: 100%;
     border-right: 1px groove var(--border_color);
+    display: inline-block;
 }
 
 .clubs-list {
-
+    width: calc(100% - 100vh - 4px);
+    display: inline-block;
+    height: 100%;
+    overflow-y: scroll;
+    padding-top: 50px;
 }
 
 .clubs-topbar {
@@ -1157,4 +1162,27 @@
 
 .clubs-right-content {
     float: right;
+}
+
+.clubs-list-item {
+    display: table;
+    width: 100%;
+    height: 150px;
+    padding: 5px;
+    border-bottom: 1px groove var(--border_color);
+}
+
+.clubs-list-item-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.clubs-list-item-sub-header {
+    margin-left: 5px;
+    font-size: 0.9em;
+}
+
+.clubs-list-item-view-more:hover {
+    cursor: pointer;
+    opacity: 0.5;
 }
