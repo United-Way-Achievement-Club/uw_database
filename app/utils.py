@@ -12,6 +12,46 @@ Helper methods
 import datetime
 import re
 
+# temporary clubs object
+clubs = [
+    {
+        "club_name":"Kroger",
+        "address_street": "1225 Caroline St NE",
+        "address_city": "Atlanta",
+        "address_state": "GA",
+        "address_zip": "30307",
+        "county": "Fulton",
+        "own_club": False,
+    },
+    {
+        "club_name":"Georgia Institute of Technology",
+        "address_street": "North Ave NW",
+        "address_city": "Atlanta",
+        "address_state": "GA",
+        "address_zip": "30332",
+        "county": "Fulton",
+        "own_club": False,
+    },
+    {
+        "club_name":"United Way of Greater Atlanta",
+        "address_street": "40 Courtland St NE #300",
+        "address_city": "Atlanta",
+        "address_state": "GA",
+        "address_zip": "30303",
+        "county": "Fulton",
+        "own_club": False
+    },
+    {
+        "club_name":"Pebblebrook High School",
+        "address_street": "991 Old Alabama Rd SW",
+        "address_city": "Mableton",
+        "address_state": "GA",
+        "address_zip": "30126",
+        "county": "Cobb",
+        "own_club": True
+    }
+]
+
 # this is somewhat how a goals object should be structured when
 # pulling from the database
 goals = [
@@ -108,6 +148,14 @@ until the database is set up
 '''
 def getGoals():
     return goals
+
+'''
+Return clubs object
+This function is temporary until
+the database is set up
+'''
+def getTempClubs():
+    return clubs
 
 '''
 Validate member object, check if all required fields

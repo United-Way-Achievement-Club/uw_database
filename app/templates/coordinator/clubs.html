@@ -1,4 +1,12 @@
 {% extends 'coordinator/layout.html' %}
 {% block c_content %}
-
+<div class="dash-item col-sm-12">
+    <div class="dash-item-wrapper clubs-wrapper">
+        {% with clubs=clubs %}
+        {% include 'coordinator/clubs/topbar.html' %}
+        {% include 'coordinator/clubs/map.html' %}
+        {% include 'coordinator/clubs/clubs_list.html' %}
+        {% endwith %}
+    </div>
+</div>
 {% endblock %}
