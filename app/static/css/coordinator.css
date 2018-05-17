@@ -325,8 +325,8 @@
 }
 
 .divider {
-    margin: 20px 0 20px 0;
-    height: 50px;
+    margin: 0;
+    height: 30px;
     display: inline-block;
     width: 100%;
 }
@@ -341,12 +341,12 @@
 }
 
 .divider-top {
-    height: 25px;
+    height: 15px;
     border-bottom: 1px solid var(--border_color);
 }
 
 .divider-bottom {
-    height: 25px;
+    height: 15px;
 }
 
 .divider-text {
