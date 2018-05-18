@@ -19,7 +19,7 @@ birth_date = datetime.strptime('1997-01-24', '%Y-%m-%d')
 
 # Clubs
 
-db.session.add(models.Club(club_name='Pebblebrook High School'))
+db.session.add(models.Club(club_name='Pebblebrook High School', address_street='991 Old Alabama Rd SW', address_city='Mableton', address_zip='30126', address_state='GA', address_county='Cobb'))
 
 # Members and Coordinators
 
@@ -36,7 +36,7 @@ db.session.add(models.Member_Self_Sufficiency_Matrix(username='srutig', assessme
 
 
 db.session.add(models.User(username='hpotter', password='password', first_name='Harry', last_name='Potter', email='harry.potter@gmail.com', profile_picture='hpotter.jpg', type='member', gender='Male', race='white', address_street='123 Hogwarts Rd', address_city='Atlanta', address_state='GA', address_zip='30313', birth_date=birth_date))
-db.session.add(models.Member(username='hpotter', join_date=date, club_name='United Way', commitment_pledge=date, photo_release=date, education='some-college', marital_status='single', income='200000'))
+db.session.add(models.Member(username='hpotter', join_date=date, club_name='Pebblebrook High School', commitment_pledge=date, photo_release=date, education='some-college', marital_status='single', income='200000'))
 db.session.add(models.User_Phone(username='hpotter', phone='0001112222'))
 db.session.add(models.User_Phone(username='hpotter', phone='2223334444'))
 

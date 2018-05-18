@@ -5,3 +5,11 @@ function showClubDetails(club) {
 function hideClubDetails() {
     $("#club-details").hide();
 }
+
+function closeClubModal() {
+    $("#clubModal").modal('hide');
+}
+
+function saveClubModal() {
+    closeClubModal();
+}

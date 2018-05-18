@@ -1275,3 +1275,26 @@
     cursor: pointer;
     opacity: 0.5;
 }
+
+.club-modal-dialog {
+    width: 70%;
+}
+
+.club-modal-content {
+    border-radius: 0;
+    color: var(--uw_lavender);
+}
+
+.club-modal-body {
+    height: 70vh;
+    padding: 0;
+}
+
+.club-modal-header {
+    background-color: var(--uw_lavender);
+    color: var(--uw_white);
+}
+
+.club-modal-footer {
+    border-top: 1px solid var(--primary);
+}
