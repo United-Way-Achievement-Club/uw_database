@@ -1277,7 +1277,7 @@
 }
 
 .club-modal-dialog {
-    width: 70%;
+    width: 40%;
 }
 
 .club-modal-content {
@@ -1286,8 +1286,10 @@
 }
 
 .club-modal-body {
-    height: 70vh;
-    padding: 0;
+    height: 40vh;
+    min-height: 300px;
+    overflow-y: scroll;
+    padding: 25px;
 }
 
 .club-modal-header {
