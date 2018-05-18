@@ -31,6 +31,8 @@ function openClubModal() {
 
 function closeClubModal() {
     $("#clubModal").modal('hide');
+    $(".club-modal-body input").val("");
+    $("#club-coordinators .club-coord").not(":first").remove();
 }
 
 function saveClubModal() {
