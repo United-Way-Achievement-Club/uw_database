@@ -36,3 +36,19 @@ function closeClubModal() {
 function saveClubModal() {
     closeClubModal();
 }
+
+function addClubCoord() {
+    var clubCoordInputs = $(".club-coord-input-extra").length;
+    if (clubCoordInputs >= 4) {
+        window.alert("Sorry, you can't add more than 4 coordinators per club.");
+    } else {
+        var clubCoord = $("#hidden-coord-input").html();
+        $("#club-coordinators").append(clubCoord);
+    }
+}
+
+function removeCoordinator(e) {
+    var parent = $(e).parent();
+    var grandparent = $(parent).parent()
+    $(grandparent).remove();
+}

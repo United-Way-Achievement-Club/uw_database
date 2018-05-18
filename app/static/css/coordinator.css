@@ -1289,7 +1289,7 @@
     height: 40vh;
     min-height: 300px;
     overflow-y: scroll;
-    padding: 25px;
+    padding: 25px 50px 25px 50px;
 }
 
 .club-modal-header {
@@ -1297,6 +1297,47 @@
     color: var(--uw_white);
 }
 
+.club-coord-input {
+    margin-bottom: 2px;
+}
+
+.club-coord-input-extra {
+    margin-bottom: 0;
+}
+
+#hidden-coord-input {
+    display: none;
+}
+
 .club-modal-footer {
     border-top: 1px solid var(--primary);
+}
+
+.club-city-input {
+    width: calc(50% - 2px) ! important;
+    margin-right: 2px;
+}
+
+.club-state-input {
+    width: calc(25% - 2px) ! important;
+    margin-right: 2px;
+}
+
+.club-address-top {
+    margin-bottom: 2px;
+}
+
+.add-coord-btn {
+    margin-top: 5px;
+}
+
+.remove-coord-ic {
+    color: var(--error-red);
+    transform: translateY(-2px);
+    float: left;
+}
+
+.remove-coord-ic:hover {
+    opacity: 0.5;
+    cursor: pointer;
 }
