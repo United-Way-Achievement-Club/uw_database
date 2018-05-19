@@ -1,4 +1,12 @@
 {% extends 'coordinator/layout.html' %}
+
+{% block c_extrascript %}
+<script src="{{ url_for('static', filename='js/coordinator/approve.js') }}"></script>
+{% endblock %}
+
 {% block c_content %}
+
+{% include 'coordinator/approve/topbar.html' %}
+{% include 'coordinator/approve/approve_list.html' %}
 
 {% endblock %}
