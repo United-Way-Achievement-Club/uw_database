@@ -18,8 +18,8 @@ child_birth_date = datetime.strptime('2010-02-11', '%Y-%m-%d')
 birth_date = datetime.strptime('1997-01-24', '%Y-%m-%d')
 
 # Coordinators
-coordinator = models.User(username='coordinator', password='password', email='coordinator@achievementclub.com', profile_picture='coordinator.jpg', first_name='Example', last_name='Coordinator', type='coordinator', address_street='123 Example Ave SE', address_city='Atlanta', address_state='GA', address_zip='30318', birth_date=birth_date)
-user = models.User(username='user', profile_picture='user.jpg', email='user@achievementclub.com', password='password', first_name='Another', last_name='Coordinator', type='coordinator', address_street='123 Example Ave SE', address_city='Atlanta', address_state='GA', address_zip='30318', birth_date=birth_date)
+coordinator = models.User(username='coordinator', password='password', email='coordinator@achievementclub.com', profile_picture='coordinator.jpg', first_name='Jane', last_name='Doe', type='coordinator', address_street='123 Example Ave SE', address_city='Atlanta', address_state='GA', address_zip='30318', birth_date=birth_date)
+user = models.User(username='user', profile_picture='user.jpg', email='user@achievementclub.com', password='password', first_name='Bob', last_name='Smith', type='coordinator', address_street='123 Example Ave SE', address_city='Atlanta', address_state='GA', address_zip='30318', birth_date=birth_date)
 
 db.session.add(coordinator)
 db.session.add(user)

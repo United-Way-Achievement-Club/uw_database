@@ -1147,7 +1147,7 @@
     position: relative;
 }
 
-#club-details {
+.club-details {
     height: calc(98% - 50px);
     width: 70%;
     position: absolute;

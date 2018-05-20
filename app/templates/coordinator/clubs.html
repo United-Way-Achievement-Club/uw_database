@@ -13,9 +13,11 @@
             {% with map_clubs=map_clubs %}
             {% include 'coordinator/clubs/map.html' %}
             {% endwith %}
-            {% with club=clubs[0] %}
+            {% for club in clubs %}
+            {% with club=club, index=loop.index %}
             {% include 'coordinator/clubs/club_details.html' %}
             {% endwith %}
+            {% endfor %}
         </div>
         {% include 'coordinator/clubs/clubs_list.html' %}
         {% with coordinators=coordinators %}

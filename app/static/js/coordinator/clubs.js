@@ -1,9 +1,9 @@
 function showClubDetails(club) {
-    $("#club-details").show();
+    $("#" + club).show();
 }
 
 function hideClubDetails() {
-    $("#club-details").hide();
+    $(".club-details").hide();
 }
 
 function openClubModal() {

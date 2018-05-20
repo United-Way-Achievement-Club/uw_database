@@ -1,11 +1,11 @@
-<div id="club-details">
+<div class="club-details" id="club-details-{{ index }}">
     <div class="exit-club-wrapper">
         <span onclick="hideClubDetails()" class="glyphicon glyphicon-remove exit-club-ic"></span>
     </div>
     <div class="club-details-header">
         <h4>{{ club.club_name }}</h4>
         <h5 class="club-details-sub"><span class="glyphicon glyphicon-map-marker"></span> {{ club.address_street + ' ' + club.address_city + ', ' + club.address_state + ' ' + club.address_zip }}</h5>
-        <h5 class="club-details-sub"><span class="glyphicon glyphicon-time"></span> Created on 9/15/17 by Bob Smith</h5>
+        <h5 class="club-details-sub"><span class="glyphicon glyphicon-time"></span> Created on {{ club.create_time.strftime('%m/%d/%Y') }} by {{ club.created_by }}</h5>
     </div>
     <div class="club-details-body">
         <div class="club-details-element col-sm-12 col-no-padding">
@@ -21,42 +21,22 @@
             <div class="club-details-coordinators col-sm-6 col-no-padding">
                 <h5>Coordinators</h5>
                 <div class="coordinators-list">
+                    {% for coordinator in club.users %}
                     <div class="coordinators-item">
-                        <img src="{{ url_for('static', filename='images/profile_pictures/bsmith.jpg') }}" class="coordinator-item-img">
-                        <h5 class="gray-text coordinator-item-name">Bob Smith</h5>
+                        <img src="{{ url_for('static', filename='images/profile_pictures/' + coordinator.profile_picture) }}" class="coordinator-item-img">
+                        <h5 class="gray-text coordinator-item-name">{{ coordinator.first_name + ' ' + coordinator.last_name }}</h5>
                     </div>
-                    <div class="coordinators-item">
-                        <img src="{{ url_for('static', filename='images/profile_pictures/jdoe.jpg') }}" class="coordinator-item-img">
-                        <h5 class="gray-text coordinator-item-name">Jane Doe</h5>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
             <div class="club-details-members col-sm-6 col-no-padding">
                 <h5>Members</h5>
+                {% for member in club.members %}
                 <div class="members-item">
-                    <img src="{{ url_for('static', filename='images/profile_pictures/bbob.jpg') }}" class="member-item-img">
-                    <h5 class="gray-text member-item-name">Billy Bob Joe Bob</h5>
+                    <img src="{{ url_for('static', filename='images/profile_pictures/' + member.user.profile_picture) }}" class="member-item-img">
+                    <h5 class="gray-text member-item-name">{{ member.user.first_name + ' ' + member.user.last_name }}</h5>
                 </div>
-                <div class="members-item">
-                    <img src="{{ url_for('static', filename='images/profile_pictures/gburdell.jpg') }}" class="member-item-img">
-                    <h5 class="gray-text member-item-name">George P. Burdell</h5>
-                </div>
-                <div class="members-item">
-                    <img src="{{ url_for('static', filename='images/profile_pictures/ajolie.jpg') }}" class="member-item-img">
-                    <h5 class="gray-text member-item-name">Angelina Jolie</h5>
-                </div>
-                <div class="members-item">
-                    <img src="{{ url_for('static', filename='images/profile_pictures/rgeller.jpg') }}" class="member-item-img">
-                    <h5 class="gray-text member-item-name">Ross Geller</h5>
-                </div>
-                <div class="members-item">
-                    <img src="{{ url_for('static', filename='images/profile_pictures/srutig.jpg') }}" class="member-item-img">
-                    <h5 class="gray-text member-item-name">Sruti Guhathakurta</h5>
-                </div>
-                <div class="members-item">
-                    <img src="{{ url_for('static', filename='images/profile_pictures/hpotter.jpg') }}" class="member-item-img">
-                    <h5 class="gray-text member-item-name">Harry Potter</h5>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
