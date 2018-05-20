@@ -31,8 +31,8 @@ db.session.add(models.User_Phone(username='user', phone='2223834444'))
 
 # Clubs
 
-pebblebrook_high = models.Club(club_name='Pebblebrook High School', address_street='991 Old Alabama Rd SW', address_city='Mableton', address_zip='30126', address_state='GA', address_county='Cobb', longitude=-84.5818547, latitude=33.8068817)
-united_way = models.Club(club_name='United Way of Greater Atlanta', address_street='40 Courtland St NE #300', address_city='Atlanta', address_zip='30303', address_state='GA', address_county='Fulton', longitude=-84.3845972, latitude=33.7552402)
+pebblebrook_high = models.Club(club_name='Pebblebrook High School', address_street='991 Old Alabama Rd SW', address_city='Mableton', address_zip='30126', address_state='GA', address_county='Cobb', longitude=-84.5818547, latitude=33.8068817, create_time=date, created_by='coordinator')
+united_way = models.Club(club_name='United Way of Greater Atlanta', address_street='40 Courtland St NE #300', address_city='Atlanta', address_zip='30303', address_state='GA', address_county='Fulton', longitude=-84.3845972, latitude=33.7552402, create_time=date, created_by='coordinator')
 db.session.add(pebblebrook_high)
 db.session.add(united_way)
 

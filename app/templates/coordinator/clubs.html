@@ -10,7 +10,9 @@
         {% with clubs=clubs %}
         {% include 'coordinator/clubs/topbar.html' %}
         <div id="clubs-body-content">
+            {% with map_clubs=map_clubs %}
             {% include 'coordinator/clubs/map.html' %}
+            {% endwith %}
             {% with club=clubs[0] %}
             {% include 'coordinator/clubs/club_details.html' %}
             {% endwith %}

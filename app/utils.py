@@ -365,3 +365,25 @@ def getCoordinatesAndCounty(address):
         if 'administrative_area_level_2' in x['types']:
             county = x['long_name']
     return {'latitude': lat, 'longitude': long, 'county': county, 'success': True}
+
+'''
+convert sqlalchemy query to dict
+'''
+def toDict(query):
+    results = {}
+    for x in query:
+        if is_jsonable(query[x]):
+            results[x] = query.x
+        else:
+            results[x] = toDict(query.x)
+    return results
+
+'''
+Check if object is jsonable
+'''
+def is_jsonable(x):
+    try:
+        json.dumps(x)
+        return True
+    except:
+        return False
