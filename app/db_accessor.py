@@ -654,3 +654,24 @@ Return all of the categories in the database
 '''
 def getCategories():
     return models.Categories.query.all()
+
+'''
+Add the club to the database
+'''
+def addClub(club_data, coordinator):
+    print club_data
+    db.session.add(models.Club(club_name=club_data['club_name'],
+                               address_street=club_data['address_street'],
+                               address_city=club_data['address_city'],
+                               address_state=club_data['address_state'],
+                               address_zip=club_data['address_zip'],
+                               address_county=club_data['county'],
+                               latitude=club_data['latitude'],
+                               longitude=club_data['longitude'],
+                               create_time=datetime.now(),
+                               created_by=coordinator
+                               ))
+    for coordinator in club_data['coordinators']:
+        db.session.add(models.Coordinator_Club(username=coordinator,
+                                               club_name=club_data['club_name']))
+    db.session.commit()

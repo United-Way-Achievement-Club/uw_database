@@ -16,7 +16,9 @@
             {% endwith %}
         </div>
         {% include 'coordinator/clubs/clubs_list.html' %}
+        {% with coordinators=coordinators %}
         {% include 'coordinator/clubs/add_club.html' %}
+        {% endwith %}
         {% endwith %}
     </div>
 </div>

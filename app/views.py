@@ -12,7 +12,7 @@ from app import app
 from db_accessor import *
 from flask import render_template, redirect, session, request, jsonify, url_for
 import json
-from utils import validateMember, getStates, getTempGoals, validateGoal, getTempClubs
+from utils import *
 import os
 
 
@@ -653,7 +653,19 @@ Coordinator clubs page
 def coordinator_clubs():
     if not session.get('login'):
         return redirect('login')
-    return render_template('coordinator/clubs.html', coordinator = getCoordinator(session.get('coordinator')), clubs = getTempClubs())
+    return render_template('coordinator/clubs.html', coordinator = getCoordinator(session.get('coordinator')), clubs = getTempClubs(), coordinators = getCoordinators())
+
+@app.route('/coordinator/clubs/add_club', methods=['POST'])
+def coordinator_clubs_add_club():
+    if not session.get('login'):
+        return redirect('login')
+    club_data = json.loads(request.form['club_data'])
+    validation = validateClub(club_data)
+    if validation['success'] == False:
+        return jsonify({'success':False, 'error': validation['error']})
+    else:
+        addClub(validation['club'], session.get('coordinator'))
+        return jsonify({'success':True, 'error':None})
 
 # -- messages --
 

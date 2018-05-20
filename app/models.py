@@ -268,6 +268,8 @@ class Club(db.Model):
     address_state = db.Column(db.String(64))
     address_zip = db.Column(db.String(20))
     address_county = db.Column(db.String(64))
+    latitude = db.Column(db.Float(precision=64))
+    longitude = db.Column(db.Float(precision=64))
     create_time = db.Column(db.DateTime)
     created_by = db.Column(db.String(64), db.ForeignKey('user.username'))
     members = db.relationship("Member", back_populates="club")

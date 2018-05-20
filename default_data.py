@@ -17,11 +17,33 @@ date = datetime.strptime('2018-03-01', '%Y-%m-%d')
 child_birth_date = datetime.strptime('2010-02-11', '%Y-%m-%d')
 birth_date = datetime.strptime('1997-01-24', '%Y-%m-%d')
 
+# Coordinators
+coordinator = models.User(username='coordinator', password='password', email='coordinator@achievementclub.com', profile_picture='coordinator.jpg', first_name='Example', last_name='Coordinator', type='coordinator', address_street='123 Example Ave SE', address_city='Atlanta', address_state='GA', address_zip='30318', birth_date=birth_date)
+user = models.User(username='user', profile_picture='user.jpg', email='user@achievementclub.com', password='password', first_name='Another', last_name='Coordinator', type='coordinator', address_street='123 Example Ave SE', address_city='Atlanta', address_state='GA', address_zip='30318', birth_date=birth_date)
+
+db.session.add(coordinator)
+db.session.add(user)
+
+db.session.add(models.User_Phone(username='coordinator', phone='0001212222'))
+db.session.add(models.User_Phone(username='coordinator', phone='2223354444'))
+db.session.add(models.User_Phone(username='user', phone='0001122222'))
+db.session.add(models.User_Phone(username='user', phone='2223834444'))
+
 # Clubs
 
-db.session.add(models.Club(club_name='Pebblebrook High School', address_street='991 Old Alabama Rd SW', address_city='Mableton', address_zip='30126', address_state='GA', address_county='Cobb'))
+pebblebrook_high = models.Club(club_name='Pebblebrook High School', address_street='991 Old Alabama Rd SW', address_city='Mableton', address_zip='30126', address_state='GA', address_county='Cobb', longitude=-84.5818547, latitude=33.8068817)
+united_way = models.Club(club_name='United Way of Greater Atlanta', address_street='40 Courtland St NE #300', address_city='Atlanta', address_zip='30303', address_state='GA', address_county='Fulton', longitude=-84.3845972, latitude=33.7552402)
+db.session.add(pebblebrook_high)
+db.session.add(united_way)
 
-# Members and Coordinators
+coordinator.clubs.append(pebblebrook_high)
+coordinator.clubs.append(united_way)
+user.clubs.append(pebblebrook_high)
+
+db.session.add(coordinator)
+db.session.add(user)
+
+# Members
 
 db.session.add(models.User(username='srutig', password='password', first_name='Sruti', last_name='Guhathakurta', email='sruti.guhathakurta@gmail.com', profile_picture='srutig.jpg', type='member', gender='Female', race='asian-indian', address_street='123 Example Ave SE', address_city='Atlanta', address_state='GA', address_zip='30318', birth_date=birth_date))
 db.session.add(models.Member(username='srutig', join_date=date, club_name='Pebblebrook High School', commitment_pledge=date, photo_release=date, education='some-college', marital_status='single', income='10000', has_car='true', employment_status='employed-part-time'))
@@ -40,13 +62,11 @@ db.session.add(models.Member(username='hpotter', join_date=date, club_name='Pebb
 db.session.add(models.User_Phone(username='hpotter', phone='0001112222'))
 db.session.add(models.User_Phone(username='hpotter', phone='2223334444'))
 
-db.session.add(models.User(username='coordinator', password='password', email='coordinator@achievementclub.com', profile_picture='coordinator.jpg', first_name='Example', last_name='Coordinator', type='coordinator', address_street='123 Example Ave SE', address_city='Atlanta', address_state='GA', address_zip='30318', birth_date=birth_date))
-db.session.add(models.User(username='user', profile_picture='user.jpg', email='user@achievementclub.com', password='password', first_name='Another', last_name='Coordinator', type='coordinator', address_street='123 Example Ave SE', address_city='Atlanta', address_state='GA', address_zip='30318', birth_date=birth_date))
+db.session.add(models.User(username='ajolie', password='password', first_name='Angelina', last_name='Jolie', email='angelina.jolie@gmail.com', profile_picture='ajolie.jpg', type='member', gender='Female', race='white', address_street='123 Jolie Rd', address_city='Los Angeles', address_state='CA', address_zip='90210', birth_date=birth_date))
+db.session.add(models.Member(username='ajolie', join_date=date, club_name='United Way of Greater Atlanta', commitment_pledge=date, photo_release=date, education='some-college', marital_status='married', income='200000'))
+db.session.add(models.User_Phone(username='hpotter', phone='0002112222'))
+db.session.add(models.User_Phone(username='hpotter', phone='2223934444'))
 
-db.session.add(models.User_Phone(username='coordinator', phone='0001212222'))
-db.session.add(models.User_Phone(username='coordinator', phone='2223354444'))
-db.session.add(models.User_Phone(username='user', phone='0001122222'))
-db.session.add(models.User_Phone(username='user', phone='2223834444'))
 
 # Categories
 
