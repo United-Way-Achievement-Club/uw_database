@@ -459,13 +459,26 @@
     text-align: center;
 }
 
+.goal-action-ic {
+    margin-right: 5px;
+}
+
+.goal-action-ic-remove {
+    color: var(--error-red);
+}
+
+.goal-action-ic:hover {
+    opacity: 0.5;
+}
+
 .goals-list-header-item h6 {
     font-weight: 400;
 }
 
 .goals-list-items {
-    overflow-y: scroll;
     padding: 0;
+    height: calc(100vh - 165px);
+    overflow-y: scroll;
 }
 
 .goal-item {
@@ -473,6 +486,7 @@
     box-shadow: none ! important;
     border: 0 ! important;
     border-bottom: 1px solid var(--primary_light) ! important;
+    margin-top: 0 ! important;
 }
 
 .goal-heading {
@@ -583,6 +597,10 @@
     height: 32px;
     width: 32px;
     border-radius: 50%;
+}
+
+.goal-proofs-hide {
+    display: none;
 }
 
 .goal-step-proof h5 {

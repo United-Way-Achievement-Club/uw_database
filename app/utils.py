@@ -158,7 +158,7 @@ Return goals object
 this function is temporary
 until the database is set up
 '''
-def getGoals():
+def getTempGoals():
     return goals
 
 '''

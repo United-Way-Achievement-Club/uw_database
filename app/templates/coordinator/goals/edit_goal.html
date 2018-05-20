@@ -1,0 +1,129 @@
+<!-- Modal -->
+<div class="modal fade" id="goalEditModal" tabindex="-1" role="dialog" aria-labelledby="goalEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog goal-modal-dialog" role="document">
+        <div class="modal-content goal-modal-content">
+            <div class="modal-header goal-modal-header">
+                <h4 class="modal-title" id="goalEditModalLabel">Edit Goal</h4>
+            </div>
+            <div class="modal-body goal-modal-body text-center">
+                <div class="col-sm-12 goal-modal-general">
+                    <h5>General</h5>
+                    <form id="edit-general-form">
+                        <div class="form-group row">
+                            <input value="{{ goal.goal_name }}" name="goal_name" class="input input-sm uw-input" placeholder="Goal Name" disabled>
+                            <select name="goal_category" class="input input-sm uw-input" disabled>
+                                <optgroup label="Select Category">
+                                    <option value="Education">Education</option>
+                                    <option value="Health">Health</option>
+                                    <option value="Income">Income</option>
+                                    <option value="Civic">Civic</option>
+                                    <option value="Community">Community</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div id="proof-html-hide">
+                    <div class="form-proof">
+                        <div class="form-group row">
+                            <input name="proof_document" class="input input-sm uw-input col-sm-10 col-sm-offset-1" placeholder="Proof Document">
+                        </div>
+                        <div class="form-group row">
+                            <textarea name="proof_description" class="input input-sm uw-input col-sm-10 col-sm-offset-1" placeholder="Proof Description"></textarea>
+                        </div>
+                        <div class="form-group row">
+                            <h5 class="remove-proof" onclick="removeProof(this)"><span class="glyphicon glyphicon-remove-sign"></span></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-no-padding goal-modal-steps">
+                    <div class="col-sm-4 goal-modal-section">
+                        <h5>Step 1</h5>
+                        <form id="edit-step1-form">
+                            <div class="form-group row">
+                                <input value="{{ goal.steps[0].step_name }}" name="step1_name" class="input input-sm uw-input" placeholder="Step Name">
+                            </div>
+                            <h5>Proofs</h5>
+                            <div id="edit-step1-proofs">
+                                {% for proof in goal.steps[0].proofs %}
+                                <div class="form-proof">
+                                    <div class="form-group row">
+                                        <input value="{{ proof.proof_name }}" name="proof_document" class="input input-sm uw-input col-sm-10 col-sm-offset-1" placeholder="Proof Document">
+                                    </div>
+                                    <div class="form-group row">
+                                        <textarea name="proof_description" class="input input-sm uw-input col-sm-10 col-sm-offset-1" placeholder="Proof Description">{{ proof.description}}</textarea>
+                                    </div>
+                                    <div class="form-group row">
+                                        <h5 class="remove-proof" onclick="removeProof(this)"><span class="glyphicon glyphicon-remove-sign"></span></h5>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group row">
+                                <button onclick="addProof('edit-step1-proofs')" type="button" class="input input-sm uw-button">Add Proof</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-4 goal-modal-section">
+                        <h5>Step 2</h5>
+                        <form id="edit-step2-form">
+                            <div class="form-group row">
+                                <input name="step1_name" value="{{ goal.steps[1].step_name }}" class="input input-sm uw-input" placeholder="Step Name">
+                            </div>
+                            <h5>Proofs</h5>
+                            <div id="edit-step2-proofs">
+                                {% for proof in goal.steps[1].proofs %}
+                                <div class="form-proof">
+                                    <div class="form-group row">
+                                        <input value="{{ proof.proof_name }}" name="proof_document" class="input input-sm uw-input col-sm-10 col-sm-offset-1" placeholder="Proof Document">
+                                    </div>
+                                    <div class="form-group row">
+                                        <textarea name="proof_description" class="input input-sm uw-input col-sm-10 col-sm-offset-1" placeholder="Proof Description">{{ proof.description }}</textarea>
+                                    </div>
+                                    <div class="form-group row">
+                                        <h5 class="remove-proof" onclick="removeProof(this)"><span class="glyphicon glyphicon-remove-sign"></span></h5>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group row">
+                                <button onclick="addProof('step2-proofs')" type="button" class="input input-sm uw-button">Add Proof</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-4 goal-modal-section">
+                        <h5>Step 3</h5>
+                        <form id="edit-step3-form">
+                            <div class="form-group row">
+                                <input value="{{ goal.steps[2].step_name }}" name="step1_name" class="input input-sm uw-input" placeholder="Step Name">
+                            </div>
+                            <h5>Proofs</h5>
+                            <div id="edit-step3-proofs">
+                                {% for proof in goal.steps[2].proofs %}
+                                <div class="form-proof">
+                                    <div class="form-group row">
+                                        <input value="{{ proof.proof_name }}" name="proof_document" class="input input-sm uw-input col-sm-10 col-sm-offset-1" placeholder="Proof Document">
+                                    </div>
+                                    <div class="form-group row">
+                                        <textarea name="proof_description" class="input input-sm uw-input col-sm-10 col-sm-offset-1" placeholder="Proof Description">{{ proof.description }}</textarea>
+                                    </div>
+                                    <div class="form-group row">
+                                        <h5 class="remove-proof" onclick="removeProof(this)"><span class="glyphicon glyphicon-remove-sign"></span></h5>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group row">
+                                <button onclick="addProof('step3-proofs')" type="button" class="input input-sm uw-button">Add Proof</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer goal-modal-footer">
+                <button type="button" class="btn uw-button" onclick="closeEditGoalModal()">Close</button>
+                <button type="button" class="btn uw-button-inverse" onclick='updateGoalModal({{ goal.goal_name | tojson }})'>Update Goal</button>
+            </div>
+        </div>
+    </div>
+</div>

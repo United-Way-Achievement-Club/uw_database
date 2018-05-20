@@ -3,19 +3,26 @@
         <div class="col-sm-12 goals-list-header">
             <div class="col-sm-1">
             </div>
-            <div class="col-sm-4 goals-list-header-item">
+            <div class="col-sm-3 goals-list-header-item">
                 <h6 class="white-text">Goal Name</h6>
             </div>
             <div class="col-sm-3 goals-list-header-item">
                 <h6 class="white-text">Category</h6>
             </div>
-            <div class="col-sm-4 goals-list-header-item">
+            <div class="col-sm-3 goals-list-header-item">
                 <h6 class="white-text">Members</h6>
+            </div>
+            <div class="col-sm-2 goals-list-header-item">
+                <h6 class="white-text">Actions</h6>
             </div>
         </div>
         <div class="goals-list-items col-sm-12">
             <div class="panel-group">
+                {% for goal in goals %}
+                {% with goal=goal, index=loop.index %}
                 {% include 'coordinator/goals/goal.html' %}
+                {% endwith %}
+                {% endfor %}
             </div>
         </div>
     </div>

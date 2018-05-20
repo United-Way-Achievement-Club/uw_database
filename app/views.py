@@ -12,7 +12,7 @@ from app import app
 from db_accessor import *
 from flask import render_template, redirect, session, request, jsonify, url_for
 import json
-from utils import validateMember, getStates, getGoals, validateGoal, getTempClubs
+from utils import validateMember, getStates, getTempGoals, validateGoal, getTempClubs
 import os
 
 
@@ -124,7 +124,7 @@ def member_goals():
     if not session.get('login'):
         return redirect('login')
     username = session.get('member')
-    return render_template('member/goals.html', member=getMember(username), goals=getGoals())
+    return render_template('member/goals.html', member=getMember(username), goals=getTempGoals())
 
 
 # ================================================= COORDINATOR ====================================================
@@ -187,7 +187,17 @@ Coordinator goals page
 def coordinator_goals():
     if not session.get('login'):
         return redirect('login')
-    return render_template('coordinator/goals.html', coordinator = getCoordinator(session.get('coordinator')))
+    return render_template('coordinator/goals.html', coordinator = getCoordinator(session.get('coordinator')), goals=getGoals())
+
+'''
+Return the edit goal modal template for a specific goal
+'''
+@app.route('/coordinator/goals/edit_goal_modal', methods=['POST'])
+def coordinator_goals_edit_goal_modal():
+    if not session.get('login'):
+        return redirect('login')
+    goal_name = request.form['goal_name']
+    return render_template('coordinator/goals/edit_goal.html', goal=getGoal(goal_name))
 
 '''
 Coordinator add a new goal to the database
@@ -205,11 +215,39 @@ def coordinator_goals_add_goal():
     validation = validateGoal(goal_obj)
     if not validation['success']:
         return jsonify({"status_code":200, "message":validation['error'], "success":False})
-        
-    # TODO: database implement addGoal function in db_accessor.py
+
     addGoal(goal_obj)
-    print goal_obj
     return jsonify({"status_code":200, "message":"Successfully added goal", "success":True})
+
+'''
+Edit a goal. The name and category can not
+be changed. Ensure that the fields are correct
+then update the goal in the database
+'''
+@app.route('/coordinator/goals/edit_goal', methods=['POST'])
+def coordinator_goals_edit_goal():
+    if not session.get('login'):
+        return redirect('login')
+    goal_obj = json.loads(request.form['goal'])
+
+    # TODO: finish validateGoal in utils.py
+    validation = validateGoal(goal_obj)
+    if not validation['success']:
+        return jsonify({"status_code":200, "message":validation['error'], "success":False})
+
+    editGoal(goal_obj)
+    return jsonify({"status_code":200, "message":"Successfully added goal", "success":True})
+
+'''
+Delete a goal
+'''
+@app.route('/coordinator/goals/delete_goal', methods=['POST'])
+def coordinator_goals_delete_goal():
+    if not session.get('login'):
+        return redirect('login')
+    goal_name = request.form['goal_name']
+    deleteGoal(goal_name)
+    return jsonify({"status_code":200, "message":"Successfully deleted goal", "success":True})
 
 # -- approve --
 
