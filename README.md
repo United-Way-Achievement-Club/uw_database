@@ -43,8 +43,6 @@ This application is being made using Flask, a Python framework. All of the serve
 
 The master branch should always be stable. Features that are in progress and need to be completed can be found in the 'Board' section of the repository. When pushing a new feature to GitHub, create a new branch named after that feature, then push the branch to GitHub. Then, make a pull request to the 'dev' branch, and add a description of the feature and the changes that were made.
 
-Mockups for the portal can be found [here](https://balsamiq.cloud/sll25/prfco/r2278)
-
 ### Progress
 
 #### General
@@ -56,14 +54,13 @@ Mockups for the portal can be found [here](https://balsamiq.cloud/sll25/prfco/r2
 * Goals- *in progress*
 * Calendar- *not started*
 * Messages- *not started*
-* Upload- *not started*
 
 #### Coordinator
 * Home- *in progress*
 * Goals- *in progress*
-* Approve- *not started*
+* Approve- *in progress*
 * Members- *in progress*
-* Clubs- *not started*
+* Clubs- *in progress*
 
 More details about what features have been completed and what there is yet to do can be found in the task board.
 
