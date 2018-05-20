@@ -87,6 +87,7 @@ class Member(db.Model):
     self_sufficiency_matrices = db.relationship('Member_Self_Sufficiency_Matrix', backref='member', lazy=True)
     self_efficacy_quizzes = db.relationship('Member_Self_Efficacy_Quiz', backref='member', lazy=True)
     user = db.relationship("User", back_populates="member", lazy=True)
+    club = db.relationship("Club", back_populates="members", lazy=True)
     goal_name = db.relationship('Member_Goals', backref='member', lazy=True)
     step_name = db.relationship('Member_Steps', backref='member', lazy=True)
     proof_name = db.relationship('Member_Proofs', backref='member', lazy=True)
@@ -263,6 +264,19 @@ Achievement Club locations
 class Club(db.Model):
     club_name = db.Column(db.String(120), primary_key=True)
     address_street = db.Column(db.String(200))
+    address_city = db.Column(db.String(64))
     address_state = db.Column(db.String(64))
     address_zip = db.Column(db.String(20))
     address_county = db.Column(db.String(64))
+    create_time = db.Column(db.DateTime)
+    created_by = db.Column(db.String(64), db.ForeignKey('user.username'))
+    members = db.relationship("Member", back_populates="club")
+
+'''
+Photos of the clubs uploaded by coordinators
+'''
+class Club_Photos(db.Model):
+    club_name = db.Column(db.String(120), db.ForeignKey('club.club_name'), primary_key=True)
+    photo_name = db.Column(db.String(64), primary_key=True)
+    create_time = db.Column(db.DateTime)
+    created_by = db.Column(db.String(64), db.ForeignKey('user.username'))

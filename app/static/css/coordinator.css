@@ -325,8 +325,8 @@
 }
 
 .divider {
-    margin: 20px 0 20px 0;
-    height: 50px;
+    margin: 0;
+    height: 30px;
     display: inline-block;
     width: 100%;
 }
@@ -341,12 +341,12 @@
 }
 
 .divider-top {
-    height: 25px;
+    height: 15px;
     border-bottom: 1px solid var(--border_color);
 }
 
 .divider-bottom {
-    height: 25px;
+    height: 15px;
 }
 
 .divider-text {
@@ -1129,4 +1129,233 @@
 
 .matrix-options-right {
     border-radius: 0 3px 3px 0;
+}
+
+/*===================================clubs===================================*/
+
+.clubs-wrapper {
+    height: calc(100vh - 60px);
+    position: relative;
+}
+
+#clubs-body-content {
+    width: 100vh;
+    max-width: 75vw;
+    height: 100%;
+    border-right: 1px groove var(--border_color);
+    display: inline-block;
+    position: relative;
+}
+
+#club-details {
+    height: calc(98% - 50px);
+    width: 70%;
+    position: absolute;
+    top: calc(1% + 50px);
+    left: 29%;
+    background-color: var(--uw_white);
+    z-index: 50;
+    padding: 25px;
+    border: 1px groove var(--border_color);
+    /*overflow-y: scroll;*/
+    display: none;
+}
+
+.club-details-header {
+    border-bottom: 1px groove var(--border_color);
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    font-size: 30px;
+    height: 100px;
+}
+
+.club-details-element {
+    padding: 0 0 25px 0;
+}
+
+.club-details-body {
+    overflow-y: scroll;
+    height: calc(100% - 120px);
+}
+
+.club-details-sub {
+    color: var(--primary);
+}
+
+.club-details-img {
+    display: inline-block;
+    height: 125px;
+}
+
+.club-details-photos {
+    width: 100%;
+    overflow-y: scroll;
+    height: 150px;
+}
+
+.exit-club-wrapper {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.exit-club-ic {
+    font-size: 0.8em;
+    color: var(--primary);
+}
+
+.exit-club-ic:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.coordinator-item-img, .member-item-img {
+    height: 30px;
+    width: 30px;
+    display: table-cell;
+    vertical-align: middle;
+    border-radius: 50%;
+    float: center;
+}
+
+.coordinator-item-name, .member-item-name {
+    transform: translateX(10px);
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.coordinators-item, .members-item {
+    display: table;
+    height: 30px;
+    margin-top: 10px;
+}
+
+#clubs-map {
+    height: 100%;
+    width: 100%;
+}
+
+.clubs-list {
+    width: calc(100% - 100vh - 4px);
+    display: inline-block;
+    height: 100%;
+    overflow-y: scroll;
+    padding-top: 50px;
+}
+
+.clubs-topbar {
+    position: absolute;
+    display: table;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 50px;
+    z-index: 100;
+    background-color: var(--uw_white);
+    border-bottom: 1px solid var(--border_color);
+}
+
+.clubs-left, .clubs-right {
+    display: table-cell;
+    vertical-align: middle;
+    width: 49%;
+    padding: 0 10px 0 10px;
+    color: var(--primary);
+}
+
+.clubs-topbar-input {
+    margin-top: 0;
+}
+
+.clubs-right-content {
+    float: right;
+}
+
+.clubs-list-item {
+    display: table;
+    width: 100%;
+    height: 150px;
+    padding: 5px 5px 5px 15px;
+    border-bottom: 1px groove var(--border_color);
+}
+
+.clubs-list-item-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.clubs-list-item-sub-header {
+    margin-left: 5px;
+    font-size: 0.9em;
+}
+
+.clubs-list-item-view-more:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.club-modal-dialog {
+    width: 40%;
+}
+
+.club-modal-content {
+    border-radius: 0;
+    color: var(--uw_lavender);
+}
+
+.club-modal-body {
+    height: 40vh;
+    min-height: 300px;
+    overflow-y: scroll;
+    padding: 25px 50px 25px 50px;
+}
+
+.club-modal-header {
+    background-color: var(--uw_lavender);
+    color: var(--uw_white);
+}
+
+.club-coord-input {
+    margin-bottom: 2px;
+}
+
+.club-coord-input-extra {
+    margin-bottom: 0;
+}
+
+#hidden-coord-input {
+    display: none;
+}
+
+.club-modal-footer {
+    border-top: 1px solid var(--primary);
+}
+
+.club-city-input {
+    width: calc(50% - 2px) ! important;
+    margin-right: 2px;
+}
+
+.club-state-input {
+    width: calc(25% - 2px) ! important;
+    margin-right: 2px;
+}
+
+.club-address-top {
+    margin-bottom: 2px;
+}
+
+.add-coord-btn {
+    margin-top: 5px;
+}
+
+.remove-coord-ic {
+    color: var(--error-red);
+    transform: translateY(-2px);
+    float: left;
+}
+
+.remove-coord-ic:hover {
+    opacity: 0.5;
+    cursor: pointer;
 }
