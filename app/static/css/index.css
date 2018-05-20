@@ -104,6 +104,10 @@ body {
     font-weight: 300;
 }
 
+.uw_regular {
+    font-weight: 400;
+}
+
 .col-no-padding {
     padding: 0;
 }

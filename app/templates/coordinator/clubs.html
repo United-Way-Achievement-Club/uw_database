@@ -1,4 +1,23 @@
 {% extends 'coordinator/layout.html' %}
-{% block c_content %}
 
+{% block c_extrascript %}
+<script src="{{ url_for('static', filename='js/coordinator/clubs.js') }}"></script>
+{% endblock %}
+
+{% block c_content %}
+<div class="dash-item col-sm-12">
+    <div class="dash-item-wrapper clubs-wrapper">
+        {% with clubs=clubs %}
+        {% include 'coordinator/clubs/topbar.html' %}
+        <div id="clubs-body-content">
+            {% include 'coordinator/clubs/map.html' %}
+            {% with club=clubs[0] %}
+            {% include 'coordinator/clubs/club_details.html' %}
+            {% endwith %}
+        </div>
+        {% include 'coordinator/clubs/clubs_list.html' %}
+        {% include 'coordinator/clubs/add_club.html' %}
+        {% endwith %}
+    </div>
+</div>
 {% endblock %}
