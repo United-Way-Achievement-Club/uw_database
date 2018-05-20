@@ -273,6 +273,7 @@ class Club(db.Model):
     create_time = db.Column(db.DateTime)
     created_by = db.Column(db.String(64), db.ForeignKey('user.username'))
     members = db.relationship("Member", back_populates="club")
+    photos = db.relationship("Club_Photos", back_populates="club")
 
 '''
 Photos of the clubs uploaded by coordinators
@@ -282,3 +283,4 @@ class Club_Photos(db.Model):
     photo_name = db.Column(db.String(64), primary_key=True)
     create_time = db.Column(db.DateTime)
     created_by = db.Column(db.String(64), db.ForeignKey('user.username'))
+    club = db.relationship("Club", back_populates="photos", lazy=True)
