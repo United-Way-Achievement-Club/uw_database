@@ -27,7 +27,7 @@ def getProfilePicture(profile_picture):
         picture_url = s3Client.generate_presigned_url('get_object', Params = {'Bucket': bucket_name, 'Key': 'profile_pictures/' + profile_picture})
     except Exception as e:
         print e.message
-        picture_url = None
+        picture_url = 'static/images/profile_pictures/default_profile_pic.png'
     return picture_url
 
 '''
