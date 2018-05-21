@@ -25,10 +25,10 @@ def getProfilePicture(profile_picture):
 '''
 Upload a user's profile picture to the bucket
 '''
-def uploadProfilePicture(username, file):
+def uploadProfilePicture(profile_picture, file):
     try:
-        s3.Bucket(bucket_name).put_object(Key='profile_pictures/' + username + '.jpg', Body=file)
-        print 'successfully uploaded image for ' + username
+        s3.Bucket(bucket_name).put_object(Key='profile_pictures/' + profile_picture, Body=file)
+        print 'successfully uploaded image ' + profile_picture
     except Exception as e:
         print e.message
 

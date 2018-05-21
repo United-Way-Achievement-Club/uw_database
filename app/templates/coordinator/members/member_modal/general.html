@@ -1,11 +1,11 @@
 <script>
     {% if initial_edit and view_member.profile_picture %}
-    sessionStorage.profile_picture = '/static/images/profile_pictures/{{ view_member.profile_picture }}';
+    sessionStorage.profile_picture = '{{ view_member.profile_picture | safe }}';
     {% endif %}
 </script>
 <div class="col-xs-6 col-sm-5 col-no-padding">
     <div class="member-profile-pic-wrapper">
-        <img id="member-profile-pic" class="member-profile-pic" {% if initial_edit and view_member.profile_picture %} src="{{ url_for('static', filename='images/profile_pictures/' + view_member.profile_picture) }}" {% else %} src="{{ url_for('static', filename='images/profile_pictures/default_profile_pic.png') }}" {% endif %}>
+        <img id="member-profile-pic" class="member-profile-pic" {% if initial_edit and view_member.profile_picture %} src="{{ view_member.profile_picture }}" {% else %} src="{{ url_for('static', filename='images/profile_pictures/default_profile_pic.png') }}" {% endif %}>
         <!--<div class="member-profile-pic-edit">
             <span class="glyphicon glyphicon-pencil propic-edit-icon"></span>
         </div>-->

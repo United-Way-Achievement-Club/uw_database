@@ -32,7 +32,7 @@ Return all of the members in the database
 def getMembers():
     members = db.session.query(models.User, models.Member).filter_by(type='member').join(models.Member).all()
     for member in members:
-        member.profile_picture_link = getProfilePicture(member[0].profile_picture)
+        member[0].profile_picture_link = getProfilePicture(member[0].profile_picture)
     return members
 
 '''
@@ -40,7 +40,7 @@ Get member by username
 '''
 def getMember(username):
     member = db.session.query(models.User, models.Member).filter_by(username=username).first()
-    member.profile_picture_link = getProfilePicture(member[0].profile_picture)
+    member[0].profile_picture_link = getProfilePicture(member[0].profile_picture)
     return member
 
 def editProfilePic(username):
@@ -441,7 +441,7 @@ def getGeneral(username):
     general['join_date'] = datetime.strftime(member.member[0].join_date, '%Y-%m-%d')
     general['commitment_pledge'] = datetime.strftime(member.member[0].commitment_pledge, '%Y-%m-%d')
     general['photo_release'] = datetime.strftime(member.member[0].photo_release, '%Y-%m-%d')
-    general['profile_picture'] = member.profile_picture
+    general['profile_picture'] = getProfilePicture(member.profile_picture)
     return general
 
 '''
@@ -669,6 +669,12 @@ def getCategories():
 Get the clubs from the database
 '''
 def getClubs():
+    clubs = models.Club.query.all()
+    for club in clubs:
+        for coordinator in club.users:
+            coordinator.profile_picture_link = getProfilePicture(coordinator.profile_picture)
+        for member in club.members:
+            member.profile_picture_link = getProfilePicture(member.user.profile_picture)
     return models.Club.query.all()
 
 '''

@@ -23,7 +23,7 @@
                 <div class="coordinators-list">
                     {% for coordinator in club.users %}
                     <div class="coordinators-item">
-                        <img src="{{ url_for('static', filename='images/profile_pictures/' + coordinator.profile_picture) }}" class="coordinator-item-img">
+                        <img src="{{ coordinator.profile_picture_link }}" class="coordinator-item-img">
                         <h5 class="gray-text coordinator-item-name">{{ coordinator.first_name + ' ' + coordinator.last_name }}</h5>
                     </div>
                     {% endfor %}
@@ -33,7 +33,7 @@
                 <h5>Members</h5>
                 {% for member in club.members %}
                 <div class="members-item">
-                    <img src="{{ url_for('static', filename='images/profile_pictures/' + member.user.profile_picture) }}" class="member-item-img">
+                    <img src="{{ member.profile_picture_link }}" class="member-item-img">
                     <h5 class="gray-text member-item-name">{{ member.user.first_name + ' ' + member.user.last_name }}</h5>
                 </div>
                 {% endfor %}
