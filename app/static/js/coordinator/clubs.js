@@ -1,4 +1,5 @@
 function showClubDetails(club) {
+    $(".club-details").hide();
     $("#" + club).show();
 }
 

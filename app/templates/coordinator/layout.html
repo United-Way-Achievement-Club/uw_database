@@ -16,7 +16,7 @@
 <div class="nav text-center">
     <div class="nav-header">
         <div class="nav-img-wrapper">
-            <img class="nav-img" src="{{ url_for('static', filename='images/profile_pictures/' + coordinator.profile_picture) }}">
+            <img class="nav-img" src="{{ coordinator.profile_picture_link }}">
         </div>
         <h4 class="nav-header-text">Welcome, {{ coordinator.username }}!</h4>
         <h5><a class="nav-header-anchor" href="{{ url_for('logout') }}">Logout</a></h5>

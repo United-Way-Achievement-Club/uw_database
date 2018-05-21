@@ -11,7 +11,7 @@ Handle requests to the server by returning proper data or template
 from app import app
 from db_accessor import *
 from flask import render_template, redirect, session, request, jsonify, url_for
-import json
+from s3_accessor import uploadProfilePicture
 from utils import *
 import os
 
@@ -111,7 +111,8 @@ def member_edit_profile_picture():
     username = session.get('member')
     editProfilePic(username)
     phone_numbers = getPhoneNumbers(session.get('member'))
-    profile_picture.save(os.path.join(app.config['UPLOAD_FOLDER'], username + '.jpg'))
+    # profile_picture.save(os.path.join(app.config['UPLOAD_FOLDER'], username + '.jpg'))
+    uploadProfilePicture(username + '.jpg', profile_picture)
     return render_template('member/home/profile.html', member=getMember(username), phone_numbers=phone_numbers, states=getStates())
 
 # -- goals --
@@ -175,7 +176,8 @@ def coordinator_edit_profile_picture():
     username = session.get('coordinator')
     editProfilePic(username)
     phone_numbers = getPhoneNumbers(session.get('coordinator'))
-    profile_picture.save(os.path.join(app.config['UPLOAD_FOLDER'], username + '.jpg'))
+    # profile_picture.save(os.path.join(app.config['UPLOAD_FOLDER'], username + '.jpg'))
+    uploadProfilePicture(username + '.jpg', profile_picture)
     return render_template('coordinator/home/profile.html', coordinator = getCoordinator(username), phone_numbers=phone_numbers, states=getStates())
 
 # -- goals --
@@ -571,7 +573,8 @@ def coordinator_create_member():
         if 'profile_picture' in request.files:
             profile_pic_file = request.files['profile_picture']
             profile_pic = session.get('new_member')['general']['username'] + '.jpg'
-            profile_pic_file.save(os.path.join(app.config['UPLOAD_FOLDER'], profile_pic))
+            # profile_pic_file.save(os.path.join(app.config['UPLOAD_FOLDER'], profile_pic))
+            uploadProfilePicture(profile_pic, profile_pic_file)
         if 'profile_picture' in request.form:
             profile_pic = request.form['profile_picture']
         # profile_pic_type = request.form['profile_pic_type']
@@ -579,7 +582,6 @@ def coordinator_create_member():
         new_member['general']['profile_picture'] = profile_pic
         session['new_member'] = new_member
 
-        #TODO: *DATABASE* add member to database- see addMember function in db_accessor.py
         addMember(session.get('new_member'))
 
         session['new_member'] = {'general':{}, 'enrollment_form':{}, 'demographic_data':{}, 'self_sufficiency_matrix':{}, 'self_efficacy_quiz':{}}
@@ -598,7 +600,7 @@ def coordinator_update_member():
     new_data = json.loads(request.form['new_data'])
     edit_member = session.get('edit_member')
     edit_member[request.form['current_page']] = new_data
-    
+
     #TODO: complete validateMember function in 'utils.py'
     validatedMember = validateMember(edit_member, True)
 
@@ -606,8 +608,9 @@ def coordinator_update_member():
         profile_pic = None
         if 'profile_picture' in request.files:
             profile_pic_file = request.files['profile_picture']
-            profile_pic = session.get('edit_member')['general']['username'] + '.jpg'
-            profile_pic_file.save(os.path.join(app.config['UPLOAD_FOLDER'], profile_pic))
+            profile_pic = session.get('old_edit_member')['general']['username'] + '.jpg'
+            # profile_pic_file.save(os.path.join(app.config['UPLOAD_FOLDER'], profile_pic))
+            uploadProfilePicture(profile_pic, profile_pic_file)
             edit_member['general']['profile_picture'] = profile_pic
 
         session['edit_member'] = edit_member

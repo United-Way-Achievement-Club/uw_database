@@ -10,6 +10,7 @@ Retrieve and add items to the database
 '''
 from app import db, models
 from datetime import datetime
+from s3_accessor import getProfilePicture
 from sqlalchemy.orm import class_mapper, ColumnProperty
 
 
@@ -29,13 +30,17 @@ def loginUser(username, password):
 Return all of the members in the database
 '''
 def getMembers():
-    return db.session.query(models.User, models.Member).filter_by(type='member').join(models.Member).all()
+    members = db.session.query(models.User, models.Member).filter_by(type='member').join(models.Member).all()
+    for member in members:
+        member[0].profile_picture_link = getProfilePicture(member[0].profile_picture)
+    return members
 
 '''
 Get member by username
 '''
 def getMember(username):
     member = db.session.query(models.User, models.Member).filter_by(username=username).first()
+    member[0].profile_picture_link = getProfilePicture(member[0].profile_picture)
     return member
 
 def editProfilePic(username):
@@ -76,13 +81,18 @@ def getPhoneNumbers(username):
 Get coordinator by username
 '''
 def getCoordinator(username):
-    return models.User.query.get(username)
+    coordinator = models.User.query.get(username)
+    coordinator.profile_picture_link = getProfilePicture(coordinator.profile_picture)
+    return coordinator
 
 '''
 Return all of the coordinators in the database
 '''
 def getCoordinators():
-    return models.User.query.filter_by(type='coordinator').all()
+    coordinators = models.User.query.filter_by(type='coordinator').all()
+    for coordinator in coordinators:
+        coordinator.profile_picture_link = getProfilePicture(coordinator.profile_picture)
+    return coordinators
 
 '''
 Add a new member to the database
@@ -431,7 +441,7 @@ def getGeneral(username):
     general['join_date'] = datetime.strftime(member.member[0].join_date, '%Y-%m-%d')
     general['commitment_pledge'] = datetime.strftime(member.member[0].commitment_pledge, '%Y-%m-%d')
     general['photo_release'] = datetime.strftime(member.member[0].photo_release, '%Y-%m-%d')
-    general['profile_picture'] = member.profile_picture
+    general['profile_picture'] = getProfilePicture(member.profile_picture)
     return general
 
 '''
@@ -659,6 +669,12 @@ def getCategories():
 Get the clubs from the database
 '''
 def getClubs():
+    clubs = models.Club.query.all()
+    for club in clubs:
+        for coordinator in club.users:
+            coordinator.profile_picture_link = getProfilePicture(coordinator.profile_picture)
+        for member in club.members:
+            member.profile_picture_link = getProfilePicture(member.user.profile_picture)
     return models.Club.query.all()
 
 '''

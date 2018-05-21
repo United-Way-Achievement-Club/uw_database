@@ -2,3 +2,7 @@ flask
 argparse
 flask_sqlalchemy
 SQLAlchemy-migrate
+tornado
+boto3
+requests
+
