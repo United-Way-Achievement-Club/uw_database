@@ -44,6 +44,8 @@ This application is being made using Flask, a Python framework. All of the serve
 
 The master branch should always be stable. Features that are in progress and need to be completed can be found in the 'Board' section of the repository. When pushing a new feature to GitHub, create a new branch named after that feature, then push the branch to GitHub. Then, make a pull request to the 'dev' branch, and add a description of the feature and the changes that were made.
 
+[Join the Slack Channel](https://join.slack.com/t/achievement-club-db/shared_invite/enQtMzY3Nzk2NzExNjY5LWMxNDE0YTQwZDM5MWYwMDRkYTJmODViNTc2ODljMWZjMGE3YWE3ZDM5MmJmNTMzMmFhNWE4YjdkMTdhNWEzMjM) to ask questions
+
 ### Progress
 
 #### General
