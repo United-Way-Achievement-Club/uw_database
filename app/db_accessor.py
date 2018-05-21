@@ -10,6 +10,7 @@ Retrieve and add items to the database
 '''
 from app import db, models
 from datetime import datetime
+from s3_accessor import getProfilePicture
 from sqlalchemy.orm import class_mapper, ColumnProperty
 
 
@@ -29,13 +30,17 @@ def loginUser(username, password):
 Return all of the members in the database
 '''
 def getMembers():
-    return db.session.query(models.User, models.Member).filter_by(type='member').join(models.Member).all()
+    members = db.session.query(models.User, models.Member).filter_by(type='member').join(models.Member).all()
+    for member in members:
+        member.profile_picture_link = getProfilePicture(member[0].profile_picture)
+    return members
 
 '''
 Get member by username
 '''
 def getMember(username):
     member = db.session.query(models.User, models.Member).filter_by(username=username).first()
+    member.profile_picture_link = getProfilePicture(member[0].profile_picture)
     return member
 
 def editProfilePic(username):
@@ -76,13 +81,18 @@ def getPhoneNumbers(username):
 Get coordinator by username
 '''
 def getCoordinator(username):
-    return models.User.query.get(username)
+    coordinator = models.User.query.get(username)
+    coordinator.profile_picture_link = getProfilePicture(coordinator.profile_picture)
+    return coordinator
 
 '''
 Return all of the coordinators in the database
 '''
 def getCoordinators():
-    return models.User.query.filter_by(type='coordinator').all()
+    coordinators = models.User.query.filter_by(type='coordinator').all()
+    for coordinator in coordinators:
+        coordinator.profile_picture_link = getProfilePicture(coordinator.profile_picture)
+    return coordinators
 
 '''
 Add a new member to the database

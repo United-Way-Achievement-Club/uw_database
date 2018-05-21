@@ -11,7 +11,7 @@ Handle requests to the server by returning proper data or template
 from app import app
 from db_accessor import *
 from flask import render_template, redirect, session, request, jsonify, url_for
-from s3_accessor import *
+from s3_accessor import uploadProfilePicture
 from utils import *
 import os
 
@@ -112,6 +112,7 @@ def member_edit_profile_picture():
     editProfilePic(username)
     phone_numbers = getPhoneNumbers(session.get('member'))
     profile_picture.save(os.path.join(app.config['UPLOAD_FOLDER'], username + '.jpg'))
+    # uploadProfilePicture(session.get('member'), profile_picture)
     return render_template('member/home/profile.html', member=getMember(username), phone_numbers=phone_numbers, states=getStates())
 
 # -- goals --
@@ -149,7 +150,6 @@ def coordinator_home():
     if not session.get('login'):
         return redirect('login')
     phone_numbers = getPhoneNumbers(session.get('coordinator'))
-    getProfilePicture(session.get('coordinator'))
     return render_template('coordinator/home.html', coordinator=getCoordinator(session.get('coordinator')), phone_numbers=phone_numbers, states=getStates())
 
 '''

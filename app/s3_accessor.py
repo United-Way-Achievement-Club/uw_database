@@ -14,9 +14,9 @@ bucket_name = 'achievement-club-private'
 '''
 Get a presigned url for the users profile picture
 '''
-def getProfilePicture(username):
+def getProfilePicture(profile_picture):
     try:
-        picture_url = s3Client.generate_presigned_url('get_object', Params = {'Bucket': bucket_name, 'Key': 'profile_pictures/' + username + '.jpg'})
+        picture_url = s3Client.generate_presigned_url('get_object', Params = {'Bucket': bucket_name, 'Key': 'profile_pictures/' + profile_picture})
     except Exception as e:
         print e.message
         picture_url = None
