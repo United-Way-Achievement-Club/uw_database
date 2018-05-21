@@ -78,12 +78,14 @@ Then, run the file
     ./db_migrate.py
 
 
+
+
 If the steps above are not successful or the changes to the schema are major, you need to recreate the database. You must first delete the current set of migrations by deleting the directory **app/db_repository** and the database snapshot in **app/app.db**. 
 
 Then, run this command to give executable permissions to the db_create.py file
                 
     chmod +x db_create.py
-Same for the db_migrate.py file
+Same for the db_migrate.py file (if done already, ignore this step)
 
     chmod +x db_migrate.py
 Then, recreate the database
