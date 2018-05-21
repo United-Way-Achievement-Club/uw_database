@@ -654,3 +654,45 @@ Return all of the categories in the database
 '''
 def getCategories():
     return models.Categories.query.all()
+
+'''
+Get the clubs from the database
+'''
+def getClubs():
+    return models.Club.query.all()
+
+'''
+Get clubs in json serializable format
+for the google maps display
+'''
+def getMapClubs():
+    clubs = models.Club.query.all()
+    clubLst = []
+    for club in clubs:
+        clubObj = {}
+        clubObj['club_name'] = club.club_name
+        clubObj['latitude'] = club.latitude
+        clubObj['longitude'] = club.longitude
+        clubLst.append(clubObj)
+    return clubLst
+
+'''
+Add the club to the database
+'''
+def addClub(club_data, coordinator):
+    print club_data
+    new_club = models.Club(club_name=club_data['club_name'],
+                           address_street=club_data['address_street'],
+                           address_city=club_data['address_city'],
+                           address_state=club_data['address_state'],
+                           address_zip=club_data['address_zip'],
+                           address_county=club_data['county'],
+                           latitude=club_data['latitude'],
+                           longitude=club_data['longitude'],
+                           create_time=datetime.now(),
+                           created_by=coordinator
+                           )
+    for coordinator in club_data['coordinators']:
+        new_club.users.append(models.User.query.get(coordinator))
+    db.session.add(new_club)
+    db.session.commit()

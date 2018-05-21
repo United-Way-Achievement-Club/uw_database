@@ -22,8 +22,10 @@
                     </div>
                     <label>Coordinators:</label>
                     <datalist id="coordinators">
-                        <option value="Coordinator1"></option>
-                        <option value="Coordinator2"></option>
+                        {% for coordinator in coordinators %}
+                        <option value="{{ coordinator.username }}">{{ coordinator.first_name + ' ' + coordinator.last_name }}</option>
+                        <option value="{{ coordinator.username }}">{{ coordinator.username }}</option>
+                        {% endfor %}
                     </datalist>
                     <div id="hidden-coord-input">
                         <div class="form-group row club-coord-input-extra club-coord">

@@ -173,9 +173,9 @@ def getTempClubs():
     for club in clubs:
         if 'latitude' not in club or 'longitude' not in club:
             results = getCoordinatesAndCounty(club['address_street'] + ' ' + club['address_city'] + ', ' + club['address_state'] + ' ' + club['address_zip'])
-            print results
             club['latitude'] = results['latitude']
             club['longitude'] = results['longitude']
+    print clubs
     return clubs
 
 '''
@@ -320,6 +320,23 @@ def validateGoal(goal):
     return {"success":True, "error":None}
 
 '''
+Validate club object
+Check if the address is valid (can be geocoded)
+'''
+def validateClub(club):
+    # TODO: finish validate club function
+    if 'address_street' not in club:
+        return {"success":False, "error":"Club must have street address", "club":None}
+    club_address = club['address_street'] + ' ' + club['address_city'] + ', ' + club['address_state'] + ' ' + club['address_zip']
+    coord = getCoordinatesAndCounty(club_address)
+    if coord["success"] == False:
+        return {"success":False, "error":"Invalid club address", "club":None}
+    club['latitude'] = coord['latitude']
+    club['longitude'] = coord['longitude']
+    club['county'] = coord['county']
+    return {"success":True, "error":None, "club":club}
+
+'''
 Return complete list of abbreviated US States
 '''
 def getStates():
@@ -348,3 +365,25 @@ def getCoordinatesAndCounty(address):
         if 'administrative_area_level_2' in x['types']:
             county = x['long_name']
     return {'latitude': lat, 'longitude': long, 'county': county, 'success': True}
+
+'''
+convert sqlalchemy query to dict
+'''
+def toDict(query):
+    results = {}
+    for x in query:
+        if is_jsonable(query[x]):
+            results[x] = query.x
+        else:
+            results[x] = toDict(query.x)
+    return results
+
+'''
+Check if object is jsonable
+'''
+def is_jsonable(x):
+    try:
+        json.dumps(x)
+        return True
+    except:
+        return False

@@ -12,7 +12,7 @@ from app import app
 from db_accessor import *
 from flask import render_template, redirect, session, request, jsonify, url_for
 import json
-from utils import validateMember, getStates, getTempGoals, validateGoal, getTempClubs
+from utils import *
 import os
 
 
@@ -619,7 +619,11 @@ def coordinator_update_member():
         session['old_edit_member'] = None
         session['modal_mode'] = 'add'
         return jsonify({"success":True, "status":200, "template":render_template('coordinator/members/add_member.html')})
-    return jsonify({"success":False, "status":400, "error_type":"validation","error_message":validatedMember["error"], "form":validatedMember["form"]})
+    return jsonify({"success":False,
+                    "status":400,
+                    "error_type":"validation",
+                    "error_message":validatedMember["error"],
+                    "form":validatedMember["form"]})
 
 '''
 Clear the new member object in the session when the new member modal is closed
@@ -653,7 +657,23 @@ Coordinator clubs page
 def coordinator_clubs():
     if not session.get('login'):
         return redirect('login')
-    return render_template('coordinator/clubs.html', coordinator = getCoordinator(session.get('coordinator')), clubs = getTempClubs())
+    return render_template('coordinator/clubs.html',
+                           coordinator = getCoordinator(session.get('coordinator')),
+                           clubs = getClubs(),
+                           map_clubs=getMapClubs(),
+                           coordinators = getCoordinators())
+
+@app.route('/coordinator/clubs/add_club', methods=['POST'])
+def coordinator_clubs_add_club():
+    if not session.get('login'):
+        return redirect('login')
+    club_data = json.loads(request.form['club_data'])
+    validation = validateClub(club_data)
+    if validation['success'] == False:
+        return jsonify({'success':False, 'error': validation['error']})
+    else:
+        addClub(validation['club'], session.get('coordinator'))
+        return jsonify({'success':True, 'error':None})
 
 # -- messages --
 
@@ -664,7 +684,8 @@ Coordinator messages page
 def coordinator_messages():
     if not session.get('login'):
         return redirect('login')
-    return render_template('coordinator/messages.html', coordinator = getCoordinator(session.get('coordinator')))
+    return render_template('coordinator/messages.html',
+                           coordinator = getCoordinator(session.get('coordinator')))
 
 # -- other --
 

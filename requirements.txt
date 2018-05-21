@@ -2,4 +2,3 @@ flask
 argparse
 flask_sqlalchemy
 SQLAlchemy-migrate
-dstk

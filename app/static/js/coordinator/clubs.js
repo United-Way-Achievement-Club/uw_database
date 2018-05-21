@@ -1,9 +1,9 @@
 function showClubDetails(club) {
-    $("#club-details").show();
+    $("#" + club).show();
 }
 
 function hideClubDetails() {
-    $("#club-details").hide();
+    $(".club-details").hide();
 }
 
 function openClubModal() {
@@ -29,8 +29,19 @@ function saveClubModal() {
 
         }
     }
-    console.log(clubObj);
-    closeClubModal();
+    $.post( "clubs/add_club", {'club_data':JSON.stringify(clubObj)}, function() {
+      console.log( "successfully requested to add club" );
+      })
+      .done(function(data) {
+        if (data.success == false) {
+            window.alert(data.message);
+        } else {
+            closeClubModal();
+        }
+      })
+      .fail(function(err) {
+        console.log(err);
+      });
 }
 
 function addClubCoord() {
