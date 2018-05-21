@@ -68,7 +68,17 @@ The master branch should always be stable. Features that are in progress and nee
 More details about what features have been completed and what there is yet to do can be found in the task board.
 
 ### Making changes to the database schema
-If you make changes to the database schema by modifying **models.py**, you must first delete the current set of migrations by deleting the directory **app/db_repository** and the database snapshot in **app/app.db**. 
+If you make changes to the database schema by modifying **models.py**, you must create a new migration. 
+
+In order to do this, first give executable permissions to the db_migrations.py file
+
+    chmod +x db_migrate.py
+Then, run the file
+    
+    ./db_migrate.py
+
+
+If the steps above are not successful or the changes to the schema are major, you need to recreate the database. You must first delete the current set of migrations by deleting the directory **app/db_repository** and the database snapshot in **app/app.db**. 
 
 Then, run this command to give executable permissions to the db_create.py file
                 
