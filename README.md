@@ -33,7 +33,7 @@ Then, follow these steps.
 
         ./run.py
 #### 6. Navigate to the URL *127.0.0.1:8090* in your browser
-   A login page should appear. Currently, the test user has the credentials username:*user* and password:*password* and navigates to the coordinator home page.
+   A login page should appear. Currently, the test coordinator has the credentials username:*user* and password:*password* and navigates to the coordinator home page. The test member has the credentials username:*srutig* and password:*password* and navigates to the member home page.
 
 ## How to contribute
 Make sure that the ZenHub browser extension is installed to view the task board. It can be installed [here](https://www.zenhub.com/extension) for Chrome or Firefox.
