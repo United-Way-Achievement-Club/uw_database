@@ -2,7 +2,7 @@
     <div class="dash-item-wrapper col-sm-12 container profile">
         <div class="profile-pic col-sm-4 col-no-padding">
             <div class="profile-pic-wrapper">
-                <img src="{{ url_for('static', filename='images/profile_pictures/' + member[0].profile_picture) }}" class="home-profile-pic">
+                <img src="{{ member[0].profile_picture_link }}" class="home-profile-pic">
             </div>
             <div class="profile_pic_edit">
                 <div onclick="openEditPictureModal()" class="edit-profile-pic-wrapper">
@@ -50,6 +50,6 @@
     </div>
 </div>
 
-{% with profile_picture=member[0].profile_picture %}
+{% with profile_picture=member[0].profile_picture_link %}
 {% include 'member/home/edit_picture.html' %}
 {% endwith %}

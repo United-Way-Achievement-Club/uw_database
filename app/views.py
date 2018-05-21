@@ -111,8 +111,8 @@ def member_edit_profile_picture():
     username = session.get('member')
     editProfilePic(username)
     phone_numbers = getPhoneNumbers(session.get('member'))
-    profile_picture.save(os.path.join(app.config['UPLOAD_FOLDER'], username + '.jpg'))
-    # uploadProfilePicture(session.get('member'), profile_picture)
+    # profile_picture.save(os.path.join(app.config['UPLOAD_FOLDER'], username + '.jpg'))
+    uploadProfilePicture(username + '.jpg', profile_picture)
     return render_template('member/home/profile.html', member=getMember(username), phone_numbers=phone_numbers, states=getStates())
 
 # -- goals --
