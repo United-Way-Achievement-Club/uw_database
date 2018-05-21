@@ -1,5 +1,13 @@
 '''
-Get files in the s3 bucket
+
+Title
+------
+s3_accessor.py
+
+Description
+------------
+Access and modify files in the s3 bucket
+
 '''
 
 import boto3
