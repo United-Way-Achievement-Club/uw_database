@@ -257,8 +257,11 @@ def validateGoal(goal):
 Validate club object
 Check if the address is valid (can be geocoded)
 '''
-def validateClub(club):
+def validateClub(club, coordinators):
     # TODO: finish validate club function
+    for coordinator in club['coordinators']:
+        if coordinator not in coordinators:
+            return {"success":False, "error":"Coordinator with username: " + coordinator + " does not exist", "club":None}
     if 'address_street' not in club:
         return {"success":False, "error":"Club must have street address", "club":None}
     coord = validateClubAddress(club)

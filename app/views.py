@@ -674,7 +674,7 @@ def coordinator_clubs_add_club():
     if not session.get('login'):
         return redirect('login')
     club_data = json.loads(request.form['club_data'])
-    validation = validateClub(club_data)
+    validation = validateClub(club_data, getCoordinatorUsernames())
     if validation['success'] == False:
         return jsonify({'success':False, 'error': validation['error']})
     else:
@@ -722,6 +722,9 @@ def coordinator_clubs_add_coordinator():
     if not session.get('login'):
         return redirect('login')
     coord_username = request.form['username']
+    coordinators = getCoordinatorUsernames()
+    if coord_username not in coordinators:
+        return jsonify({'success':False, 'error':'A coordinator with username: ' + coord_username + ' does not exist'})
     club_name = request.form['club_name']
     results = addCoordToClub(coord_username, club_name)
     return jsonify(results)

@@ -121,9 +121,10 @@ function saveClubModal() {
       })
       .done(function(data) {
         if (data.success == false) {
-            window.alert(data.message);
+            window.alert(data.error);
         } else {
             closeClubModal();
+            window.location.reload();
         }
       })
       .fail(function(err) {

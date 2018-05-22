@@ -43,6 +43,12 @@ def getMember(username):
     member[0].profile_picture_link = getProfilePicture(member[0].profile_picture)
     return member
 
+'''
+Edit a user's profile picture
+The upload must be done separately
+This just sets the profile picture
+filename in the database
+'''
 def editProfilePic(username):
     user = models.User.query.get(username)
     user.profile_picture = username + '.jpg'
@@ -93,6 +99,17 @@ def getCoordinators():
     for coordinator in coordinators:
         coordinator.profile_picture_link = getProfilePicture(coordinator.profile_picture)
     return coordinators
+
+'''
+Get the usernames of all of the coordinators in the database
+This function is mainly for validation of coordinators being added to clubs
+'''
+def getCoordinatorUsernames():
+    coordinators = models.User.query.filter_by(type='coordinator').all()
+    coordinator_names = []
+    for coordinator in coordinators:
+        coordinator_names.append(coordinator.username)
+    return coordinator_names
 
 '''
 Add a new member to the database
