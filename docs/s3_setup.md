@@ -102,9 +102,9 @@ The United Way Achievement Club S3 Bucket will contain profile pictures, club ph
 
 1. Lines 16 and 17 define two variables- **bucket_name** and **region_name**. Change these to match your bucket name and region name.
     
-1. (Optional) Populate the profile pictures folder with the images in this repository under **app/static/images/profile_pictures**. 
+1. (Optional) Populate the profile pictures folder with the images in **uw_database/app/static/images/profile_pictures**. 
 
-    Go back to your S3 console (Services -> S3), select your bucket name, and click on the **profile_pictures** folder. Select **Upload** and upload all profile pictures from this directory (app/static/images/profile_pictures) to your bucket.
+    Go back to your S3 console (Services -> S3), select your bucket name, and click on the **profile_pictures** folder. Select **Upload** and upload all profile pictures from this directory (uw_database/app/static/images/profile_pictures) to your bucket.
     
     This step will ensure that the default user profile pictures will show up without having to upload new ones.
     
