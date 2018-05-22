@@ -3,13 +3,54 @@
         <span onclick="hideClubDetails()" class="glyphicon glyphicon-remove exit-club-ic"></span>
     </div>
     <div class="club-details-header">
-        <h4>{{ club.club_name }}</h4>
-        <h5 class="club-details-sub"><span class="glyphicon glyphicon-map-marker"></span> {{ club.address_street + ' ' + club.address_city + ', ' + club.address_state + ' ' + club.address_zip }}</h5>
-        <h5 class="club-details-sub"><span class="glyphicon glyphicon-time"></span> Created on {{ club.create_time.strftime('%m/%d/%Y') }} by {{ club.created_by }}</h5>
+        <h4>
+            {{ club.club_name }}
+            {% if own_club %}
+            <span id="club-details-not-editing{{ index }}" class="club-details-not-editing">
+                <span onclick="showEditClub({{ index }})" class="club-options-edit club-options">
+                    Edit
+                </span>
+                    <span onclick='deleteClub({{ club.club_name | tojson }})' class="club-options-delete club-options">
+                    Delete
+                </span>
+            </span>
+            <span id="club-details-editing{{ index }}" class="club-details-editing">
+                <span onclick='editClub({{ club.club_name | tojson }}, {{ index }})' class="club-options-edit club-options">
+                    Save
+                </span>
+                <span onclick="closeEditClub({{ index }})" class="club-options-edit club-options">
+                    Cancel
+                </span>
+            </span>
+            {% endif %}
+        </h4>
+        <div id="club-details-header-sub{{ index }}" class="club-details-header-sub">
+            <h5 class="club-details-sub">
+                <span class="glyphicon glyphicon-map-marker"></span>
+                <span id="club-details-sub-address{{ index }}">
+                    {{ club.address_street + ' ' + club.address_city + ', ' + club.address_state + ' ' + club.address_zip }}
+                </span>
+            </h5>
+            <h5 class="club-details-sub"><span class="glyphicon glyphicon-time"></span> Created on {{ club.create_time.strftime('%m/%d/%Y') }} by {{ club.created_by }}</h5>
+        </div>
+        {% if own_club %}
+        <div id="club-details-edit{{ index }}" class="club-details-edit">
+            <form id="club-details-form{{ index }}">
+                <div class="form-group row club-address-top">
+                    <input value="{{ club.address_street }}" placeholder="Street" name="address_street" class="input input-sm uw-input col-sm-12">
+                </div>
+                <div class="form-group row">
+                    <input value="{{ club.address_city }}" placeholder="City" name="address_city" class="input input-sm uw-input col-sm-6 club-city-input">
+                    <input value="{{ club.address_state }}" placeholder="State" name="address_state" class="input input-sm uw-input col-sm-3 club-state-input">
+                    <input value="{{ club.address_zip }}" placeholder="Zip Code" name="address_zip" class="input input-sm uw-input col-sm-3">
+                </div>
+            </form>
+        </div>
+        {% endif %}
     </div>
     <div class="club-details-body">
         <div class="club-details-element col-sm-12 col-no-padding">
-            <h5>Photos</h5>
+            <h5>Photos {% if own_club %}<span onclick="addPhoto()" class="club-options-edit club-options">+ Add</span>{% endif %}</h5>
             <div class="club-details-photos">
                 <img src="{{ url_for('static', filename='images/club_pictures/kroger1.jpg') }}" class="club-details-img">
                 <img src="{{ url_for('static', filename='images/club_pictures/kroger2.jpg') }}" class="club-details-img">
@@ -19,7 +60,7 @@
         </div>
         <div class="club-details-element col-sm-12 col-no-padding">
             <div class="club-details-coordinators col-sm-6 col-no-padding">
-                <h5>Coordinators</h5>
+                <h5>Coordinators {% if own_club %}<span onclick='addClubCoordEdit({{ club.club_name | tojson }})' class="club-options-edit club-options">+ Add</span>{% endif %}</h5>
                 <div class="coordinators-list">
                     {% for coordinator in club.users %}
                     <div class="coordinators-item">
@@ -30,7 +71,7 @@
                 </div>
             </div>
             <div class="club-details-members col-sm-6 col-no-padding">
-                <h5>Members</h5>
+                <h5>Members{% if own_club %}<span onclick="addClubMemberEdit()" class="club-options-edit club-options">+ Add</span>{% endif %}</h5>
                 {% for member in club.members %}
                 <div class="members-item">
                     <img src="{{ member.profile_picture_link }}" class="member-item-img">

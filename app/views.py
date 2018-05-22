@@ -665,18 +665,71 @@ def coordinator_clubs():
                            clubs = getClubs(),
                            map_clubs=getMapClubs(),
                            coordinators = getCoordinators())
-
+'''
+Add a club to the database
+First validate the club then add it
+'''
 @app.route('/coordinator/clubs/add_club', methods=['POST'])
 def coordinator_clubs_add_club():
     if not session.get('login'):
         return redirect('login')
     club_data = json.loads(request.form['club_data'])
-    validation = validateClub(club_data)
+    validation = validateClub(club_data, getCoordinatorUsernames())
     if validation['success'] == False:
         return jsonify({'success':False, 'error': validation['error']})
     else:
         addClub(validation['club'], session.get('coordinator'))
         return jsonify({'success':True, 'error':None})
+
+'''
+Delete a club from the database
+'''
+@app.route('/coordinator/clubs/delete_club', methods=['POST'])
+def coordinator_clubs_delete_club():
+    if not session.get('login'):
+        return redirect('login')
+    club_name = request.form['club_name']
+    results = deleteClub(club_name)
+    if results['success'] == False:
+        return jsonify({'success':False, 'error': results['error']})
+    return jsonify({'success':True, 'error':None})
+
+'''
+Edit the address of a club.
+First validate the address, then update it
+'''
+@app.route('/coordinator/clubs/edit_club_address', methods=['POST'])
+def coordinator_clubs_edit_club_address():
+    if not session.get('login'):
+        return redirect('login')
+    club_obj = json.loads(request.form['club_data'])
+    validation = validateClubAddress(club_obj)
+    if validation['success'] == False:
+        return jsonify({'success':False, 'error': 'Invalid Address'})
+    club_obj['address_county'] = validation['county']
+    club_obj['latitude'] = validation['latitude']
+    club_obj['longitude'] = validation['longitude']
+    results = editClubAddress(club_obj)
+    if results['success'] == False:
+        return jsonify({'success':False, 'error': results['error']})
+    return jsonify({'success':True, 'error':None, 'address': getAddress(club_obj)})
+
+'''
+Add a coordinator to a club
+'''
+@app.route('/coordinator/clubs/add_coordinator', methods=['POST'])
+def coordinator_clubs_add_coordinator():
+    if not session.get('login'):
+        return redirect('login')
+    coord_username = request.form['username']
+    coordinators = getCoordinatorUsernames()
+    if coord_username not in coordinators:
+        return jsonify({'success':False, 'error':'A coordinator with username: ' + coord_username + ' does not exist'})
+    club_name = request.form['club_name']
+    results = addCoordToClub(coord_username, club_name)
+    return jsonify(results)
+
+
 
 # -- messages --
 

@@ -43,6 +43,12 @@ def getMember(username):
     member[0].profile_picture_link = getProfilePicture(member[0].profile_picture)
     return member
 
+'''
+Edit a user's profile picture
+The upload must be done separately
+This just sets the profile picture
+filename in the database
+'''
 def editProfilePic(username):
     user = models.User.query.get(username)
     user.profile_picture = username + '.jpg'
@@ -93,6 +99,17 @@ def getCoordinators():
     for coordinator in coordinators:
         coordinator.profile_picture_link = getProfilePicture(coordinator.profile_picture)
     return coordinators
+
+'''
+Get the usernames of all of the coordinators in the database
+This function is mainly for validation of coordinators being added to clubs
+'''
+def getCoordinatorUsernames():
+    coordinators = models.User.query.filter_by(type='coordinator').all()
+    coordinator_names = []
+    for coordinator in coordinators:
+        coordinator_names.append(coordinator.username)
+    return coordinator_names
 
 '''
 Add a new member to the database
@@ -629,7 +646,12 @@ Delete a goal
 '''
 def deleteGoal(goal_name):
     # TODO: make sure cascades are right in models.py so that deleting a goal deletes all steps/proofs
-    models.Goals.query.get(goal_name).delete()
+    goal = models.Goals.query.get(goal_name)
+    if goal == None:
+        return {'success':False, 'error':'Goal not found'}
+    db.session.delete(goal)
+    db.session.commit()
+    return {'success':True, 'error':None}
 
 '''
 Return all of the goals in the database
@@ -669,20 +691,31 @@ def getCategories():
 Get the clubs from the database
 '''
 def getClubs():
-    clubs = models.Club.query.all()
+    clubs = models.Club.query.order_by(models.Club.club_name.asc()).all()
     for club in clubs:
         for coordinator in club.users:
             coordinator.profile_picture_link = getProfilePicture(coordinator.profile_picture)
         for member in club.members:
             member.profile_picture_link = getProfilePicture(member.user.profile_picture)
-    return models.Club.query.all()
+    return clubs
+
+'''
+Get all clubs for a coordinator
+'''
+def getClubsByCoordinator(username):
+    user = models.User.query.get(username)
+    if user == None:
+        return {'success':False, 'error':'Could not find coordinator'}
+    if user.type != 'coordinator':
+        return {'success':False, 'error':'User must be a coordinator'}
+    return user.clubs
 
 '''
 Get clubs in json serializable format
 for the google maps display
 '''
 def getMapClubs():
-    clubs = models.Club.query.all()
+    clubs = models.Club.query.order_by(models.Club.club_name.asc()).all()
     clubLst = []
     for club in clubs:
         clubObj = {}
@@ -712,3 +745,47 @@ def addClub(club_data, coordinator):
         new_club.users.append(models.User.query.get(coordinator))
     db.session.add(new_club)
     db.session.commit()
+
+'''
+Delete a club from the database
+'''
+def deleteClub(club_name):
+    club = models.Club.query.get(club_name)
+    if club == None:
+        return {'success':False, 'error': 'Club not found'}
+    db.session.delete(club)
+    db.session.commit()
+    return {'success':True, 'error':None}
+
+'''
+Edit the club address
+The address must have county, latitude, and longitude
+already calculated
+'''
+def editClubAddress(club_obj):
+    club = models.Club.query.get(club_obj['club_name'])
+    if club == None:
+        return {'success':False, 'error': 'Club not found'}
+    club.address_street = club_obj['address_street']
+    club.address_city = club_obj['address_city']
+    club.address_state = club_obj['address_state']
+    club.address_zip = club_obj['address_zip']
+    club.address_county = club_obj['address_county']
+    club.latitude = club_obj['latitude']
+    club.longitude = club_obj['longitude']
+    db.session.commit()
+    return {'success':True, 'error':None}
+
+'''
+Add a coordinator to the club
+'''
+def addCoordToClub(username, club_name):
+    club = models.Club.query.get(club_name)
+    if club == None:
+        return {'success':False, 'error': 'Club not found'}
+    coordinator = models.User.query.get(username)
+    if coordinator == None:
+        return {'success':False, 'error': 'Coordinator not found'}
+    club.users.append(coordinator)
+    db.session.commit()
+    return {'success':True, 'error': None}

@@ -1,7 +1,15 @@
 <div class="clubs-list">
     {% for club in clubs %}
     {% with club=club, index=loop.index %}
+    {% if club in coordinator.clubs %}
+    {% with own_club=True %}
     {% include 'coordinator/clubs/clubs_list_item.html' %}
+    {% endwith %}
+    {% else %}
+    {% with own_club=False %}
+    {% include 'coordinator/clubs/clubs_list_item.html' %}
+    {% endwith %}
+    {% endif %}
     {% endwith %}
     {% endfor %}
 </div>
