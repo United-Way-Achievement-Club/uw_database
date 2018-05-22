@@ -79,8 +79,24 @@ function addPhoto() {
     window.alert('Sorry, this feature has not been implemented yet!');
 }
 
-function addClubCoordEdit() {
-    window.alert('Sorry, this feature has not been implemented yet!');
+function addClubCoordEdit(club_name) {
+    username = window.prompt("Please enter the username of the coordinator");
+    if (username != null) {
+        $.post( "clubs/add_coordinator", {'username':username, 'club_name':club_name}, function() {
+          console.log( "successfully requested to add coordinator to club" );
+          })
+          .done(function(data) {
+            if (data.success == false) {
+                window.alert(data.message);
+            } else {
+                window.alert('Success!')
+                window.location.reload();
+            }
+          })
+          .fail(function(err) {
+            console.log(err);
+          });
+    }
 }
 
 function addClubMemberEdit() {

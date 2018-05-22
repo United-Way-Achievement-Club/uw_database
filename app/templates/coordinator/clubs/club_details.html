@@ -60,7 +60,7 @@
         </div>
         <div class="club-details-element col-sm-12 col-no-padding">
             <div class="club-details-coordinators col-sm-6 col-no-padding">
-                <h5>Coordinators {% if own_club %}<span onclick="addClubCoordEdit()" class="club-options-edit club-options">+ Add</span>{% endif %}</h5>
+                <h5>Coordinators {% if own_club %}<span onclick="addClubCoordEdit('{{ club.club_name }}')" class="club-options-edit club-options">+ Add</span>{% endif %}</h5>
                 <div class="coordinators-list">
                     {% for coordinator in club.users %}
                     <div class="coordinators-item">

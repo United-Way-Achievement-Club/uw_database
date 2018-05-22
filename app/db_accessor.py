@@ -747,3 +747,17 @@ def editClubAddress(club_obj):
     club.longitude = club_obj['longitude']
     db.session.commit()
     return {'success':True, 'error':None}
+
+'''
+Add a coordinator to the club
+'''
+def addCoordToClub(username, club_name):
+    club = models.Club.query.get(club_name)
+    if club == None:
+        return {'success':False, 'error': 'Club not found'}
+    coordinator = models.User.query.get(username)
+    if coordinator == None:
+        return {'success':False, 'error': 'Coordinator not found'}
+    club.users.append(coordinator)
+    db.session.commit()
+    return {'success':True, 'error': None}

@@ -714,6 +714,18 @@ def coordinator_clubs_edit_club_address():
         return jsonify({'success':False, 'error': results['error']})
     return jsonify({'success':True, 'error':None, 'address': getAddress(club_obj)})
 
+'''
+Add a coordinator to a club
+'''
+@app.route('/coordinator/clubs/add_coordinator', methods=['POST'])
+def coordinator_clubs_add_coordinator():
+    if not session.get('login'):
+        return redirect('login')
+    coord_username = request.form['username']
+    club_name = request.form['club_name']
+    results = addCoordToClub(coord_username, club_name)
+    return jsonify(results)
+
 
 
 # -- messages --
