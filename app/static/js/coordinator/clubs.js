@@ -36,7 +36,7 @@ function editClub(club_name, club_index) {
       })
       .done(function(data) {
         if (data.success == false) {
-            window.alert(data.message);
+            window.alert(data.error);
         } else {
             closeEditClub(club_index);
             $("#club-details-sub-address" + club_index).html(data.address);
@@ -64,7 +64,7 @@ function deleteClub(club_name) {
           })
           .done(function(data) {
             if (data.success == false) {
-                window.alert(data.message);
+                window.alert(data.error);
             } else {
                 window.location.reload();
             }
@@ -87,7 +87,7 @@ function addClubCoordEdit(club_name) {
           })
           .done(function(data) {
             if (data.success == false) {
-                window.alert(data.message);
+                window.alert(data.error);
             } else {
                 window.alert('Success!')
                 window.location.reload();

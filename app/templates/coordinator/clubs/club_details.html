@@ -10,12 +10,12 @@
                 <span onclick="showEditClub({{ index }})" class="club-options-edit club-options">
                     Edit
                 </span>
-                    <span onclick="deleteClub('{{ club.club_name }}')" class="club-options-delete club-options">
+                    <span onclick='deleteClub({{ club.club_name | tojson }})' class="club-options-delete club-options">
                     Delete
                 </span>
             </span>
             <span id="club-details-editing{{ index }}" class="club-details-editing">
-                <span onclick="editClub('{{ club.club_name }}', {{ index }})" class="club-options-edit club-options">
+                <span onclick='editClub({{ club.club_name | tojson }}, {{ index }})' class="club-options-edit club-options">
                     Save
                 </span>
                 <span onclick="closeEditClub({{ index }})" class="club-options-edit club-options">
@@ -60,7 +60,7 @@
         </div>
         <div class="club-details-element col-sm-12 col-no-padding">
             <div class="club-details-coordinators col-sm-6 col-no-padding">
-                <h5>Coordinators {% if own_club %}<span onclick="addClubCoordEdit('{{ club.club_name }}')" class="club-options-edit club-options">+ Add</span>{% endif %}</h5>
+                <h5>Coordinators {% if own_club %}<span onclick='addClubCoordEdit({{ club.club_name | tojson }})' class="club-options-edit club-options">+ Add</span>{% endif %}</h5>
                 <div class="coordinators-list">
                     {% for coordinator in club.users %}
                     <div class="coordinators-item">
