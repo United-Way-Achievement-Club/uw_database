@@ -1148,13 +1148,36 @@
 }
 
 .own-club-text {
-    font-size: 0.6em;
+    font-size: 0.7em;
     margin-left: 5px;
     color: var(--uw_white);
     background-color: var(--primary);
     padding: 3px 5px 3px 5px;
     border-radius: 5px;
     transform: translateY(-3px);
+}
+
+.club-options {
+    margin-left: 7px;
+    font-weight: 300;
+    font-size: 12px;
+}
+
+.club-options-edit {
+    color: var(--primary);
+}
+
+.add-photo {
+    display: inline-block;
+}
+
+.club-options-delete {
+    color: var(--uw_red);
+}
+
+.club-options:hover {
+    cursor: pointer;
+    opacity: 0.5;
 }
 
 .club-details {

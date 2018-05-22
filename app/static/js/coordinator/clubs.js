@@ -17,6 +17,26 @@ function closeClubModal() {
     $("#club-coordinators .club-coord").not(":first").remove();
 }
 
+function editClub(club_index) {
+    window.alert('Sorry, this feature has not been implemented yet!');
+}
+
+function deleteClub(club_name) {
+    window.alert('Sorry, this feature has not been implemented yet!');
+}
+
+function addPhoto() {
+    window.alert('Sorry, this feature has not been implemented yet!');
+}
+
+function addClubCoordEdit() {
+    window.alert('Sorry, this feature has not been implemented yet!');
+}
+
+function addClubMemberEdit() {
+    window.alert('Sorry, this feature has not been implemented yet! You can add a member by going to the Members page, editing the new members profile, and setting his/her club to this one.')
+}
+
 function saveClubModal() {
     var clubVals = $("#club-form").serializeArray();
     var clubObj = {"coordinators": []};
