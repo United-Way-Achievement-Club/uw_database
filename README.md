@@ -11,7 +11,7 @@ open a terminal and run the following command to ensure that python is installed
 
     python --version
     
-Contact Sruti at sruti@gatech.edu for AWS credentials and aws cli configuration instructions. Without the AWS credentials on your machine, you will not be able to access the files and images when running the application locally.
+Contact Sruti at sruti@gatech.edu for AWS credentials. Without the AWS credentials on your machine, you will not be able to access the files and images when running the application locally. If you want to create your own S3 bucket for this application, follow [these steps](docs/s3_setup.md)
 
 Then, follow these steps.
 
@@ -19,7 +19,7 @@ Then, follow these steps.
 #### 1. Clone this repository
 
 
-        git clone https://github.com/SrutiG/uw_database.git
+        git clone -b dev https://github.com/SrutiG/uw_database.git
 #### 2. Navigate to the uw_database folder
 
         cd uw_database

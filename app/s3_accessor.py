@@ -13,11 +13,14 @@ Access and modify files in the s3 bucket
 import boto3
 import boto3.session
 
-s3session = boto3.session.Session(region_name='us-east-2')
+bucket_name = 'achievement-club-private'
+region_name = 'us-east-2'
+
+s3session = boto3.session.Session(region_name=region_name)
 
 s3 = boto3.resource('s3')
 s3Client = boto3.client('s3', config= boto3.session.Config(signature_version='s3v4', s3={'addressing_style':'path'}))
-bucket_name = 'achievement-club-private'
+
 
 '''
 Get a presigned url for the users profile picture
