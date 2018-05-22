@@ -22,7 +22,22 @@ function editClub(club_index) {
 }
 
 function deleteClub(club_name) {
-    window.alert('Sorry, this feature has not been implemented yet!');
+    var delete_club = window.confirm('Are you sure you want to delete this club?');
+    if (delete_club) {
+        $.post( "clubs/delete_club", {'club_name':club_name}, function() {
+          console.log( "successfully requested to delete club" );
+          })
+          .done(function(data) {
+            if (data.success == false) {
+                window.alert(data.message);
+            } else {
+                window.location.reload();
+            }
+          })
+          .fail(function(err) {
+            console.log(err);
+          });
+    }
 }
 
 function addPhoto() {

@@ -678,6 +678,17 @@ def coordinator_clubs_add_club():
         addClub(validation['club'], session.get('coordinator'))
         return jsonify({'success':True, 'error':None})
 
+@app.route('/coordinator/clubs/delete_club', methods=['POST'])
+def coordinator_clubs_delete_club():
+    if not session.get('login'):
+        return redirect('login')
+    club_name = request.form['club_name']
+    results = deleteClub(club_name)
+    if results['success'] == False:
+        return jsonify({'success':False, 'error': results['error']})
+    return jsonify({'success':True, 'error':None})
+
+
 # -- messages --
 
 '''

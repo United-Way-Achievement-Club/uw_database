@@ -629,7 +629,12 @@ Delete a goal
 '''
 def deleteGoal(goal_name):
     # TODO: make sure cascades are right in models.py so that deleting a goal deletes all steps/proofs
-    models.Goals.query.get(goal_name).delete()
+    goal = models.Goals.query.get(goal_name)
+    if goal == None:
+        return {'success':False, 'error':'Goal not found'}
+    db.session.delete(goal)
+    db.session.commit()
+    return {'success':True, 'error':None}
 
 '''
 Return all of the goals in the database
@@ -712,3 +717,14 @@ def addClub(club_data, coordinator):
         new_club.users.append(models.User.query.get(coordinator))
     db.session.add(new_club)
     db.session.commit()
+
+'''
+Delete a club from the database
+'''
+def deleteClub(club_name):
+    club = models.Club.query.get(club_name)
+    if club == None:
+        return {'success':False, 'error': 'Club not found'}
+    db.session.delete(club)
+    db.session.commit()
+    return {'success':True, 'error':None}
