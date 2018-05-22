@@ -44,7 +44,7 @@ The United Way Achievement Club S3 Bucket will contain profile pictures, club ph
 
 1. (Optional) Populate the profile pictures folder with the images in this repository under **app/static/images/profile_pictures**. 
 
-    In order to do this, clone this GitHub repo. Then, back to your S3 bucket console, click on the **profile_pictures** folder. Select **Upload** and upload all profile pictures from that directory to your bucket.
+    In order to do this, clone this GitHub repo (steps to clone the repo are in the main README file). Then, go back to your S3 bucket console, and click on the **profile_pictures** folder. Select **Upload** and upload all profile pictures from that directory to your bucket.
     
     This step will ensure that the default user profile pictures will show up without having to upload new ones.
     
@@ -97,6 +97,8 @@ The United Way Achievement Club S3 Bucket will contain profile pictures, club ph
     **AWS_DEFAULT_REGION**: the region of your S3 bucket which you took note of before
     
 #### Now, you should be able to access the file system when running the application.
+
+[Back to Home](../README.md)
 
 
 
