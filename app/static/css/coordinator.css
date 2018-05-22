@@ -1140,11 +1140,20 @@
 
 #clubs-body-content {
     width: 100vh;
-    max-width: 75vw;
+    max-width: calc(100% - 354px);
     height: 100%;
     border-right: 1px groove var(--border_color);
     display: inline-block;
     position: relative;
+}
+
+.clubs-list {
+    width: calc(100% - 100vh - 4px);
+    min-width: 350px;
+    display: inline-block;
+    height: 100%;
+    overflow-y: scroll;
+    padding-top: 50px;
 }
 
 .own-club-text {
@@ -1274,14 +1283,6 @@
 #clubs-map {
     height: 100%;
     width: 100%;
-}
-
-.clubs-list {
-    width: calc(100% - 100vh - 4px);
-    display: inline-block;
-    height: 100%;
-    overflow-y: scroll;
-    padding-top: 50px;
 }
 
 .clubs-topbar {
