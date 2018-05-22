@@ -1147,6 +1147,16 @@
     position: relative;
 }
 
+.own-club-text {
+    font-size: 0.6em;
+    margin-left: 5px;
+    color: var(--uw_white);
+    background-color: var(--primary);
+    padding: 3px 5px 3px 5px;
+    border-radius: 5px;
+    transform: translateY(-3px);
+}
+
 .club-details {
     height: calc(98% - 50px);
     width: 70%;

@@ -7,16 +7,22 @@
 {% block c_content %}
 <div class="dash-item col-sm-12">
     <div class="dash-item-wrapper clubs-wrapper">
-        {% with clubs=clubs %}
+        {% with clubs=clubs, coordinator=coordinator %}
         {% include 'coordinator/clubs/topbar.html' %}
         <div id="clubs-body-content">
             {% with map_clubs=map_clubs %}
             {% include 'coordinator/clubs/map.html' %}
             {% endwith %}
             {% for club in clubs %}
-            {% with club=club, index=loop.index %}
+            {% if club in coordinator.clubs %}
+            {% with own_club=True, club=club, index=loop.index %}
             {% include 'coordinator/clubs/club_details.html' %}
             {% endwith %}
+            {% else %}
+            {% with own_club=False, club=club, index=loop.index %}
+            {% include 'coordinator/clubs/club_details.html' %}
+            {% endwith %}
+            {% endif %}
             {% endfor %}
         </div>
         {% include 'coordinator/clubs/clubs_list.html' %}
