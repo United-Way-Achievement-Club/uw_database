@@ -15,55 +15,6 @@ import re
 import requests
 import json
 
-# temporary clubs object
-global clubs
-clubs = [
-    {
-        "club_name":"Atlanta High School",
-        "address_street": "1225 Caroline St NE",
-        "address_city": "Atlanta",
-        "address_state": "GA",
-        "address_zip": "30307",
-        "county": "Fulton",
-        "own_club": False,
-        "num_members": 40,
-        "num_coordinators": 3
-    },
-    {
-        "club_name":"Georgia Institute of Technology",
-        "address_street": "266 Ferst Dr NW",
-        "address_city": "Atlanta",
-        "address_state": "GA",
-        "address_zip": "30332",
-        "county": "Fulton",
-        "own_club": False,
-        "num_members": 35,
-        "num_coordinators": 2
-    },
-    {
-        "club_name":"United Way of Greater Atlanta",
-        "address_street": "40 Courtland St NE #300",
-        "address_city": "Atlanta",
-        "address_state": "GA",
-        "address_zip": "30303",
-        "county": "Fulton",
-        "own_club": False,
-        "num_members": 24,
-        "num_coordinators": 1
-    },
-    {
-        "club_name":"Pebblebrook High School",
-        "address_street": "991 Old Alabama Rd SW",
-        "address_city": "Mableton",
-        "address_state": "GA",
-        "address_zip": "30126",
-        "county": "Cobb",
-        "own_club": True,
-        "num_members": 27,
-        "num_coordinators": 2
-    }
-]
-
 # this is somewhat how a goals object should be structured when
 # pulling from the database
 goals = [
@@ -160,23 +111,6 @@ until the database is set up
 '''
 def getTempGoals():
     return goals
-
-'''
-Return clubs object
-This function is temporary until
-the database is set up
-It gets the latitude and longitude
-once to map the locations
-'''
-def getTempClubs():
-    global clubs
-    for club in clubs:
-        if 'latitude' not in club or 'longitude' not in club:
-            results = getCoordinatesAndCounty(club['address_street'] + ' ' + club['address_city'] + ', ' + club['address_state'] + ' ' + club['address_zip'])
-            club['latitude'] = results['latitude']
-            club['longitude'] = results['longitude']
-    print clubs
-    return clubs
 
 '''
 Validate member object, check if all required fields
@@ -327,14 +261,21 @@ def validateClub(club):
     # TODO: finish validate club function
     if 'address_street' not in club:
         return {"success":False, "error":"Club must have street address", "club":None}
-    club_address = club['address_street'] + ' ' + club['address_city'] + ', ' + club['address_state'] + ' ' + club['address_zip']
-    coord = getCoordinatesAndCounty(club_address)
+    coord = validateClubAddress(club)
     if coord["success"] == False:
         return {"success":False, "error":"Invalid club address", "club":None}
     club['latitude'] = coord['latitude']
     club['longitude'] = coord['longitude']
     club['county'] = coord['county']
     return {"success":True, "error":None, "club":club}
+
+def validateClubAddress(club):
+    club_address = club['address_street'] + ' ' + club['address_city'] + ', ' + club['address_state'] + ' ' + club['address_zip']
+    return getCoordinatesAndCounty(club_address)
+
+def getAddress(club):
+    club_address = club['address_street'] + ' ' + club['address_city'] + ', ' + club['address_state'] + ' ' + club['address_zip']
+    return club_address
 
 '''
 Return complete list of abbreviated US States

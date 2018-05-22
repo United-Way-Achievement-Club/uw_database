@@ -728,3 +728,22 @@ def deleteClub(club_name):
     db.session.delete(club)
     db.session.commit()
     return {'success':True, 'error':None}
+
+'''
+Edit the club address
+The address must have county, latitude, and longitude
+already calculated
+'''
+def editClubAddress(club_obj):
+    club = models.Club.query.get(club_obj['club_name'])
+    if club == None:
+        return {'success':False, 'error': 'Club not found'}
+    club.address_street = club_obj['address_street']
+    club.address_city = club_obj['address_city']
+    club.address_state = club_obj['address_state']
+    club.address_zip = club_obj['address_zip']
+    club.address_county = club_obj['address_county']
+    club.latitude = club_obj['latitude']
+    club.longitude = club_obj['longitude']
+    db.session.commit()
+    return {'success':True, 'error':None}

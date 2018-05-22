@@ -1167,6 +1167,14 @@
     color: var(--primary);
 }
 
+.club-details-edit {
+    display: none;
+}
+
+.club-details-editing {
+    display: none;
+}
+
 .add-photo {
     display: inline-block;
 }

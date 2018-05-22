@@ -17,8 +17,43 @@ function closeClubModal() {
     $("#club-coordinators .club-coord").not(":first").remove();
 }
 
-function editClub(club_index) {
-    window.alert('Sorry, this feature has not been implemented yet!');
+function showEditClub(club_index) {
+    $("#club-details-not-editing" + club_index).hide();
+    $("#club-details-editing" + club_index).show();
+
+    $("#club-details-header-sub" + club_index).hide();
+    $("#club-details-edit" + club_index).show();
+}
+
+function editClub(club_name, club_index) {
+    var clubForm = $("#club-details-form" + club_index).serializeArray();
+    var clubObj = {'club_name':club_name}
+    for (x in clubForm) {
+        clubObj[clubForm[x].name] = clubForm[x].value;
+    }
+    $.post( "clubs/edit_club_address", {'club_data':JSON.stringify(clubObj)}, function() {
+      console.log( "successfully requested to edit club address" );
+      })
+      .done(function(data) {
+        if (data.success == false) {
+            window.alert(data.message);
+        } else {
+            closeEditClub(club_index);
+            $("#club-details-sub-address" + club_index).html(data.address);
+        }
+      })
+      .fail(function(err) {
+        console.log(err);
+      });
+
+}
+
+function closeEditClub(club_index) {
+    $("#club-details-not-editing" + club_index).show();
+    $("#club-details-editing" + club_index).hide();
+
+    $("#club-details-header-sub" + club_index).show();
+    $("#club-details-edit" + club_index).hide();
 }
 
 function deleteClub(club_name) {

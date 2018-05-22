@@ -665,7 +665,10 @@ def coordinator_clubs():
                            clubs = getClubs(),
                            map_clubs=getMapClubs(),
                            coordinators = getCoordinators())
-
+'''
+Add a club to the database
+First validate the club then add it
+'''
 @app.route('/coordinator/clubs/add_club', methods=['POST'])
 def coordinator_clubs_add_club():
     if not session.get('login'):
@@ -678,6 +681,9 @@ def coordinator_clubs_add_club():
         addClub(validation['club'], session.get('coordinator'))
         return jsonify({'success':True, 'error':None})
 
+'''
+Delete a club from the database
+'''
 @app.route('/coordinator/clubs/delete_club', methods=['POST'])
 def coordinator_clubs_delete_club():
     if not session.get('login'):
@@ -687,6 +693,27 @@ def coordinator_clubs_delete_club():
     if results['success'] == False:
         return jsonify({'success':False, 'error': results['error']})
     return jsonify({'success':True, 'error':None})
+
+'''
+Edit the address of a club.
+First validate the address, then update it
+'''
+@app.route('/coordinator/clubs/edit_club_address', methods=['POST'])
+def coordinator_clubs_edit_club_address():
+    if not session.get('login'):
+        return redirect('login')
+    club_obj = json.loads(request.form['club_data'])
+    validation = validateClubAddress(club_obj)
+    if validation['success'] == False:
+        return jsonify({'success':False, 'error': 'Invalid Address'})
+    club_obj['address_county'] = validation['county']
+    club_obj['latitude'] = validation['latitude']
+    club_obj['longitude'] = validation['longitude']
+    results = editClubAddress(club_obj)
+    if results['success'] == False:
+        return jsonify({'success':False, 'error': results['error']})
+    return jsonify({'success':True, 'error':None, 'address': getAddress(club_obj)})
+
 
 
 # -- messages --
