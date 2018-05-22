@@ -19,7 +19,7 @@ Then, follow these steps.
 #### 1. Clone this repository
 
 
-        git clone https://github.com/SrutiG/uw_database.git
+        git clone -b dev https://github.com/SrutiG/uw_database.git
 #### 2. Navigate to the uw_database folder
 
         cd uw_database

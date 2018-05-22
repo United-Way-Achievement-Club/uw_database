@@ -41,12 +41,6 @@ The United Way Achievement Club S3 Bucket will contain profile pictures, club ph
 1. Click **Create folder**. Name the folder **profile_pictures**.
 
 1. Repeat the last step to create folders **club_pictures** and **goal_docs**.
-
-1. (Optional) Populate the profile pictures folder with the images in this repository under **app/static/images/profile_pictures**. 
-
-    In order to do this, clone this GitHub repo (steps to clone the repo are in the main README file). Then, go back to your S3 bucket console, and click on the **profile_pictures** folder. Select **Upload** and upload all profile pictures from that directory to your bucket.
-    
-    This step will ensure that the default user profile pictures will show up without having to upload new ones.
     
 1. Navigate to the **Permissions** tab in your new S3 bucket. Click **Bucket Policy**. Next to the **Bucket policy editor** header, there will be an ARN. Keep note of this because you will need it later.
 
@@ -95,6 +89,24 @@ The United Way Achievement Club S3 Bucket will contain profile pictures, club ph
     **AWS_SECRET_ACCESS_KEY**: your secret access key
     
     **AWS_DEFAULT_REGION**: the region of your S3 bucket which you took note of before
+    
+#### Make some changes in the s3_accessor.py file and add images (optional)
+
+1. If you have not already cloned this repository, clone it. Open a terminal window and run this command.
+
+        git clone -b dev https://github.com/SrutiG/uw_database.git
+        
+    This should create a uw_database folder on your machine
+    
+1. In this uw_database folder in the **app** directory, there is a file called **s3_accessor.py**. Open this file in an editor of your choice.
+
+1. Lines 16 and 17 define two variables- **bucket_name** and **region_name**. Change these to match your bucket name and region name.
+    
+1. (Optional) Populate the profile pictures folder with the images in this repository under **app/static/images/profile_pictures**. 
+
+    Go back to your S3 console (Services -> S3), select your bucket name, and click on the **profile_pictures** folder. Select **Upload** and upload all profile pictures from this directory (app/static/images/profile_pictures) to your bucket.
+    
+    This step will ensure that the default user profile pictures will show up without having to upload new ones.
     
 #### Now, you should be able to access the file system when running the application.
 
