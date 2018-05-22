@@ -674,20 +674,31 @@ def getCategories():
 Get the clubs from the database
 '''
 def getClubs():
-    clubs = models.Club.query.all()
+    clubs = models.Club.query.order_by(models.Club.club_name.asc()).all()
     for club in clubs:
         for coordinator in club.users:
             coordinator.profile_picture_link = getProfilePicture(coordinator.profile_picture)
         for member in club.members:
             member.profile_picture_link = getProfilePicture(member.user.profile_picture)
-    return models.Club.query.all()
+    return clubs
+
+'''
+Get all clubs for a coordinator
+'''
+def getClubsByCoordinator(username):
+    user = models.User.query.get(username)
+    if user == None:
+        return {'success':False, 'error':'Could not find coordinator'}
+    if user.type != 'coordinator':
+        return {'success':False, 'error':'User must be a coordinator'}
+    return user.clubs
 
 '''
 Get clubs in json serializable format
 for the google maps display
 '''
 def getMapClubs():
-    clubs = models.Club.query.all()
+    clubs = models.Club.query.order_by(models.Club.club_name.asc()).all()
     clubLst = []
     for club in clubs:
         clubObj = {}
