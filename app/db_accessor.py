@@ -334,14 +334,13 @@ def editMember(updated_member, old_member):
     if demographic_data['income'] != old_demographic_data['income']:
         user.member[0].income = demographic_data['income']
     if demographic_data['credit_score'] == '':
-        demographic_data['credit_score'] = None
-    if demographic_data['credit_score'] != old_demographic_data['credit_score']:
+        user.member[0].credit_score = 0
+    elif demographic_data['credit_score'] != old_demographic_data['credit_score']:
         user.member[0].credit_score = int(demographic_data['credit_score'])
     if demographic_data['employment_status'] != old_demographic_data['employment_status']:
         user.member[0].employment_status = demographic_data['employment_status']
-        #keyError with referral_source.
-    # if enrollment_form['referral_source'] != old_enrollment_form['referral_source']:
-        # user.member[0].referral_source = enrollment_form['referral_source']
+    if enrollment_form['referral_source'] != old_enrollment_form['referral_source']:
+        user.member[0].referral_source = enrollment_form['referral_source']
     if enrollment_form['spouse_first_name'] != old_enrollment_form['spouse_first_name']:
         user.member[0].spouse_first_name = enrollment_form['spouse_first_name']
     if enrollment_form['spouse_last_name'] != old_enrollment_form['spouse_last_name']:
@@ -352,8 +351,11 @@ def editMember(updated_member, old_member):
         user.member[0].english_reading_level = demographic_data['english_reading_level']
     if demographic_data['english_writing_level'] != old_demographic_data['english_writing_level']:
         user.member[0].english_writing_level = demographic_data['english_writing_level']
-    if demographic_data['has_car'] != old_demographic_data['has_car']:
-        user.member[0].has_car = demographic_data['has_car']
+    #key error for has_car in demo_data
+    print demographic_data['has_car']
+    print old_demographic_data['has_car']
+    # if demographic_data['has_car'] != old_demographic_data['has_car']:
+        # user.member[0].has_car = demographic_data['has_car']
     if 'has_health_insurance' in demographic_data and demographic_data['has_health_insurance'] != old_demographic_data['has_health_insurance']:
         user.member[0].has_health_insurance = demographic_data['has_health_insurance']
     if 'has_primary_care_doctor' in demographic_data and demographic_data['has_primary_care_doctor'] != old_demographic_data['has_primary_care_doctor']:
@@ -475,6 +477,8 @@ def getEnrollmentForm(username):
     enrollment_form['address_city'] = member.address_city
     enrollment_form['address_zip'] = member.address_zip
     enrollment_form['birth_date'] = datetime.strftime(member.birth_date, '%Y-%m-%d')
+    #Added by Daniel 5-22
+    enrollment_form['referral_source'] = member.member[0].referral_source
     enrollment_form['email'] = member.email
     enrollment_form['phone_numbers'] = []
     for entry in member.phone_numbers:
