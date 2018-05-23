@@ -156,7 +156,7 @@ def validateGeneral(general, edit):
         return {"success":False, "error":"Username can not be blank"}
     elif not edit and len(general['username']) < 5:
         return {"success":False, "error":"Username must be greater than 5 characters"}
-    elif len(general['password']) < 8:
+    elif not edit and len(general['password']) < 8:
         return {"success":False, "error":"Password must be 8 or more characters"}
     # TODO: check club name against clubs in database as well
     elif general['club_name'] == '':

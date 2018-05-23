@@ -180,7 +180,7 @@ def addMember(member_obj):
                                                     education = demographic_data['education'],
                                                     marital_status = demographic_data['marital_status'],
                                                     income = demographic_data['income'],
-                                                    credit_score = int(demographic_data['credit_score']),
+                                                    credit_score = (int(demographic_data['credit_score']) if ('credit_score' in demographic_data and demographic_data['credit_score'] != '') else None),
                                                     employment_status = demographic_data['employment_status'],
                                                     referral_source = enrollment_form['referral_source'],
                                                     spouse_first_name = enrollment_form['spouse_first_name'],
@@ -188,11 +188,11 @@ def addMember(member_obj):
                                                     english_proficiency = demographic_data['english_proficiency'],
                                                     english_reading_level = demographic_data['english_reading_level'],
                                                     english_writing_level = demographic_data['english_writing_level'],
-                                                    has_car = demographic_data['has_car'],
-                                                    has_health_insurance = demographic_data['has_health_insurance'],
-                                                    has_primary_care_doctor = demographic_data['has_primary_care_doctor'],
-                                                    enrolled_in_military = demographic_data['enrolled_in_military'],
-                                                    has_served_in_military = demographic_data['has_served_in_military']
+                                                    has_car = (demographic_data['has_car'] if 'has_car' in demographic_data else None),
+                                                    has_health_insurance = (demographic_data['has_health_insurance'] if 'has_health_insurance' in demographic_data else None),
+                                                    has_primary_care_doctor = (demographic_data['has_primary_care_doctor'] if 'has_primary_care_doctor' in demographic_data else None),
+                                                    enrolled_in_military = (demographic_data['enrolled_in_military'] if 'enrolled_in_military' in demographic_data else None),
+                                                    has_served_in_military = (demographic_data['has_served_in_military'] if 'has_served_in_military' in demographic_data else None)
                                                     )
                           )
     
@@ -336,7 +336,9 @@ def editMember(updated_member, old_member):
         user.address_zip = enrollment_form['address_zip']
     if enrollment_form['birth_date'] != old_enrollment_form['birth_date']:
         user.birth_date = datetime.strptime(enrollment_form['birth_date'], "%Y-%m-%d")
-        
+
+    if general['profile_picture'] != user.profile_picture:
+        user.profile_picture = general['profile_picture']
     if general['join_date'] != old_general['join_date']:
         user.member[0].join_date = datetime.strptime(general['join_date'], "%Y-%m-%d")
     if general['club_name'] != old_general['club_name']:

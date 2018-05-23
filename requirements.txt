@@ -6,4 +6,5 @@ tornado
 boto3
 requests
 passlib
+sendgrid
 
