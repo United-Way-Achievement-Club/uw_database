@@ -12,7 +12,25 @@ from app import db, models
 from datetime import datetime
 from s3_accessor import getProfilePicture
 from sqlalchemy.orm import class_mapper, ColumnProperty
+from passlib.context import CryptContext
 
+pwd_context = CryptContext(
+    schemes=["pbkdf2_sha256"],
+    default="pbkdf2_sha256",
+    pbkdf2_sha256__default_rounds=30000
+)
+
+'''
+Encrypt a user's password
+'''
+def encrypt_password(password):
+    return pwd_context.encrypt(password)
+
+'''
+Check an encrypted password against the one entered by the user
+'''
+def check_encrypted_password(password, hashed):
+    return pwd_context.verify(password, hashed)
 
 '''
 See if a user with the username and password
@@ -22,7 +40,7 @@ def loginUser(username, password):
     match = models.User.query.get(username)
     if match == None:
         return None
-    if password != match.password:
+    if not check_encrypted_password(password, match.password):
         return None
     return match
 
@@ -138,7 +156,7 @@ def addMember(member_obj):
     
     db.session.add(models.User(  username = general['username'],
                                                 type = 'member',
-                                                password = general['password'],
+                                                password = encrypt_password(general['password']),
                                                 profile_picture = general['profile_picture'],
                                                 first_name = enrollment_form['first_name'],
                                                 last_name = enrollment_form['last_name'],
@@ -295,8 +313,8 @@ def editMember(updated_member, old_member):
     user=models.User.query.filter_by(username=old_general['username']).first()
     member=models.User.query.filter_by(username=old_general['username']).first()
     
-    if general['password'] != old_general['password']:
-        user.password=general['password']
+    # if general['password'] != old_general['password']:
+    #     user.password=general['password']
     if enrollment_form['first_name'] != old_enrollment_form['first_name']:
         user.first_name = enrollment_form['first_name']
     if enrollment_form['last_name'] != old_enrollment_form['last_name']:

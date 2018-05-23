@@ -29,7 +29,7 @@
         </div>
         <label class="member-form-label">Password:</label>
         <div class="form-group row">
-            <input id="password" type="password" name="password" value="{% if view_member and view_member.password %}{{ view_member.password }}{% endif %}" placeholder="password" class="input input-sm uw-input ">
+            <input id="password" type="password" name="password" value="{% if view_member and view_member.password %}{{ view_member.password }}{% endif %}" placeholder="password" class="input input-sm uw-input " {% if disable_username and disable_username==True %} disabled {% endif %}>
         </div>
         <label class="member-form-label">Club Name:</label>
         <div class="form-group row">
