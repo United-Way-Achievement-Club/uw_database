@@ -351,11 +351,8 @@ def editMember(updated_member, old_member):
         user.member[0].english_reading_level = demographic_data['english_reading_level']
     if demographic_data['english_writing_level'] != old_demographic_data['english_writing_level']:
         user.member[0].english_writing_level = demographic_data['english_writing_level']
-    #key error for has_car in demo_data
-    print demographic_data['has_car']
-    print old_demographic_data['has_car']
-    # if demographic_data['has_car'] != old_demographic_data['has_car']:
-        # user.member[0].has_car = demographic_data['has_car']
+    if demographic_data['has_car'] != old_demographic_data['has_car']:
+        user.member[0].has_car = demographic_data['has_car']
     if 'has_health_insurance' in demographic_data and demographic_data['has_health_insurance'] != old_demographic_data['has_health_insurance']:
         user.member[0].has_health_insurance = demographic_data['has_health_insurance']
     if 'has_primary_care_doctor' in demographic_data and demographic_data['has_primary_care_doctor'] != old_demographic_data['has_primary_care_doctor']:
