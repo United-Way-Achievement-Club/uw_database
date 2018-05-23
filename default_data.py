@@ -75,4 +75,14 @@ db.session.add(models.Proof(proof_name="Letter from the committee leader", step_
 db.session.add(models.Proof(proof_name="Copy of your plan", step_name="Plan For The Future", description="Discover education requirements for my child's dream job. Make a plan for how they can meet these requirements", proof_num=1))
 db.session.add(models.Proof(proof_name="Letter from the interviewee", step_name="Plan For The Future", description="Together, interview someone who works at your child's dream job", proof_num=2))
 
+#particular user's goal data
+db.session.add(models.Member_Goals(username='hpotter', goal_name="Focus On My Child's Future", significance='', goal_status='in_progress', date_completed=None, steps_completed=1))
+db.session.add(models.Member_Steps(username='hpotter', step_name"Be Active at Home", date_completed=datetime(2018,05,1),step_status='completed',current_proof="Copy of a reading log",proofs_completed=1)
+db.session.add(models.Member_Proofs(username='hpotter', proof_name='Copy of a reading log', proof_verified_by='coordinator'), proof_document='',accepted=datetime(2018,05,02),reason='He is the boy who lived.',date_completed=datetime(2018,05,01))
+
+db.session.add(models.Member_Goals(username='srutig', goal_name="Focus On My Child's Future", significance='', goal_status='in_progress', date_completed=None, steps_completed=2))
+db.session.add(models.Member_Steps(username='srutig', step_name"Be Active at Home", date_completed=datetime(2018,04,1),step_status='completed',current_proof="Copy of a reading log",proofs_completed=1)
+db.session.add(models.Member_Steps(username='srutig', step_name"Be Active At The School", date_completed=datetime(2018,04,2),step_status='completed',current_proof="Letter from the volunteer leader",proofs_completed=1)
+db.session.add(models.Member_Proofs(username='srutig', proof_name='Letter from the volunteer leader', proof_verified_by='coordinator'), proof_document='',accepted=datetime(2018,04,02),reason='Sometimes it is just like that, ya know?',date_completed=datetime(2018,04,02))
+
 db.session.commit()
