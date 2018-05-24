@@ -97,5 +97,15 @@ def removeGoalDocument(file_name):
         print e.message
         return False
 
+'''
+Get a signed url for a goal document
+'''
+def getGoalDocument(file_name):
+    try:
+        document_url = s3Client.generate_presigned_url('get_object', Params = {'Bucket': bucket_name, 'Key': 'goal_docs/' + file_name})
+    except Exception as e:
+        print e.message
+        document_url = None
+    return document_url
 
 

@@ -1,8 +1,8 @@
-<div class="goal-step {% if step.step_status == 'complete' %} goal-step-completed {% else %} goal-step-active {% endif %}">
+<div class="goal-step {% if step.is_completed() %} goal-step-completed {% else %} goal-step-active {% endif %}">
     <h5 class="goal-step-name" onclick="toggleProofs('goal{{ goal_index }}_step{{ index }}')"><span class="glyphicon glyphicon-star goal-star-ic"></span> {{ step.step_name }}</h5>
     <ul class="goal-proofs-list" id="goal{{ goal_index }}_step{{ index }}">
         {% for proof in step.member_proofs %}
-            {% with proof=proof, active=(not step.step_status == 'complete') %}
+            {% with proof=proof, active=(not step.is_completed()) %}
             {% include 'member/goals/goal_step/proof.html' %}
             {% endwith %}
         {% endfor %}

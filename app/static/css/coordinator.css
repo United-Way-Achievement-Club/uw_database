@@ -766,6 +766,18 @@
     opacity: 0.8;
 }
 
+.pending-text {
+    color: var(--warning-yellow);
+}
+
+.approved-text {
+    color: var(--success-green);
+}
+
+.denied-text {
+    color: var(--error-red);
+}
+
 /*===================================members===================================*/
 
 .members-topbar {

@@ -10,7 +10,7 @@ Retrieve and add items to the database
 '''
 from app import db, models
 from datetime import datetime
-from s3_accessor import getProfilePicture
+from s3_accessor import getProfilePicture, getGoalDocument
 from sqlalchemy.orm import class_mapper, ColumnProperty
 from passlib.context import CryptContext
 
@@ -697,6 +697,9 @@ def getMemberGoals(username):
 Update a proof when a member uploads a document
 '''
 def updateMemberProof(username, proof_name, proof_file, step_name):
+    print username
+    print step_name
+    print proof_name
     proof = models.Member_Proofs.query.filter_by(username=username, proof_name=proof_name, step_name=step_name).first()
     delete_document = None
     if proof == None:
@@ -707,6 +710,47 @@ def updateMemberProof(username, proof_name, proof_file, step_name):
     proof.status = 'pending'
     db.session.commit()
     return {'success':True, 'error':None, 'old_document':delete_document}
+
+'''
+Get all pending proofs for members
+'''
+def getPendingProofs():
+    proofs = models.Member_Proofs.query.filter(models.Member_Proofs.status.in_(['pending', 'approved', 'denied'])).all()
+    for proof in proofs:
+        proof.member_step.member_goal.member.profile_picture_link = getProfilePicture(proof.member_step.member_goal.member.user.profile_picture)
+        proof.proof_document_link = getGoalDocument(proof.proof_document)
+    return proofs
+
+'''
+Approve or deny a proof
+'''
+def setProofStatus(username, coordinator_name, proof_name, step_name, status, reason):
+    proof = models.Member_Proofs.query.filter_by(username=username, proof_name=proof_name, step_name=step_name).first()
+    if proof == None:
+        return {'success':False, 'error':'Proof not found'}
+    try:
+        proof.status = status
+        proof.reason = reason
+        print "here it's not none"
+        if status == 'approved':
+            proof.date_completed = datetime.now()
+            proof.proof_verified_by = coordinator_name
+            proof.member_step.proofs_completed = proof.member_step.num_proofs_completed()
+            proof.member_step.date_completed = proof.member_step.date_completed_step()
+            if proof.member_step.is_completed():
+                proof.member_step.status = 'complete'
+            proof.member_step.member_goal.steps_completed = proof.member_step.member_goal.num_steps_completed()
+            proof.member_step.member_goal.date_completed = proof.member_step.member_goal.date_completed_goal()
+        db.session.commit()
+        return {'success':True, 'error':None}
+    except Exception as e:
+        print e.message
+        return {'success':False, 'error':e.message}
+
+
+
+
+
 '''
 Add a new goal for a member
 '''

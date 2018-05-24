@@ -288,7 +288,21 @@ Coordinator approve page
 def coordinator_approve():
     if not session.get('login'):
         return redirect('login')
-    return render_template('coordinator/approve.html', coordinator = getCoordinator(session.get('coordinator')))
+    return render_template('coordinator/approve.html', coordinator = getCoordinator(session.get('coordinator')), proofs=getPendingProofs())
+
+@app.route('/coordinator/approve/set_document_status', methods=['POST'])
+def coordinator_approve_set_document_status():
+    if not session.get('login'):
+        return redirect('login')
+
+    username = request.form['username']
+    proof_name = request.form['proof_name']
+    step_name = request.form['step_name']
+    reason = request.form['reason']
+    status = request.form['status']
+    coordinator_name = session.get('coordinator')
+    results = setProofStatus(username, coordinator_name, proof_name, step_name, status, reason)
+    return jsonify(results)
 
 # -- members --
 

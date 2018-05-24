@@ -204,14 +204,14 @@ class Member_Goals(db.Model):
 
     def is_completed(self):
         for step in self.member_steps:
-            if step.step_status != 'complete':
+            if step.is_completed():
                 return False
         return True
 
     def num_steps_completed(self):
         count = 0
         for step in self.member_steps:
-            if step.step_status == 'completed':
+            if step.is_completed():
                 count += 1
         return count
 

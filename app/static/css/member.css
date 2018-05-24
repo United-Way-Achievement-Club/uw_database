@@ -501,8 +501,7 @@
     margin-left: 5px;
 }
 
-.proof-upload-label {
-    background-color: var(--primary);
+.proof-upload-label, .proof-pending-label, .proof-approved-label, .proof-denied-label {
     color: var(--uw_white);
     padding: 2px 5px 2px 5px;
     border-radius: 3px;
@@ -510,9 +509,24 @@
     margin-left: 5px;
 }
 
+.proof-upload-label {
+    background-color: var(--primary);
+}
+
 .proof-pending-label {
     background-color: var(--warning-yellow);
-    color: var(--uw_white);
+}
+
+.proof-approved-label {
+    background-color: var(--success-green);
+}
+
+.proof-denied-label {
+    background-color: var(--error-red);
+}
+
+.proof-denied-reason {
+    color: var(--error-red);
     padding: 2px 5px 2px 5px;
     border-radius: 3px;
     font-size: 0.8em;
@@ -520,7 +534,7 @@
 }
 
 .proof-upload-label:hover {
-    background-color: var(--uw_lavender);
+    opacity: 0.5;
     cursor: pointer;
 }
 
