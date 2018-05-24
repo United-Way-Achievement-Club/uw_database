@@ -212,7 +212,7 @@ Member-Proof (1-n)
 class Member_Proofs(db.Model):
     proof_name = db.Column(db.String(64), db.ForeignKey('proof.proof_name'), primary_key=True)
     username = db.Column(db.String(64), db.ForeignKey('member.username'), primary_key=True)
-    proof_verified_by = db.Column(db.String(64), db.ForeignKey('user.username'))
+    proof_verified_by = db.Column(db.String(64))
     proof_document = db.Column(db.String(64))
     accepted = db.Column(db.String(64))
     reason = db.Column(db.String(64))
