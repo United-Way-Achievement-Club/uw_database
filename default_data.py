@@ -103,4 +103,18 @@ db.session.add(models.Proof(proof_name="Letter from the committee leader", step_
 db.session.add(models.Proof(proof_name="Copy of your plan", step_name="Plan For The Future", description="Discover education requirements for my child's dream job. Make a plan for how they can meet these requirements", proof_num=1))
 db.session.add(models.Proof(proof_name="Letter from the interviewee", step_name="Plan For The Future", description="Together, interview someone who works at your child's dream job", proof_num=2))
 
+# particular user's goal data
+
+goal = models.Goals.query.get("Focus On My Child's Future")
+db.session.add(models.Member_Goals(username='hpotter', goal_name="Focus On My Child's Future", significance='', goal_status='in_progress', date_completed=None, steps_completed=1))
+db.session.add(models.Member_Goals(username='srutig', goal_name="Focus On My Child's Future", significance='', goal_status='in_progress', date_completed=None, steps_completed=2))
+
+for step in goal.steps:
+    db.session.add(models.Member_Steps(username='hpotter', step_name=step.step_name, goal_name=goal.goal_name, step_status='in_progress',proofs_completed=0))
+    db.session.add(models.Member_Steps(username='srutig', step_name=step.step_name, goal_name=goal.goal_name, step_status='in_progress',proofs_completed=0))
+    for proof in step.proofs:
+        db.session.add(models.Member_Proofs(username='hpotter', proof_name=proof.proof_name, step_name=step.step_name))
+        db.session.add(models.Member_Proofs(username='srutig', proof_name=proof.proof_name, step_name=step.step_name))
+
+
 db.session.commit()
