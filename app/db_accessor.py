@@ -289,12 +289,6 @@ Compare the updated member to the old member and
 update necessary fields in the database
 '''
 def editMember(updated_member, old_member):
-    # TODO: implement edit member function
-    # compare each field in the updated member and old member
-    # only make database queries when there is a difference
-    # in one of the fields.
-    # NOTE: the username will be the same in updated_member and old_member
-    # because they shouldn't be able to change their username.
     general = updated_member['general']
     old_general = old_member['general']
     
@@ -359,9 +353,9 @@ def editMember(updated_member, old_member):
         user.member[0].credit_score = int(demographic_data['credit_score'])
     if demographic_data['employment_status'] != old_demographic_data['employment_status']:
         user.member[0].employment_status = demographic_data['employment_status']
-        #keyError with referral_source.
-    # if enrollment_form['referral_source'] != old_enrollment_form['referral_source']:
-        # user.member[0].referral_source = enrollment_form['referral_source']
+    #keyError with referral_source.
+    if enrollment_form['referral_source'] != old_enrollment_form['referral_source']:
+        user.member[0].referral_source = enrollment_form['referral_source']
     if enrollment_form['spouse_first_name'] != old_enrollment_form['spouse_first_name']:
         user.member[0].spouse_first_name = enrollment_form['spouse_first_name']
     if enrollment_form['spouse_last_name'] != old_enrollment_form['spouse_last_name']:
@@ -700,6 +694,15 @@ def getGoal(goal_name):
         step.proofs = proofs
     goal.steps = steps
     return goal
+
+'''
+Get all goals for a specific member
+'''
+def getMemberGoals(username):
+    member = models.Member.query.get(username)
+    if member == None:
+        return None
+    return member.member_goals
 
 '''
 Return all of the categories in the database
