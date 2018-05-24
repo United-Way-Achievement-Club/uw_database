@@ -697,14 +697,11 @@ def getMemberGoals(username):
 Update a proof when a member uploads a document
 '''
 def updateMemberProof(username, proof_name, proof_file, step_name):
-    print username
-    print step_name
-    print proof_name
     proof = models.Member_Proofs.query.filter_by(username=username, proof_name=proof_name, step_name=step_name).first()
     delete_document = None
     if proof == None:
         return {'success': False, 'error': 'Proof not found.'}
-    if proof.status == 'pending' and proof.proof_document != None:
+    if (proof.status == 'pending' or proof.status == 'denied') and proof.proof_document != None:
         delete_document = proof.proof_document
     proof.proof_document = proof_file
     proof.status = 'pending'
