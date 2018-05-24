@@ -323,6 +323,7 @@ Categories
 '''
 class Categories(db.Model):
     category_name = db.Column(db.String(64), primary_key=True)
+    goals = db.relationship("Goals", cascade="all,delete-orphan", backref="category", passive_deletes=True)
 
 # ============================================== OTHER ==============================================
 

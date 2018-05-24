@@ -126,7 +126,7 @@ def member_goals():
     if not session.get('login'):
         return redirect('login')
     username = session.get('member')
-    return render_template('member/goals.html', member=getMember(username), goals=getMemberGoals(username))
+    return render_template('member/goals.html', member=getMember(username), goals=getMemberGoals(username), categories=getCategories())
 
 '''
 Upload a member proof
@@ -288,7 +288,7 @@ Coordinator approve page
 def coordinator_approve():
     if not session.get('login'):
         return redirect('login')
-    return render_template('coordinator/approve.html', coordinator = getCoordinator(session.get('coordinator')), proofs=getPendingProofs())
+    return render_template('coordinator/approve.html', coordinator = getCoordinator(session.get('coordinator')), proofs=getPendingProofs(session.get('coordinator')))
 
 @app.route('/coordinator/approve/set_document_status', methods=['POST'])
 def coordinator_approve_set_document_status():

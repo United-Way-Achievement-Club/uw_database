@@ -711,7 +711,8 @@ def updateMemberProof(username, proof_name, proof_file, step_name):
 '''
 Get all pending proofs for members
 '''
-def getPendingProofs():
+def getPendingProofs(coordinator):
+    coordinator = models.User.query.get(coordinator)
     proofs = models.Member_Proofs.query.filter(models.Member_Proofs.status.in_(['pending', 'approved', 'denied'])).order_by(models.Member_Proofs.status.desc()).all()
     for proof in proofs:
         proof.member_step.member_goal.member.profile_picture_link = getProfilePicture(proof.member_step.member_goal.member.user.profile_picture)
