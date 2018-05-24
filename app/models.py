@@ -272,7 +272,7 @@ class Member_Proofs(db.Model):
     proof_name = db.Column(db.String(64), db.ForeignKey('proof.proof_name'), primary_key=True)
     step_name = db.Column(db.String(64), primary_key=True)
     username = db.Column(db.String(64), primary_key=True)
-    proof_verified_by = db.Column(db.String(64))
+    proof_verified_by = db.Column(db.String(64), db.ForeignKey('user.username'))
     proof_document = db.Column(db.String(64))
     status = db.Column(db.String(64), default='new') # new, pending, approved, denied
     reason = db.Column(db.String(512))

@@ -21,6 +21,9 @@
     --border_color: #cfcfe3;
     --progress_orange: #ffe6cc;
     --panel_expand: rgba(238, 238, 245, 0.4);
+    --success-green:  #4da976;
+    --warning-yellow:  #ffa848;
+    --error-red:  #c82a43;
 }
 
 /*===================================general===================================*/
@@ -507,6 +510,15 @@
     margin-left: 5px;
 }
 
+.proof-pending-label {
+    background-color: var(--warning-yellow);
+    color: var(--uw_white);
+    padding: 2px 5px 2px 5px;
+    border-radius: 3px;
+    font-size: 0.8em;
+    margin-left: 5px;
+}
+
 .proof-upload-label:hover {
     background-color: var(--uw_lavender);
     cursor: pointer;
@@ -514,6 +526,14 @@
 
 #proofModal {
     color: var(--uw_lavender);
+}
+
+#proof_name {
+    display: none;
+}
+
+#step_name {
+    display: none;
 }
 
 .proof-upload-wrapper {

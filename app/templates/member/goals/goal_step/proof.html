@@ -2,9 +2,12 @@
     <h6 class="goal-proof-title">
         {{ proof.proof.description }}
         {% if proof.status == 'approved' %}
-        <span class="proof-completed-label"><span class="glyphicon glyphicon-check"></span> Completed {{ proof.date_completed }}</span>
-        {% elif active == True %}
-        <span class="proof-upload-label" onclick="openProofModal('{{ proof.proof_name }}','{{ proof.proof_document }}')"><span class="glyphicon glyphicon-upload"></span> Upload Proof</span>
+        <span class="proof-completed-label"><span class="glyphicon glyphicon-check"></span> Approved {{ proof.date_completed }}</span>
+        {% elif proof.status == 'new' %}
+        <span class="proof-upload-label" onclick="openProofModal('{{ proof.proof_name }}','{{ proof.step_name }}','{{ proof.proof_document }}')"><span class="glyphicon glyphicon-upload"></span> Upload Proof</span>
+        {% elif proof.status == 'pending' %}
+        <span class="proof-upload-label" onclick="openProofModal('{{ proof.proof_name }}','{{ proof.step_name }}','{{ proof.proof_document }}')"><span class="glyphicon glyphicon-upload"></span> Change Proof</span>
+        <span class="proof-pending-label"> Pending Approval</span>
         {% endif %}
     </h6>
 </li>

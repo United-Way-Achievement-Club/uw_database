@@ -694,6 +694,20 @@ def getMemberGoals(username):
     return member.member_goals
 
 '''
+Update a proof when a member uploads a document
+'''
+def updateMemberProof(username, proof_name, proof_file, step_name):
+    proof = models.Member_Proofs.query.filter_by(username=username, proof_name=proof_name, step_name=step_name).first()
+    delete_document = None
+    if proof == None:
+        return {'success': False, 'error': 'Proof not found.'}
+    if proof.status == 'pending' and proof.proof_document != None:
+        delete_document = proof.proof_document
+    proof.proof_document = proof_file
+    proof.status = 'pending'
+    db.session.commit()
+    return {'success':True, 'error':None, 'old_document':delete_document}
+'''
 Add a new goal for a member
 '''
 def addMemberGoal(username, goal_name):
