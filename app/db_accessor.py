@@ -12,7 +12,25 @@ from app import db, models
 from datetime import datetime
 from s3_accessor import getProfilePicture
 from sqlalchemy.orm import class_mapper, ColumnProperty
+from passlib.context import CryptContext
 
+pwd_context = CryptContext(
+    schemes=["pbkdf2_sha256"],
+    default="pbkdf2_sha256",
+    pbkdf2_sha256__default_rounds=30000
+)
+
+'''
+Encrypt a user's password
+'''
+def encrypt_password(password):
+    return pwd_context.encrypt(password)
+
+'''
+Check an encrypted password against the one entered by the user
+'''
+def check_encrypted_password(password, hashed):
+    return pwd_context.verify(password, hashed)
 
 '''
 See if a user with the username and password
@@ -22,7 +40,7 @@ def loginUser(username, password):
     match = models.User.query.get(username)
     if match == None:
         return None
-    if password != match.password:
+    if not check_encrypted_password(password, match.password):
         return None
     return match
 
@@ -138,7 +156,7 @@ def addMember(member_obj):
     
     db.session.add(models.User(  username = general['username'],
                                                 type = 'member',
-                                                password = general['password'],
+                                                password = encrypt_password(general['password']),
                                                 profile_picture = general['profile_picture'],
                                                 first_name = enrollment_form['first_name'],
                                                 last_name = enrollment_form['last_name'],
@@ -162,7 +180,7 @@ def addMember(member_obj):
                                                     education = demographic_data['education'],
                                                     marital_status = demographic_data['marital_status'],
                                                     income = demographic_data['income'],
-                                                    credit_score = int(demographic_data['credit_score']),
+                                                    credit_score = (int(demographic_data['credit_score']) if ('credit_score' in demographic_data and demographic_data['credit_score'] != '') else None),
                                                     employment_status = demographic_data['employment_status'],
                                                     referral_source = enrollment_form['referral_source'],
                                                     spouse_first_name = enrollment_form['spouse_first_name'],
@@ -170,11 +188,11 @@ def addMember(member_obj):
                                                     english_proficiency = demographic_data['english_proficiency'],
                                                     english_reading_level = demographic_data['english_reading_level'],
                                                     english_writing_level = demographic_data['english_writing_level'],
-                                                    has_car = demographic_data['has_car'],
-                                                    has_health_insurance = demographic_data['has_health_insurance'],
-                                                    has_primary_care_doctor = demographic_data['has_primary_care_doctor'],
-                                                    enrolled_in_military = demographic_data['enrolled_in_military'],
-                                                    has_served_in_military = demographic_data['has_served_in_military']
+                                                    has_car = (demographic_data['has_car'] if 'has_car' in demographic_data else None),
+                                                    has_health_insurance = (demographic_data['has_health_insurance'] if 'has_health_insurance' in demographic_data else None),
+                                                    has_primary_care_doctor = (demographic_data['has_primary_care_doctor'] if 'has_primary_care_doctor' in demographic_data else None),
+                                                    enrolled_in_military = (demographic_data['enrolled_in_military'] if 'enrolled_in_military' in demographic_data else None),
+                                                    has_served_in_military = (demographic_data['has_served_in_military'] if 'has_served_in_military' in demographic_data else None)
                                                     )
                           )
     
@@ -295,8 +313,8 @@ def editMember(updated_member, old_member):
     user=models.User.query.filter_by(username=old_general['username']).first()
     member=models.User.query.filter_by(username=old_general['username']).first()
     
-    if general['password'] != old_general['password']:
-        user.password=general['password']
+    # if general['password'] != old_general['password']:
+    #     user.password=general['password']
     if enrollment_form['first_name'] != old_enrollment_form['first_name']:
         user.first_name = enrollment_form['first_name']
     if enrollment_form['last_name'] != old_enrollment_form['last_name']:
@@ -318,7 +336,9 @@ def editMember(updated_member, old_member):
         user.address_zip = enrollment_form['address_zip']
     if enrollment_form['birth_date'] != old_enrollment_form['birth_date']:
         user.birth_date = datetime.strptime(enrollment_form['birth_date'], "%Y-%m-%d")
-        
+
+    if general['profile_picture'] != user.profile_picture:
+        user.profile_picture = general['profile_picture']
     if general['join_date'] != old_general['join_date']:
         user.member[0].join_date = datetime.strptime(general['join_date'], "%Y-%m-%d")
     if general['club_name'] != old_general['club_name']:

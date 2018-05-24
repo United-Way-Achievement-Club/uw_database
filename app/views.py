@@ -13,7 +13,7 @@ from db_accessor import *
 from flask import render_template, redirect, session, request, jsonify, url_for
 from s3_accessor import uploadProfilePicture
 from utils import *
-import os
+from sendgrid_email import newUserEmail
 
 
 '''
@@ -576,14 +576,15 @@ def coordinator_create_member():
             # profile_pic_file.save(os.path.join(app.config['UPLOAD_FOLDER'], profile_pic))
             uploadProfilePicture(profile_pic, profile_pic_file)
         if 'profile_picture' in request.form:
-            profile_pic = request.form['profile_picture']
+            # profile_pic = request.form['profile_picture']
+            profile_pic = 'default_profile_pic.png'
         # profile_pic_type = request.form['profile_pic_type']
 
         new_member['general']['profile_picture'] = profile_pic
         session['new_member'] = new_member
 
         addMember(session.get('new_member'))
-
+        newUserEmail(new_member['general']['username'], new_member['general']['password'], new_member['enrollment_form']['email'])
         session['new_member'] = {'general':{}, 'enrollment_form':{}, 'demographic_data':{}, 'self_sufficiency_matrix':{}, 'self_efficacy_quiz':{}}
         return jsonify({"success":True, "status":200, "template":render_template('coordinator/members/member_modal/general.html')})
     return jsonify({"success":False, "status":400, "error_type":"validation","error_message":validatedMember["error"], "form":validatedMember["form"]})
@@ -611,6 +612,7 @@ def coordinator_update_member():
             profile_pic = session.get('old_edit_member')['general']['username'] + '.jpg'
             # profile_pic_file.save(os.path.join(app.config['UPLOAD_FOLDER'], profile_pic))
             uploadProfilePicture(profile_pic, profile_pic_file)
+            print profile_pic
             edit_member['general']['profile_picture'] = profile_pic
 
         session['edit_member'] = edit_member

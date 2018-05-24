@@ -5,4 +5,6 @@ SQLAlchemy-migrate
 tornado
 boto3
 requests
+passlib
+sendgrid
 
