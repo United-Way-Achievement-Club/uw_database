@@ -264,6 +264,11 @@ class Member_Steps(db.Model):
             if proof.date_completed and (date == None or proof.date_completed > date):
                 date = proof.date_completed
         return date
+
+    def is_in_progress(self):
+        if self.is_completed():
+            return False
+        return True
 '''
 Member-Proof (1-n)
 '''

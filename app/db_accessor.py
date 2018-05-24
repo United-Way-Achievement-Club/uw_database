@@ -672,6 +672,9 @@ Return all of the goals in the database
 '''
 def getGoals():
     goals = models.Goals.query.all()
+    for goal in goals:
+        for member_goal in goal.member_goals:
+            member_goal.member.profile_picture_link = getProfilePicture(member_goal.member.user.profile_picture)
     return goals
 
 '''
