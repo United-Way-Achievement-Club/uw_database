@@ -125,7 +125,7 @@ def member_goals():
     if not session.get('login'):
         return redirect('login')
     username = session.get('member')
-    return render_template('member/goals.html', member=getMember(username), goals=getTempGoals())
+    return render_template('member/goals.html', member=getMember(username), goals=getMemberGoals(username))
 
 
 # ================================================= COORDINATOR ====================================================

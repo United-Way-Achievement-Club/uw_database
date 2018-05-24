@@ -642,7 +642,7 @@ def editGoal(goal):
     no need to check for those
     '''
 
-    old_steps = models.Steps.query.filter_by(goal_name=goal['goal_name'])
+    old_steps = old_goal.steps
     new_steps = goal['steps']
     # TODO compare the step names to the ones in the old goal and update accordingly
     # this might be tough because they may have changed just a few letters in the step name
@@ -672,12 +672,6 @@ Return all of the goals in the database
 '''
 def getGoals():
     goals = models.Goals.query.all()
-    for goal in goals:
-        steps = models.Steps.query.filter_by(goal_name=goal.goal_name).all()
-        for step in steps:
-            proofs = models.Proof.query.filter_by(step_name=step.step_name).all()
-            step.proofs = proofs
-        goal.steps = steps
     return goals
 
 '''
@@ -688,11 +682,6 @@ def getGoal(goal_name):
     goal = models.Goals.query.get(goal_name)
     if goal == None:
         return None
-    steps = models.Steps.query.filter_by(goal_name=goal.goal_name).all()
-    for step in steps:
-        proofs = models.Proof.query.filter_by(step_name=step.step_name).all()
-        step.proofs = proofs
-    goal.steps = steps
     return goal
 
 '''
@@ -703,6 +692,25 @@ def getMemberGoals(username):
     if member == None:
         return None
     return member.member_goals
+
+'''
+Add a new goal for a member
+'''
+def addMemberGoal(username, goal_name):
+    goal = models.Goals.query.get(goal_name)
+    if goal == None:
+        return {'success':False, 'error':'Could not find goal'}
+    member = models.Member.query.get(username)
+    if member == None:
+        return {'success':False, 'error':'Could not find member'}
+    db.session.add(models.Member_Goals(username=username, goal_name=goal.goal_name, significance='', goal_status='in_progress'))
+
+    for step in goal.steps:
+        db.session.add(models.Member_Steps(username=username, step_name=step.step_name, goal_name=goal.goal_name, step_status='in_progress',proofs_completed=0))
+        for proof in step.proofs:
+            db.session.add(models.Member_Proofs(username=username, proof_name=proof.proof_name, step_name=step.step_name))
+    db.session.commit()
+    return {'success':True, 'error':None}
 
 '''
 Return all of the categories in the database

@@ -106,8 +106,8 @@ db.session.add(models.Proof(proof_name="Letter from the interviewee", step_name=
 # particular user's goal data
 
 goal = models.Goals.query.get("Focus On My Child's Future")
-db.session.add(models.Member_Goals(username='hpotter', goal_name="Focus On My Child's Future", significance='', goal_status='in_progress', date_completed=None, steps_completed=1))
-db.session.add(models.Member_Goals(username='srutig', goal_name="Focus On My Child's Future", significance='', goal_status='in_progress', date_completed=None, steps_completed=2))
+db.session.add(models.Member_Goals(username='hpotter', goal_name="Focus On My Child's Future", significance='', goal_status='in_progress', date_completed=None))
+db.session.add(models.Member_Goals(username='srutig', goal_name="Focus On My Child's Future", significance='', goal_status='in_progress', date_completed=None))
 
 for step in goal.steps:
     db.session.add(models.Member_Steps(username='hpotter', step_name=step.step_name, goal_name=goal.goal_name, step_status='in_progress',proofs_completed=0))
