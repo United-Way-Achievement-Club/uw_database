@@ -4,7 +4,19 @@
                 <a class="goal-heading-wrapper" data-toggle="collapse" href="#goal{{index}}">
                     <div class="col-sm-1 goal-title-wrapper">
                         <h4 class="goal-title goal-title-ic text-center">
-                            <span class="glyphicon glyphicon-apple goal-heading-ic"></span>
+                            <span class="glyphicon
+                             {% if goal.goal_category == 'Education' %}
+                            glyphicon-education
+                            {% elif goal.goal_category == 'Health' %}
+                            glyphicon-plus
+                            {% elif goal.goal_category == 'Income' %}
+                            glyphicon-usd
+                            {% elif goal.goal_category == 'Community' %}
+                            glyphicon-tree-conifer
+                            {% elif goal.goal_category == 'Civic' %}
+                            glyphicon-flag
+                            {% endif %}
+                              goal-heading-ic"></span>
                         </h4>
                     </div>
                     <div class="col-sm-3 goal-title-wrapper">
