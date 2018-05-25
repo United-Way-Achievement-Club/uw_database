@@ -18,7 +18,9 @@
             {% endwith %}
         </div>
 
+        {% with pendingProofs=pendingProofs %}
         {% include 'coordinator/home/notifications.html' %}
+        {% endwith %}
 
     </div>
 

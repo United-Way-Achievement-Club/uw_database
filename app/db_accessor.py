@@ -723,6 +723,12 @@ def getPendingProofs(coordinator):
     return proofs
 
 '''
+Get the number of documents awaiting approval for the coordinator homepage
+'''
+def getNumPendingProofs():
+    return len(models.Member_Proofs.query.filter_by(status='pending').all())
+
+'''
 Approve or deny a proof
 '''
 def setProofStatus(username, coordinator_name, proof_name, step_name, status, reason):

@@ -178,7 +178,11 @@ def coordinator_home():
     if not session.get('login'):
         return redirect('login')
     phone_numbers = getPhoneNumbers(session.get('coordinator'))
-    return render_template('coordinator/home.html', coordinator=getCoordinator(session.get('coordinator')), phone_numbers=phone_numbers, states=getStates())
+    return render_template('coordinator/home.html',
+                           coordinator=getCoordinator(session.get('coordinator')),
+                           phone_numbers=phone_numbers,
+                           states=getStates(),
+                           pendingProofs=getNumPendingProofs())
 
 '''
 Edit the coordinator's profile information
