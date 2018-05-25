@@ -23,3 +23,15 @@ function saveProof() {
     $("#upload-proof-form").submit();
     closeProofModal();
 }
+
+function changeGoalOptions(e) {
+    var curCat;
+    var html;
+    $(".goal-option").attr("hidden", false);
+    $(".goal-option").addClass("goal-option-hide")
+    curCat = $(e).val();
+    $("." + curCat + "-option").removeClass("goal-option-hide");
+    $(".goal-option-hide").attr("hidden", true);
+    html = $(".goal-option").not(".goal-option-hide").first().html();
+    $("#goal-name-select").val(html);
+}

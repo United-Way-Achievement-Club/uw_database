@@ -334,6 +334,10 @@
     margin-bottom: 20px;
 }
 
+.goal-option-hide {
+    display: none;
+}
+
 .goals-stats {
     height: 200px;
     display: table;
