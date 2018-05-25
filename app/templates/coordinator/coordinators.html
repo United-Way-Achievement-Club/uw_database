@@ -1,0 +1,11 @@
+{% extends 'coordinator/layout.html' %}
+
+{% block c_content %}
+
+{% with coordinators=coordinators %}
+{% include 'coordinator/coordinators/topbar.html' %}
+{% include 'coordinator/coordinators/coordinators_list.html' %}
+{% endwith %}
+
+
+{% endblock %}

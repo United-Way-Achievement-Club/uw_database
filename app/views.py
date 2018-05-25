@@ -699,6 +699,20 @@ def coordinator_clear_edit_member():
     session['modal_mode'] = 'add'
     return render_template('coordinator/members/add_member.html')
 
+# -- coordinators --
+
+'''
+See the coordinators in the system
+'''
+@app.route('/coordinator/coordinators')
+def coordinator_coordinators():
+    if not session.get('login'):
+        return redirect('login')
+    return render_template('coordinator/coordinators.html',
+                           coordinators=getCoordinators(),
+                           coordinator=getCoordinator(session.get('coordinator')))
+
+
 # -- clubs --
 
 '''
