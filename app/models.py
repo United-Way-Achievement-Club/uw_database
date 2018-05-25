@@ -27,6 +27,7 @@ General user table, can be either member or coordinator
 class User(db.Model):
     username = db.Column(db.String(64), index=True, primary_key=True)
     type = db.Column(db.String(64))
+    super_admin = db.Column(db.Boolean)
     password = db.Column(db.String(120))
     profile_picture = db.Column(db.String(150))
     first_name = db.Column(db.String(150), nullable=False)

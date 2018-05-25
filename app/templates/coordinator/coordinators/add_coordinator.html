@@ -6,7 +6,28 @@
                 <h4 class="modal-title" id="coordinatorModalLabel">Add Coordinator</h4>
             </div>
             <div class="modal-body coordinator-modal-body">
-
+                <form id="new-coordinator" action="{{ url_for('coordinator_coordinators_add_coordinator') }}" method="post">
+                    <label>Username: </label>
+                    <div class="form-group row">
+                        <input class="input input-sm uw-input" placeholder="Username" name="username">
+                    </div>
+                    <label>Name: </label>
+                    <div class="form-group row">
+                        <input class="input input-sm uw-input" placeholder="First Name" name="first_name">
+                        <input class="input input-sm uw-input" placeholder="Last Name" name="last_name">
+                    </div>
+                    <label>Email: </label>
+                    <div class="form-group row">
+                        <input class="input input-sm uw-input" placeholder="Email" name="email">
+                    </div>
+                    <label>Super Admin Privileges: </label>
+                    <div class="form-group row">
+                        <select name="super_admin" class="input input-sm uw-input">
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer coordinator-modal-footer">
                 <button type="button" class="btn uw-button" onclick="closeCoordinatorModal()">Close</button>

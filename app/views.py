@@ -712,6 +712,24 @@ def coordinator_coordinators():
                            coordinators=getCoordinators(),
                            coordinator=getCoordinator(session.get('coordinator')))
 
+'''
+Add a new coordinator
+'''
+@app.route('/coordinator/coordinators/add_coordinator', methods=['POST'])
+def coordinator_coordinators_add_coordinator():
+    if not session.get('login'):
+        return redirect('login')
+    username = request.form['username']
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    email = request.form['email']
+    super_admin = (True if request.form['super_admin'] == '1' else False)
+    print super_admin
+    print username
+    print first_name
+    print last_name
+    return redirect(url_for('coordinator_coordinators'))
+
 
 # -- clubs --
 

@@ -1234,6 +1234,11 @@
     border-top: 1px solid var(--primary);
 }
 
+.super-admin-ic {
+    color: var(--uw_orange);
+    margin-left: 5px;
+}
+
 /*===================================clubs===================================*/
 
 .clubs-wrapper {
