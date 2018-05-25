@@ -625,34 +625,41 @@ Edit the goal in the database
 '''
 def editGoal(goal):
 
-    print goal
-
     old_goal = models.Goals.query.get(goal['goal_name'])
-
-    '''
-    The 'goal' parameter is in the same format as the one
-    in the addGoal function.
-
-    The old_goal variable is the db model for the goal before editing
-
-    Check what has been changed in the goal and compare it
-    to old_goal. Based on that, update attributes in old_goal.
-
-    NOTE: the goal name and the goal category will not change so
-    no need to check for those
-    '''
 
     old_steps = models.Steps.query.filter_by(goal_name=goal['goal_name'])
     new_steps = goal['steps']
-    # TODO compare the step names to the ones in the old goal and update accordingly
-    # this might be tough because they may have changed just a few letters in the step name
-    # therefore, using the 'step_num' attribute for the steps in old_steps will be very useful for this
-    # assume that new_steps is in order (step 1 is new_steps[0], step 2 is new_steps[1]...etc.)
-    # make sure that the cascades are implemented properly in models.py so that updating a step
-    # updates it for all proofs, member_steps, member_proofs...etc.
-
-    # also update the proofs for each step if necessary
-
+    updated_steps = models.Steps.query.filter_by(goal_name=goal['goal_name'])
+    
+    for i in range(0,3):
+        for step in old_steps:
+            if step.step_num == i+1:
+                if step.step_name.strip() != new_steps[i]['step_name'].strip():
+                    step.step_name = new_steps[i]['step_name']
+                    db.session.add(step)
+                    for j in range(0,len(new_steps[i]['proofs'])):
+                        proof = models.Proof(   proof_name = new_steps[i]['proofs'][j]['proof_document'],
+                                                step_name = new_steps[i]['step_name'],
+                                                description = new_steps[i]['proofs'][j]['proof_description'],
+                                                proof_num = j+1
+                                                )
+                        db.session.add(proof)
+    
+    for i in range(0,3):
+        for step in old_steps:
+            if step.step_num == i+1:
+                if step.step_name.strip() == new_steps[i]['step_name'].strip():
+                    for j in range(0,len(new_steps[i]['proofs'])+0):
+                        for proof in step.proofs:
+                            if proof.proof_name.strip() != new_steps[i]['proofs'][j]['proof_document'].strip() or proof.proof_description.strip() != new_steps[i]['proofs'][j]['proof_description'].strip():
+                                if proof.proof_num == j+1:
+                                    proof.proof_name = new_steps[i]['proofs'][j]['proof_document']
+                                    proof.proof_description = new_steps[i]['proofs'][j]['proof_description']
+                                    db.session.add(proof)
+    
+    # Add functionality: if num of proofs in new_steps > num of proofs in old_steps, add new proofs
+    # BUG: old proofs still exist with no parent step...
+    
     db.session.commit()
 
 '''
