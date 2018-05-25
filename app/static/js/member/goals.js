@@ -35,3 +35,20 @@ function changeGoalOptions(e) {
     html = $(".goal-option").not(".goal-option-hide").first().html();
     $("#goal-name-select").val(html);
 }
+
+function addMemberGoal() {
+    goalName = $("#goal-name-select").val();
+    $.post( "goals/add_goal", {'goal_name':goalName}, function() {
+      console.log( "successfully requested to add goal" );
+      })
+      .done(function(data) {
+        if (data.success == false) {
+            window.alert(data.error);
+        } else {
+            window.location.reload();
+        }
+      })
+      .fail(function(err) {
+        console.log(err);
+      });
+}

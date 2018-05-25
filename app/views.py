@@ -155,6 +155,18 @@ def member_goals_upload_proof():
             print "Error removing old document from S3"
     return redirect(url_for('member_goals'))
 
+'''
+Add a member goal
+'''
+@app.route('/member/goals/add_goal', methods=['POST'])
+def member_goals_add_goal():
+    if not session.get('login'):
+        return redirect('login')
+    goal_name = request.form['goal_name']
+    username = session.get('member')
+    results = addMemberGoal(username, goal_name)
+    return jsonify(results)
+
 
 # ================================================= COORDINATOR ====================================================
 
