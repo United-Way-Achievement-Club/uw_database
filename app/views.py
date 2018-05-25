@@ -15,6 +15,8 @@ from s3_accessor import uploadProfilePicture, uploadGoalDocument, removeGoalDocu
 from utils import *
 from sendgrid_email import newUserEmail
 from datetime import datetime
+import random
+import string
 
 
 '''
@@ -724,10 +726,14 @@ def coordinator_coordinators_add_coordinator():
     last_name = request.form['last_name']
     email = request.form['email']
     super_admin = (True if request.form['super_admin'] == '1' else False)
-    print super_admin
-    print username
-    print first_name
-    print last_name
+    password = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
+    email_success = newUserEmail(username, password, email)
+    if not email_success:
+        print "error sending email to coordinator"
+        return redirect(url_for('coordinator_coordinators'))
+    results = addCoordinator(username, password, email, super_admin, first_name, last_name)
+    if results['success'] != True:
+        print "Error adding coordinator"
     return redirect(url_for('coordinator_coordinators'))
 
 

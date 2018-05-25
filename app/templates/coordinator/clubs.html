@@ -18,6 +18,10 @@
             {% with own_club=True, club=club, index=loop.index %}
             {% include 'coordinator/clubs/club_details.html' %}
             {% endwith %}
+            {% elif coordinator.super_admin %}
+            {% with super_admin=True, club=club, index=loop.index %}
+            {% include 'coordinator/clubs/club_details.html' %}
+            {% endwith %}
             {% else %}
             {% with own_club=False, club=club, index=loop.index %}
             {% include 'coordinator/clubs/club_details.html' %}

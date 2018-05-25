@@ -32,7 +32,10 @@ def newUserEmail(username, password, email):
         print(response.headers)
         if response.status_code not in [200, 201, 202, 203]:
             print "Error sending email to user " + username
+            return False
     except Exception as e:
         print "Error sending email to user " + username
         print e.message
+        return False
+    return True
 

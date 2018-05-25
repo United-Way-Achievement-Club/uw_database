@@ -4,6 +4,9 @@ function closeCoordinatorModal() {
 }
 
 function saveCoordinator() {
-    $("#new-coordinator").submit();
-    closeCoordinatorModal();
+    var proceed = window.confirm('Proceed with adding coordinator? We will email the new coordinator his/her username with a generated password.');
+    if (proceed) {
+        $("#new-coordinator").submit();
+        closeCoordinatorModal();
+    }
 }
