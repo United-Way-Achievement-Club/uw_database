@@ -1209,6 +1209,31 @@
     border-radius: 50%;
 }
 
+.coordinator-modal-dialog {
+    width: 40%;
+}
+
+.coordinator-modal-content {
+    border-radius: 0;
+    color: var(--uw_lavender);
+}
+
+.coordinator-modal-body {
+    height: 40vh;
+    min-height: 300px;
+    overflow-y: scroll;
+    padding: 25px 50px 25px 50px;
+}
+
+.coordinator-modal-header {
+    background-color: var(--uw_lavender);
+    color: var(--uw_white);
+}
+
+.coordinator-modal-footer {
+    border-top: 1px solid var(--primary);
+}
+
 /*===================================clubs===================================*/
 
 .clubs-wrapper {

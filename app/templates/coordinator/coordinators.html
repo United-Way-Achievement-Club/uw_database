@@ -1,10 +1,15 @@
 {% extends 'coordinator/layout.html' %}
 
+{% block c_extrascript %}
+<script src="{{ url_for('static', filename='js/coordinator/coordinators.js') }}"></script>
+{% endblock %}
+
 {% block c_content %}
 
 {% with coordinators=coordinators %}
 {% include 'coordinator/coordinators/topbar.html' %}
 {% include 'coordinator/coordinators/coordinators_list.html' %}
+{% include 'coordinator/coordinators/add_coordinator.html' %}
 {% endwith %}
 
 
