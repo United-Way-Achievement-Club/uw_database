@@ -11,9 +11,10 @@ Handle requests to the server by returning proper data or template
 from app import app
 from db_accessor import *
 from flask import render_template, redirect, session, request, jsonify, url_for
-from s3_accessor import uploadProfilePicture
+from s3_accessor import uploadProfilePicture, uploadGoalDocument, removeGoalDocument
 from utils import *
 from sendgrid_email import newUserEmail
+from datetime import datetime
 
 
 '''
@@ -125,7 +126,34 @@ def member_goals():
     if not session.get('login'):
         return redirect('login')
     username = session.get('member')
-    return render_template('member/goals.html', member=getMember(username), goals=getTempGoals())
+    return render_template('member/goals.html', member=getMember(username), goals=getMemberGoals(username), categories=getCategories())
+
+'''
+Upload a member proof
+'''
+@app.route('/member/goals/upload_proof', methods=['POST'])
+def member_goals_upload_proof():
+    if not session.get('login'):
+        return redirect('login')
+    file = request.files['proof_file']
+    proof_name = request.form['proof_name']
+    step_name = request.form['step_name']
+    proof_file = proof_name.split(' ')
+    proof_file_join = '-'.join(proof_file)
+    extension = file.filename.split('.')[1]
+    file_name = session.get('member') + '_' + proof_file_join + '_' + datetime.now().strftime("%Y%m%d%H%M%S") + '.' + extension
+    if not uploadGoalDocument(file_name, file):
+        print "Error uploading file"
+        return redirect(url_for('member_goals'))
+    results = updateMemberProof(session.get('member'), proof_name, file_name, step_name)
+    if results['success'] == False:
+        if not removeGoalDocument(file_name):
+            print "Error removing document from S3"
+        print results['error']
+    if results['old_document'] != None:
+        if not removeGoalDocument(results['old_document']):
+            print "Error removing old document from S3"
+    return redirect(url_for('member_goals'))
 
 
 # ================================================= COORDINATOR ====================================================
@@ -260,7 +288,21 @@ Coordinator approve page
 def coordinator_approve():
     if not session.get('login'):
         return redirect('login')
-    return render_template('coordinator/approve.html', coordinator = getCoordinator(session.get('coordinator')))
+    return render_template('coordinator/approve.html', coordinator = getCoordinator(session.get('coordinator')), proofs=getPendingProofs(session.get('coordinator')))
+
+@app.route('/coordinator/approve/set_document_status', methods=['POST'])
+def coordinator_approve_set_document_status():
+    if not session.get('login'):
+        return redirect('login')
+
+    username = request.form['username']
+    proof_name = request.form['proof_name']
+    step_name = request.form['step_name']
+    reason = request.form['reason']
+    status = request.form['status']
+    coordinator_name = session.get('coordinator')
+    results = setProofStatus(username, coordinator_name, proof_name, step_name, status, reason)
+    return jsonify(results)
 
 # -- members --
 

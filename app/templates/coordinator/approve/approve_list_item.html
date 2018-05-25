@@ -1,24 +1,26 @@
 <div class="approve-list-item">
     <div class="approve-list-item-wrapper col-sm-1">
-        <img class="approve-list-item-content approve-list-item-image" src="{{ url_for('static', filename='images/profile_pictures/srutig.jpg') }}">
+        <img class="approve-list-item-content approve-list-item-image" src="{{ proof.member_step.member_goal.member.profile_picture_link }}">
     </div>
     <div class="approve-list-item-wrapper col-sm-2">
-        <h5 class="approve-list-item-content">Sruti Guhathakurta</h5>
+        <h5 class="approve-list-item-content">{{ proof.member_step.member_goal.member.user.first_name + ' ' + proof.member_step.member_goal.member.user.last_name }}</h5>
     </div>
     <div class="approve-list-item-wrapper col-sm-3">
-        <h5 class="approve-list-item-content">Focus on my Child's Future</h5>
+        <h5 class="approve-list-item-content">{{ proof.member_step.goal_name }}</h5>
     </div>
     <div class="approve-list-item-wrapper col-sm-2">
-        <h5 class="approve-list-item-content">Copy of a reading log</h5>
+        <h5 class="approve-list-item-content">{{ proof.proof_name }}</h5>
     </div>
     <div class="approve-list-item-wrapper col-sm-2">
-        <h5 class="approve-list-item-content warning-text">Pending</h5>
+        <h5 class="approve-list-item-content {{ proof.status }}-text">{{ proof.status }} {% if proof.status == 'approved' %} {{ proof.date_completed.strftime("%m/%d/%y") }} {% endif %}</h5>
     </div>
     <div class="approve-list-item-wrapper col-sm-2">
         <h4 class="approve-list-item-content">
-            <span onclick="download()" class="glyphicon glyphicon-download approve-item-ic"></span>
-            <span onclick="approve()" class="glyphicon glyphicon-ok-circle success-text approve-item-ic"></span>
-            <span onclick="deny()" class="glyphicon glyphicon-remove-circle error-text approve-item-ic"></span>
+            <span onclick="download('{{ proof.proof_document_link }}')" class="glyphicon glyphicon-download approve-item-ic"></span>
+            {% if proof.status != 'approved' %}
+            <span onclick='set_document_status({{ proof.username | tojson }}, {{ proof.proof_name | tojson }}, {{ proof.step_name | tojson }}, "approved")' class="glyphicon glyphicon-ok-circle success-text approve-item-ic"></span>
+            <span onclick='set_document_status({{ proof.username | tojson }}, {{ proof.proof_name | tojson }}, {{ proof.step_name | tojson }}, "denied")' class="glyphicon glyphicon-remove-circle error-text approve-item-ic"></span>
+            {% endif %}
         </h4>
     </div>
 </div>

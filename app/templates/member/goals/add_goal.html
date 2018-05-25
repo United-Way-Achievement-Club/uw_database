@@ -7,9 +7,9 @@
                     <h6 class="uw_lighter"><strong>Step 1:</strong> Select a Category</h6>
                     <div class="form-group row">
                         <select name="goal-category" class="input input-sm uw-input col-sm-8 col-sm-offset-2">
-                            <option value="education">Education</option>
-                            <option value="income">Income</option>
-                            <option value="health">Health</option>
+                            {% for category in categories %}
+                            <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                 </div>

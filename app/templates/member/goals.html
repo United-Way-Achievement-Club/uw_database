@@ -7,7 +7,9 @@
 {% block m_content %}
 
 {% with goals=goals %}
+    {% with categories=categories %}
     {% include 'member/goals/add_goal.html' %}
+    {% endwith %}
     {% include 'member/goals/goals_stats.html' %}
     {% include 'member/goals/goals_list.html' %}
     {% include 'member/goals/goal_step/upload_proof.html' %}

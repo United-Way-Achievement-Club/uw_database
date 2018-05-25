@@ -80,7 +80,32 @@ def uploadGoalDocument(file_name, file):
         proof_name = comps[1]
         s3.Bucket(bucket_name).put_object(Key='goal_docs/' + file_name, Body=file)
         print 'successfully uploaded proof ' + proof_name + ' for ' + username
+        return True
     except Exception as e:
         print e.message
+        return False
+
+'''
+Delete a goal document for a proof
+'''
+def removeGoalDocument(file_name):
+    try:
+        s3.Object(bucket_name, 'goal_docs/' + file_name).delete()
+        print 'successfully deleted proof ' + file_name
+        return True
+    except Exception as e:
+        print e.message
+        return False
+
+'''
+Get a signed url for a goal document
+'''
+def getGoalDocument(file_name):
+    try:
+        document_url = s3Client.generate_presigned_url('get_object', Params = {'Bucket': bucket_name, 'Key': 'goal_docs/' + file_name})
+    except Exception as e:
+        print e.message
+        document_url = None
+    return document_url
 
 

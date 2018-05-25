@@ -6,7 +6,9 @@
 
 {% block c_content %}
 
+{% with proofs=proofs %}
 {% include 'coordinator/approve/topbar.html' %}
 {% include 'coordinator/approve/approve_list.html' %}
+{% endwith %}
 
 {% endblock %}

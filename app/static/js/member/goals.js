@@ -7,9 +7,12 @@ function toggleProofs(id) {
     }
 }
 
-function openProofModal(text, documentName) {
+function openProofModal(text, step_name, documentName) {
     $("#proofModal").modal('show');
     $("#upload_proof_name").html(text);
+    $("#proof_file").val(null);
+    $("#proof_name").val(text);
+    $("#step_name").val(step_name);
 }
 
 function closeProofModal() {
@@ -17,5 +20,6 @@ function closeProofModal() {
 }
 
 function saveProof() {
+    $("#upload-proof-form").submit();
     closeProofModal();
 }
