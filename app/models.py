@@ -92,6 +92,16 @@ class Member(db.Model):
     club = db.relationship("Club", back_populates="members", lazy=True)
     member_goals = db.relationship('Member_Goals', backref='member', lazy=True)
 
+    def goals_in_progress(self):
+        goal_count = 0
+        for goal in self.member_goals:
+            if not goal.is_completed():
+                goal_count += 1
+        return goal_count
+
+    def goals_completed(self):
+        return len(self.member_goals) - self.goals_in_progress()
+
 '''
 Member-Sources of Income (1-n)
 '''
@@ -205,7 +215,7 @@ class Member_Goals(db.Model):
 
     def is_completed(self):
         for step in self.member_steps:
-            if step.is_completed():
+            if not step.is_completed():
                 return False
         return True
 

@@ -9,10 +9,10 @@
         <h5 class="members-list-item-content">{{ member[1].club_name }}</h5>
     </div>
     <div class="members-list-item-wrapper col-sm-2">
-        <h5 class="members-list-item-content">10</h5>
+        <h5 class="members-list-item-content">{{ member[1].goals_completed() }}</h5>
     </div>
     <div class="members-list-item-wrapper col-sm-2">
-        <h5 class="members-list-item-content">5</h5>
+        <h5 class="members-list-item-content">{{ member[1].goals_in_progress() }}</h5>
     </div>
     <div class="members-list-item-wrapper col-sm-1">
         <span onclick="openEditModal('{{ member[0].username }}')" class="glyphicon glyphicon-resize-full members-list-item-content member-view"></span>
