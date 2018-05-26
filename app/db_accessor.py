@@ -113,7 +113,7 @@ def getCoordinator(username):
 Return all of the coordinators in the database
 '''
 def getCoordinators():
-    coordinators = models.User.query.filter_by(type='coordinator').all()
+    coordinators = models.User.query.filter_by(type='coordinator').order_by(models.User.first_name.asc()).all()
     for coordinator in coordinators:
         coordinator.profile_picture_link = getProfilePicture(coordinator.profile_picture)
     return coordinators
