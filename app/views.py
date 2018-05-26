@@ -15,6 +15,9 @@ from s3_accessor import uploadProfilePicture, uploadGoalDocument, removeGoalDocu
 from utils import *
 from sendgrid_email import newUserEmail
 from datetime import datetime
+import random
+import string
+import re
 
 
 '''
@@ -138,7 +141,8 @@ def member_goals_upload_proof():
     file = request.files['proof_file']
     proof_name = request.form['proof_name']
     step_name = request.form['step_name']
-    proof_file = proof_name.split(' ')
+    proof_name_sub = re.sub('[^ a-zA-Z0-9]', '', proof_name)
+    proof_file = proof_name_sub.split(' ')
     proof_file_join = '-'.join(proof_file)
     extension = file.filename.split('.')[1]
     file_name = session.get('member') + '_' + proof_file_join + '_' + datetime.now().strftime("%Y%m%d%H%M%S") + '.' + extension
@@ -710,6 +714,42 @@ def coordinator_clear_edit_member():
     session['old_edit_member'] = None
     session['modal_mode'] = 'add'
     return render_template('coordinator/members/add_member.html')
+
+# -- coordinators --
+
+'''
+See the coordinators in the system
+'''
+@app.route('/coordinator/coordinators')
+def coordinator_coordinators():
+    if not session.get('login'):
+        return redirect('login')
+    return render_template('coordinator/coordinators.html',
+                           coordinators=getCoordinators(),
+                           coordinator=getCoordinator(session.get('coordinator')))
+
+'''
+Add a new coordinator
+'''
+@app.route('/coordinator/coordinators/add_coordinator', methods=['POST'])
+def coordinator_coordinators_add_coordinator():
+    if not session.get('login'):
+        return redirect('login')
+    username = request.form['username']
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    email = request.form['email']
+    super_admin = (True if request.form['super_admin'] == '1' else False)
+    password = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
+    email_success = newUserEmail(username, password, email)
+    if not email_success:
+        print "error sending email to coordinator"
+        return redirect(url_for('coordinator_coordinators'))
+    results = addCoordinator(username, password, email, super_admin, first_name, last_name)
+    if results['success'] != True:
+        print "Error adding coordinator"
+    return redirect(url_for('coordinator_coordinators'))
+
 
 # -- clubs --
 

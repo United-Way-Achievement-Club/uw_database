@@ -113,7 +113,7 @@ def getCoordinator(username):
 Return all of the coordinators in the database
 '''
 def getCoordinators():
-    coordinators = models.User.query.filter_by(type='coordinator').all()
+    coordinators = models.User.query.filter_by(type='coordinator').order_by(models.User.first_name.asc()).all()
     for coordinator in coordinators:
         coordinator.profile_picture_link = getProfilePicture(coordinator.profile_picture)
     return coordinators
@@ -128,6 +128,26 @@ def getCoordinatorUsernames():
     for coordinator in coordinators:
         coordinator_names.append(coordinator.username)
     return coordinator_names
+
+'''
+Add a new coordinator
+'''
+def addCoordinator(username, password, email, super_admin, first_name, last_name):
+    vals = models.User.query.get(username)
+    if vals != None:
+        return {'error':'coordinator already exists', 'success':False}
+    coord = models.User(type='coordinator',
+                        username=username,
+                        password=encrypt_password(password),
+                        super_admin=super_admin,
+                        first_name=first_name,
+                        last_name=last_name,
+                        email=email,
+                        profile_picture='default_profile_pic.png')
+    db.session.add(coord)
+    db.session.commit()
+    return {'error':None, 'success':True}
+
 
 '''
 Add a new member to the database

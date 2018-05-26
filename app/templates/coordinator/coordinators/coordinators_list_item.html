@@ -1,0 +1,27 @@
+<div class="coordinators-list-item">
+    <div class="coordinators-list-item-wrapper col-sm-1">
+        <img class="coordinators-list-item-content coordinators-list-item-image" src="{{ coord.profile_picture_link }}">
+    </div>
+    <div class="coordinators-list-item-wrapper col-sm-3">
+        <h5 class="coordinators-list-item-content">
+            {{ coord.first_name + " " + coord.last_name }}
+            {% if coord.super_admin %}
+            <span class="glyphicon glyphicon-king super-admin-ic"></span>
+            {% endif %}
+        </h5>
+    </div>
+    <div class="coordinators-list-item-wrapper col-sm-2">
+        <h5 class="coordinators-list-item-content">{{ coord.username }}</h5>
+    </div>
+    <div class="coordinators-list-item-wrapper col-sm-6">
+        <h5 class="coordinators-list-item-content">
+            {% for club in coord.clubs %}
+            {% if loop.index != 1 %}
+            {{ ', ' + club.club_name }}
+            {% else %}
+            {{ club.club_name }}
+            {% endif %}
+            {% endfor %}
+        </h5>
+    </div>
+</div>
