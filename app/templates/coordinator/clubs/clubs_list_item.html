@@ -8,7 +8,7 @@
         <h6 class="uw_lighter gray-text clubs-list-item-sub-header"><span class="glyphicon glyphicon-map-marker"></span> {{ club.address_street + ' ' + club.address_city + ', ' + club.address_state + ' ' + club.address_zip }}</h6>
         <h6 class="uw_lighter gray-text clubs-list-item-sub-header"><span class="glyphicon glyphicon-user"></span> {{ club.members | length }} Members, {{ club.users | length }} Coordinators</h6>
         <h6 onclick="showClubDetails('club-details-{{ index }}')" class="uw_lighter orange-text clubs-list-item-sub-header clubs-list-item-view-more">
-            <span class="glyphicon glyphicon-eye-open"></span> View More{% if own_club %} / Edit{% endif %}
+            <span class="glyphicon glyphicon-eye-open"></span> View More{% if own_club or super_admin %} / Edit{% endif %}
         </h6>
     </div>
 </div>

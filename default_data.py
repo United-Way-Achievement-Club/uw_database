@@ -26,8 +26,8 @@ birth_date = datetime.strptime('1997-01-24', '%Y-%m-%d')
 password = pwd_context.encrypt('password')
 
 # Coordinators
-coordinator = models.User(username='coordinator', password=password, email='coordinator@achievementclub.com', profile_picture='coordinator.jpg', first_name='Jane', last_name='Doe', type='coordinator', address_street='123 Example Ave SE', address_city='Atlanta', address_state='GA', address_zip='30318', birth_date=birth_date)
-user = models.User(username='user', profile_picture='user.jpg', email='user@achievementclub.com', password=password, first_name='Bob', last_name='Smith', type='coordinator', address_street='123 Example Ave SE', address_city='Atlanta', address_state='GA', address_zip='30318', birth_date=birth_date)
+coordinator = models.User(username='coordinator', password=password, super_admin=False, email='coordinator@achievementclub.com', profile_picture='coordinator.jpg', first_name='Jane', last_name='Doe', type='coordinator', address_street='123 Example Ave SE', address_city='Atlanta', address_state='GA', address_zip='30318', birth_date=birth_date)
+user = models.User(username='user', profile_picture='user.jpg', super_admin=True, email='user@achievementclub.com', password=password, first_name='Bob', last_name='Smith', type='coordinator', address_street='123 Example Ave SE', address_city='Atlanta', address_state='GA', address_zip='30318', birth_date=birth_date)
 
 db.session.add(coordinator)
 db.session.add(user)

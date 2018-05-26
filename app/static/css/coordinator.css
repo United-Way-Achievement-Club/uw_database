@@ -39,6 +39,49 @@
     color: var(--error-red);
 }
 
+.topbar-form {
+    margin-bottom: 0;
+}
+
+.topbar-form-control, .home-btn {
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    margin-top: 5px;
+}
+
+.topbar-form-control {
+    height: 30px;
+}
+
+.topbar-search-input {
+    border-radius: 3px 0 0 3px;
+    border-right: 0;
+}
+
+.topbar-search-btn {
+    border-radius: 0 3px 3px 0;
+}
+
+.topbar-btn-inverse {
+    background-color: var(--uw_orange);
+    color: var(--uw_white);
+    border: 0;
+}
+
+.topbar-header {
+    margin-top: 12px;
+}
+
+.topbar-btn-inverse:hover {
+    background-color: var(--light_orange);
+    color: var(--uw_white);
+}
+
+.topbar-btn:hover, .home-btn:hover {
+    background-color: var(--primary_light);
+    color: var(--uw_lavender);
+}
+
 @keyframes fadeIn {
     from { opacity: 0; }
       to { opacity: 0.8; }
@@ -794,49 +837,6 @@
     float: right;
 }
 
-.topbar-form {
-    margin-bottom: 0;
-}
-
-.topbar-form-control, .home-btn {
-    border: 1px solid var(--primary);
-    color: var(--primary);
-    margin-top: 5px;
-}
-
-.topbar-form-control {
-    height: 30px;
-}
-
-.topbar-search-input {
-    border-radius: 3px 0 0 3px;
-    border-right: 0;
-}
-
-.topbar-search-btn {
-    border-radius: 0 3px 3px 0;
-}
-
-.topbar-btn-inverse {
-    background-color: var(--uw_orange);
-    color: var(--uw_white);
-    border: 0;
-}
-
-.topbar-header {
-    margin-top: 12px;
-}
-
-.topbar-btn-inverse:hover {
-    background-color: var(--light_orange);
-    color: var(--uw_white);
-}
-
-.topbar-btn:hover, .home-btn:hover {
-    background-color: var(--primary_light);
-    color: var(--uw_lavender);
-}
-
 .members-list {
     height: calc(100vh - 135px);
 }
@@ -1142,6 +1142,101 @@
 
 .matrix-options-right {
     border-radius: 0 3px 3px 0;
+}
+
+/*===================================coordinators===================================*/
+
+.coordinators-topbar {
+    padding: 5px;
+    height: 50px;
+}
+
+.coordinators-topbar-left-content {
+    float: left;
+}
+
+.coordinators-topbar-right-content {
+    float: right;
+}
+
+.coordinators-list {
+    height: calc(100vh - 135px);
+}
+
+.coordinators-list-header {
+    height: 30px;
+    background-color: var(--uw_lavender);
+    display: table;
+    padding: 0;
+}
+
+.coordinators-list-header-item {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.coordinators-list-header-item h6 {
+    font-weight: 400;
+}
+
+.coordinators-list-items {
+    overflow-y: scroll;
+    padding: 0;
+}
+
+.coordinators-list-item {
+    border-bottom: 1px solid var(--primary_light);
+    width: 100%;
+    height: 60px;
+}
+
+.coordinators-list-item-content {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.coordinators-list-item-wrapper {
+    height: 100%;
+    display: table;
+    text-align: center;
+}
+
+.coordinators-list-item-image {
+    height: 48px;
+    width: 48px;
+    margin-top: 6px;
+    border-radius: 50%;
+}
+
+.coordinator-modal-dialog {
+    width: 40%;
+}
+
+.coordinator-modal-content {
+    border-radius: 0;
+    color: var(--uw_lavender);
+}
+
+.coordinator-modal-body {
+    height: 40vh;
+    min-height: 300px;
+    overflow-y: scroll;
+    padding: 25px 50px 25px 50px;
+}
+
+.coordinator-modal-header {
+    background-color: var(--uw_lavender);
+    color: var(--uw_white);
+}
+
+.coordinator-modal-footer {
+    border-top: 1px solid var(--primary);
+}
+
+.super-admin-ic {
+    color: var(--uw_orange);
+    margin-left: 5px;
 }
 
 /*===================================clubs===================================*/

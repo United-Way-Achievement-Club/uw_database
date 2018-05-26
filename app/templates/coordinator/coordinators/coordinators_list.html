@@ -1,0 +1,25 @@
+<div class="dash-item col-sm-12">
+    <div class="dash-item-wrapper coordinators-list">
+        <div class="col-sm-12 coordinators-list-header">
+            <div class="col-sm-1 coordinators-list-header-item">
+                <h6 class="white-text">Image</h6>
+            </div>
+            <div class="col-sm-3 coordinators-list-header-item">
+                <h6 class="white-text">Coordinator Name</h6>
+            </div>
+            <div class="col-sm-2 coordinators-list-header-item">
+                <h6 class="white-text">Username</h6>
+            </div>
+            <div class="col-sm-6 coordinators-list-header-item">
+                <h6 class="white-text">Clubs</h6>
+            </div>
+        </div>
+        <div class="coordinators-list-items col-sm-12">
+            {% for coord in coordinators %}
+            {% with coord=coord %}
+            {% include 'coordinator/coordinators/coordinators_list_item.html' %}
+            {% endwith %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
