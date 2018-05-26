@@ -17,6 +17,7 @@ from sendgrid_email import newUserEmail
 from datetime import datetime
 import random
 import string
+import re
 
 
 '''
@@ -140,7 +141,8 @@ def member_goals_upload_proof():
     file = request.files['proof_file']
     proof_name = request.form['proof_name']
     step_name = request.form['step_name']
-    proof_file = proof_name.split(' ')
+    proof_name_sub = re.sub('[^ a-zA-Z0-9]', '', proof_name)
+    proof_file = proof_name_sub.split(' ')
     proof_file_join = '-'.join(proof_file)
     extension = file.filename.split('.')[1]
     file_name = session.get('member') + '_' + proof_file_join + '_' + datetime.now().strftime("%Y%m%d%H%M%S") + '.' + extension
@@ -156,6 +158,18 @@ def member_goals_upload_proof():
         if not removeGoalDocument(results['old_document']):
             print "Error removing old document from S3"
     return redirect(url_for('member_goals'))
+
+'''
+Add a member goal
+'''
+@app.route('/member/goals/add_goal', methods=['POST'])
+def member_goals_add_goal():
+    if not session.get('login'):
+        return redirect('login')
+    goal_name = request.form['goal_name']
+    username = session.get('member')
+    results = addMemberGoal(username, goal_name)
+    return jsonify(results)
 
 
 # ================================================= COORDINATOR ====================================================

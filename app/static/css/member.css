@@ -334,6 +334,10 @@
     margin-bottom: 20px;
 }
 
+.goal-option-hide {
+    display: none;
+}
+
 .goals-stats {
     height: 200px;
     display: table;
@@ -383,8 +387,8 @@
 }
 
 .goal-header-ic {
-    margin-right: 3px;
-    transform: translateY(-1px);
+    margin-right: 5px;
+    transform: translateY(1px);
 }
 
 .goal-heading {

@@ -10,7 +10,7 @@ gen
 
 # Database files
 # app/db_repository
-# app/app.db
+app/app.db
 
 # pyc files
 *.pyc

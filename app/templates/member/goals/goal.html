@@ -3,7 +3,23 @@
         <div class="goal-heading-content">
             <a data-toggle="collapse" href="#goal{{ index }}">
                 <h4 class="panel-title goal-title">
-                    <span class="glyphicon glyphicon-apple goal-header-ic"></span>
+                    <span
+                            class="glyphicon
+                            {% if goal.goal.goal_category == 'Education' %}
+                            glyphicon-education
+                            {% elif goal.goal.goal_category == 'Health' %}
+                            glyphicon-plus-sign
+                            {% elif goal.goal.goal_category == 'Income' %}
+                            glyphicon-usd
+                            {% elif goal.goal.goal_category == 'Community' %}
+                            glyphicon-tree-conifer
+                            {% elif goal.goal.goal_category == 'Civic' %}
+                            glyphicon-flag
+                            {% endif %}
+                             goal-header-ic"
+                    >
+
+                    </span>
                     {{ goal.goal_name }}
                 </h4>
             </a>
@@ -14,7 +30,7 @@
             </div>
         </div>
     </div>
-    <div id="goal{{ index }}" class="panel-collapse collapse {% if index == 1 %} in {% endif %}">
+    <div id="goal{{ index }}" class="panel-collapse collapse">
         <div class="panel-body goal-body">
             <div class="goal-steps-list">
                 {% for step in goal.member_steps %}
