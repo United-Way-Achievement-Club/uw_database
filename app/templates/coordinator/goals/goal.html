@@ -4,7 +4,19 @@
                 <a class="goal-heading-wrapper" data-toggle="collapse" href="#goal{{index}}">
                     <div class="col-sm-1 goal-title-wrapper">
                         <h4 class="goal-title goal-title-ic text-center">
-                            <span class="glyphicon glyphicon-apple goal-heading-ic"></span>
+                            <span class="glyphicon
+                             {% if goal.goal_category == 'Education' %}
+                            glyphicon-education
+                            {% elif goal.goal_category == 'Health' %}
+                            glyphicon-plus
+                            {% elif goal.goal_category == 'Income' %}
+                            glyphicon-usd
+                            {% elif goal.goal_category == 'Community' %}
+                            glyphicon-tree-conifer
+                            {% elif goal.goal_category == 'Civic' %}
+                            glyphicon-flag
+                            {% endif %}
+                              goal-heading-ic"></span>
                         </h4>
                     </div>
                     <div class="col-sm-3 goal-title-wrapper">
@@ -20,11 +32,17 @@
                     <div class="col-sm-3 goal-title-wrapper">
                         <div class="goal-title">
                             <div class="goal-member-img-wrapper">
-                                <img src="{{ url_for('static', filename='images/profile_pictures/srutig.jpg') }}">
-                                <img src="{{ url_for('static', filename='images/profile_pictures/hpotter.jpg') }}">
-                                <img src="{{ url_for('static', filename='images/profile_pictures/default_profile_pic.png') }}">
-                                <img src="{{ url_for('static', filename='images/profile_pictures/bsmith.jpg') }}">
-                                <h6 class="more-images goals-body-header">+ 3 more</h6>
+                                {% for member_goal in goal.member_goals %}
+
+                                {% if loop.index < 4 %}
+                                <img src="{{ member_goal.member.profile_picture_link }}">
+                                {% endif %}
+
+                                {% endfor %}
+                                {% if goal.member_goals|length > 4 %}
+                                <h6 class="more-images goals-body-header">+ {{ goal.member_goals|length - 4}} more</h6>
+                                {% endif %}
+
                             </div>
                         </div>
                     </div>
@@ -37,7 +55,7 @@
                 </a>
         </div>
     </div>
-    <div id="goal{{index}}" class="panel-collapse collapse {% if index == 1 %} in {% endif %}">
+    <div id="goal{{index}}" class="panel-collapse collapse">
         <div class="panel-body goal-body">
             <div class="goal-steps-nav col-sm-3">
                 <div class="goal-steps-title">
@@ -65,8 +83,11 @@
                         <div class="col-sm-4">
                             <h6 class="goals-body-header">Members working on this step</h6>
                             <div class="goals-steps-content-img-wrapper">
-                                <img src="{{ url_for('static', filename='images/profile_pictures/default_profile_pic.png') }}">
-                                <img src="{{ url_for('static', filename='images/profile_pictures/bsmith.jpg') }}">
+                                {% for member_step in step.member_steps %}
+                                    {% if member_step.is_in_progress() %}
+                                        <img src="{{ member_step.member_goal.member.profile_picture_link }}">
+                                    {% endif %}
+                                {% endfor %}
                             </div>
                         </div>
                     </div>

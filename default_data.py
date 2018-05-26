@@ -26,8 +26,8 @@ birth_date = datetime.strptime('1997-01-24', '%Y-%m-%d')
 password = pwd_context.encrypt('password')
 
 # Coordinators
-coordinator = models.User(username='coordinator', password=password, email='coordinator@achievementclub.com', profile_picture='coordinator.jpg', first_name='Jane', last_name='Doe', type='coordinator', address_street='123 Example Ave SE', address_city='Atlanta', address_state='GA', address_zip='30318', birth_date=birth_date)
-user = models.User(username='user', profile_picture='user.jpg', email='user@achievementclub.com', password=password, first_name='Bob', last_name='Smith', type='coordinator', address_street='123 Example Ave SE', address_city='Atlanta', address_state='GA', address_zip='30318', birth_date=birth_date)
+coordinator = models.User(username='coordinator', password=password, super_admin=False, email='coordinator@achievementclub.com', profile_picture='coordinator.jpg', first_name='Jane', last_name='Doe', type='coordinator', address_street='123 Example Ave SE', address_city='Atlanta', address_state='GA', address_zip='30318', birth_date=birth_date)
+user = models.User(username='user', profile_picture='user.jpg', super_admin=True, email='user@achievementclub.com', password=password, first_name='Bob', last_name='Smith', type='coordinator', address_street='123 Example Ave SE', address_city='Atlanta', address_state='GA', address_zip='30318', birth_date=birth_date)
 
 db.session.add(coordinator)
 db.session.add(user)
@@ -72,8 +72,8 @@ db.session.add(models.User_Phone(username='hpotter', phone='2223334444'))
 
 db.session.add(models.User(username='ajolie', password=password, first_name='Angelina', last_name='Jolie', email='angelina.jolie@gmail.com', profile_picture='ajolie.jpg', type='member', gender='Female', race='white', address_street='123 Jolie Rd', address_city='Los Angeles', address_state='CA', address_zip='90210', birth_date=birth_date))
 db.session.add(models.Member(username='ajolie', join_date=date, club_name='United Way of Greater Atlanta', commitment_pledge=date, photo_release=date, education='some-college', marital_status='married', income='200000'))
-db.session.add(models.User_Phone(username='hpotter', phone='0002112222'))
-db.session.add(models.User_Phone(username='hpotter', phone='2223934444'))
+db.session.add(models.User_Phone(username='ajolie', phone='0002112222'))
+db.session.add(models.User_Phone(username='ajolie', phone='2223934444'))
 
 
 # Categories
@@ -106,8 +106,8 @@ db.session.add(models.Proof(proof_name="Letter from the interviewee", step_name=
 # particular user's goal data
 
 goal = models.Goals.query.get("Focus On My Child's Future")
-db.session.add(models.Member_Goals(username='hpotter', goal_name="Focus On My Child's Future", significance='', goal_status='in_progress', date_completed=None, steps_completed=1))
-db.session.add(models.Member_Goals(username='srutig', goal_name="Focus On My Child's Future", significance='', goal_status='in_progress', date_completed=None, steps_completed=2))
+db.session.add(models.Member_Goals(username='hpotter', goal_name="Focus On My Child's Future", significance='', goal_status='in_progress', date_completed=None))
+db.session.add(models.Member_Goals(username='srutig', goal_name="Focus On My Child's Future", significance='', goal_status='in_progress', date_completed=None))
 
 for step in goal.steps:
     db.session.add(models.Member_Steps(username='hpotter', step_name=step.step_name, goal_name=goal.goal_name, step_status='in_progress',proofs_completed=0))

@@ -10,7 +10,7 @@ Retrieve and add items to the database
 '''
 from app import db, models
 from datetime import datetime
-from s3_accessor import getProfilePicture
+from s3_accessor import getProfilePicture, getGoalDocument
 from sqlalchemy.orm import class_mapper, ColumnProperty
 from passlib.context import CryptContext
 
@@ -113,7 +113,7 @@ def getCoordinator(username):
 Return all of the coordinators in the database
 '''
 def getCoordinators():
-    coordinators = models.User.query.filter_by(type='coordinator').all()
+    coordinators = models.User.query.filter_by(type='coordinator').order_by(models.User.first_name.asc()).all()
     for coordinator in coordinators:
         coordinator.profile_picture_link = getProfilePicture(coordinator.profile_picture)
     return coordinators
@@ -128,6 +128,26 @@ def getCoordinatorUsernames():
     for coordinator in coordinators:
         coordinator_names.append(coordinator.username)
     return coordinator_names
+
+'''
+Add a new coordinator
+'''
+def addCoordinator(username, password, email, super_admin, first_name, last_name):
+    vals = models.User.query.get(username)
+    if vals != None:
+        return {'error':'coordinator already exists', 'success':False}
+    coord = models.User(type='coordinator',
+                        username=username,
+                        password=encrypt_password(password),
+                        super_admin=super_admin,
+                        first_name=first_name,
+                        last_name=last_name,
+                        email=email,
+                        profile_picture='default_profile_pic.png')
+    db.session.add(coord)
+    db.session.commit()
+    return {'error':None, 'success':True}
+
 
 '''
 Add a new member to the database
@@ -626,10 +646,9 @@ Edit the goal in the database
 def editGoal(goal):
 
     old_goal = models.Goals.query.get(goal['goal_name'])
-
-    old_steps = models.Steps.query.filter_by(goal_name=goal['goal_name'])
+    old_steps = old_goal.steps
+    
     new_steps = goal['steps']
-    updated_steps = models.Steps.query.filter_by(goal_name=goal['goal_name'])
     
     for i in range(0,3):
         for step in old_steps:
@@ -680,11 +699,8 @@ Return all of the goals in the database
 def getGoals():
     goals = models.Goals.query.all()
     for goal in goals:
-        steps = models.Steps.query.filter_by(goal_name=goal.goal_name).all()
-        for step in steps:
-            proofs = models.Proof.query.filter_by(step_name=step.step_name).all()
-            step.proofs = proofs
-        goal.steps = steps
+        for member_goal in goal.member_goals:
+            member_goal.member.profile_picture_link = getProfilePicture(member_goal.member.user.profile_picture)
     return goals
 
 '''
@@ -695,11 +711,6 @@ def getGoal(goal_name):
     goal = models.Goals.query.get(goal_name)
     if goal == None:
         return None
-    steps = models.Steps.query.filter_by(goal_name=goal.goal_name).all()
-    for step in steps:
-        proofs = models.Proof.query.filter_by(step_name=step.step_name).all()
-        step.proofs = proofs
-    goal.steps = steps
     return goal
 
 '''
@@ -710,6 +721,87 @@ def getMemberGoals(username):
     if member == None:
         return None
     return member.member_goals
+
+'''
+Update a proof when a member uploads a document
+'''
+def updateMemberProof(username, proof_name, proof_file, step_name):
+    proof = models.Member_Proofs.query.filter_by(username=username, proof_name=proof_name, step_name=step_name).first()
+    delete_document = None
+    if proof == None:
+        return {'success': False, 'error': 'Proof not found.'}
+    if (proof.status == 'pending' or proof.status == 'denied') and proof.proof_document != None:
+        delete_document = proof.proof_document
+    proof.proof_document = proof_file
+    proof.status = 'pending'
+    db.session.commit()
+    return {'success':True, 'error':None, 'old_document':delete_document}
+
+'''
+Get all pending proofs for members
+'''
+def getPendingProofs(coordinator):
+    coordinator = models.User.query.get(coordinator)
+    proofs = models.Member_Proofs.query.filter(models.Member_Proofs.status.in_(['pending', 'approved', 'denied'])).order_by(models.Member_Proofs.status.desc()).all()
+    for proof in proofs:
+        proof.member_step.member_goal.member.profile_picture_link = getProfilePicture(proof.member_step.member_goal.member.user.profile_picture)
+        proof.proof_document_link = getGoalDocument(proof.proof_document)
+    return proofs
+
+'''
+Get the number of documents awaiting approval for the coordinator homepage
+'''
+def getNumPendingProofs():
+    return len(models.Member_Proofs.query.filter_by(status='pending').all())
+
+'''
+Approve or deny a proof
+'''
+def setProofStatus(username, coordinator_name, proof_name, step_name, status, reason):
+    proof = models.Member_Proofs.query.filter_by(username=username, proof_name=proof_name, step_name=step_name).first()
+    if proof == None:
+        return {'success':False, 'error':'Proof not found'}
+    try:
+        proof.status = status
+        proof.reason = reason
+        print "here it's not none"
+        if status == 'approved':
+            proof.date_completed = datetime.now()
+            proof.proof_verified_by = coordinator_name
+            proof.member_step.proofs_completed = proof.member_step.num_proofs_completed()
+            proof.member_step.date_completed = proof.member_step.date_completed_step()
+            if proof.member_step.is_completed():
+                proof.member_step.status = 'complete'
+            proof.member_step.member_goal.steps_completed = proof.member_step.member_goal.num_steps_completed()
+            proof.member_step.member_goal.date_completed = proof.member_step.member_goal.date_completed_goal()
+        db.session.commit()
+        return {'success':True, 'error':None}
+    except Exception as e:
+        print e.message
+        return {'success':False, 'error':e.message}
+
+
+
+
+
+'''
+Add a new goal for a member
+'''
+def addMemberGoal(username, goal_name):
+    goal = models.Goals.query.get(goal_name)
+    if goal == None:
+        return {'success':False, 'error':'Could not find goal'}
+    member = models.Member.query.get(username)
+    if member == None:
+        return {'success':False, 'error':'Could not find member'}
+    db.session.add(models.Member_Goals(username=username, goal_name=goal.goal_name, significance='', goal_status='in_progress'))
+
+    for step in goal.steps:
+        db.session.add(models.Member_Steps(username=username, step_name=step.step_name, goal_name=goal.goal_name, step_status='in_progress',proofs_completed=0))
+        for proof in step.proofs:
+            db.session.add(models.Member_Proofs(username=username, proof_name=proof.proof_name, step_name=step.step_name))
+    db.session.commit()
+    return {'success':True, 'error':None}
 
 '''
 Return all of the categories in the database

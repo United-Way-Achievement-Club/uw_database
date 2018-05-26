@@ -2,6 +2,10 @@ $(document).ready(function() {
     var location = window.location.pathname.split("/")[2];
 });
 
+function featureNotImplemented() {
+    window.alert("Sorry! This feature hasn't been implemented yet");
+}
+
 function editProfile() {
     $("#view_profile").hide();
     $("#edit_profile").show();

@@ -18,7 +18,9 @@
             {% endwith %}
         </div>
 
+        {% with pendingProofs=pendingProofs %}
         {% include 'coordinator/home/notifications.html' %}
+        {% endwith %}
 
     </div>
 
@@ -32,6 +34,9 @@
 
     <div class="col-md-4 homepage-right">
         {% include 'coordinator/home/members.html' %}
+    </div>
+    <div class="col-md-12">
+        <h6 class="purple-text">Since the Achievement Club Portal is still under development, please help us make it better by reporting bugs <a href="https://docs.google.com/document/d/1sDlFzphrP1HVmHJu2vLj2639nYfk_ntWAhK6yX9lCyA/edit?usp=sharing" target="_blank">here</a></h6>
     </div>
 </div>
 

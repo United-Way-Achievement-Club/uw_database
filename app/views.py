@@ -11,9 +11,13 @@ Handle requests to the server by returning proper data or template
 from app import app
 from db_accessor import *
 from flask import render_template, redirect, session, request, jsonify, url_for
-from s3_accessor import uploadProfilePicture
+from s3_accessor import uploadProfilePicture, uploadGoalDocument, removeGoalDocument
 from utils import *
 from sendgrid_email import newUserEmail
+from datetime import datetime
+import random
+import string
+import re
 
 
 '''
@@ -125,7 +129,47 @@ def member_goals():
     if not session.get('login'):
         return redirect('login')
     username = session.get('member')
-    return render_template('member/goals.html', member=getMember(username), goals=getTempGoals())
+    return render_template('member/goals.html', member=getMember(username), goals=getMemberGoals(username), categories=getCategories())
+
+'''
+Upload a member proof
+'''
+@app.route('/member/goals/upload_proof', methods=['POST'])
+def member_goals_upload_proof():
+    if not session.get('login'):
+        return redirect('login')
+    file = request.files['proof_file']
+    proof_name = request.form['proof_name']
+    step_name = request.form['step_name']
+    proof_name_sub = re.sub('[^ a-zA-Z0-9]', '', proof_name)
+    proof_file = proof_name_sub.split(' ')
+    proof_file_join = '-'.join(proof_file)
+    extension = file.filename.split('.')[1]
+    file_name = session.get('member') + '_' + proof_file_join + '_' + datetime.now().strftime("%Y%m%d%H%M%S") + '.' + extension
+    if not uploadGoalDocument(file_name, file):
+        print "Error uploading file"
+        return redirect(url_for('member_goals'))
+    results = updateMemberProof(session.get('member'), proof_name, file_name, step_name)
+    if results['success'] == False:
+        if not removeGoalDocument(file_name):
+            print "Error removing document from S3"
+        print results['error']
+    if results['old_document'] != None:
+        if not removeGoalDocument(results['old_document']):
+            print "Error removing old document from S3"
+    return redirect(url_for('member_goals'))
+
+'''
+Add a member goal
+'''
+@app.route('/member/goals/add_goal', methods=['POST'])
+def member_goals_add_goal():
+    if not session.get('login'):
+        return redirect('login')
+    goal_name = request.form['goal_name']
+    username = session.get('member')
+    results = addMemberGoal(username, goal_name)
+    return jsonify(results)
 
 
 # ================================================= COORDINATOR ====================================================
@@ -150,7 +194,11 @@ def coordinator_home():
     if not session.get('login'):
         return redirect('login')
     phone_numbers = getPhoneNumbers(session.get('coordinator'))
-    return render_template('coordinator/home.html', coordinator=getCoordinator(session.get('coordinator')), phone_numbers=phone_numbers, states=getStates())
+    return render_template('coordinator/home.html',
+                           coordinator=getCoordinator(session.get('coordinator')),
+                           phone_numbers=phone_numbers,
+                           states=getStates(),
+                           pendingProofs=getNumPendingProofs())
 
 '''
 Edit the coordinator's profile information
@@ -260,7 +308,21 @@ Coordinator approve page
 def coordinator_approve():
     if not session.get('login'):
         return redirect('login')
-    return render_template('coordinator/approve.html', coordinator = getCoordinator(session.get('coordinator')))
+    return render_template('coordinator/approve.html', coordinator = getCoordinator(session.get('coordinator')), proofs=getPendingProofs(session.get('coordinator')))
+
+@app.route('/coordinator/approve/set_document_status', methods=['POST'])
+def coordinator_approve_set_document_status():
+    if not session.get('login'):
+        return redirect('login')
+
+    username = request.form['username']
+    proof_name = request.form['proof_name']
+    step_name = request.form['step_name']
+    reason = request.form['reason']
+    status = request.form['status']
+    coordinator_name = session.get('coordinator')
+    results = setProofStatus(username, coordinator_name, proof_name, step_name, status, reason)
+    return jsonify(results)
 
 # -- members --
 
@@ -652,6 +714,42 @@ def coordinator_clear_edit_member():
     session['old_edit_member'] = None
     session['modal_mode'] = 'add'
     return render_template('coordinator/members/add_member.html')
+
+# -- coordinators --
+
+'''
+See the coordinators in the system
+'''
+@app.route('/coordinator/coordinators')
+def coordinator_coordinators():
+    if not session.get('login'):
+        return redirect('login')
+    return render_template('coordinator/coordinators.html',
+                           coordinators=getCoordinators(),
+                           coordinator=getCoordinator(session.get('coordinator')))
+
+'''
+Add a new coordinator
+'''
+@app.route('/coordinator/coordinators/add_coordinator', methods=['POST'])
+def coordinator_coordinators_add_coordinator():
+    if not session.get('login'):
+        return redirect('login')
+    username = request.form['username']
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    email = request.form['email']
+    super_admin = (True if request.form['super_admin'] == '1' else False)
+    password = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
+    email_success = newUserEmail(username, password, email)
+    if not email_success:
+        print "error sending email to coordinator"
+        return redirect(url_for('coordinator_coordinators'))
+    results = addCoordinator(username, password, email, super_admin, first_name, last_name)
+    if results['success'] != True:
+        print "Error adding coordinator"
+    return redirect(url_for('coordinator_coordinators'))
+
 
 # -- clubs --
 

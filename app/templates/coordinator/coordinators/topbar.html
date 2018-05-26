@@ -1,0 +1,21 @@
+<div class="col-sm-12 dash-item">
+    <div class="coordinators-topbar">
+        <div class="col-sm-4 coordinators-topbar-left">
+            <div class="coordinators-topbar-left-content">
+                <h4 class="purple-text topbar-header"><span class="uw_lighter">Showing</span> {{ coordinators | length }} Coordinators</h4>
+            </div>
+        </div>
+        <div class="col-sm-8 coordinators-topbar-right">
+            <div class="coordinators-topbar-right-content">
+                <div class="form-group row topbar-form">
+                    <input placeholder="Search" class="input input-sm topbar-form-control topbar-search-input" style="transform: translateY(3px);"><button onclick="featureNotImplemented()" class="btn btn-sm btn-default topbar-form-control topbar-search-btn topbar-btn"><span class="glyphicon glyphicon-search"></span></button>
+                    <button onclick="featureNotImplemented()" class="btn btn-sm btn-default topbar-form-control topbar-btn">Filter By <span class="glyphicon glyphicon-chevron-down"></span></button>
+                    {% if is_admin %}
+                    <button class="btn btn-sm btn-default topbar-form-control topbar-btn"  onclick="hideAlerts()" data-toggle="modal" data-target="#coordinatorModal" data-backdrop="static">Add Coordinator <span class="glyphicon glyphicon-plus"></span></button>
+                    {% endif %}
+                    <button onclick="featureNotImplemented()" class="btn btn-sm btn-default topbar-form-control topbar-btn-inverse">Sort: Coordinator Name A-Z</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
