@@ -154,28 +154,55 @@ def addMember(member_obj):
                                                 )
                           )
     
+    if 'credit_score' not in demographic_data:
+        credit_score_temp = 0
+    elif 'credit_score' in demographic_data and demographic_data['credit_score'] == '':
+        credit_score_temp = 0
+    elif 'credit_score' in demographic_data and demographic_data['credit_score'] != old_demographic_data['credit_score']:
+        credit_score_temp = int(demographic_data['credit_score'])
+    if 'has_car' not in demographic_data:
+        has_car_temp = ''
+    else:
+        has_car_temp = demographic_data['has_car']
+    if 'has_health_insurance' not in demographic_data:
+        has_health_insurance_temp = ''
+    else:
+        has_health_insurance_temp = demographic_data['has_health_insurance']
+    if 'has_primary_care_doctor' not in demographic_data:
+        has_primary_care_doctor_temp = ''
+    else:
+        has_primary_care_doctor_temp = demographic_data['has_primary_care_doctor']
+    if 'enrolled_in_military' not in demographic_data:
+        enrolled_in_military_temp = ''
+    else:
+        enrolled_in_military_temp = demographic_data['enrolled_in_military']
+    if 'has_served_in_military' not in demographic_data:
+        has_served_in_military_temp = ''
+    else:
+        has_served_in_military_temp = demographic_data['has_served_in_military']
+    
     db.session.add(models.Member( username = general['username'],
-                                                    join_date = datetime.strptime(general['join_date'], "%Y-%m-%d"),
-                                                    club_name = general['club_name'],
-                                                    commitment_pledge = datetime.strptime(general['commitment_pledge'], "%Y-%m-%d"),
-                                                    photo_release = datetime.strptime(general['photo_release'], "%Y-%m-%d"),
-                                                    education = demographic_data['education'],
-                                                    marital_status = demographic_data['marital_status'],
-                                                    income = demographic_data['income'],
-                                                    credit_score = int(demographic_data['credit_score']),
-                                                    employment_status = demographic_data['employment_status'],
-                                                    referral_source = enrollment_form['referral_source'],
-                                                    spouse_first_name = enrollment_form['spouse_first_name'],
-                                                    spouse_last_name = enrollment_form['spouse_last_name'],
-                                                    english_proficiency = demographic_data['english_proficiency'],
-                                                    english_reading_level = demographic_data['english_reading_level'],
-                                                    english_writing_level = demographic_data['english_writing_level'],
-                                                    has_car = demographic_data['has_car'],
-                                                    has_health_insurance = demographic_data['has_health_insurance'],
-                                                    has_primary_care_doctor = demographic_data['has_primary_care_doctor'],
-                                                    enrolled_in_military = demographic_data['enrolled_in_military'],
-                                                    has_served_in_military = demographic_data['has_served_in_military']
-                                                    )
+                                                join_date = datetime.strptime(general['join_date'], "%Y-%m-%d"),
+                                                club_name = general['club_name'],
+                                                commitment_pledge = datetime.strptime(general['commitment_pledge'], "%Y-%m-%d"),
+                                                photo_release = datetime.strptime(general['photo_release'], "%Y-%m-%d"),
+                                                education = demographic_data['education'],
+                                                marital_status = demographic_data['marital_status'],
+                                                income = demographic_data['income'],
+                                                credit_score = int(credit_score_temp),
+                                                employment_status = demographic_data['employment_status'],
+                                                referral_source = enrollment_form['referral_source'],
+                                                spouse_first_name = enrollment_form['spouse_first_name'],
+                                                spouse_last_name = enrollment_form['spouse_last_name'],
+                                                english_proficiency = demographic_data['english_proficiency'],
+                                                english_reading_level = demographic_data['english_reading_level'],
+                                                english_writing_level = demographic_data['english_writing_level'],
+                                                has_car = has_car_temp,
+                                                has_health_insurance = has_health_insurance_temp,
+                                                has_primary_care_doctor = has_primary_care_doctor_temp,
+                                                enrolled_in_military = enrolled_in_military_temp,
+                                                has_served_in_military = has_served_in_military_temp
+                                                )
                           )
     
     for item in demographic_data['income_sources']:
@@ -333,9 +360,9 @@ def editMember(updated_member, old_member):
         user.member[0].marital_status = demographic_data['marital_status']
     if demographic_data['income'] != old_demographic_data['income']:
         user.member[0].income = demographic_data['income']
-    if demographic_data['credit_score'] == '':
+    if 'credit_score' in demographic_data and demographic_data['credit_score'] == '':
         user.member[0].credit_score = 0
-    elif demographic_data['credit_score'] != old_demographic_data['credit_score']:
+    elif 'credit_score' in demographic_data and demographic_data['credit_score'] != old_demographic_data['credit_score']:
         user.member[0].credit_score = int(demographic_data['credit_score'])
     if demographic_data['employment_status'] != old_demographic_data['employment_status']:
         user.member[0].employment_status = demographic_data['employment_status']
@@ -351,7 +378,7 @@ def editMember(updated_member, old_member):
         user.member[0].english_reading_level = demographic_data['english_reading_level']
     if demographic_data['english_writing_level'] != old_demographic_data['english_writing_level']:
         user.member[0].english_writing_level = demographic_data['english_writing_level']
-    if demographic_data['has_car'] != old_demographic_data['has_car']:
+    if 'has_car' in demographic_data and demographic_data['has_car'] != old_demographic_data['has_car']:
         user.member[0].has_car = demographic_data['has_car']
     if 'has_health_insurance' in demographic_data and demographic_data['has_health_insurance'] != old_demographic_data['has_health_insurance']:
         user.member[0].has_health_insurance = demographic_data['has_health_insurance']
