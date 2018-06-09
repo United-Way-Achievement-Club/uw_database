@@ -70,7 +70,7 @@ More details about what features have been completed and what there is yet to do
 ### Making changes to the database schema
 If you make changes to the database schema by modifying **models.py**, you must create a new migration. 
 
-In order to do this, first give executable permissions to the db_migrations.py file
+In order to do this, first give executable permissions to the db_migrate.py file
 
     chmod +x db_migrate.py
 Then, run the file

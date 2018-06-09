@@ -9,6 +9,7 @@ Database schema
 
 '''
 from app import db
+from datetime import datetime
 
 # ============================================== USER ==============================================
 
@@ -26,6 +27,7 @@ General user table, can be either member or coordinator
 class User(db.Model):
     username = db.Column(db.String(64), index=True, primary_key=True)
     type = db.Column(db.String(64))
+    super_admin = db.Column(db.Boolean)
     password = db.Column(db.String(120))
     profile_picture = db.Column(db.String(150))
     first_name = db.Column(db.String(150), nullable=False)
@@ -88,9 +90,17 @@ class Member(db.Model):
     self_efficacy_quizzes = db.relationship('Member_Self_Efficacy_Quiz', backref='member', lazy=True)
     user = db.relationship("User", back_populates="member", lazy=True)
     club = db.relationship("Club", back_populates="members", lazy=True)
-    goal_name = db.relationship('Member_Goals', backref='member', lazy=True)
-    step_name = db.relationship('Member_Steps', backref='member', lazy=True)
-    proof_name = db.relationship('Member_Proofs', backref='member', lazy=True)
+    member_goals = db.relationship('Member_Goals', backref='member', lazy=True)
+
+    def goals_in_progress(self):
+        goal_count = 0
+        for goal in self.member_goals:
+            if not goal.is_completed():
+                goal_count += 1
+        return goal_count
+
+    def goals_completed(self):
+        return len(self.member_goals) - self.goals_in_progress()
 
 '''
 Member-Sources of Income (1-n)
@@ -189,36 +199,107 @@ class Child(db.Model):
 Member-Goals  (1-n)
 '''
 class Member_Goals(db.Model):
+    __tablename__ = 'member_goals'
     username = db.Column(db.String(64), db.ForeignKey('member.username'), primary_key=True)
     goal_name = db.Column(db.String(64), db.ForeignKey('goals.goal_name'), primary_key=True)
     significance = db.Column(db.String(512))
     goal_status = db.Column(db.String(64))
     date_completed = db.Column(db.DateTime)
     steps_completed = db.Column(db.Integer)
+    member_steps = db.relationship("Member_Steps", cascade="all,delete-orphan", backref="member_goal", passive_deletes=True)
+
+    # def __init__(self):
+    #     session = Session.object_session(self)
+    #     for step in self.goal.steps:
+    #         self.member_steps.append(Member_Steps(username=self.username, step_name=step.step_name, step_status='in_progress',proofs_completed=0))
+
+    def is_completed(self):
+        for step in self.member_steps:
+            if not step.is_completed():
+                return False
+        return True
+
+    def num_steps_completed(self):
+        count = 0
+        for step in self.member_steps:
+            if step.is_completed():
+                count += 1
+        return count
+
+    def date_completed_goal(self):
+        date = None
+        for step in self.member_steps:
+            if step.date_completed and (date == None or step.date_completed > date):
+                date = step.date_completed
+        return date
 
 '''
 Member-Step (1-n)
 '''
 class Member_Steps(db.Model):
-    username = db.Column(db.String(64), db.ForeignKey('member.username'), primary_key=True)
+    __tablename__ = 'member_steps'
+    username = db.Column(db.String(64), primary_key=True)
     step_name = db.Column(db.String(64), db.ForeignKey('steps.step_name'), primary_key=True)
+    goal_name = db.Column(db.String(64), primary_key=True)
     date_completed = db.Column(db.DateTime)
-    step_status = db.Column(db.String(64))
-    current_proof = db.Column(db.String(64), db.ForeignKey('proof.proof_name'))
+    step_status = db.Column(db.String(64)) # in_progress, complete
     proofs_completed = db.Column(db.Integer)
-    
+    member_proofs = db.relationship("Member_Proofs", cascade="all,delete-orphan", backref="member_step", passive_deletes=True)
+    __table_args__ = (
+        db.ForeignKeyConstraint(
+            ['goal_name', 'username'],
+            ['member_goals.goal_name', 'member_goals.username'],
+        ),
+    )
+
+    # def __init__(self):
+    #     for proof in self.step.proofs:
+    #         self.member_proofs.append(Member_Proofs(username=self.username, proof_name=proof.proof_name, proof_status='new'))
+
+    def is_completed(self):
+        for proof in self.member_proofs:
+            if proof.status != 'approved':
+                return False
+        return True
+
+    def num_proofs_completed(self):
+        count = 0
+        for proof in self.member_proofs:
+            if proof.status == 'approved':
+                count += 1
+        return count
+
+    def date_completed_step(self):
+        date = None
+        for proof in self.member_proofs:
+            if proof.date_completed and (date == None or proof.date_completed > date):
+                date = proof.date_completed
+        return date
+
+    def is_in_progress(self):
+        if self.is_completed():
+            return False
+        return True
 '''
 Member-Proof (1-n)
 '''
 class Member_Proofs(db.Model):
+    __tablename__='member_proofs'
     proof_name = db.Column(db.String(64), db.ForeignKey('proof.proof_name'), primary_key=True)
-    username = db.Column(db.String(64), db.ForeignKey('member.username'), primary_key=True)
-    proof_verified_by = db.Column(db.String(64))
+    step_name = db.Column(db.String(64), primary_key=True)
+    username = db.Column(db.String(64), primary_key=True)
+    proof_verified_by = db.Column(db.String(64), db.ForeignKey('user.username'))
     proof_document = db.Column(db.String(64))
-    accepted = db.Column(db.String(64))
-    reason = db.Column(db.String(64))
+    status = db.Column(db.String(64), default='new') # new, pending, approved, denied
+    reason = db.Column(db.String(512))
     date_completed = db.Column(db.DateTime)
-    
+    __table_args__ = (
+        db.ForeignKeyConstraint(
+            ['step_name', 'username'],
+            ['member_steps.step_name', 'member_steps.username'],
+        ),
+    )
+
 # ============================================== GOALS ==============================================
 '''
 Goals
@@ -228,7 +309,8 @@ class Goals(db.Model):
     goal_category = db.Column(db.String(64), db.ForeignKey('categories.category_name'))
     description = db.Column(db.String(64))
     num_of_steps = db.Column(db.Integer)
-    steps = db.relationship("Steps", cascade="all,delete", backref="goals", passive_deletes=True)
+    steps = db.relationship("Steps", cascade="all,delete-orphan", backref="goal", passive_deletes=True)
+    member_goals = db.relationship("Member_Goals", cascade="all,delete-orphan", backref="goal", passive_deletes=True)
     
 '''
 Steps
@@ -239,7 +321,8 @@ class Steps(db.Model):
     description = db.Column(db.String(128))
     step_num = db.Column(db.Integer)
     num_of_proofs = db.Column(db.Integer)
-    proofs = db.relationship("Proof", cascade="all,delete", backref="steps", passive_deletes=True)
+    proofs = db.relationship("Proof", cascade="all,delete-orphan", backref="step", passive_deletes=True)
+    member_steps = db.relationship("Member_Steps", cascade="all,delete-orphan", backref="step", passive_deletes=True)
     
 '''
 Proof
@@ -249,12 +332,14 @@ class Proof(db.Model):
     step_name = db.Column(db.String(64), db.ForeignKey('steps.step_name', ondelete='CASCADE'), primary_key=True)
     description = db.Column(db.String(64))
     proof_num = db.Column(db.Integer)
+    member_proofs = db.relationship("Member_Proofs", cascade="all,delete-orphan", backref="proof", passive_deletes=True)
 
 '''
 Categories
 '''
 class Categories(db.Model):
     category_name = db.Column(db.String(64), primary_key=True)
+    goals = db.relationship("Goals", cascade="all,delete-orphan", backref="category", passive_deletes=True)
 
 # ============================================== OTHER ==============================================
 

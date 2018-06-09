@@ -6,26 +6,34 @@
                 <div class="col-md-6 goal-steps">
                     <h6 class="uw_lighter"><strong>Step 1:</strong> Select a Category</h6>
                     <div class="form-group row">
-                        <select name="goal-category" class="input input-sm uw-input col-sm-8 col-sm-offset-2">
-                            <option value="education">Education</option>
-                            <option value="income">Income</option>
-                            <option value="health">Health</option>
+                        <select onchange="changeGoalOptions(this)" name="goal_category" class="input input-sm uw-input col-sm-8 col-sm-offset-2">
+                            {% for category in categories %}
+                            <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <h6 class="uw_lighter"><strong>Step 2:</strong> Select a Goal</h6>
                     <div class="form-group row">
-                        <select name="goal-category" class="input input-sm uw-input col-sm-8 col-sm-offset-2">
-                            <option value="goal_1">Focus on my Child's Future</option>
-                            <option value="goal_2">Get into College (Students)</option>
-                            <option value="goal_3">Write a Five Year Plan (Students)</option>
+                        <select id="goal-name-select" name="goal_name" class="input input-sm uw-input col-sm-8 col-sm-offset-2">
+                            {% for category in categories %}
+                                {% set index = loop.index %}
+                                {% for goal in category.goals %}
+                                    {% if index == 1 %}
+                                    <option class="{{ category.category_name }}-option goal-option" value="{{ goal.goal_name }}">{{ goal.goal_name }}</option>
+                                    {% else %}
+                                    <option class="{{ category.category_name }}-option goal-option goal-option-hide" value="{{ goal.goal_name }}">{{ goal.goal_name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+
                         </select>
                     </div>
                 </div>
                 <div class="col-md-12 add-goal-button">
                     <div class="form-group row">
-                        <button class="btn btn-sm add-goal-btn">Submit</button>
+                        <button onclick="addMemberGoal()" class="btn btn-sm add-goal-btn">Submit</button>
                     </div>
                 </div>
             </form>

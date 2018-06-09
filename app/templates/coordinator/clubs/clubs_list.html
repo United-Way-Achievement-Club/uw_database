@@ -5,6 +5,10 @@
     {% with own_club=True %}
     {% include 'coordinator/clubs/clubs_list_item.html' %}
     {% endwith %}
+    {% elif coordinator.super_admin %}
+    {% with super_admin=True %}
+    {% include 'coordinator/clubs/clubs_list_item.html' %}
+    {% endwith %}
     {% else %}
     {% with own_club=False %}
     {% include 'coordinator/clubs/clubs_list_item.html' %}

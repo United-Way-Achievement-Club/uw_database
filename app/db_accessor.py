@@ -10,9 +10,27 @@ Retrieve and add items to the database
 '''
 from app import db, models
 from datetime import datetime
-from s3_accessor import getProfilePicture
+from s3_accessor import getProfilePicture, getGoalDocument
 from sqlalchemy.orm import class_mapper, ColumnProperty
+from passlib.context import CryptContext
 
+pwd_context = CryptContext(
+    schemes=["pbkdf2_sha256"],
+    default="pbkdf2_sha256",
+    pbkdf2_sha256__default_rounds=30000
+)
+
+'''
+Encrypt a user's password
+'''
+def encrypt_password(password):
+    return pwd_context.encrypt(password)
+
+'''
+Check an encrypted password against the one entered by the user
+'''
+def check_encrypted_password(password, hashed):
+    return pwd_context.verify(password, hashed)
 
 '''
 See if a user with the username and password
@@ -22,7 +40,7 @@ def loginUser(username, password):
     match = models.User.query.get(username)
     if match == None:
         return None
-    if password != match.password:
+    if not check_encrypted_password(password, match.password):
         return None
     return match
 
@@ -95,7 +113,7 @@ def getCoordinator(username):
 Return all of the coordinators in the database
 '''
 def getCoordinators():
-    coordinators = models.User.query.filter_by(type='coordinator').all()
+    coordinators = models.User.query.filter_by(type='coordinator').order_by(models.User.first_name.asc()).all()
     for coordinator in coordinators:
         coordinator.profile_picture_link = getProfilePicture(coordinator.profile_picture)
     return coordinators
@@ -110,6 +128,26 @@ def getCoordinatorUsernames():
     for coordinator in coordinators:
         coordinator_names.append(coordinator.username)
     return coordinator_names
+
+'''
+Add a new coordinator
+'''
+def addCoordinator(username, password, email, super_admin, first_name, last_name):
+    vals = models.User.query.get(username)
+    if vals != None:
+        return {'error':'coordinator already exists', 'success':False}
+    coord = models.User(type='coordinator',
+                        username=username,
+                        password=encrypt_password(password),
+                        super_admin=super_admin,
+                        first_name=first_name,
+                        last_name=last_name,
+                        email=email,
+                        profile_picture='default_profile_pic.png')
+    db.session.add(coord)
+    db.session.commit()
+    return {'error':None, 'success':True}
+
 
 '''
 Add a new member to the database
@@ -138,7 +176,7 @@ def addMember(member_obj):
     
     db.session.add(models.User(  username = general['username'],
                                                 type = 'member',
-                                                password = general['password'],
+                                                password = encrypt_password(general['password']),
                                                 profile_picture = general['profile_picture'],
                                                 first_name = enrollment_form['first_name'],
                                                 last_name = enrollment_form['last_name'],
@@ -182,27 +220,27 @@ def addMember(member_obj):
         has_served_in_military_temp = demographic_data['has_served_in_military']
     
     db.session.add(models.Member( username = general['username'],
-                                                join_date = datetime.strptime(general['join_date'], "%Y-%m-%d"),
-                                                club_name = general['club_name'],
-                                                commitment_pledge = datetime.strptime(general['commitment_pledge'], "%Y-%m-%d"),
-                                                photo_release = datetime.strptime(general['photo_release'], "%Y-%m-%d"),
-                                                education = demographic_data['education'],
-                                                marital_status = demographic_data['marital_status'],
-                                                income = demographic_data['income'],
-                                                credit_score = int(credit_score_temp),
-                                                employment_status = demographic_data['employment_status'],
-                                                referral_source = enrollment_form['referral_source'],
-                                                spouse_first_name = enrollment_form['spouse_first_name'],
-                                                spouse_last_name = enrollment_form['spouse_last_name'],
-                                                english_proficiency = demographic_data['english_proficiency'],
-                                                english_reading_level = demographic_data['english_reading_level'],
-                                                english_writing_level = demographic_data['english_writing_level'],
-                                                has_car = has_car_temp,
-                                                has_health_insurance = has_health_insurance_temp,
-                                                has_primary_care_doctor = has_primary_care_doctor_temp,
-                                                enrolled_in_military = enrolled_in_military_temp,
-                                                has_served_in_military = has_served_in_military_temp
-                                                )
+                                                    join_date = datetime.strptime(general['join_date'], "%Y-%m-%d"),
+                                                    club_name = general['club_name'],
+                                                    commitment_pledge = datetime.strptime(general['commitment_pledge'], "%Y-%m-%d"),
+                                                    photo_release = datetime.strptime(general['photo_release'], "%Y-%m-%d"),
+                                                    education = demographic_data['education'],
+                                                    marital_status = demographic_data['marital_status'],
+                                                    income = demographic_data['income'],
+                                                    credit_score = (int(demographic_data['credit_score']) if ('credit_score' in demographic_data and demographic_data['credit_score'] != '') else None),
+                                                    employment_status = demographic_data['employment_status'],
+                                                    referral_source = enrollment_form['referral_source'],
+                                                    spouse_first_name = enrollment_form['spouse_first_name'],
+                                                    spouse_last_name = enrollment_form['spouse_last_name'],
+                                                    english_proficiency = demographic_data['english_proficiency'],
+                                                    english_reading_level = demographic_data['english_reading_level'],
+                                                    english_writing_level = demographic_data['english_writing_level'],
+                                                    has_car = (demographic_data['has_car'] if 'has_car' in demographic_data else None),
+                                                    has_health_insurance = (demographic_data['has_health_insurance'] if 'has_health_insurance' in demographic_data else None),
+                                                    has_primary_care_doctor = (demographic_data['has_primary_care_doctor'] if 'has_primary_care_doctor' in demographic_data else None),
+                                                    enrolled_in_military = (demographic_data['enrolled_in_military'] if 'enrolled_in_military' in demographic_data else None),
+                                                    has_served_in_military = (demographic_data['has_served_in_military'] if 'has_served_in_military' in demographic_data else None)
+                                                    )
                           )
     
     for item in demographic_data['income_sources']:
@@ -298,12 +336,6 @@ Compare the updated member to the old member and
 update necessary fields in the database
 '''
 def editMember(updated_member, old_member):
-    # TODO: implement edit member function
-    # compare each field in the updated member and old member
-    # only make database queries when there is a difference
-    # in one of the fields.
-    # NOTE: the username will be the same in updated_member and old_member
-    # because they shouldn't be able to change their username.
     general = updated_member['general']
     old_general = old_member['general']
     
@@ -322,8 +354,8 @@ def editMember(updated_member, old_member):
     user=models.User.query.filter_by(username=old_general['username']).first()
     member=models.User.query.filter_by(username=old_general['username']).first()
     
-    if general['password'] != old_general['password']:
-        user.password=general['password']
+    # if general['password'] != old_general['password']:
+    #     user.password=general['password']
     if enrollment_form['first_name'] != old_enrollment_form['first_name']:
         user.first_name = enrollment_form['first_name']
     if enrollment_form['last_name'] != old_enrollment_form['last_name']:
@@ -345,7 +377,9 @@ def editMember(updated_member, old_member):
         user.address_zip = enrollment_form['address_zip']
     if enrollment_form['birth_date'] != old_enrollment_form['birth_date']:
         user.birth_date = datetime.strptime(enrollment_form['birth_date'], "%Y-%m-%d")
-        
+
+    if general['profile_picture'] != user.profile_picture:
+        user.profile_picture = general['profile_picture']
     if general['join_date'] != old_general['join_date']:
         user.member[0].join_date = datetime.strptime(general['join_date'], "%Y-%m-%d")
     if general['club_name'] != old_general['club_name']:
@@ -639,34 +673,40 @@ Edit the goal in the database
 '''
 def editGoal(goal):
 
-    print goal
-
     old_goal = models.Goals.query.get(goal['goal_name'])
-
-    '''
-    The 'goal' parameter is in the same format as the one
-    in the addGoal function.
-
-    The old_goal variable is the db model for the goal before editing
-
-    Check what has been changed in the goal and compare it
-    to old_goal. Based on that, update attributes in old_goal.
-
-    NOTE: the goal name and the goal category will not change so
-    no need to check for those
-    '''
-
-    old_steps = models.Steps.query.filter_by(goal_name=goal['goal_name'])
+    old_steps = old_goal.steps
+    
     new_steps = goal['steps']
-    # TODO compare the step names to the ones in the old goal and update accordingly
-    # this might be tough because they may have changed just a few letters in the step name
-    # therefore, using the 'step_num' attribute for the steps in old_steps will be very useful for this
-    # assume that new_steps is in order (step 1 is new_steps[0], step 2 is new_steps[1]...etc.)
-    # make sure that the cascades are implemented properly in models.py so that updating a step
-    # updates it for all proofs, member_steps, member_proofs...etc.
-
-    # also update the proofs for each step if necessary
-
+    
+    for i in range(0,3):
+        for step in old_steps:
+            if step.step_num == i+1:
+                if step.step_name.strip() != new_steps[i]['step_name'].strip():
+                    step.step_name = new_steps[i]['step_name']
+                    db.session.add(step)
+                    for j in range(0,len(new_steps[i]['proofs'])):
+                        proof = models.Proof(   proof_name = new_steps[i]['proofs'][j]['proof_document'],
+                                                step_name = new_steps[i]['step_name'],
+                                                description = new_steps[i]['proofs'][j]['proof_description'],
+                                                proof_num = j+1
+                                                )
+                        db.session.add(proof)
+    
+    for i in range(0,3):
+        for step in old_steps:
+            if step.step_num == i+1:
+                if step.step_name.strip() == new_steps[i]['step_name'].strip():
+                    for j in range(0,len(new_steps[i]['proofs'])+0):
+                        for proof in step.proofs:
+                            if proof.proof_name.strip() != new_steps[i]['proofs'][j]['proof_document'].strip() or proof.proof_description.strip() != new_steps[i]['proofs'][j]['proof_description'].strip():
+                                if proof.proof_num == j+1:
+                                    proof.proof_name = new_steps[i]['proofs'][j]['proof_document']
+                                    proof.proof_description = new_steps[i]['proofs'][j]['proof_description']
+                                    db.session.add(proof)
+    
+    # Add functionality: if num of proofs in new_steps > num of proofs in old_steps, add new proofs
+    # BUG: old proofs still exist with no parent step...
+    
     db.session.commit()
 
 '''
@@ -687,11 +727,8 @@ Return all of the goals in the database
 def getGoals():
     goals = models.Goals.query.all()
     for goal in goals:
-        steps = models.Steps.query.filter_by(goal_name=goal.goal_name).all()
-        for step in steps:
-            proofs = models.Proof.query.filter_by(step_name=step.step_name).all()
-            step.proofs = proofs
-        goal.steps = steps
+        for member_goal in goal.member_goals:
+            member_goal.member.profile_picture_link = getProfilePicture(member_goal.member.user.profile_picture)
     return goals
 
 '''
@@ -702,12 +739,97 @@ def getGoal(goal_name):
     goal = models.Goals.query.get(goal_name)
     if goal == None:
         return None
-    steps = models.Steps.query.filter_by(goal_name=goal.goal_name).all()
-    for step in steps:
-        proofs = models.Proof.query.filter_by(step_name=step.step_name).all()
-        step.proofs = proofs
-    goal.steps = steps
     return goal
+
+'''
+Get all goals for a specific member
+'''
+def getMemberGoals(username):
+    member = models.Member.query.get(username)
+    if member == None:
+        return None
+    return member.member_goals
+
+'''
+Update a proof when a member uploads a document
+'''
+def updateMemberProof(username, proof_name, proof_file, step_name):
+    proof = models.Member_Proofs.query.filter_by(username=username, proof_name=proof_name, step_name=step_name).first()
+    delete_document = None
+    if proof == None:
+        return {'success': False, 'error': 'Proof not found.'}
+    if (proof.status == 'pending' or proof.status == 'denied') and proof.proof_document != None:
+        delete_document = proof.proof_document
+    proof.proof_document = proof_file
+    proof.status = 'pending'
+    db.session.commit()
+    return {'success':True, 'error':None, 'old_document':delete_document}
+
+'''
+Get all pending proofs for members
+'''
+def getPendingProofs(coordinator):
+    coordinator = models.User.query.get(coordinator)
+    proofs = models.Member_Proofs.query.filter(models.Member_Proofs.status.in_(['pending', 'approved', 'denied'])).order_by(models.Member_Proofs.status.desc()).all()
+    for proof in proofs:
+        proof.member_step.member_goal.member.profile_picture_link = getProfilePicture(proof.member_step.member_goal.member.user.profile_picture)
+        proof.proof_document_link = getGoalDocument(proof.proof_document)
+    return proofs
+
+'''
+Get the number of documents awaiting approval for the coordinator homepage
+'''
+def getNumPendingProofs():
+    return len(models.Member_Proofs.query.filter_by(status='pending').all())
+
+'''
+Approve or deny a proof
+'''
+def setProofStatus(username, coordinator_name, proof_name, step_name, status, reason):
+    proof = models.Member_Proofs.query.filter_by(username=username, proof_name=proof_name, step_name=step_name).first()
+    if proof == None:
+        return {'success':False, 'error':'Proof not found'}
+    try:
+        proof.status = status
+        proof.reason = reason
+        print "here it's not none"
+        if status == 'approved':
+            proof.date_completed = datetime.now()
+            proof.proof_verified_by = coordinator_name
+            proof.member_step.proofs_completed = proof.member_step.num_proofs_completed()
+            proof.member_step.date_completed = proof.member_step.date_completed_step()
+            if proof.member_step.is_completed():
+                proof.member_step.status = 'complete'
+            proof.member_step.member_goal.steps_completed = proof.member_step.member_goal.num_steps_completed()
+            proof.member_step.member_goal.date_completed = proof.member_step.member_goal.date_completed_goal()
+        db.session.commit()
+        return {'success':True, 'error':None}
+    except Exception as e:
+        print e.message
+        return {'success':False, 'error':e.message}
+
+
+
+
+
+'''
+Add a new goal for a member
+'''
+def addMemberGoal(username, goal_name):
+    goal = models.Goals.query.get(goal_name)
+    if goal == None:
+        return {'success':False, 'error':'Could not find goal'}
+    member = models.Member.query.get(username)
+    if member == None:
+        return {'success':False, 'error':'Could not find member'}
+    db.session.add(models.Member_Goals(username=username, goal_name=goal.goal_name, significance='', goal_status='in_progress'))
+
+    for step in goal.steps:
+        db.session.add(models.Member_Steps(username=username, step_name=step.step_name, goal_name=goal.goal_name, step_status='in_progress',proofs_completed=0))
+        for proof in step.proofs:
+            db.session.add(models.Member_Proofs(username=username, proof_name=proof.proof_name, step_name=step.step_name))
+    db.session.commit()
+    return {'success':True, 'error':None}
 
 '''
 Return all of the categories in the database
