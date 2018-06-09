@@ -192,6 +192,33 @@ def addMember(member_obj):
                                                 )
                           )
     
+    if 'credit_score' not in demographic_data:
+        credit_score_temp = 0
+    elif 'credit_score' in demographic_data and demographic_data['credit_score'] == '':
+        credit_score_temp = 0
+    elif 'credit_score' in demographic_data and demographic_data['credit_score'] != old_demographic_data['credit_score']:
+        credit_score_temp = int(demographic_data['credit_score'])
+    if 'has_car' not in demographic_data:
+        has_car_temp = ''
+    else:
+        has_car_temp = demographic_data['has_car']
+    if 'has_health_insurance' not in demographic_data:
+        has_health_insurance_temp = ''
+    else:
+        has_health_insurance_temp = demographic_data['has_health_insurance']
+    if 'has_primary_care_doctor' not in demographic_data:
+        has_primary_care_doctor_temp = ''
+    else:
+        has_primary_care_doctor_temp = demographic_data['has_primary_care_doctor']
+    if 'enrolled_in_military' not in demographic_data:
+        enrolled_in_military_temp = ''
+    else:
+        enrolled_in_military_temp = demographic_data['enrolled_in_military']
+    if 'has_served_in_military' not in demographic_data:
+        has_served_in_military_temp = ''
+    else:
+        has_served_in_military_temp = demographic_data['has_served_in_military']
+    
     db.session.add(models.Member( username = general['username'],
                                                     join_date = datetime.strptime(general['join_date'], "%Y-%m-%d"),
                                                     club_name = general['club_name'],
@@ -367,13 +394,12 @@ def editMember(updated_member, old_member):
         user.member[0].marital_status = demographic_data['marital_status']
     if demographic_data['income'] != old_demographic_data['income']:
         user.member[0].income = demographic_data['income']
-    if demographic_data['credit_score'] == '':
-        demographic_data['credit_score'] = None
-    if demographic_data['credit_score'] != old_demographic_data['credit_score']:
+    if 'credit_score' in demographic_data and demographic_data['credit_score'] == '':
+        user.member[0].credit_score = 0
+    elif 'credit_score' in demographic_data and demographic_data['credit_score'] != old_demographic_data['credit_score']:
         user.member[0].credit_score = int(demographic_data['credit_score'])
     if demographic_data['employment_status'] != old_demographic_data['employment_status']:
         user.member[0].employment_status = demographic_data['employment_status']
-    #keyError with referral_source.
     if enrollment_form['referral_source'] != old_enrollment_form['referral_source']:
         user.member[0].referral_source = enrollment_form['referral_source']
     if enrollment_form['spouse_first_name'] != old_enrollment_form['spouse_first_name']:
@@ -386,7 +412,7 @@ def editMember(updated_member, old_member):
         user.member[0].english_reading_level = demographic_data['english_reading_level']
     if demographic_data['english_writing_level'] != old_demographic_data['english_writing_level']:
         user.member[0].english_writing_level = demographic_data['english_writing_level']
-    if demographic_data['has_car'] != old_demographic_data['has_car']:
+    if 'has_car' in demographic_data and demographic_data['has_car'] != old_demographic_data['has_car']:
         user.member[0].has_car = demographic_data['has_car']
     if 'has_health_insurance' in demographic_data and demographic_data['has_health_insurance'] != old_demographic_data['has_health_insurance']:
         user.member[0].has_health_insurance = demographic_data['has_health_insurance']
@@ -509,6 +535,8 @@ def getEnrollmentForm(username):
     enrollment_form['address_city'] = member.address_city
     enrollment_form['address_zip'] = member.address_zip
     enrollment_form['birth_date'] = datetime.strftime(member.birth_date, '%Y-%m-%d')
+    #Added by Daniel 5-22
+    enrollment_form['referral_source'] = member.member[0].referral_source
     enrollment_form['email'] = member.email
     enrollment_form['phone_numbers'] = []
     for entry in member.phone_numbers:
@@ -645,34 +673,40 @@ Edit the goal in the database
 '''
 def editGoal(goal):
 
-    print goal
-
     old_goal = models.Goals.query.get(goal['goal_name'])
-
-    '''
-    The 'goal' parameter is in the same format as the one
-    in the addGoal function.
-
-    The old_goal variable is the db model for the goal before editing
-
-    Check what has been changed in the goal and compare it
-    to old_goal. Based on that, update attributes in old_goal.
-
-    NOTE: the goal name and the goal category will not change so
-    no need to check for those
-    '''
-
     old_steps = old_goal.steps
+    
     new_steps = goal['steps']
-    # TODO compare the step names to the ones in the old goal and update accordingly
-    # this might be tough because they may have changed just a few letters in the step name
-    # therefore, using the 'step_num' attribute for the steps in old_steps will be very useful for this
-    # assume that new_steps is in order (step 1 is new_steps[0], step 2 is new_steps[1]...etc.)
-    # make sure that the cascades are implemented properly in models.py so that updating a step
-    # updates it for all proofs, member_steps, member_proofs...etc.
-
-    # also update the proofs for each step if necessary
-
+    
+    for i in range(0,3):
+        for step in old_steps:
+            if step.step_num == i+1:
+                if step.step_name.strip() != new_steps[i]['step_name'].strip():
+                    step.step_name = new_steps[i]['step_name']
+                    db.session.add(step)
+                    for j in range(0,len(new_steps[i]['proofs'])):
+                        proof = models.Proof(   proof_name = new_steps[i]['proofs'][j]['proof_document'],
+                                                step_name = new_steps[i]['step_name'],
+                                                description = new_steps[i]['proofs'][j]['proof_description'],
+                                                proof_num = j+1
+                                                )
+                        db.session.add(proof)
+    
+    for i in range(0,3):
+        for step in old_steps:
+            if step.step_num == i+1:
+                if step.step_name.strip() == new_steps[i]['step_name'].strip():
+                    for j in range(0,len(new_steps[i]['proofs'])+0):
+                        for proof in step.proofs:
+                            if proof.proof_name.strip() != new_steps[i]['proofs'][j]['proof_document'].strip() or proof.proof_description.strip() != new_steps[i]['proofs'][j]['proof_description'].strip():
+                                if proof.proof_num == j+1:
+                                    proof.proof_name = new_steps[i]['proofs'][j]['proof_document']
+                                    proof.proof_description = new_steps[i]['proofs'][j]['proof_description']
+                                    db.session.add(proof)
+    
+    # Add functionality: if num of proofs in new_steps > num of proofs in old_steps, add new proofs
+    # BUG: old proofs still exist with no parent step...
+    
     db.session.commit()
 
 '''
