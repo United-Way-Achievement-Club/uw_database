@@ -662,8 +662,9 @@ def coordinator_update_member():
         return redirect('login')
     new_data = json.loads(request.form['new_data'])
     edit_member = session.get('edit_member')
-    edit_member[request.form['current_page']] = new_data
-
+    current_page = request.form['current_page']
+    if current_page != 'self_sufficiency_matrix' and current_page != 'self_efficacy_quiz':
+        edit_member[current_page] = new_data
     #TODO: complete validateMember function in 'utils.py'
     validatedMember = validateMember(edit_member, True)
 
