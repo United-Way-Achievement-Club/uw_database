@@ -32,8 +32,13 @@
             <input id="password" type="password" name="password" value="{% if view_member and view_member.password %}{{ view_member.password }}{% endif %}" placeholder="password" class="input input-sm uw-input " {% if disable_username and disable_username==True %} disabled {% endif %}>
         </div>
         <label class="member-form-label">Club Name:</label>
+        <datalist id="club_names">
+            {% for club in club_names %}
+            <option value="{{ club }}">{{ club }}</option>
+            {% endfor %}
+        </datalist>
         <div class="form-group row">
-            <input id="club_name" placeholder="club name" value="{% if view_member and view_member.club_name %}{{ view_member.club_name }}{% endif %}" name="club_name" class="input input-sm uw-input " autocomplete="off">
+            <input list="club_names" id="club_name" placeholder="club name" value="{% if view_member and view_member.club_name %}{{ view_member.club_name }}{% endif %}" name="club_name" class="input input-sm uw-input " autocomplete="off">
         </div>
         <label class="member-form-label">Join Date:</label>
         <div class="form-group row">

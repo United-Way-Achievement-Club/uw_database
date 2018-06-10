@@ -340,7 +340,7 @@ def coordinator_members():
         session['modal_mode'] = 'add'
     members = getMembers()
 
-    return render_template('coordinator/members.html', members=members, coordinator = getCoordinator(session.get('coordinator')))
+    return render_template('coordinator/members.html', members=members, coordinator = getCoordinator(session.get('coordinator')), club_names=getClubNames())
 
 @app.route('/coordinator/members/edit', methods=['POST'])
 def coordinator_members_edit():
@@ -350,7 +350,7 @@ def coordinator_members_edit():
     session['modal_mode'] = 'edit'
     session['edit_member'] = {'general':getGeneral(username), 'enrollment_form':getEnrollmentForm(username), 'demographic_data':getDemographicData(username), 'self_sufficiency_matrix':getSelfSufficiencyMatrix(username), 'self_efficacy_quiz':getSelfEfficacyQuiz(username)}
     session['old_edit_member'] = session.get('edit_member')
-    return render_template('coordinator/members/add_member.html', member=session.get('edit_member'), initial_edit=True, disable_username=True)
+    return render_template('coordinator/members/add_member.html', member=session.get('edit_member'), initial_edit=True, disable_username=True, club_names=getClubNames())
 
 '''
 Update the current page in the add member modal
@@ -388,7 +388,7 @@ def coordinator_members_general():
     if not session.get('login'):
         return redirect('login')
     view_member = session.get('new_member')['general']
-    return render_template('coordinator/members/member_modal/general.html', view_member=view_member)
+    return render_template('coordinator/members/member_modal/general.html', view_member=view_member, club_names=getClubNames())
 
 '''
 Return the template for the general page in the add member modal for edit mode
@@ -399,7 +399,7 @@ def coordinator_members_edit_general():
         return redirect('login')
     view_member = session.get('edit_member')['general']
     view_member['username'] = session.get('old_edit_member')['general']['username']
-    return render_template('coordinator/members/member_modal/general.html', view_member=view_member, disable_username=True)
+    return render_template('coordinator/members/member_modal/general.html', view_member=view_member, disable_username=True, club_names=getClubNames())
 
 '''
 Return the template for the enrollment form in the add member modal
@@ -628,7 +628,7 @@ def coordinator_create_member():
     new_member[request.form['current_page']] = new_data
     
     #TODO: complete validateMember function in 'utils.py'
-    validatedMember = validateMember(new_member, False)
+    validatedMember = validateMember(new_member, False, getClubNames())
 
     if validatedMember["success"]:
         profile_pic = None
@@ -666,7 +666,7 @@ def coordinator_update_member():
     if current_page != 'self_sufficiency_matrix' and current_page != 'self_efficacy_quiz':
         edit_member[current_page] = new_data
     #TODO: complete validateMember function in 'utils.py'
-    validatedMember = validateMember(edit_member, True)
+    validatedMember = validateMember(edit_member, True, getClubNames())
 
     if validatedMember["success"]:
         profile_pic = None
@@ -701,7 +701,7 @@ def coordinator_clear_new_member():
     if not session.get('login'):
         return redirect('login')
     session['new_member'] = {'general':{}, 'enrollment_form':{}, 'demographic_data':{}, 'self_sufficiency_matrix':{}, 'self_efficacy_quiz':{}}
-    return render_template('coordinator/members/member_modal/general.html')
+    return render_template('coordinator/members/member_modal/general.html', club_names=getClubNames())
 
 '''
 Clear the member being edited from the flask session
