@@ -19,7 +19,9 @@
 {% endwith %}
 
 <div id="member-modal-wrapper">
+    {% with club_names=club_names %}
     {% include 'coordinator/members/add_member.html' %}
+    {% endwith %}
 </div>
 
 {% endblock %}

@@ -878,6 +878,17 @@ def getClubs():
     return clubs
 
 '''
+Get the club names from the database, mostly for club name
+validation
+'''
+def getClubNames():
+    club_names = []
+    clubs = models.Club.query.all()
+    for club in clubs:
+        club_names.append(club.club_name)
+    return club_names
+
+'''
 Get all clubs for a coordinator
 '''
 def getClubsByCoordinator(username):

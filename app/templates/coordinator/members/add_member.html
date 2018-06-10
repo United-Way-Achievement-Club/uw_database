@@ -48,11 +48,13 @@
                 </div>
                 <div class="member-modal-right" id="member-modal-body-component">
                     {% if member %}
-                    {% with view_member=member.general, initial_edit=initial_edit, disable_username=disable_username %}
+                    {% with club_names=club_names, view_member=member.general, initial_edit=initial_edit, disable_username=disable_username %}
                     {% include 'coordinator/members/member_modal/general.html' %}
                     {% endwith %}
                     {% else %}
+                    {% with club_names=club_names %}
                     {% include 'coordinator/members/member_modal/general.html' %}
+                    {% endwith %}
                     {% endif %}
                 </div>
             </div>
