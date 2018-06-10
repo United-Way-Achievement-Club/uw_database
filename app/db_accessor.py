@@ -336,6 +336,8 @@ Compare the updated member to the old member and
 update necessary fields in the database
 '''
 def editMember(updated_member, old_member):
+    print "here in edit member"
+    print updated_member
     general = updated_member['general']
     old_general = old_member['general']
     
@@ -378,7 +380,7 @@ def editMember(updated_member, old_member):
     if enrollment_form['birth_date'] != old_enrollment_form['birth_date']:
         user.birth_date = datetime.strptime(enrollment_form['birth_date'], "%Y-%m-%d")
 
-    if general['profile_picture'] != user.profile_picture:
+    if 'profile_picture' in general and general['profile_picture'] != user.profile_picture:
         user.profile_picture = general['profile_picture']
     if general['join_date'] != old_general['join_date']:
         user.member[0].join_date = datetime.strptime(general['join_date'], "%Y-%m-%d")
@@ -488,7 +490,7 @@ def editMember(updated_member, old_member):
         db.session.delete(quiz)
     for date in self_efficacy_quizzes:
         db.session.add(models.Member_Self_Efficacy_Quiz( username = old_general['username'],
-                                                                                    assesment_date = datetime.strptime(date, "%Y-%m-%d"),
+                                                                                    assessment_date = datetime.strptime(date, "%Y-%m-%d"),
                                                                                     self_efficacy_1 = self_efficacy_quizzes[date]['self_efficacy_1'],
                                                                                     self_efficacy_2 = self_efficacy_quizzes[date]['self_efficacy_2'],
                                                                                     self_efficacy_3 = self_efficacy_quizzes[date]['self_efficacy_3'],
@@ -612,6 +614,8 @@ Get the self efficacy quizzes for a member to put into the member modal
 def getSelfEfficacyQuiz(username):
     member = models.User.query.get(username)
     self_efficacy_quiz = {}
+    print "self efficacy quizzes"
+    print member.member[0].self_efficacy_quizzes
     for entry in member.member[0].self_efficacy_quizzes:
         date = datetime.strftime(entry.assessment_date, '%Y-%m-%d')
         self_efficacy_quiz[date] = {}
