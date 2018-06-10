@@ -27,10 +27,10 @@
                         <option value="O"{% if child.child_gender=="O" %}selected{% endif %}>O</option>
                     </select>
                 </td>
-                <td><input value="{{ child.child_birth_date }}" name="child_birth_date" type="date" class="input input-sm uw-input child-input"></td>
-                <td><input value="{{ child.child_grade_level }}" name="child_grade_level" type="text" placeholder="Grade Level" class="input input-sm uw-input child-input"></td>
-                <td><input value="{{ child.child_grades }}" name="child_grades" type="text" placeholder="Grades" class="input input-sm uw-input child-input"></td>
-                <td><input value="{{ child.child_school }}" name="child_school" type="text" placeholder="School" class="input input-sm uw-input child-input"></td>
+                <td><input value="{% if child.child_birth_date != 'None' and child.child_birth_date != None %}{{ child.child_birth_date }}{% endif %}" name="child_birth_date" type="date" class="input input-sm uw-input child-input"></td>
+                <td><input value="{% if child.child_grade_level != 'None' and child.child_grade_level != None %}{{ child.child_grade_level }}{% endif %}" name="child_grade_level" type="text" placeholder="Grade Level" class="input input-sm uw-input child-input"></td>
+                <td><input value="{% if child.child_grades != 'None' and child.child_grades != None %}{{ child.child_grades }}{% endif %}" name="child_grades" type="text" placeholder="Grades" class="input input-sm uw-input child-input"></td>
+                <td><input value="{% if child.child_school != 'None' and child.child_school != None %}{{ child.child_school }}{% endif %}" name="child_school" type="text" placeholder="School" class="input input-sm uw-input child-input"></td>
             </tr>
             {% endfor %}
             {% else %}

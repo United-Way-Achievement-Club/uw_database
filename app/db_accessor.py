@@ -336,8 +336,6 @@ Compare the updated member to the old member and
 update necessary fields in the database
 '''
 def editMember(updated_member, old_member):
-    print "here in edit member"
-    print updated_member
     general = updated_member['general']
     old_general = old_member['general']
     
@@ -424,7 +422,33 @@ def editMember(updated_member, old_member):
         user.member[0].enrolled_in_military = demographic_data['enrolled_in_military']
     if 'has_served_in_military' in demographic_data and demographic_data['has_served_in_military'] != old_demographic_data['has_served_in_military']:
         user.member[0].has_served_in_military = demographic_data['has_served_in_military']
-    
+
+    children = models.Child.query.filter_by(parent=old_general['username'])
+
+    for child in children:
+        db.session.delete(child)
+    for child in enrollment_form['children']:
+        child_grade_level = None
+        child_school = None
+        child_birth_date = None
+        child_grades = None
+        if child['child_grade_level'] != '':
+            child_grade_level = child['child_grade_level']
+        if child['child_birth_date'] != '':
+            child_birth_date = datetime.strptime(child['child_birth_date'], "%Y-%m-%d")
+        if child['child_school'] != '':
+            child_school = child['child_school']
+        if child['child_grades'] != '':
+            child_grades = child['child_grades']
+        db.session.add(models.Child(parent=old_general['username'],
+                                    child_first_name = child['child_first_name'],
+                                    child_last_name = child['child_last_name'],
+                                    child_grade_level = child_grade_level,
+                                    child_birth_date = child_birth_date,
+                                    child_school = child_school,
+                                    child_grades = child_grades
+                                    ))
+
     for income_source in user.member[0].income_sources:
         if income_source.income_source not in demographic_data['income_sources']:
             db.session.delete(income_source)
