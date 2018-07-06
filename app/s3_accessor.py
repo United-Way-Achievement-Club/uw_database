@@ -19,7 +19,11 @@ region_name = 'us-east-2'
 s3session = boto3.session.Session(region_name=region_name)
 
 s3 = boto3.resource('s3')
-s3Client = boto3.client('s3', config= boto3.session.Config(signature_version='s3v4', s3={'addressing_style':'path'}))
+s3Client = boto3.client(
+    's3',
+    region_name=region_name,
+    config= boto3.session.Config(signature_version='s3v4', s3={'addressing_style':'path'})
+)
 
 
 '''
@@ -27,7 +31,13 @@ Get a presigned url for the users profile picture
 '''
 def getProfilePicture(profile_picture):
     try:
-        picture_url = s3Client.generate_presigned_url('get_object', Params = {'Bucket': bucket_name, 'Key': 'profile_pictures/' + profile_picture})
+        picture_url = s3Client.generate_presigned_url(
+            'get_object',
+            Params = {
+                'Bucket': bucket_name,
+                  'Key': 'profile_pictures/' + profile_picture
+            }
+        )
     except Exception as e:
         print e.message
         picture_url = 'static/images/profile_pictures/default_profile_pic.png'
@@ -63,7 +73,13 @@ def getClubPictures(club_name, club_pictures):
     for picture in club_pictures:
         try:
             print 'getting picture for ' + club_name
-            picture_url = s3Client.generate_presigned_url('get_object', Params = {'Bucket': bucket_name, 'Key': 'club_pictures/' + picture})
+            picture_url = s3Client.generate_presigned_url(
+                'get_object',
+                Params = {
+                    'Bucket': bucket_name,
+                    'Key': 'club_pictures/' + picture
+                }
+            )
             urls.append(picture_url)
         except Exception as e:
             print e.message
@@ -102,7 +118,13 @@ Get a signed url for a goal document
 '''
 def getGoalDocument(file_name):
     try:
-        document_url = s3Client.generate_presigned_url('get_object', Params = {'Bucket': bucket_name, 'Key': 'goal_docs/' + file_name})
+        document_url = s3Client.generate_presigned_url(
+            'get_object',
+            Params = {
+                'Bucket': bucket_name,
+                'Key': 'goal_docs/' + file_name
+            }
+        )
     except Exception as e:
         print e.message
         document_url = None
