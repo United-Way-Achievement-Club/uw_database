@@ -20,7 +20,18 @@ Validate member object, check if all required fields
 are completed and in the correct format
 '''
 def validateMember(memberObj, edit, club_names):
-    # print memberObj
+    if not type(memberObj) is dict:
+        raise Exception('Invalid input for validateMember function')
+    if "general" not in memberObj:
+        raise Exception('member invalid: must contain general form values')
+    if "enrollment_form" not in memberObj:
+        raise Exception('member invalid: must contain enrollment form values')
+    if "demographic_data" not in memberObj:
+        raise Exception('member invalid: must contain demographic data values')
+    if "self_sufficiency_matrix" not in memberObj:
+        raise Exception('member invalid: must contain self sufficiency matrix values')
+    if "self_efficacy_quiz" not in memberObj:
+        raise Exception('member invalid: must contain self efficacy quiz values')
     # validate general
     general = validateGeneral(memberObj['general'], edit, club_names)
     general['form'] = 'general'
@@ -55,7 +66,8 @@ def validateGeneral(general, edit, club_names):
     date_string = "%Y-%m-%d"
     if general == {}:
         return {"success":False, "error":"general form must be filled out"}
-    if not edit and general['username'] == '':
+    if not edit and \
+            ('username' not in general or general['username'] == ''):
         return {"success":False, "error":"Username can not be blank"}
     elif not edit and len(general['username']) < 5:
         return {"success":False, "error":"Username must be greater than 5 characters"}
