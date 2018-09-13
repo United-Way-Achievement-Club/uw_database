@@ -1,17 +1,16 @@
 import unittest
 from app.utils import *
+from test_objects import club_names, valid_member
 
 class Utils(unittest.TestCase):
-
-    club_names = ['fake']
 
     def testValidateMemberException(self):
         memberObj = {}
         with self.assertRaises(Exception) as exc:
-            validateMember(memberObj, False, self.club_names)
+            validateMember(memberObj, False, club_names)
         self.assertIsInstance(exc.exception, Exception)
 
-    def testValidateMember(self):
+    def testValidateMemberInvalid(self):
         memberObj = {
             'general':[],
             'enrollment_form':[],
@@ -22,6 +21,13 @@ class Utils(unittest.TestCase):
         self.assertEqual(validateMember(
             memberObj,
             False,
-            self.club_names
+            club_names
         )['success'], False)
+
+    def testValidateMemberValid(self):
+        self.assertEqual(validateMember(
+            valid_member,
+            False,
+            club_names
+        )['success'], True)
 

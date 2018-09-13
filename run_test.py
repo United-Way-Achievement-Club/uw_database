@@ -5,7 +5,8 @@ import unittest
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(Utils('testValidateMemberException'))
-    suite.addTest(Utils('testValidateMember'))
+    suite.addTest(Utils('testValidateMemberInvalid'))
+    suite.addTest(Utils('testValidateMemberValid'))
     return suite
 
 if __name__ == '__main__':
