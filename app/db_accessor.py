@@ -77,11 +77,16 @@ Update a user after edit profile
 '''
 def updateUser(user_data, username):
     user = models.User.query.get(username)
-    user.birth_date = datetime.strptime(user_data['birth_date'], '%Y-%m-%d')
-    user.address_street = user_data['address_street']
-    user.address_state = user_data['address_state']
-    user.address_city = user_data['address_city']
-    user.address_zip = user_data['address_zip']
+    if user_data['birth_date']:
+        user.birth_date = datetime.strptime(user_data['birth_date'], '%Y-%m-%d')
+    if user_data['address_street']:
+        user.address_street = user_data['address_street']
+    if user_data['address_state']:
+        user.address_state = user_data['address_state']
+    if user_data['address_city']:
+        user.address_city = user_data['address_city']
+    if user_data['address_zip']:
+        user.address_zip = user_data['address_zip']
     user.email = user_data['email']
     old_phones = models.User_Phone.query.filter_by(username=username)
     for number in old_phones:
