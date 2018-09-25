@@ -882,11 +882,38 @@
     text-align: center;
 }
 
+.members-list-item-img-wrapper {
+    position: relative;
+}
+
 .members-list-item-image {
     height: 48px;
     width: 48px;
     margin-top: 6px;
     border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.members-list-item-delete {
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+    height: 48px;
+    width: 48px;
+    margin-top: 6px;
+    opacity: 0.5;
+    border-radius: 50%;
+    background-color: var(--error-red);
+    color: var(--uw_white);
+    padding-top: 23%;
+}
+
+.members-list-item-img-wrapper:hover .members-list-item-delete {
+    display: block;
+    cursor: pointer;
 }
 
 .member-view {

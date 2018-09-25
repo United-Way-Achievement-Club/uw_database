@@ -536,6 +536,19 @@ def editMember(updated_member, old_member):
                                                                                     
     db.session.commit()
 
+'''
+Delete a member
+'''
+def deleteMember(username):
+    try:
+        user = models.User.query.get(username)
+        db.session.delete(user)
+        db.session.commit()
+        return {"success":True, "error":None}
+    except Exception as e:
+        print e.message
+        return {'success':False, "error":e.message}
+
 
 '''
 Get the general information for a member to put into the member modal
