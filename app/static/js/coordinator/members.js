@@ -99,6 +99,7 @@ function saveModal() {
             $(".member-modal-nav-item-active").removeClass("member-modal-nav-item-active");
             $("#general").addClass("member-modal-nav-item-active");
             $("#member-modal-body-component").html(data.template);
+            window.location.reload();
           } else {
             $(".form_alert").hide();
             $("#" + data.form + "_alert").show();
@@ -163,6 +164,7 @@ function saveEditModal() {
             $("#member-modal-wrapper").html(data.template);
             $("body").removeClass("modal-open");
             $('.modal-backdrop').remove();
+            window.location.reload();
           } else {
             $(".form_alert").hide();
             $("#" + data.form + "_alert").show();
@@ -663,4 +665,22 @@ function viewQuiz(e) {
       .always(function() {
         console.log( "getting html for self sufficiency matrix" );
       });
+ }
+
+ function deleteMember(username) {
+    var deleteMember = window.confirm('Are you sure you want to delete the member ' + username + '?');
+    if (deleteMember) {
+        $.post( "members/delete_member", {'username':username}, function() {
+            console.log( "successfully requested to delete member" );
+        })
+        .done(function(data) {
+            if (data.success == false) {
+                window.alert(data.error);
+            } else {
+                console.log("successfully deleted member");
+                window.location.reload();
+            }
+        })
+    }
+
  }

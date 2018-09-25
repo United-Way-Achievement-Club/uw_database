@@ -1,6 +1,10 @@
 <div class="members-list-item">
     <div class="members-list-item-wrapper col-sm-1">
-        <img class="members-list-item-content members-list-item-image" src="{{ member[0].profile_picture_link }}">
+        <div class="members-list-item-img-wrapper">
+            <img class="members-list-item-content members-list-item-image" src="{{ member[0].profile_picture_link }}">
+            <div class="members-list-item-delete text-center" onclick="deleteMember('{{ member[0].username }}')"><span class="glyphicon glyphicon-remove"></span></div>
+        </div>
+
     </div>
     <div class="members-list-item-wrapper col-sm-3">
         <h5 class="members-list-item-content">{{ member[0].first_name + " " + member[0].last_name }}</h5>

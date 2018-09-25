@@ -694,6 +694,17 @@ def coordinator_update_member():
                     "form":validatedMember["form"]})
 
 '''
+Delete a member from the database
+'''
+@app.route('/coordinator/members/delete_member', methods=['POST'])
+def coordinator_delete_member():
+    username = request.form['username']
+    delete_member_result = deleteMember(username)
+    if delete_member_result['success'] == True:
+        return jsonify({"success":True, "status":200, "error": None})
+    return jsonify({"success":False, "status":400, "error":delete_member_result["error"]})
+
+'''
 Clear the new member object in the session when the new member modal is closed
 '''
 @app.route('/coordinator/members/clear_new_member', methods=['POST'])

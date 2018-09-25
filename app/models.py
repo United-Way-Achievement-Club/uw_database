@@ -41,10 +41,10 @@ class User(db.Model):
     county = db.Column(db.String(64))
     address_zip = db.Column(db.String(20))
     birth_date = db.Column(db.DateTime)
-    phone_numbers = db.relationship('User_Phone', backref='user', lazy=True)
+    phone_numbers = db.relationship('User_Phone', backref='user', lazy=True, cascade="delete")
     clubs = db.relationship('Club', secondary=Coordinator_Club, lazy='subquery',
            backref=db.backref('users', lazy=True))
-    member = db.relationship("Member", back_populates="user")
+    member = db.relationship("Member", back_populates="user", cascade="delete")
 
     def __repr__(self):
         return '<User %r>' % (self.username)
@@ -82,15 +82,15 @@ class Member(db.Model):
     has_primary_care_doctor = db.Column(db.String(32))
     enrolled_in_military = db.Column(db.String(32))
     has_served_in_military = db.Column(db.String(32))
-    income_sources = db.relationship('Member_Sources_Of_Income', backref='member', lazy=True)
-    assets = db.relationship('Member_Assets', backref='member', lazy=True)
-    medical_issues = db.relationship('Member_Medical_Issues', backref='member', lazy=True)
-    wars_served = db.relationship('Member_Wars_Served', backref='member', lazy=True)
-    self_sufficiency_matrices = db.relationship('Member_Self_Sufficiency_Matrix', backref='member', lazy=True)
-    self_efficacy_quizzes = db.relationship('Member_Self_Efficacy_Quiz', backref='member', lazy=True)
+    income_sources = db.relationship('Member_Sources_Of_Income', backref='member', lazy=True, cascade="delete")
+    assets = db.relationship('Member_Assets', backref='member', lazy=True, cascade="delete")
+    medical_issues = db.relationship('Member_Medical_Issues', backref='member', lazy=True, cascade="delete")
+    wars_served = db.relationship('Member_Wars_Served', backref='member', lazy=True, cascade="delete")
+    self_sufficiency_matrices = db.relationship('Member_Self_Sufficiency_Matrix', backref='member', lazy=True, cascade="delete")
+    self_efficacy_quizzes = db.relationship('Member_Self_Efficacy_Quiz', backref='member', lazy=True, cascade="delete")
     user = db.relationship("User", back_populates="member", lazy=True)
     club = db.relationship("Club", back_populates="members", lazy=True)
-    member_goals = db.relationship('Member_Goals', backref='member', lazy=True)
+    member_goals = db.relationship('Member_Goals', backref='member', lazy=True, cascade="delete")
 
     def goals_in_progress(self):
         goal_count = 0
