@@ -18,8 +18,8 @@ sendgrid_api_key = os.environ['SENDGRID_API_KEY']
 sg = sendgrid.SendGridAPIClient(apikey=sendgrid_api_key)
 
 def newUserEmail(username, password, email):
-    html = '<h3>Thank you for creating a new account. Here are your credentials.</h3><h4><b>username: </b>' + username + '</h4><h4><b>password: </b>' + password + '<h5>Please sign in at this link: http://uw-database.herokuapp.com/</h5>'
-
+    uw_link = 'http://ec2-18-220-5-102.us-east-2.compute.amazonaws.com:8090/login'
+    html = '<h3>Thank you for creating a new account. Here are your credentials.</h3><h4><b>username: </b>' + username + '</h4><h4><b>password: </b>' + password + '<h5>Please sign in at this link: ' + uw_link + '</h5>'
     from_email = Email("achievementclub@unitedway.com")
     to_email = Email(email)
     subject = "Welcome to the Achievement Club Portal"
