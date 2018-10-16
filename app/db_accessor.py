@@ -201,8 +201,6 @@ def addMember(member_obj):
         credit_score_temp = 0
     elif 'credit_score' in demographic_data and demographic_data['credit_score'] == '':
         credit_score_temp = 0
-    elif 'credit_score' in demographic_data and demographic_data['credit_score'] != old_demographic_data['credit_score']:
-        credit_score_temp = int(demographic_data['credit_score'])
     if 'has_car' not in demographic_data:
         has_car_temp = ''
     else:
@@ -758,7 +756,6 @@ def editGoal(goal):
 Delete a goal
 '''
 def deleteGoal(goal_name):
-    # TODO: make sure cascades are right in models.py so that deleting a goal deletes all steps/proofs
     goal = models.Goals.query.get(goal_name)
     if goal == None:
         return {'success':False, 'error':'Goal not found'}
