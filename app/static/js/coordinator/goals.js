@@ -16,8 +16,19 @@ function editGoal(goal_name) {
           });
 }
 
-function deleteGoal() {
-    window.alert("Sorry, this feature hasn't been implemented yet");
+function deleteGoal(goal_name) {
+    var deleteGoal = window.confirm("Are you sure you want to delete the goal " + goal_name + "?");
+    if (deleteGoal) {
+        $.post( "goals/delete_goal", {'goal_name':goal_name}, function() {
+            console.log( "successfully requested to delete goal" );
+        })
+        .done(function(data) {
+            window.location.reload();
+        })
+        .fail(function(err) {
+            console.log(err);
+        });
+    }
 }
 
 function searchGoals() {
@@ -56,6 +67,7 @@ function updateGoalModal(goal_name) {
             window.alert(data.message);
         } else {
             closeEditGoalModal();
+            window.location.reload();
         }
       })
       .fail(function(err) {
@@ -80,6 +92,7 @@ function saveGoalModal() {
             window.alert(data.message);
         } else {
             closeGoalModal();
+            window.location.reload();
         }
       })
       .fail(function(err) {
