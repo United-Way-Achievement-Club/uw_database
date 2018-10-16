@@ -11,6 +11,7 @@ gen
 # Database files
 # app/db_repository
 # app/app.db
+app/db_backups
 
 # pyc files
 *.pyc
