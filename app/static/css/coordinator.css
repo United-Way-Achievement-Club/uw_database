@@ -1212,6 +1212,7 @@
 .coordinators-list-items {
     overflow-y: scroll;
     padding: 0;
+    height: calc(100vh - 170px);
 }
 
 .coordinators-list-item {
