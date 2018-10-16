@@ -201,12 +201,12 @@ Member-Goals  (1-n)
 class Member_Goals(db.Model):
     __tablename__ = 'member_goals'
     username = db.Column(db.String(64), db.ForeignKey('member.username'), primary_key=True)
-    goal_name = db.Column(db.String(64), db.ForeignKey('goals.goal_name'), primary_key=True)
+    goal_name = db.Column(db.String(64), db.ForeignKey('goals.goal_name', onupdate="cascade"), primary_key=True)
     significance = db.Column(db.String(512))
     goal_status = db.Column(db.String(64))
     date_completed = db.Column(db.DateTime)
     steps_completed = db.Column(db.Integer)
-    member_steps = db.relationship("Member_Steps", cascade="all,delete-orphan", backref="member_goal", passive_deletes=True)
+    member_steps = db.relationship("Member_Steps", cascade="all", backref="member_goal", passive_deletes=True)
 
     # def __init__(self):
     #     session = Session.object_session(self)
@@ -239,12 +239,12 @@ Member-Step (1-n)
 class Member_Steps(db.Model):
     __tablename__ = 'member_steps'
     username = db.Column(db.String(64), primary_key=True)
-    step_name = db.Column(db.String(64), db.ForeignKey('steps.step_name'), primary_key=True)
+    step_name = db.Column(db.String(64), db.ForeignKey('steps.step_name', onupdate="cascade"), primary_key=True)
     goal_name = db.Column(db.String(64), primary_key=True)
     date_completed = db.Column(db.DateTime)
     step_status = db.Column(db.String(64)) # in_progress, complete
     proofs_completed = db.Column(db.Integer)
-    member_proofs = db.relationship("Member_Proofs", cascade="all,delete-orphan", backref="member_step", passive_deletes=True)
+    member_proofs = db.relationship("Member_Proofs", cascade="all", backref="member_step")
     __table_args__ = (
         db.ForeignKeyConstraint(
             ['goal_name', 'username'],
@@ -285,7 +285,7 @@ Member-Proof (1-n)
 '''
 class Member_Proofs(db.Model):
     __tablename__='member_proofs'
-    proof_name = db.Column(db.String(64), db.ForeignKey('proof.proof_name'), primary_key=True)
+    proof_name = db.Column(db.String(64), db.ForeignKey('proof.proof_name', onupdate="cascade"), primary_key=True)
     step_name = db.Column(db.String(64), primary_key=True)
     username = db.Column(db.String(64), primary_key=True)
     proof_verified_by = db.Column(db.String(64), db.ForeignKey('user.username'))
@@ -309,37 +309,37 @@ class Goals(db.Model):
     goal_category = db.Column(db.String(64), db.ForeignKey('categories.category_name'))
     description = db.Column(db.String(64))
     num_of_steps = db.Column(db.Integer)
-    steps = db.relationship("Steps", cascade="all,delete-orphan", backref="goal", passive_deletes=True)
-    member_goals = db.relationship("Member_Goals", cascade="all,delete-orphan", backref="goal", passive_deletes=True)
+    steps = db.relationship("Steps", cascade="all", backref="goal", passive_updates=False)
+    member_goals = db.relationship("Member_Goals", cascade="all", backref="goal", passive_updates=False)
     
 '''
 Steps
 '''
 class Steps(db.Model):
     step_name = db.Column(db.String(64), primary_key=True)
-    goal_name = db.Column(db.String(64), db.ForeignKey('goals.goal_name', ondelete='CASCADE'), primary_key=True)
+    goal_name = db.Column(db.String(64), db.ForeignKey('goals.goal_name', onupdate="cascade"), primary_key=True)
     description = db.Column(db.String(128))
     step_num = db.Column(db.Integer)
     num_of_proofs = db.Column(db.Integer)
-    proofs = db.relationship("Proof", cascade="all,delete-orphan", backref="step", passive_deletes=True)
-    member_steps = db.relationship("Member_Steps", cascade="all,delete-orphan", backref="step", passive_deletes=True)
+    proofs = db.relationship("Proof", cascade="all", backref="step", passive_updates=False)
+    member_steps = db.relationship("Member_Steps", cascade="all", backref="step", passive_updates=False)
     
 '''
 Proof
 '''
 class Proof(db.Model):
     proof_name = db.Column(db.String(64), primary_key=True)
-    step_name = db.Column(db.String(64), db.ForeignKey('steps.step_name', ondelete='CASCADE'), primary_key=True)
+    step_name = db.Column(db.String(64), db.ForeignKey('steps.step_name', onupdate="cascade"), primary_key=True)
     description = db.Column(db.String(64))
     proof_num = db.Column(db.Integer)
-    member_proofs = db.relationship("Member_Proofs", cascade="all,delete-orphan", backref="proof", passive_deletes=True)
+    member_proofs = db.relationship("Member_Proofs", cascade="delete", backref="proof", passive_updates=False)
 
 '''
 Categories
 '''
 class Categories(db.Model):
     category_name = db.Column(db.String(64), primary_key=True)
-    goals = db.relationship("Goals", cascade="all,delete-orphan", backref="category", passive_deletes=True)
+    goals = db.relationship("Goals", cascade="all", backref="category")
 
 # ============================================== OTHER ==============================================
 

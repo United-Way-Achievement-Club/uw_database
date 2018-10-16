@@ -723,35 +723,34 @@ def editGoal(goal):
     old_steps = old_goal.steps
     
     new_steps = goal['steps']
-    
-    for i in range(0,3):
-        for step in old_steps:
-            if step.step_num == i+1:
-                if step.step_name.strip() != new_steps[i]['step_name'].strip():
-                    step.step_name = new_steps[i]['step_name']
-                    db.session.add(step)
-                    for j in range(0,len(new_steps[i]['proofs'])):
-                        proof = models.Proof(   proof_name = new_steps[i]['proofs'][j]['proof_document'],
-                                                step_name = new_steps[i]['step_name'],
-                                                description = new_steps[i]['proofs'][j]['proof_description'],
-                                                proof_num = j+1
-                                                )
-                        db.session.add(proof)
-    
-    for i in range(0,3):
-        for step in old_steps:
-            if step.step_num == i+1:
-                if step.step_name.strip() == new_steps[i]['step_name'].strip():
-                    for j in range(0,len(new_steps[i]['proofs'])+0):
-                        for proof in step.proofs:
-                            if proof.proof_name.strip() != new_steps[i]['proofs'][j]['proof_document'].strip() or proof.proof_description.strip() != new_steps[i]['proofs'][j]['proof_description'].strip():
-                                if proof.proof_num == j+1:
-                                    proof.proof_name = new_steps[i]['proofs'][j]['proof_document']
-                                    proof.proof_description = new_steps[i]['proofs'][j]['proof_description']
-                                    db.session.add(proof)
-    
-    # Add functionality: if num of proofs in new_steps > num of proofs in old_steps, add new proofs
-    # BUG: old proofs still exist with no parent step...
+
+    for step in old_steps:
+        new_step = new_steps[step.step_num - 1]
+        if step.step_name.strip() != new_step['step_name'].strip():
+            step.step_name = new_step['step_name'].strip()
+            db.session.add(step)
+        for proof in step.proofs:
+            if len(new_step['proofs']) > proof.proof_num - 1:
+                new_proof = new_step['proofs'][proof.proof_num - 1]
+                if proof.proof_name.strip() != new_proof['proof_document'].strip():
+                    proof.proof_name = new_proof['proof_document'].strip()
+                if proof.description.strip() != new_proof['proof_description'].strip():
+                    proof.description = new_proof['proof_description'].strip()
+                db.session.add(proof)
+            else:
+                db.session.delete(proof)
+            if len(new_step['proofs']) > len(step.proofs):
+                len_diff = len(new_step['proofs']) - len(step.proofs)
+                start_index = len(step.proofs) + 1
+                for _ in range(len_diff):
+                    proof = models.Proof(   proof_name = new_step['proofs'][start_index - 1]['proof_document'],
+                                            step_name = step.step_name,
+                                            description = new_step['proofs'][start_index - 1]['proof_description'],
+                                            proof_num = start_index
+                                            )
+                    db.session.add(proof)
+                    start_index += 1
+
     
     db.session.commit()
 
