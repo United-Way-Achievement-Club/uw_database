@@ -266,7 +266,9 @@ def coordinator_goals_add_goal():
     if not validation['success']:
         return jsonify({"status_code":200, "message":validation['error'], "success":False})
 
-    addGoal(goal_obj)
+    results = addGoal(goal_obj)
+    if not results["success"]:
+        return jsonify({"status_code":400, "message":results["error"], "success":False})
     return jsonify({"status_code":200, "message":"Successfully added goal", "success":True})
 
 '''
@@ -285,7 +287,9 @@ def coordinator_goals_edit_goal():
     if not validation['success']:
         return jsonify({"status_code":200, "message":validation['error'], "success":False})
 
-    editGoal(goal_obj)
+    results = editGoal(goal_obj)
+    if not results["success"]:
+        return jsonify({"status_code":400, "message":results["error"], "success":False})
     return jsonify({"status_code":200, "message":"Successfully added goal", "success":True})
 
 '''

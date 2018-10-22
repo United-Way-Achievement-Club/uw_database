@@ -13,6 +13,7 @@ from datetime import datetime
 from s3_accessor import getProfilePicture, getGoalDocument
 from sqlalchemy.orm import class_mapper, ColumnProperty
 from passlib.context import CryptContext
+from sqlalchemy.exc import IntegrityError
 
 pwd_context = CryptContext(
     schemes=["pbkdf2_sha256"],
@@ -669,88 +670,112 @@ def getSelfEfficacyQuiz(username):
 Add new goal to the database
 '''
 def addGoal(goal):
-    goal_dict = goal
-    goal_record = models.Goals( goal_name = goal_dict['goal_name'],
-                                goal_category = goal_dict['goal_category'],
-                                description = 'none',
-                                num_of_steps = 3
-                                )
-    db.session.add(goal_record)
-    
-    step1 = models.Steps(step_name = goal_dict['steps'][0]['step_name'],
-                        goal_name = goal_dict['goal_name'],
-                        description = 'none',
-                        step_num = 1,
-                        num_of_proofs = len(goal_dict['steps'][0]['proofs'])
-                        )
-    db.session.add(step1)
-    
-    step2 = models.Steps(step_name = goal_dict['steps'][1]['step_name'],
-                        goal_name = goal_dict['goal_name'],
-                        description = 'none',
-                        step_num = 2,
-                        num_of_proofs = len(goal_dict['steps'][1]['proofs'])
-                        )
-    db.session.add(step2)
-                        
-    step3 = models.Steps(step_name = goal_dict['steps'][2]['step_name'],
-                        goal_name = goal_dict['goal_name'],
-                        description = 'none',
-                        step_num = 3,
-                        num_of_proofs = len(goal_dict['steps'][2]['proofs'])
-                        )
-    db.session.add(step3)
-                        
-    for i in range(0,len(goal_dict['steps'])):
-        for j in range(0,len(goal_dict['steps'][i]['proofs'])):
-            proof = models.Proof(   proof_name = goal_dict['steps'][i]['proofs'][j]['proof_document'],
-                                    step_name = goal_dict['steps'][i]['step_name'],
-                                    description = goal_dict['steps'][i]['proofs'][j]['proof_description'],
-                                    proof_num = j+1
+    try:
+        goal_dict = goal
+        goal_record = models.Goals( goal_name = goal_dict['goal_name'],
+                                    goal_category = goal_dict['goal_category'],
+                                    description = 'none',
+                                    num_of_steps = 3
                                     )
-            db.session.add(proof)
-            
-    db.session.commit()
+        db.session.add(goal_record)
+
+        step1 = models.Steps(step_name = goal_dict['steps'][0]['step_name'],
+                            goal_name = goal_dict['goal_name'],
+                            description = 'none',
+                            step_num = 1,
+                            num_of_proofs = len(goal_dict['steps'][0]['proofs'])
+                            )
+        db.session.add(step1)
+
+        step2 = models.Steps(step_name = goal_dict['steps'][1]['step_name'],
+                            goal_name = goal_dict['goal_name'],
+                            description = 'none',
+                            step_num = 2,
+                            num_of_proofs = len(goal_dict['steps'][1]['proofs'])
+                            )
+        db.session.add(step2)
+
+        step3 = models.Steps(step_name = goal_dict['steps'][2]['step_name'],
+                            goal_name = goal_dict['goal_name'],
+                            description = 'none',
+                            step_num = 3,
+                            num_of_proofs = len(goal_dict['steps'][2]['proofs'])
+                            )
+        db.session.add(step3)
+
+        for i in range(0,len(goal_dict['steps'])):
+            for j in range(0,len(goal_dict['steps'][i]['proofs'])):
+                proof = models.Proof(   proof_name = goal_dict['steps'][i]['proofs'][j]['proof_document'],
+                                        step_name = goal_dict['steps'][i]['step_name'],
+                                        description = goal_dict['steps'][i]['proofs'][j]['proof_description'],
+                                        proof_num = j+1
+                                        )
+                db.session.add(proof)
+
+        db.session.commit()
+    except IntegrityError as integ:
+        error_str = '''
+        Error: one or more of the following \n
+        - The goal name already exists \n
+        - Multiple steps for this goal have the same name \n
+        - Multiple proofs for the same step have the same document name
+        '''
+        return {"success":False, "error":error_str}
+    except Exception as e:
+        return {"success": False, "error": e.message}
+    return {"success": True, "error": None}
 
 '''
 Edit the goal in the database
 '''
 def editGoal(goal):
+    try:
 
-    old_goal = models.Goals.query.get(goal['goal_name'])
-    old_steps = old_goal.steps
-    
-    new_steps = goal['steps']
+        old_goal = models.Goals.query.get(goal['goal_name'])
+        old_steps = old_goal.steps
 
-    for step in old_steps:
-        new_step = new_steps[step.step_num - 1]
-        if step.step_name.strip() != new_step['step_name'].strip():
-            step.step_name = new_step['step_name'].strip()
-            db.session.add(step)
-        for proof in step.proofs:
-            if len(new_step['proofs']) > proof.proof_num - 1:
-                new_proof = new_step['proofs'][proof.proof_num - 1]
-                if proof.proof_name.strip() != new_proof['proof_document'].strip():
-                    proof.proof_name = new_proof['proof_document'].strip()
-                if proof.description.strip() != new_proof['proof_description'].strip():
-                    proof.description = new_proof['proof_description'].strip()
-                db.session.add(proof)
-            else:
-                db.session.delete(proof)
-            if len(new_step['proofs']) > len(step.proofs):
-                len_diff = len(new_step['proofs']) - len(step.proofs)
-                start_index = len(step.proofs) + 1
-                for _ in range(len_diff):
-                    proof = models.Proof(   proof_name = new_step['proofs'][start_index - 1]['proof_document'],
-                                            step_name = step.step_name,
-                                            description = new_step['proofs'][start_index - 1]['proof_description'],
-                                            proof_num = start_index
-                                            )
+        new_steps = goal['steps']
+
+        for step in old_steps:
+            new_step = new_steps[step.step_num - 1]
+            if step.step_name.strip() != new_step['step_name'].strip():
+                step.step_name = new_step['step_name'].strip()
+                db.session.add(step)
+            for proof in step.proofs:
+                if len(new_step['proofs']) > proof.proof_num - 1:
+                    new_proof = new_step['proofs'][proof.proof_num - 1]
+                    if proof.proof_name.strip() != new_proof['proof_document'].strip():
+                        proof.proof_name = new_proof['proof_document'].strip()
+                    if proof.description.strip() != new_proof['proof_description'].strip():
+                        proof.description = new_proof['proof_description'].strip()
                     db.session.add(proof)
-                    start_index += 1
+                else:
+                    db.session.delete(proof)
+                if len(new_step['proofs']) > len(step.proofs):
+                    len_diff = len(new_step['proofs']) - len(step.proofs)
+                    start_index = len(step.proofs) + 1
+                    for _ in range(len_diff):
+                        proof = models.Proof(   proof_name = new_step['proofs'][start_index - 1]['proof_document'],
+                                                step_name = step.step_name,
+                                                description = new_step['proofs'][start_index - 1]['proof_description'],
+                                                proof_num = start_index
+                                                )
+                        db.session.add(proof)
+                        start_index += 1
 
-    
-    db.session.commit()
+
+        db.session.commit()
+    except IntegrityError as integ:
+        error_str = '''
+        Error: one or more of the following \n
+        - The goal name already exists \n
+        - Multiple steps for this goal have the same name \n
+        - Multiple proofs for the same step have the same document name
+        '''
+        return {"success":False, "error":error_str}
+    except Exception as e:
+        return {"success": False, "error": e.message}
+    return {"success": True, "error": None}
 
 '''
 Delete a goal
