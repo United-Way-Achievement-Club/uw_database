@@ -143,7 +143,7 @@ def addCoordinator(username, password, email, super_admin, first_name, last_name
     if vals != None:
         return {'error':'coordinator already exists', 'success':False}
     coord = models.User(type='coordinator',
-                        username=username,
+                        username=username.strip(),
                         password=encrypt_password(password),
                         super_admin=super_admin,
                         first_name=first_name,
