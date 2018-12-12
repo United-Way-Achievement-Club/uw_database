@@ -548,7 +548,6 @@ def deleteMember(username):
         print e.message
         return {'success':False, "error":e.message}
 
-
 '''
 Get the general information for a member to put into the member modal
 '''

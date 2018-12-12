@@ -1175,6 +1175,14 @@
 
 /*===================================coordinators===================================*/
 
+.coordinator-add-error {
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: calc(100px + 50%);
+    transform: translateX(-50%);
+}
+
 .coordinators-topbar {
     padding: 5px;
     height: 50px;
