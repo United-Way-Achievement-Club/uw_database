@@ -6,6 +6,10 @@
 
 {% block c_content %}
 
+{% if error %}
+<h5 class="error-text coordinator-add-error">Error: {{ error }}</h5>
+{% endif %}
+
 {% with coordinators=coordinators %}
 {% with is_admin=coordinator.super_admin %}
 {% include 'coordinator/coordinators/topbar.html' %}

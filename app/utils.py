@@ -11,7 +11,8 @@ Helper methods
 
 import datetime
 import re
-
+import random
+import string
 import requests
 import json
 
@@ -257,3 +258,6 @@ def remove_non_ascii(s):
         return  "".join([x if ord(x) < 128 else '?' for x in s])
     else:
         return s
+
+def generate_password():
+    return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))

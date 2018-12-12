@@ -15,8 +15,6 @@ from s3_accessor import uploadProfilePicture, uploadGoalDocument, removeGoalDocu
 from utils import *
 from sendgrid_email import newUserEmail
 from datetime import datetime
-import random
-import string
 import re
 from db_config import *
 
@@ -742,9 +740,11 @@ See the coordinators in the system
 def coordinator_coordinators():
     if not session.get('login'):
         return redirect('login')
+    error = request.args.get('error')
     return render_template('coordinator/coordinators.html',
                            coordinators=getCoordinators(),
-                           coordinator=getCoordinator(session.get('coordinator')))
+                           coordinator=getCoordinator(session.get('coordinator')),
+                           error=error)
 
 '''
 Add a new coordinator
@@ -758,14 +758,16 @@ def coordinator_coordinators_add_coordinator():
     last_name = request.form['last_name']
     email = request.form['email']
     super_admin = (True if request.form['super_admin'] == '1' else False)
-    password = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
-    email_success = newUserEmail(username, password, email)
-    if not email_success:
-        print "error sending email to coordinator"
-        return redirect(url_for('coordinator_coordinators'))
+    password = generate_password()
     results = addCoordinator(username, password, email, super_admin, first_name, last_name)
     if results['success'] != True:
         print "Error adding coordinator"
+        return redirect(url_for('coordinator_coordinators', error=results["error"]))
+    email_success = newUserEmail(username, password, email)
+    if not email_success:
+        print "error sending email to coordinator"
+        deleteMember(username)
+        return redirect(url_for('coordinator_coordinators', error="error sending email to coordinator"))
     return redirect(url_for('coordinator_coordinators'))
 
 
