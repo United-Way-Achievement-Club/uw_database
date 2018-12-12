@@ -42,6 +42,11 @@
     <div id="messages" class="nav-item">
         <h4 class="nav-item-text"><span class="glyphicon glyphicon-comment nav-icon"></span><a href="{{ url_for('coordinator_messages') }}">Messages</a></h4>
     </div>
+    {% if coordinator.super_admin %}
+    <div id="database" class="nav-item">
+        <h4 class="nav-item-text"><span class="glyphicon glyphicon-signal nav-icon"></span><a href="{{ url_for('coordinator_database') }}">Database</a></h4>
+    </div>
+    {% endif %}}
 </div>
 <div class="body-wrapper">
     {% block c_content %}

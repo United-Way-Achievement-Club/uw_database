@@ -248,3 +248,12 @@ def is_jsonable(x):
         return True
     except:
         return False
+
+'''
+Remove all non-ascii characters in a string s
+'''
+def remove_non_ascii(s):
+    if type(s) == str:
+        return  "".join([x if ord(x) < 128 else '?' for x in s])
+    else:
+        return s

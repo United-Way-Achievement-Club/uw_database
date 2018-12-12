@@ -1,0 +1,15 @@
+{% extends 'coordinator/layout.html' %}
+
+{% block c_extrascript %}
+<script src="{{ url_for('static', filename='js/coordinator/database.js') }}"></script>
+{% endblock %}
+
+{% block c_content %}
+
+<div class="text-center">
+    <h4 class="purple-text">Get the latest database backups in csv format</h4>
+    <button class="btn btn-sm uw-button" type="button" onclick="get_db_backup()">Click Here</button>
+</div>
+
+
+{% endblock %}

@@ -10,8 +10,9 @@ Back up the database to csv files
 
 '''
 
-from app import db, models
+from app import db, models, utils
 import csv
+import shutil
 
 backups_path = "app/db_backups/"
 tables = [
@@ -41,11 +42,11 @@ def write_table_to_csv(table_name):
     with open(backups_path + table_name + '.csv', 'w') as csv_file:
         csvwriter = csv.writer(csv_file, delimiter=',',
                                quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        keys = [column.key for column in getattr(models, table_name).__table__.columns]
+        keys = [utils.remove_non_ascii(column.key) for column in getattr(models, table_name).__table__.columns]
         csvwriter.writerow(keys)
 
         for value in values:
-            csvwriter.writerow([getattr(value, key) for key in keys])
+            csvwriter.writerow([utils.remove_non_ascii(getattr(value, key)) for key in keys])
 
 # write all tables to csv file
 for table in tables:
@@ -57,7 +58,10 @@ with open(backups_path + 'Coordinator_Club.csv', 'w') as csv_file:
     csvwriter = csv.writer(csv_file, delimiter=',',
                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
     for user in users:
-        csvwriter.writerow([user.username] + [club.club_name for club in user.clubs])
+        csvwriter.writerow([user.username] + [utils.remove_non_ascii(club.club_name) for club in user.clubs])
+
+shutil.make_archive('db_backups', 'zip', backups_path)
+
 
 
 
