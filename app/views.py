@@ -18,6 +18,7 @@ from datetime import datetime
 import random
 import string
 import re
+from db_config import *
 
 
 '''
@@ -51,6 +52,7 @@ def login():
             member_type = user.type
             if member_type == 'coordinator':
                 session['coordinator'] = user.username
+                session['is_super_admin'] = user.super_admin
                 return redirect('coordinator/home')
             else:
                 session['member'] = user.username
@@ -846,7 +848,6 @@ def coordinator_clubs_add_coordinator():
     return jsonify(results)
 
 
-
 # -- messages --
 
 '''
@@ -858,6 +859,51 @@ def coordinator_messages():
         return redirect('login')
     return render_template('coordinator/messages.html',
                            coordinator = getCoordinator(session.get('coordinator')))
+
+# -- messages --
+
+'''
+Coordinator database page
+'''
+@app.route('/coordinator/database')
+def coordinator_database():
+    if not session.get('login'):
+        return redirect('login')
+    if not session.get('member_type') == 'coordinator':
+        return redirect(url_for('member_home'))
+    if not session.get('is_super_admin'):
+        return redirect(url_for('coordinator_home'))
+    return render_template('coordinator/database.html',
+                           coordinator = getCoordinator(session.get('coordinator')),
+                           tables = getTables())
+
+@app.route('/coordinator/database/create_backups', methods=['POST'])
+def coordinator_database_create_backups():
+    if not session.get('login'):
+        return redirect('login')
+    if not session.get('member_type') == 'coordinator':
+        return jsonify({
+            'success':False,
+            'error':'Forbidden',
+            'status':400
+        })
+    if not session.get('is_super_admin'):
+        return jsonify({
+            'success':False,
+            'error':'Forbidden',
+            'status':400
+        })
+    url = createDBBackupsAndGetURL()
+    if url == None:
+        return jsonify({
+            'success':False,
+            'error':'Error retrieving url for database backup',
+        })
+    return jsonify({
+        'success':True,
+        'error':None,
+        'url':url
+    })
 
 # -- other --
 

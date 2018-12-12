@@ -130,4 +130,37 @@ def getGoalDocument(file_name):
         document_url = None
     return document_url
 
+'''
+Upload the zipped directory of db backups
+'''
+def uploadDBBackup(file_name, file):
+    try:
+        s3.Bucket(bucket_name).put_object(Key='db_backups/' + file_name, Body=file)
+        print 'successfully uploaded db backup ' + file_name
+        return True
+    except Exception as e:
+        print e.message
+        return False
+
+'''
+Get the latest backup of a db table
+'''
+def getLatestDBBackup():
+    try:
+        get_last_modified = lambda obj: int(obj['LastModified'].strftime('%s'))
+        objs = s3Client.list_objects_v2(Bucket=bucket_name, Prefix='db_backups/')['Contents']
+        last_added = [obj['Key'] for obj in sorted(objs, key=get_last_modified)][1]
+        print last_added
+        document_url = s3Client.generate_presigned_url(
+            'get_object',
+            Params = {
+                'Bucket': bucket_name,
+                'Key': last_added
+            }
+        )
+    except Exception as e:
+        print e
+        print e.message
+        document_url = None
+    return document_url
 

@@ -12,6 +12,7 @@ Back up the database to csv files
 
 from app import db, models, utils
 import csv
+import shutil
 
 backups_path = "app/db_backups/"
 tables = [
@@ -58,6 +59,9 @@ with open(backups_path + 'Coordinator_Club.csv', 'w') as csv_file:
                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
     for user in users:
         csvwriter.writerow([user.username] + [utils.remove_non_ascii(club.club_name) for club in user.clubs])
+
+shutil.make_archive('db_backups', 'zip', backups_path)
+
 
 
 
