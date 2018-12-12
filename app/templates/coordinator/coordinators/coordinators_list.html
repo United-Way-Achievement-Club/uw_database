@@ -16,7 +16,7 @@
         </div>
         <div class="coordinators-list-items col-sm-12">
             {% for coord in coordinators %}
-            {% with coord=coord %}
+            {% with coord=coord, is_admin=is_admin %}
             {% include 'coordinator/coordinators/coordinators_list_item.html' %}
             {% endwith %}
             {% endfor %}

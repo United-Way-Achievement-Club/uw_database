@@ -770,6 +770,17 @@ def coordinator_coordinators_add_coordinator():
         return redirect(url_for('coordinator_coordinators', error="error sending email to coordinator"))
     return redirect(url_for('coordinator_coordinators'))
 
+'''
+Delete a coordinator from the database
+'''
+@app.route('/coordinator/coordinators/delete_coordinator', methods=['POST'])
+def coordinator_delete_coordinator():
+    username = request.form['username']
+    delete_coordinator_result = deleteMember(username)
+    if delete_coordinator_result['success'] == True:
+        return jsonify({"success":True, "status":200, "error": None})
+    return jsonify({"success":False, "status":400, "error":delete_coordinator_result["error"]})
+
 
 # -- clubs --
 
