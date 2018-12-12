@@ -54,7 +54,10 @@ def write_table_to_csv(table_name):
         csvwriter.writerow(keys)
 
         for value in values:
-            csvwriter.writerow([utils.remove_non_ascii(getattr(value, key)) for key in keys])
+            try:
+                csvwriter.writerow([utils.remove_non_ascii(getattr(value, key)) for key in keys])
+            except UnicodeEncodeError as e:
+                print e.message
 
 def createDBBackups():
     # write all tables to csv file
