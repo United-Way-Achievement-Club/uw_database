@@ -1247,6 +1247,30 @@
     border-radius: 50%;
 }
 
+.coordinators-list-item-img-wrapper:hover .coordinators-list-item-delete {
+    display: block;
+    cursor: pointer;
+}
+
+.coordinators-list-item-img-wrapper {
+    position: relative;
+}
+
+.coordinators-list-item-delete {
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 10px;
+    height: 48px;
+    width: 48px;
+    margin-top: 6px;
+    opacity: 0.5;
+    border-radius: 50%;
+    background-color: var(--error-red);
+    color: var(--uw_white);
+    padding-top: 23%;
+}
+
 .coordinator-modal-dialog {
     width: 40%;
 }
