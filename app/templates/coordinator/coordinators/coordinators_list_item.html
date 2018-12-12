@@ -2,7 +2,7 @@
     <div class="coordinators-list-item-wrapper col-sm-1">
         {% if is_admin %}
         <div class="coordinators-list-item-img-wrapper">
-            <img class="coordinators-list-item-content coordinators-list-item-image" src="{{ coord.profile_picture_link }}">
+            <img class="coordinators-list-item-content coordinators-list-item-image-super" src="{{ coord.profile_picture_link }}">
             <div class="coordinators-list-item-delete text-center" onclick="deleteCoordinator('{{ coord.username }}')"><span class="glyphicon glyphicon-remove"></span></div>
         </div>
         {% else %}
