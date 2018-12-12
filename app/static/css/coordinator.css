@@ -1240,11 +1240,17 @@
     text-align: center;
 }
 
-.coordinators-list-item-image {
+.coordinators-list-item-image, .coordinators-list-item-image-super {
     height: 48px;
     width: 48px;
     margin-top: 6px;
     border-radius: 50%;
+}
+
+.coordinators-list-item-image-super {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .coordinators-list-item-img-wrapper:hover .coordinators-list-item-delete {
@@ -1260,7 +1266,7 @@
     position: absolute;
     display: none;
     top: 0;
-    left: 10px;
+    left: 0;
     height: 48px;
     width: 48px;
     margin-top: 6px;
