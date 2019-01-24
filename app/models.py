@@ -90,7 +90,7 @@ class Member(db.Model):
     self_efficacy_quizzes = db.relationship('Member_Self_Efficacy_Quiz', backref='member', lazy=True, cascade="delete")
     user = db.relationship("User", back_populates="member", lazy=True)
     club = db.relationship("Club", back_populates="members", lazy=True)
-    member_goals = db.relationship('Member_Goals', backref='member', lazy=True, cascade="delete")
+    member_goals = db.relationship('Member_Goals', backref='member', lazy=True, cascade="all", passive_updates=False)
 
     def goals_in_progress(self):
         goal_count = 0
@@ -206,7 +206,7 @@ class Member_Goals(db.Model):
     goal_status = db.Column(db.String(64))
     date_completed = db.Column(db.DateTime)
     steps_completed = db.Column(db.Integer)
-    member_steps = db.relationship("Member_Steps", cascade="all", backref="member_goal", passive_deletes=True)
+    member_steps = db.relationship("Member_Steps", cascade="all", backref="member_goal", passive_updates=False)
 
     # def __init__(self):
     #     session = Session.object_session(self)
@@ -244,7 +244,7 @@ class Member_Steps(db.Model):
     date_completed = db.Column(db.DateTime)
     step_status = db.Column(db.String(64)) # in_progress, complete
     proofs_completed = db.Column(db.Integer)
-    member_proofs = db.relationship("Member_Proofs", cascade="all", backref="member_step")
+    member_proofs = db.relationship("Member_Proofs", cascade="all", backref="member_step", passive_updates=False)
     __table_args__ = (
         db.ForeignKeyConstraint(
             ['goal_name', 'username'],
