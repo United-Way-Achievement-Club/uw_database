@@ -87,6 +87,8 @@ Member home page
 def member_home():
     if not session.get('login'):
         return redirect('login')
+    if not session.get('member'):
+        return redirect('login')
     member = getMember(session.get('member'))
     phone_numbers = getPhoneNumbers(session.get('member'))
     return render_template('member/home.html', member=member, phone_numbers=phone_numbers, states=getStates())
