@@ -33,7 +33,7 @@ Then, follow these steps.
 
         ./run.py
 #### 6. Navigate to the URL *127.0.0.1:8090* in your browser
-   A login page should appear. Currently, the test coordinator has the credentials username:*user* and password:*password* and navigates to the coordinator home page. The test member has the credentials username:*srutig* and password:*password* and navigates to the member home page.
+   A login page should appear.
 
 ## How to contribute
 Make sure that the ZenHub browser extension is installed to view the task board. It can be installed [here](https://www.zenhub.com/extension) for Chrome or Firefox.
@@ -64,6 +64,7 @@ The master branch should always be stable. Features that are in progress and nee
 * Approve- *in progress*
 * Members- *in progress*
 * Clubs- *in progress*
+* Coordinators- *in progress*
 
 More details about what features have been completed and what there is yet to do can be found in the task board.
 
