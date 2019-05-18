@@ -102,3 +102,27 @@ function readURL(input) {
         $("#crop-success-button").show();
     }
 }
+
+// Functions for sorting Coordinators
+    // Goal is to have one function that toggles between -1 and 1 pairing
+    function sortZA() {
+        // alert("Sort triggered.");
+        $('.coordinators-list-item').sort(function(a, b) {
+            if (a.textContent < b.textContent) {
+              return -1;
+            } else {
+              return 1;
+            }
+          }).appendTo('.coordinators-list-items');
+    };
+    
+    function sortAZ() {
+        // alert("Sort triggered.");
+        $('.coordinators-list-item').sort(function(a, b) {
+            if (a.textContent < b.textContent) {
+              return 1;
+            } else {
+              return -1;
+            }
+          }).appendTo('.coordinators-list-items');
+    };
