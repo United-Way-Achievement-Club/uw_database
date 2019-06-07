@@ -32,7 +32,21 @@ function deleteGoal(goal_name) {
 }
 
 function searchGoals() {
-    window.alert("Sorry, this feature hasn't been implemented yet");
+    var input, filter, li, a, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value;
+    li = $('.goal-item');
+    for (i = 0; i < li.length; i++) {
+        goalName = li[i].getElementsByTagName("h5")[0];
+        category = li[i].getElementsByTagName("h5")[1];
+        txtValue = goalName.textContent || goalName.innerText;
+        anyCase = txtValue.toLowerCase();
+        if (anyCase.indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
 }
 
 function filterGoals() {
