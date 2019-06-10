@@ -702,3 +702,27 @@ function search() {
       }
   }
 }
+
+// Functions for sorting Coordinators
+    // Goal is to have one function that toggles between -1 and 1 pairing
+    function sortZA() {
+      // alert("Sort triggered.");
+      $('.members-list-item').sort(function(a, b) {
+          if (a.textContent < b.textContent) {
+            return -1;
+          } else {
+            return 1;
+          }
+        }).appendTo('.members-list-items');
+  };
+  
+  function sortAZ() {
+      // alert("Sort triggered.");
+      $('.members-list-item').sort(function(a, b) {
+          if (a.textContent < b.textContent) {
+            return 1;
+          } else {
+            return -1;
+          }
+        }).appendTo('.members-list-items');
+  };
