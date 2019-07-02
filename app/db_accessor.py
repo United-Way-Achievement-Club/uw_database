@@ -706,7 +706,7 @@ def addGoal(goal):
             for j in range(0,len(goal_dict['steps'][i]['proofs'])):
                 proof = models.Proof(   proof_name = goal_dict['steps'][i]['proofs'][j]['proof_document'],
                                         step_name = goal_dict['steps'][i]['step_name'],
-                                        goal_name = goal_dict['goal_name'],
+                                        # goal_name = goal_dict['goal_name'],
                                         description = goal_dict['steps'][i]['proofs'][j]['proof_description'],
                                         proof_num = j+1
                                         )
