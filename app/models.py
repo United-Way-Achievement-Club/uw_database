@@ -332,7 +332,7 @@ class Proof(db.Model):
     step_name = db.Column(db.String(64), db.ForeignKey('steps.step_name', onupdate="cascade"), primary_key=True)
     description = db.Column(db.String(64))
     proof_num = db.Column(db.Integer)
-    member_proofs = db.relationship("Member_Proofs", cascade="delete", backref="proof", passive_updates=False)
+    member_proofs = db.relationship("Member_Proofs", cascade="all", backref="proof", passive_updates=False)
 
 '''
 Categories
