@@ -10,8 +10,8 @@
                     <h5>General</h5>
                     <form id="edit-general-form">
                         <div class="form-group row">
-                            <input value="{{ goal.goal_name }}" name="goal_name" class="input input-sm uw-input" placeholder="Goal Name" disabled>
-                            <select name="goal_category" class="input input-sm uw-input" disabled>
+                            <input value="{{ goal.goal_name }}" name="goal_name" class="input input-sm uw-input" placeholder="Goal Name" readonly="true">
+                            <select name="goal_category" class="input input-sm uw-input" readonly="true">
                                 <optgroup label="Select Category">
                                     <option value="Education">Education</option>
                                     <option value="Health">Health</option>
@@ -48,7 +48,7 @@
                                 {% for proof in goal.steps[0].proofs %}
                                 <div class="form-proof">
                                     <div class="form-group row">
-                                        <input value="{{ proof.proof_name }}" name="proof_document" class="input input-sm uw-input col-sm-10 col-sm-offset-1" placeholder="Proof Document" disabled>
+                                        <input value="{{ proof.proof_name }}" name="proof_document" class="input input-sm uw-input col-sm-10 col-sm-offset-1" placeholder="Proof Document" readonly="true">
                                     </div>
                                     <div class="form-group row">
                                         <textarea name="proof_description" class="input input-sm uw-input col-sm-10 col-sm-offset-1" placeholder="Proof Description">{{ proof.description}}</textarea>
@@ -75,7 +75,7 @@
                                 {% for proof in goal.steps[1].proofs %}
                                 <div class="form-proof">
                                     <div class="form-group row">
-                                        <input value="{{ proof.proof_name }}" name="proof_document" class="input input-sm uw-input col-sm-10 col-sm-offset-1" placeholder="Proof Document" disabled>
+                                        <input value="{{ proof.proof_name }}" name="proof_document" class="input input-sm uw-input col-sm-10 col-sm-offset-1" placeholder="Proof Document" readonly="true">
                                     </div>
                                     <div class="form-group row">
                                         <textarea name="proof_description" class="input input-sm uw-input col-sm-10 col-sm-offset-1" placeholder="Proof Description">{{ proof.description }}</textarea>
@@ -102,7 +102,7 @@
                                 {% for proof in goal.steps[2].proofs %}
                                 <div class="form-proof">
                                     <div class="form-group row">
-                                        <input value="{{ proof.proof_name }}" name="proof_document" class="input input-sm uw-input col-sm-10 col-sm-offset-1" placeholder="Proof Document" disabled>
+                                        <input value="{{ proof.proof_name }}" name="proof_document" class="input input-sm uw-input col-sm-10 col-sm-offset-1" placeholder="Proof Document" readonly="true">
                                     </div>
                                     <div class="form-group row">
                                         <textarea name="proof_description" class="input input-sm uw-input col-sm-10 col-sm-offset-1" placeholder="Proof Description">{{ proof.description }}</textarea>

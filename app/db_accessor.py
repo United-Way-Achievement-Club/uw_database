@@ -749,7 +749,7 @@ def editGoal(goal):
                     if old_proof.proof_name == new_proof['proof_document'] and old_proof.description == new_proof['proof_description']:
                         contains = True
                         index = ind
-                        break
+                        continue
                     elif old_proof.proof_name == new_proof['proof_document']:
                         similar = True
                         index = ind
@@ -781,8 +781,10 @@ def editGoal(goal):
         - Multiple steps for this goal have the same name \n
         - Multiple proofs for the same step have the same document name
         '''
+        db.session.rollback()
         return {"success":False, "error":error_str}
     except Exception as e:
+        db.session.rollback()
         return {"success": False, "error": e.message}
     return {"success": True, "error": None}
 
