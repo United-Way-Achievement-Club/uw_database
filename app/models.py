@@ -252,10 +252,6 @@ class Member_Steps(db.Model):
         ),
     )
 
-    # def __init__(self):
-    #     for proof in self.step.proofs:
-    #         self.member_proofs.append(Member_Proofs(username=self.username, proof_name=proof.proof_name, proof_status='new'))
-
     def is_completed(self):
         for proof in self.member_proofs:
             if proof.status != 'approved':
@@ -285,7 +281,7 @@ Member-Proof (1-n)
 '''
 class Member_Proofs(db.Model):
     __tablename__='member_proofs'
-    proof_name = db.Column(db.String(64), db.ForeignKey('proof.proof_name', onupdate="cascade"), primary_key=True)
+    proof_name = db.Column(db.String(64), db.ForeignKey('proof.proof_name', ondelete="CASCADE"), primary_key=True)
     step_name = db.Column(db.String(64), primary_key=True)
     username = db.Column(db.String(64), primary_key=True)
     proof_verified_by = db.Column(db.String(64), db.ForeignKey('user.username'))
@@ -317,7 +313,7 @@ Steps
 '''
 class Steps(db.Model):
     step_name = db.Column(db.String(64), primary_key=True)
-    goal_name = db.Column(db.String(64), db.ForeignKey('goals.goal_name', onupdate="cascade"), primary_key=True)
+    goal_name = db.Column(db.String(64), db.ForeignKey('goals.goal_name', onupdate="CASCADE"), primary_key=True)
     description = db.Column(db.String(128))
     step_num = db.Column(db.Integer)
     num_of_proofs = db.Column(db.Integer)
@@ -329,7 +325,7 @@ Proof
 '''
 class Proof(db.Model):
     proof_name = db.Column(db.String(64), primary_key=True)
-    step_name = db.Column(db.String(64), db.ForeignKey('steps.step_name', onupdate="cascade"), primary_key=True)
+    step_name = db.Column(db.String(64), db.ForeignKey('steps.step_name', onupdate="CASCADE"), primary_key=True)
     description = db.Column(db.String(64))
     proof_num = db.Column(db.Integer)
     member_proofs = db.relationship("Member_Proofs", cascade="all", backref="proof", passive_updates=False)

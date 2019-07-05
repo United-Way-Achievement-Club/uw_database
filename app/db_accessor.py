@@ -720,8 +720,10 @@ def addGoal(goal):
         - Multiple steps for this goal have the same name \n
         - Multiple proofs for the same step have the same document name
         '''
+        db.session.rollback()
         return {"success":False, "error":error_str}
     except Exception as e:
+        db.session.rollback()
         return {"success": False, "error": e.message}
     return {"success": True, "error": None}
 
@@ -733,6 +735,7 @@ def editGoal(goal):
 
         old_goal = models.Goals.query.get(goal['goal_name'])
         old_steps = old_goal.steps
+        member_goals = old_goal.member_goals
 
         new_steps = goal['steps']
 
@@ -768,8 +771,12 @@ def editGoal(goal):
                     del new_step['proofs'][index]
                 else:
                     models.Proof.query.filter_by(proof_name=old_proof.proof_name, step_name=old_proof.step_name).delete()
+                    # deletes should cascade, however they don't. Therefore I am manually deleting Member_Proofs.
+                    models.Member_Proofs.query.filter_by(proof_name=old_proof.proof_name, step_name=old_proof.step_name).delete()
             for proof in new_step['proofs']:
                 db.session.add(models.Proof(proof_name=proof['proof_document'], step_name=new_step['step_name'], description=proof['proof_description']))
+                for m_goal in member_goals:
+                    db.session.add(models.Member_Proofs(proof_name=proof['proof_document'], step_name=new_step['step_name'], username=m_goal.username))
                 db.session.commit()
 
 
@@ -813,11 +820,13 @@ def getGoals():
 Get a goal by the goal name
 '''
 def getGoal(goal_name):
-    print goal_name
-    goal = models.Goals.query.get(goal_name)
-    if goal == None:
-        return None
-    return goal
+    return models.Goals.query.get(goal_name)
+    
+'''
+Get a step by the step name and goal name
+'''
+def getStep(step_name, goal_name):
+    return models.Steps.query.get((step_name, goal_name))
 
 '''
 Get all goals for a specific member
