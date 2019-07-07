@@ -99,16 +99,16 @@ db.session.add(models.Steps(step_name="Be Active At Home", goal_name="Focus On M
 db.session.add(models.Steps(step_name="Be Active At The School", goal_name="Focus On My Child's Future", step_num=2, num_of_proofs=3))
 db.session.add(models.Steps(step_name="Plan For The Future", goal_name="Focus On My Child's Future", step_num=3, num_of_proofs=2))
 
-db.session.add(models.Proof(proof_name="Copy of a reading log", step_name="Be Active At Home", description="Read to my child every night or have my child read to me every night for one month", proof_num=1))
-db.session.add(models.Proof(proof_name="Copy or a photo of the library cards", step_name="Be Active At Home", description="Get a library card for me and my child", proof_num=2))
-db.session.add(models.Proof(proof_name="Copy or a photo of the homework", step_name="Be Active At Home", description="Help my child with homework every night for a month", proof_num=3))
+db.session.add(models.Proof(proof_name="Copy of a reading log", step_name="Be Active At Home", goal_name="Focus On My Child's Future", description="Read to my child every night or have my child read to me every night for one month", proof_num=1))
+db.session.add(models.Proof(proof_name="Copy or a photo of the library cards", step_name="Be Active At Home", goal_name="Focus On My Child's Future", description="Get a library card for me and my child", proof_num=2))
+db.session.add(models.Proof(proof_name="Copy or a photo of the homework", step_name="Be Active At Home", goal_name="Focus On My Child's Future", description="Help my child with homework every night for a month", proof_num=3))
 
-db.session.add(models.Proof(proof_name="Letter from the teacher on school letterhead", step_name="Be Active At The School", description="Attend a parent-teacher conference", proof_num=1))
-db.session.add(models.Proof(proof_name="Letter from the volunteer leader", step_name="Be Active At The School", description="Volunteer at my child's school", proof_num=2))
-db.session.add(models.Proof(proof_name="Letter from the committee leader", step_name="Be Active At The School", description="Join a committee at my child's school", proof_num=3))
+db.session.add(models.Proof(proof_name="Letter from the teacher on school letterhead", step_name="Be Active At The School", goal_name="Focus On My Child's Future", description="Attend a parent-teacher conference", proof_num=1))
+db.session.add(models.Proof(proof_name="Letter from the volunteer leader", step_name="Be Active At The School", goal_name="Focus On My Child's Future", description="Volunteer at my child's school", proof_num=2))
+db.session.add(models.Proof(proof_name="Letter from the committee leader", step_name="Be Active At The School", goal_name="Focus On My Child's Future", description="Join a committee at my child's school", proof_num=3))
 
-db.session.add(models.Proof(proof_name="Copy of your plan", step_name="Plan For The Future", description="Discover education requirements for my child's dream job. Make a plan for how they can meet these requirements", proof_num=1))
-db.session.add(models.Proof(proof_name="Letter from the interviewee", step_name="Plan For The Future", description="Together, interview someone who works at your child's dream job", proof_num=2))
+db.session.add(models.Proof(proof_name="Copy of your plan", step_name="Plan For The Future", goal_name="Focus On My Child's Future", description="Discover education requirements for my child's dream job. Make a plan for how they can meet these requirements", proof_num=1))
+db.session.add(models.Proof(proof_name="Letter from the interviewee", step_name="Plan For The Future", goal_name="Focus On My Child's Future", description="Together, interview someone who works at your child's dream job", proof_num=2))
 
 # particular user's goal data
 

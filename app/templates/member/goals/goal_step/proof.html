@@ -4,12 +4,12 @@
         {% if proof.status == 'approved' %}
         <span class="proof-completed-label"><span class="glyphicon glyphicon-check"></span> Approved {{ proof.date_completed.strftime("%m/%d/%y") }} by {{ proof.proof_verified_by }}</span>
         {% elif proof.status == 'new' %}
-        <span class="proof-upload-label" onclick="openProofModal('{{ proof.proof_name }}','{{ proof.step_name }}','{{ proof.proof_document }}')"><span class="glyphicon glyphicon-upload"></span> Upload Proof</span>
+        <span class="proof-upload-label" onclick="openProofModal('{{ proof.proof_name }}','{{ proof.step_name }}','{{ proof.goal_name }}','{{ proof.proof_document }}')"><span class="glyphicon glyphicon-upload"></span> Upload Proof</span>
         {% elif proof.status == 'pending' %}
-        <span class="proof-upload-label" onclick="openProofModal('{{ proof.proof_name }}','{{ proof.step_name }}','{{ proof.proof_document }}')"><span class="glyphicon glyphicon-upload"></span> Change Proof</span>
+        <span class="proof-upload-label" onclick="openProofModal('{{ proof.proof_name }}','{{ proof.step_name }}','{{ proof.goal_name }}','{{ proof.proof_document }}')"><span class="glyphicon glyphicon-upload"></span> Change Proof</span>
         <span class="proof-pending-label"> Pending Approval</span>
         {% elif proof.status == 'denied' %}
-        <span class="proof-upload-label" onclick="openProofModal('{{ proof.proof_name }}','{{ proof.step_name }}','{{ proof.proof_document }}')"><span class="glyphicon glyphicon-upload"></span> Change Proof</span>
+        <span class="proof-upload-label" onclick="openProofModal('{{ proof.proof_name }}','{{ proof.step_name }}','{{ proof.goal_name }}','{{ proof.proof_document }}')"><span class="glyphicon glyphicon-upload"></span> Change Proof</span>
         <span class="proof-denied-label"> Denied</span>
         <span class="proof-denied-reason">{{ proof.reason }}</span>
         {% endif %}

@@ -143,6 +143,7 @@ def member_goals_upload_proof():
     file = request.files['proof_file']
     proof_name = request.form['proof_name']
     step_name = request.form['step_name']
+    goal_name = request.form['goal_name']
     proof_name_sub = re.sub('[^ a-zA-Z0-9]', '', proof_name)
     proof_file = proof_name_sub.split(' ')
     proof_file_join = '-'.join(proof_file)
@@ -151,7 +152,7 @@ def member_goals_upload_proof():
     if not uploadGoalDocument(file_name, file):
         print "Error uploading file"
         return redirect(url_for('member_goals'))
-    results = updateMemberProof(session.get('member'), proof_name, file_name, step_name)
+    results = updateMemberProof(session.get('member'), proof_name, file_name, step_name, goal_name)
     if results['success'] == False:
         if not removeGoalDocument(file_name):
             print "Error removing document from S3"
@@ -324,10 +325,11 @@ def coordinator_approve_set_document_status():
     username = request.form['username']
     proof_name = request.form['proof_name']
     step_name = request.form['step_name']
+    goal_name = request.form['goal_name']
     reason = request.form['reason']
     status = request.form['status']
     coordinator_name = session.get('coordinator')
-    results = setProofStatus(username, coordinator_name, proof_name, step_name, status, reason)
+    results = setProofStatus(username, coordinator_name, proof_name, step_name, goal_name, status, reason)
     return jsonify(results)
 
 # -- members --

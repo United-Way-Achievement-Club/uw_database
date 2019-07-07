@@ -706,7 +706,7 @@ def addGoal(goal):
             for j in range(0,len(goal_dict['steps'][i]['proofs'])):
                 proof = models.Proof(   proof_name = goal_dict['steps'][i]['proofs'][j]['proof_document'],
                                         step_name = goal_dict['steps'][i]['step_name'],
-                                        # goal_name = goal_dict['goal_name'],
+                                        goal_name = goal_dict['goal_name'],
                                         description = goal_dict['steps'][i]['proofs'][j]['proof_description'],
                                         proof_num = j+1
                                         )
@@ -757,26 +757,26 @@ def editGoal(goal):
                         similar = True
                         index = ind
                 if contains:
-                    proofs = models.Proof.query.filter_by(proof_name=old_proof.proof_name, step_name=old_proof.step_name).all()
+                    proofs = models.Proof.query.filter_by(proof_name=old_proof.proof_name, step_name=old_proof.step_name, goal_name=old_proof.goal_name).all()
                     for proof in proofs:
                         proof.step_name = new_step['step_name']
                     db.session.commit()
                     del new_step['proofs'][index]
                 elif similar:
-                    proofs = models.Proof.query.filter_by(proof_name=old_proof.proof_name, step_name=old_proof.step_name).all()
+                    proofs = models.Proof.query.filter_by(proof_name=old_proof.proof_name, step_name=old_proof.step_name, goal_name=old_proof.goal_name).all()
                     for proof in proofs:
                         proof.step_name = new_step['step_name']
                         proof.description = new_step['proofs'][index]['proof_description']
                     db.session.commit()
                     del new_step['proofs'][index]
                 else:
-                    models.Proof.query.filter_by(proof_name=old_proof.proof_name, step_name=old_proof.step_name).delete()
+                    models.Proof.query.filter_by(proof_name=old_proof.proof_name, step_name=old_proof.step_name, goal_name=old_proof.goal_name).delete()
                     # deletes should cascade, however they don't. Therefore I am manually deleting Member_Proofs.
-                    models.Member_Proofs.query.filter_by(proof_name=old_proof.proof_name, step_name=old_proof.step_name).delete()
+                    models.Member_Proofs.query.filter_by(proof_name=old_proof.proof_name, step_name=old_proof.step_name, goal_name=old_proof.goal_name).delete()
             for proof in new_step['proofs']:
-                db.session.add(models.Proof(proof_name=proof['proof_document'], step_name=new_step['step_name'], description=proof['proof_description']))
+                db.session.add(models.Proof(proof_name=proof['proof_document'], step_name=new_step['step_name'], goal_name=goal['goal_name'], description=proof['proof_description']))
                 for m_goal in member_goals:
-                    db.session.add(models.Member_Proofs(proof_name=proof['proof_document'], step_name=new_step['step_name'], username=m_goal.username))
+                    db.session.add(models.Member_Proofs(proof_name=proof['proof_document'], step_name=new_step['step_name'], goal_name=goal['goal_name'], username=m_goal.username))
                 db.session.commit()
 
 
@@ -840,8 +840,9 @@ def getMemberGoals(username):
 '''
 Update a proof when a member uploads a document
 '''
-def updateMemberProof(username, proof_name, proof_file, step_name):
-    proof = models.Member_Proofs.query.filter_by(username=username, proof_name=proof_name, step_name=step_name).first()
+def updateMemberProof(username, proof_name, proof_file, step_name, goal_name):
+    # TODO change this to a get instead of filter_by
+    proof = models.Member_Proofs.query.filter_by(username=username, proof_name=proof_name, step_name=step_name, goal_name=goal_name).first()
     delete_document = None
     if proof == None:
         return {'success': False, 'error': 'Proof not found.'}
@@ -872,8 +873,9 @@ def getNumPendingProofs():
 '''
 Approve or deny a proof
 '''
-def setProofStatus(username, coordinator_name, proof_name, step_name, status, reason):
-    proof = models.Member_Proofs.query.filter_by(username=username, proof_name=proof_name, step_name=step_name).first()
+def setProofStatus(username, coordinator_name, proof_name, step_name, goal_name, status, reason):
+    # change this to get instead of filter_by
+    proof = models.Member_Proofs.query.filter_by(username=username, proof_name=proof_name, step_name=step_name, goal_name=goal_name).first()
     if proof == None:
         return {'success':False, 'error':'Proof not found'}
     try:
@@ -914,7 +916,7 @@ def addMemberGoal(username, goal_name):
     for step in goal.steps:
         db.session.add(models.Member_Steps(username=username, step_name=step.step_name, goal_name=goal.goal_name, step_status='in_progress',proofs_completed=0))
         for proof in step.proofs:
-            db.session.add(models.Member_Proofs(username=username, proof_name=proof.proof_name, step_name=step.step_name))
+            db.session.add(models.Member_Proofs(username=username, proof_name=proof.proof_name, step_name=step.step_name, goal_name=goal.goal_name))
     db.session.commit()
     return {'success':True, 'error':None}
 

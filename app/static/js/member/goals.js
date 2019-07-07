@@ -7,12 +7,13 @@ function toggleProofs(id) {
     }
 }
 
-function openProofModal(text, step_name, documentName) {
+function openProofModal(text, step_name, goal_name, documentName) {
     $("#proofModal").modal('show');
     $("#upload_proof_name").html(text);
     $("#proof_file").val(null);
     $("#proof_name").val(text);
     $("#step_name").val(step_name);
+    $("#goal_name").val(goal_name)
 }
 
 function closeProofModal() {

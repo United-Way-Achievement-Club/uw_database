@@ -18,8 +18,8 @@
         <h4 class="approve-list-item-content">
             <span onclick="download('{{ proof.proof_document_link }}')" class="glyphicon glyphicon-download approve-item-ic"></span>
             {% if proof.status != 'approved' and coordinator.super_admin %}
-            <span onclick='set_document_status({{ proof.username | tojson }}, {{ proof.proof_name | tojson }}, {{ proof.step_name | tojson }}, "approved")' class="glyphicon glyphicon-ok-circle success-text approve-item-ic"></span>
-            <span onclick='set_document_status({{ proof.username | tojson }}, {{ proof.proof_name | tojson }}, {{ proof.step_name | tojson }}, "denied")' class="glyphicon glyphicon-remove-circle error-text approve-item-ic"></span>
+            <span onclick='set_document_status({{ proof.username | tojson }}, {{ proof.proof_name | tojson }}, {{ proof.step_name | tojson }}, {{ proof.goal_name | tojson }}, "approved")' class="glyphicon glyphicon-ok-circle success-text approve-item-ic"></span>
+            <span onclick='set_document_status({{ proof.username | tojson }}, {{ proof.proof_name | tojson }}, {{ proof.step_name | tojson }}, {{ proof.goal_name | tojson }}, "denied")' class="glyphicon glyphicon-remove-circle error-text approve-item-ic"></span>
             {% endif %}
         </h4>
     </div>
