@@ -10,8 +10,10 @@ class Goal(unittest.TestCase):
 	def testAddGoal(self):
 		goal = getGoal(goal_valid['goal_name'])
 		self.assertEqual(goal.goal_name, goal_valid['goal_name'])
-		self.assertEqual(len(goal.steps), 3)
-		self.assertEqual(len(goal.steps[0].proofs),3)
+		self.assertEqual(len(goal.steps), len(goal_valid['steps']))
+		for i, step in enumerate(goal_valid['steps']):
+			self.assertEqual(goal.steps[i].step_name, step['step_name'])
+			self.assertEqual(len(goal.steps[i].proofs),len(step['proofs']))
 
 	def testEditGoalDeleteProof(self):
 		edit_goal = goal_valid
