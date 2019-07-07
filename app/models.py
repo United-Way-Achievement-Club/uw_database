@@ -283,6 +283,7 @@ class Member_Proofs(db.Model):
     __tablename__='member_proofs'
     proof_name = db.Column(db.String(64), db.ForeignKey('proof.proof_name', ondelete="CASCADE"), primary_key=True)
     step_name = db.Column(db.String(64), primary_key=True)
+    goal_name = db.Column(db.String(64), primary_key=True)
     username = db.Column(db.String(64), primary_key=True)
     proof_verified_by = db.Column(db.String(64), db.ForeignKey('user.username'))
     proof_document = db.Column(db.String(64))
@@ -291,8 +292,8 @@ class Member_Proofs(db.Model):
     date_completed = db.Column(db.DateTime)
     __table_args__ = (
         db.ForeignKeyConstraint(
-            ['step_name', 'username'],
-            ['member_steps.step_name', 'member_steps.username'],
+            ['step_name','goal_name','username'],
+            ['member_steps.step_name','member_steps.goal_name','member_steps.username'],
         ),
     )
 
@@ -325,10 +326,17 @@ Proof
 '''
 class Proof(db.Model):
     proof_name = db.Column(db.String(64), primary_key=True)
-    step_name = db.Column(db.String(64), db.ForeignKey('steps.step_name', onupdate="CASCADE"), primary_key=True)
+    step_name = db.Column(db.String(64), primary_key=True)
+    goal_name = db.Column(db.String(64), primary_key=True)
     description = db.Column(db.String(64))
     proof_num = db.Column(db.Integer)
     member_proofs = db.relationship("Member_Proofs", cascade="all", backref="proof", passive_updates=False)
+    __table_args__ = (
+        db.ForeignKeyConstraint(
+            ['step_name', 'goal_name'],
+            ['steps.step_name', 'steps.goal_name'],
+        ),
+    )
 
 '''
 Categories
