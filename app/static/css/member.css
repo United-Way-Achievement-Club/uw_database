@@ -554,6 +554,10 @@
     display: none;
 }
 
+#goal_name {
+    display: none;
+}
+
 .proof-upload-wrapper {
     padding: 20px;
 }

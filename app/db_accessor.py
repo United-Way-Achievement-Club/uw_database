@@ -706,6 +706,7 @@ def addGoal(goal):
             for j in range(0,len(goal_dict['steps'][i]['proofs'])):
                 proof = models.Proof(   proof_name = goal_dict['steps'][i]['proofs'][j]['proof_document'],
                                         step_name = goal_dict['steps'][i]['step_name'],
+                                        goal_name = goal_dict['goal_name'],
                                         description = goal_dict['steps'][i]['proofs'][j]['proof_description'],
                                         proof_num = j+1
                                         )
@@ -719,8 +720,10 @@ def addGoal(goal):
         - Multiple steps for this goal have the same name \n
         - Multiple proofs for the same step have the same document name
         '''
+        db.session.rollback()
         return {"success":False, "error":error_str}
     except Exception as e:
+        db.session.rollback()
         return {"success": False, "error": e.message}
     return {"success": True, "error": None}
 
@@ -732,6 +735,7 @@ def editGoal(goal):
 
         old_goal = models.Goals.query.get(goal['goal_name'])
         old_steps = old_goal.steps
+        member_goals = old_goal.member_goals
 
         new_steps = goal['steps']
 
@@ -740,27 +744,40 @@ def editGoal(goal):
             if step.step_name.strip() != new_step['step_name'].strip():
                 step.step_name = new_step['step_name'].strip()
                 db.session.add(step)
-            for proof in step.proofs:
-                if len(new_step['proofs']) > proof.proof_num - 1:
-                    new_proof = new_step['proofs'][proof.proof_num - 1]
-                    if proof.proof_name.strip() != new_proof['proof_document'].strip():
-                        proof.proof_name = new_proof['proof_document'].strip()
-                    if proof.description.strip() != new_proof['proof_description'].strip():
-                        proof.description = new_proof['proof_description'].strip()
-                    db.session.add(proof)
+            old_proofs = step.proofs
+            for old_proof in old_proofs:
+                contains = False
+                similar = False
+                for ind, new_proof in enumerate(new_step['proofs']):
+                    if old_proof.proof_name == new_proof['proof_document'] and old_proof.description == new_proof['proof_description']:
+                        contains = True
+                        index = ind
+                        continue
+                    elif old_proof.proof_name == new_proof['proof_document']:
+                        similar = True
+                        index = ind
+                if contains:
+                    proofs = models.Proof.query.filter_by(proof_name=old_proof.proof_name, step_name=old_proof.step_name, goal_name=old_proof.goal_name).all()
+                    for proof in proofs:
+                        proof.step_name = new_step['step_name']
+                    db.session.commit()
+                    del new_step['proofs'][index]
+                elif similar:
+                    proofs = models.Proof.query.filter_by(proof_name=old_proof.proof_name, step_name=old_proof.step_name, goal_name=old_proof.goal_name).all()
+                    for proof in proofs:
+                        proof.step_name = new_step['step_name']
+                        proof.description = new_step['proofs'][index]['proof_description']
+                    db.session.commit()
+                    del new_step['proofs'][index]
                 else:
-                    db.session.delete(proof)
-                if len(new_step['proofs']) > len(step.proofs):
-                    len_diff = len(new_step['proofs']) - len(step.proofs)
-                    start_index = len(step.proofs) + 1
-                    for _ in range(len_diff):
-                        proof = models.Proof(   proof_name = new_step['proofs'][start_index - 1]['proof_document'],
-                                                step_name = step.step_name,
-                                                description = new_step['proofs'][start_index - 1]['proof_description'],
-                                                proof_num = start_index
-                                                )
-                        db.session.add(proof)
-                        start_index += 1
+                    models.Proof.query.filter_by(proof_name=old_proof.proof_name, step_name=old_proof.step_name, goal_name=old_proof.goal_name).delete()
+                    # deletes should cascade, however they don't. Therefore I am manually deleting Member_Proofs.
+                    models.Member_Proofs.query.filter_by(proof_name=old_proof.proof_name, step_name=old_proof.step_name, goal_name=old_proof.goal_name).delete()
+            for proof in new_step['proofs']:
+                db.session.add(models.Proof(proof_name=proof['proof_document'], step_name=new_step['step_name'], goal_name=goal['goal_name'], description=proof['proof_description']))
+                for m_goal in member_goals:
+                    db.session.add(models.Member_Proofs(proof_name=proof['proof_document'], step_name=new_step['step_name'], goal_name=goal['goal_name'], username=m_goal.username))
+                db.session.commit()
 
 
         db.session.commit()
@@ -771,8 +788,10 @@ def editGoal(goal):
         - Multiple steps for this goal have the same name \n
         - Multiple proofs for the same step have the same document name
         '''
+        db.session.rollback()
         return {"success":False, "error":error_str}
     except Exception as e:
+        db.session.rollback()
         return {"success": False, "error": e.message}
     return {"success": True, "error": None}
 
@@ -801,11 +820,13 @@ def getGoals():
 Get a goal by the goal name
 '''
 def getGoal(goal_name):
-    print goal_name
-    goal = models.Goals.query.get(goal_name)
-    if goal == None:
-        return None
-    return goal
+    return models.Goals.query.get(goal_name)
+    
+'''
+Get a step by the step name and goal name
+'''
+def getStep(step_name, goal_name):
+    return models.Steps.query.get((step_name, goal_name))
 
 '''
 Get all goals for a specific member
@@ -819,8 +840,9 @@ def getMemberGoals(username):
 '''
 Update a proof when a member uploads a document
 '''
-def updateMemberProof(username, proof_name, proof_file, step_name):
-    proof = models.Member_Proofs.query.filter_by(username=username, proof_name=proof_name, step_name=step_name).first()
+def updateMemberProof(username, proof_name, proof_file, step_name, goal_name):
+    # TODO change this to a get instead of filter_by
+    proof = models.Member_Proofs.query.filter_by(username=username, proof_name=proof_name, step_name=step_name, goal_name=goal_name).first()
     delete_document = None
     if proof == None:
         return {'success': False, 'error': 'Proof not found.'}
@@ -851,8 +873,9 @@ def getNumPendingProofs():
 '''
 Approve or deny a proof
 '''
-def setProofStatus(username, coordinator_name, proof_name, step_name, status, reason):
-    proof = models.Member_Proofs.query.filter_by(username=username, proof_name=proof_name, step_name=step_name).first()
+def setProofStatus(username, coordinator_name, proof_name, step_name, goal_name, status, reason):
+    # change this to get instead of filter_by
+    proof = models.Member_Proofs.query.filter_by(username=username, proof_name=proof_name, step_name=step_name, goal_name=goal_name).first()
     if proof == None:
         return {'success':False, 'error':'Proof not found'}
     try:
@@ -893,7 +916,7 @@ def addMemberGoal(username, goal_name):
     for step in goal.steps:
         db.session.add(models.Member_Steps(username=username, step_name=step.step_name, goal_name=goal.goal_name, step_status='in_progress',proofs_completed=0))
         for proof in step.proofs:
-            db.session.add(models.Member_Proofs(username=username, proof_name=proof.proof_name, step_name=step.step_name))
+            db.session.add(models.Member_Proofs(username=username, proof_name=proof.proof_name, step_name=step.step_name, goal_name=goal.goal_name))
     db.session.commit()
     return {'success':True, 'error':None}
 
