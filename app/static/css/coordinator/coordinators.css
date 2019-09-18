@@ -1,4 +1,6 @@
-@media (min-width: 1200px) {
+@import 'colors.css';
+
+/* @media (min-width: 1200px) { */
     .coordinator-add-error {
         text-align: center;
         position: fixed;
@@ -130,7 +132,7 @@
         color: var(--uw_orange);
         margin-left: 5px;
     }
-}
+/* } */
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) { 

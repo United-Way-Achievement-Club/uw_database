@@ -1,4 +1,6 @@
-@media (min-width: 1200px) {
+@import 'colors.css';
+
+/* @media (min-width: 1200px) { */
     .profile {
         height: 250px;
     }
@@ -379,7 +381,7 @@
     .c3 .c3-axis-x text {
         fill: var(--uw_lavender);
     }
-}
+/* } */
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) { 

@@ -4,7 +4,7 @@
 /*===================================general===================================*/
 
 /* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
+/* @media (min-width: 1200px) { */
     .success-text {
         color: var(--success-green);
     }
@@ -64,7 +64,7 @@
         from { opacity: 0; }
         to { opacity: 0.8; }
     }
-}
+/* } */
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) { 

@@ -1,4 +1,6 @@
-@media (min-width: 1200px) {
+@import 'colors.css';
+
+/* @media (min-width: 1200px) { */
     .members-topbar {
         padding: 5px;
         height: 50px;
@@ -346,7 +348,7 @@
     .matrix-options-right {
         border-radius: 0 3px 3px 0;
     }
-}
+/* } */
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) { 

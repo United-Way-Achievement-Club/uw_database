@@ -1,4 +1,6 @@
-@media (min-width: 1200px) {
+@import 'colors.css';
+
+/* @media (min-width: 1200px) { */
     .clubs-wrapper {
         height: calc(100vh - 60px);
         position: relative;
@@ -267,7 +269,7 @@
         opacity: 0.5;
         cursor: pointer;
     }
-}
+/* } */
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) { 
