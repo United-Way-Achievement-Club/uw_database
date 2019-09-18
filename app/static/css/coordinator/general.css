@@ -1,0 +1,84 @@
+@charset "utf-8";
+@import 'colors.css';
+
+/*===================================general===================================*/
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .success-text {
+        color: var(--success-green);
+    }
+
+    .warning-text {
+        color: var(--warning-yellow);
+    }
+
+    .error-text {
+        color: var(--error-red);
+    }
+
+    .topbar-form {
+        margin-bottom: 0;
+    }
+
+    .topbar-form-control, .home-btn {
+        border: 1px solid var(--primary);
+        color: var(--primary);
+        margin-top: 5px;
+    }
+
+    .topbar-form-control {
+        height: 30px;
+    }
+
+    .topbar-search-input {
+        border-radius: 3px 0 0 3px;
+        border-right: 0;
+    }
+
+    .topbar-search-btn {
+        border-radius: 0 3px 3px 0;
+    }
+
+    .topbar-btn-inverse {
+        background-color: var(--uw_orange);
+        color: var(--uw_white);
+        border: 0;
+    }
+
+    .topbar-header {
+        margin-top: 12px;
+    }
+
+    .topbar-btn-inverse:hover {
+        background-color: var(--light_orange);
+        color: var(--uw_white);
+    }
+
+    .topbar-btn:hover, .home-btn:hover {
+        background-color: var(--primary_light);
+        color: var(--uw_lavender);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 0.8; }
+    }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) { 
+    
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) { 
+   
+}
+
+/* Large devices (desktops, 992px and up) */
+@media screen and (max-width: 992px) { 
+    /* .body-wrapper{
+        display: none;
+    } */
+}

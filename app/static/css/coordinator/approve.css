@@ -1,0 +1,112 @@
+@media (min-width: 1200px) {
+    .approve-topbar {
+        padding: 5px;
+        height: 50px;
+    }
+
+    .approve-topbar-left-content {
+        float: left;
+    }
+
+    .approve-topbar-right-content {
+        float: right;
+    }
+
+    .approve-list {
+        height: calc(100vh - 135px);
+    }
+
+    .approve-list-header {
+        height: 30px;
+        background-color: var(--uw_lavender);
+        display: table;
+        padding: 0;
+    }
+
+    .approve-list-header-item {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .approve-list-header-item h6 {
+        font-weight: 400;
+    }
+
+    .approve-list-items {
+        height: calc(100vh - 170px);
+        overflow-y: scroll;
+        padding: 0;
+    }
+
+    .approve-item {
+        border-radius: 0 ! important;
+        box-shadow: none ! important;
+        border: 0 ! important;
+        border-bottom: 1px solid var(--primary_light) ! important;
+    }
+
+    .approve-list-item {
+        border-bottom: 1px solid var(--primary_light);
+        width: 100%;
+        height: 60px;
+        overflow-y: scroll;
+    }
+
+    .approve-list-item-content {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .approve-list-item-wrapper {
+        height: 100%;
+        display: table;
+        text-align: center;
+    }
+
+    .approve-list-item-image {
+        height: 48px;
+        width: 48px;
+        margin-top: 6px;
+        border-radius: 50%;
+    }
+
+    .approve-item-ic {
+        padding: 5px;
+        margin-top: 0;
+    }
+
+    .approve-item-ic:hover {
+        cursor: pointer;
+        opacity: 0.8;
+    }
+
+    .pending-text {
+        color: var(--warning-yellow);
+    }
+
+    .approved-text {
+        color: var(--success-green);
+    }
+
+    .denied-text {
+        color: var(--error-red);
+    }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) { 
+    
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) { 
+   
+}
+
+/* Large devices (desktops, 992px and up) */
+@media screen and (max-width: 992px) { 
+    /* .body-wrapper{
+        display: none;
+    } */
+}
