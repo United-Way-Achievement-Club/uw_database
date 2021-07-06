@@ -102,3 +102,45 @@ function readURL(input) {
         $("#crop-success-button").show();
     }
 }
+
+// Functions for sorting Coordinators
+    // Goal is to have one function that toggles between -1 and 1 pairing
+    function sortZA() {
+        // alert("Sort triggered.");
+        $('.coordinators-list-item').sort(function(a, b) {
+            if (a.textContent < b.textContent) {
+              return -1;
+            } else {
+              return 1;
+            }
+          }).appendTo('.coordinators-list-items');
+    };
+    
+    function sortAZ() {
+        // alert("Sort triggered.");
+        $('.coordinators-list-item').sort(function(a, b) {
+            if (a.textContent < b.textContent) {
+              return 1;
+            } else {
+              return -1;
+            }
+          }).appendTo('.coordinators-list-items');
+    };
+
+// Search for Coordinator
+    function search() {
+        var input, filter, li, a, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value;
+        li = $('.coordinators-list-item');
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByClassName("coordinators-list-item-wrapper")[1];
+            txtValue = a.textContent || a.innerText;
+            anyCase = txtValue.toLowerCase();
+            if (anyCase.indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }

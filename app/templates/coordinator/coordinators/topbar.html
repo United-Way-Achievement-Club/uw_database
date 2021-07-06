@@ -8,12 +8,18 @@
         <div class="col-sm-8 coordinators-topbar-right">
             <div class="coordinators-topbar-right-content">
                 <div class="form-group row topbar-form">
-                    <input placeholder="Search" class="input input-sm topbar-form-control topbar-search-input" style="transform: translateY(3px);"><button onclick="featureNotImplemented()" class="btn btn-sm btn-default topbar-form-control topbar-search-btn topbar-btn"><span class="glyphicon glyphicon-search"></span></button>
-                    <button onclick="featureNotImplemented()" class="btn btn-sm btn-default topbar-form-control topbar-btn">Filter By <span class="glyphicon glyphicon-chevron-down"></span></button>
+                    <input id="searchInput" placeholder="Search" class="input input-sm topbar-form-control topbar-search-input" style="transform: translateY(3px);"><button onclick="search()" class="btn btn-sm btn-default topbar-form-control topbar-search-btn topbar-btn"><span class="glyphicon glyphicon-search"></span></button>
+                    <select name="Filter By" class="btn btn-sm btn-default topbar-form-control topbar-btn">Filter By <span class="glyphicon glyphicon-chevron-down"></span>
+                        <option disabled selected value>Filter By</option>
+                        <option value="coordinators">Coordinators</option>
+                        <option value="username">Username</option>
+                        <option value="clubs">Clubs</option>
+                    </select>
                     {% if is_admin %}
                     <button class="btn btn-sm btn-default topbar-form-control topbar-btn"  onclick="hideAlerts()" data-toggle="modal" data-target="#coordinatorModal" data-backdrop="static">Add Coordinator <span class="glyphicon glyphicon-plus"></span></button>
                     {% endif %}
-                    <button onclick="featureNotImplemented()" class="btn btn-sm btn-default topbar-form-control topbar-btn-inverse">Sort: Coordinator Name A-Z</button>
+                    <button onclick="sortZA()" class="btn btn-sm btn-default topbar-form-control topbar-btn-inverse sort">Sort: Coordinator Name A-Z</button>
+                    <button onclick="sortAZ()" class="btn btn-sm btn-default topbar-form-control topbar-btn-inverse sort">Z-A</button>
                 </div>
             </div>
         </div>

@@ -684,3 +684,45 @@ function viewQuiz(e) {
     }
 
  }
+
+ // Search for Member
+function search() {
+  var input, filter, li, a, txtValue;
+  input = document.getElementById("searchInput");
+  filter = input.value;
+  li = $('.members-list-item');
+  for (i = 0; i < li.length; i++) {
+      a = li[i].getElementsByClassName("members-list-item-wrapper")[1];
+      txtValue = a.textContent || a.innerText;
+      anyCase = txtValue.toLowerCase();
+      if (anyCase.indexOf(filter) > -1) {
+          li[i].style.display = "";
+      } else {
+          li[i].style.display = "none";
+      }
+  }
+}
+
+// Functions for sorting Coordinators
+    // Goal is to have one function that toggles between -1 and 1 pairing
+    function sortZA() {
+      // alert("Sort triggered.");
+      $('.members-list-item').sort(function(a, b) {
+          if (a.textContent < b.textContent) {
+            return -1;
+          } else {
+            return 1;
+          }
+        }).appendTo('.members-list-items');
+  };
+  
+  function sortAZ() {
+      // alert("Sort triggered.");
+      $('.members-list-item').sort(function(a, b) {
+          if (a.textContent < b.textContent) {
+            return 1;
+          } else {
+            return -1;
+          }
+        }).appendTo('.members-list-items');
+  };

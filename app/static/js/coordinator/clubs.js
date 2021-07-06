@@ -147,3 +147,43 @@ function removeCoordinator(e) {
     var grandparent = $(parent).parent()
     $(grandparent).remove();
 }
+
+function search() {
+    var input, filter, li, a, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value;
+    li = $('.clubs-list-item');
+    // parent = li.parenNode;
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByClassName("club-name")[0];
+        txtValue = a.textContent || a.innerText;
+        anyCase = txtValue.toLowerCase();
+        if (anyCase.indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
+
+function sortZA() {
+    // alert("Sort triggered.");
+    $('.clubs-list-item').sort(function(a, b) {
+        if (a.getElementsByClassName("club-name")[0].textContent < b.getElementsByClassName("club-name")[0].textContent) {
+          return -1;
+        } else {
+          return 1;
+        }
+      }).appendTo('.clubs-list');
+};
+
+function sortAZ() {
+    // alert("Sort triggered.");
+    $('.clubs-list-item').sort(function(a, b) {
+        if (a.getElementsByClassName("club-name")[0].textContent < b.getElementsByClassName("club-name")[0].textContent) {
+          return 1;
+        } else {
+          return -1;
+        }
+      }).appendTo('.clubs-list');
+};
